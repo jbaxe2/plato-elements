@@ -1,0 +1,25 @@
+name: 'plato_elements'
+version: 0.0.1
+description: A collection of HTML5 custom elements, named Plato Elements, built using polymer.dart.
+author: Joseph B. Axenroth
+
+environment:
+  sdk: '>=1.9.0 <2.0.0'
+
+dependencies:
+  browser: ^0.10.0+2
+  polymer: ^0.16.4+1
+  reflectable: ^0.5.1
+  web_components: ^0.12.2+2
+
+transformers:
+- web_components:
+    entry_points: web/index.html
+- reflectable:
+    entry_points: web/index.bootstrap.initialize.dart
+- $dart2js:
+    $include: '**/*.bootstrap.initialize.dart'
+    minify: true
+    commandLineOptions:
+    - --trust-type-annotations
+    - --trust-primitives
