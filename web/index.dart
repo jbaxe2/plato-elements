@@ -3,7 +3,7 @@
 // LICENSE file.
 library plato_elements.web.index;
 
-import 'package:plato_elements/course_request.dart';
+//import 'package:plato_elements/course_request.dart';
 import 'package:polymer/polymer.dart';
 
 /// The [main] function (entry-point into application).

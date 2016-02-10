@@ -12,11 +12,16 @@
 
   <!--  Polyfill of Custom Elements and HTML Imports -->
   <script src="packages/web_components/webcomponents-lite.min.js"></script>
+
+  <link rel="import" href="../lib/course_request.html">
+  <link rel="import" href="../lib/learn_authentication.html">
 </head>
 
 <body unresolved>
 
   <course-request></course-request>
+
+  <learn-authentication username="facdemo" password="facdemo"></learn-authentication>
 
   <script type="application/dart" src="index.dart"></script>
   <script src="packages/browser/dart.js"></script>

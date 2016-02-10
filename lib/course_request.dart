@@ -9,7 +9,7 @@ class CourseRequest extends PolymerElement {
   @property
   String request;
 
-  /// Constructor used to create instance of MainApp.
+  /// Constructor used to create instance of CourseRequest.
   CourseRequest.created() : super.created();
 
   // Optional lifecycle methods - uncomment if needed.

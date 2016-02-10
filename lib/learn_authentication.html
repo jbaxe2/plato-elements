@@ -1,0 +1,21 @@
+<link rel="import" href="../../packages/polymer_elements/iron_ajax.html">
+
+<dom-module id="learn-authentication">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+    <iron-ajax
+      id="learn-ajax"
+      auto
+      url="/plato/auth/learn"
+      handle-as="json"
+      method="POST"
+      on-response="handleAuthResponse"
+      params="{'username':{{username}},'password':{{password}}}">
+    </iron-ajax>
+  </template>
+</dom-module>
