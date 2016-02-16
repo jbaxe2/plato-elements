@@ -23,6 +23,7 @@ class CrossListing extends PolymerElement {
 
   @reflectable
   void sectionIdsChanged (String newSectionIds, String oldSectionIds) {
-    ;
+    List<String> sectionIds = newSectionIds.split (' ');
+    List<String> prevSectionIds = oldSectionIds.split (' ');
   }
 }
