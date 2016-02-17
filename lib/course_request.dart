@@ -1,8 +1,8 @@
 @HtmlImport('course_request.html')
 library plato_elements.lib.course_request;
 
-import 'package:polymer/polymer.dart';
 import 'package:web_components/web_components.dart';
+import 'package:polymer/polymer.dart';
 
 @PolymerRegister('course-request')
 class CourseRequest extends PolymerElement {

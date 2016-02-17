@@ -3,8 +3,8 @@ library plato_elements.lib.requested_course;
 
 import 'dart:html' show document;
 
-import 'package:polymer/polymer.dart';
 import 'package:web_components/web_components.dart';
+import 'package:polymer/polymer.dart';
 
 //import 'banner_section.dart';
 
@@ -15,11 +15,11 @@ class RequestedCourse extends PolymerElement {
   @Property(observer: 'sectionIdChanged')
   String sectionId;
 
-  /// The [BannerDepartment] constructor.
-  RequestedCourse.created() : super.created();
-
   /// The [RequestedCourse] factory constructor.
   factory RequestedCourse() => document.createElement ('requested-course');
+
+  /// The [BannerDepartment] constructor.
+  RequestedCourse.created() : super.created();
 
   @reflectable
   void sectionIdChanged (String newSectionId, String oldSectionId) {

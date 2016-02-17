@@ -7,6 +7,4 @@ library plato_elements.web.index;
 import 'package:polymer/polymer.dart';
 
 /// The [main] function (entry-point into application).
-main() async {
-  await initPolymer();
-}
+main() async => await initPolymer();

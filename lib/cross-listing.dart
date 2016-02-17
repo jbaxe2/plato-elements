@@ -3,8 +3,8 @@ library plato_elements.lib.cross_listing;
 
 import 'dart:html' show document;
 
-import 'package:polymer/polymer.dart';
 import 'package:web_components/web_components.dart';
+import 'package:polymer/polymer.dart';
 
 //import 'banner_section.dart';
 
@@ -15,11 +15,11 @@ class CrossListing extends PolymerElement {
   @Property(observer: 'sectionIdsChanged')
   String sectionIds;
 
-  /// The [CrossListing] constructor.
-  CrossListing.created() : super.created();
-
   /// The [CrossListing] factory constructor.
   factory CrossListing() => document.createElement ('cross-listing');
+
+  /// The [CrossListing] constructor.
+  CrossListing.created() : super.created();
 
   @reflectable
   void sectionIdsChanged (String newSectionIds, String oldSectionIds) {

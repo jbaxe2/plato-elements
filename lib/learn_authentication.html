@@ -3,19 +3,19 @@
 <dom-module id="learn-authentication">
   <style>
     :host {
-      display: none;
+      display: block;
     }
   </style>
 
   <template>
     <iron-ajax
-      id="learn-ajax"
+      id="learn-auth-ajax"
       auto
       url="/plato/auth/learn"
       handle-as="json"
       method="POST"
       on-response="handleAuthResponse"
-      params="{'username':'{{username}}','password':'{{password}}}'">
+      params='{"username":"{{username}}","password":"{{password}}}"'>
     </iron-ajax>
   </template>
 </dom-module>
