@@ -3,8 +3,11 @@
 // LICENSE file.
 library plato_elements.web.index;
 
-//import 'package:plato_elements/course_request.dart';
 import 'package:polymer/polymer.dart';
+
+/// Import the custom elements creating using Polymer Dart.
+import '../lib/test_element.dart';
+import '../lib/learn_authentication.dart';
 
 /// The [main] function (entry-point into application).
 main() async => await initPolymer();

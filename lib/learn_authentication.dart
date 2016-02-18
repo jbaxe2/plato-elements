@@ -21,13 +21,11 @@ class LearnAuthentication extends PolymerElement {
 
   /// The [LearnAuthentication] constructor.
   LearnAuthentication.created() : super.created() {
-    window.alert ('got to create the "learn-authentication" element');
+    ;
   }
 
   /// The [attached] method...
   void attached() {
-    window.alert ('got to attach the "learn-authentication" element');
-
     if ('' != username && '' != password) {
       performAuthRequest();
     }
@@ -41,8 +39,15 @@ class LearnAuthentication extends PolymerElement {
 
   /// The [performAuthRequest] method...
   void performAuthRequest() {
-    window.alert ('got to perform auth request in the "learn-authentication" element');
-    ($['learn-auth-ajax'] as IronAjax).generateRequest();
+    var learnAuthAjax = $['learn-auth-ajax'] as IronAjax;
+
+    learnAuthAjax
+      ..contentType = 'application/x-www-form-urlencoded'
+      ..params = {
+          'username': username,
+          'password': password
+        }
+      ..generateRequest();
   }
 
   /// The [handleAuthResponse] method...
