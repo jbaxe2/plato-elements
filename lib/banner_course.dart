@@ -1,5 +1,5 @@
 @HtmlImport('banner_course.html')
-library plato_elements.lib.banner_course;
+library plato_elements.banner_course;
 
 import 'dart:html' show document;
 

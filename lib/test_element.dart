@@ -1,5 +1,5 @@
 @HtmlImport('test_element.html')
-library plato_elements.lib.test_element;
+library plato_elements.test_element;
 
 import 'dart:html' show document;
 
