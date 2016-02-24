@@ -1,0 +1,13 @@
+<dom-module id="departments-collection">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+    <simple-loader type="departments" id="departments-loader"></simple-loader>
+
+    <template is="dom-repeat">{{departments}}</template>
+  </template>
+</dom-module>

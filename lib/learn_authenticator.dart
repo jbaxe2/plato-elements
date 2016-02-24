@@ -54,7 +54,7 @@ class LearnAuthenticator extends PolymerElement {
   /// The [performAuthRequest] method invokes the [IronAjax] element to generate
   /// and perform an authentication request for Blackboard Learn.
   void performAuthRequest() {
-    (_learnAuthAjax ??= $['learn-auth-ajax'] as IronAjax)
+    (_learnAuthAjax = $['learn-auth-ajax'] as IronAjax)
       ..contentType = 'application/x-www-form-urlencoded'
       ..body = {
           'username': username,

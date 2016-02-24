@@ -1,4 +1,4 @@
-<dom-module id="learn-authenticator">
+<dom-module id="simple-loader">
   <style>
     :host {
       display: none;
@@ -7,11 +7,11 @@
 
   <template>
     <iron-ajax
-      id="learn-auth-ajax"
+      id="loader-ajax"
       method="POST"
-      url="/plato/auth/learn"
+      url="/plato/retrieve/{{type}}"
       handle-as="json"
-      on-response="handleAuthResponse"
+      on-response="handleLoadResponse"
       debounce-duration="300">
     </iron-ajax>
   </template>
