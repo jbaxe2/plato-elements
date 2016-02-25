@@ -27,14 +27,21 @@ class SimpleLoader extends PolymerElement {
 
   /// The [loadTypedData] method...
   void loadTypedData() {
-    (_loaderAjax ??= $['loader-ajax'] as IronAjax)
+    (_loaderAjax = $['loader-ajax'] as IronAjax)
       ..contentType = 'application/x-www-form-urlencoded'
       ..generateRequest();
+
+    print(_loaderAjax.url);
+  }
+
+  @Listen('type-changed')
+  void typeChanged (event, details) {
+    loadTypedData();
   }
 
   /// The [handleLoadResponse] method...
   @Listen('response')
   void handleLoadResponse (event, details) {
-    this.fire ('loaded-${type.toLowerCase()}', detail: details);
+    this.fire ('${type.toLowerCase()}-loaded', detail: details, canBubble: true);
   }
 }

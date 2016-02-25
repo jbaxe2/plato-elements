@@ -31,24 +31,16 @@ class LearnAuthenticator extends PolymerElement {
   IronAjax _learnAuthAjax;
 
   /// The [LearnAuthenticator] factory constructor.
-  factory LearnAuthenticator() => document.createElement ('learn-authentication');
+  factory LearnAuthenticator() => document.createElement ('learn-authenticator');
 
   /// The [LearnAuthenticator] constructor.
   LearnAuthenticator.created() : super.created();
 
-  /// The [attached] method checks whether the username and password have both
-  /// been configured, and if so attempts an authentication request.
-  void attached() {
-    if ('' != username && '' != password) {
-      performAuthRequest();
-    }
-  }
-
-  /// The [handleAuthRequest] method listens for changes to both the username and
-  /// password properties, and once both updated will attempt authentication.
+  /// The [handleUserPassChanged] method listens for changes to both the username
+  /// and password properties, and once both updated will attempt authentication.
   @Observe('username, password')
-  void handleAuthRequest (String newUsername, String newPassword) {
-    performAuthRequest();
+  void handleUserPassChanged (String newUsername, String newPassword) {
+    //performAuthRequest();
   }
 
   /// The [performAuthRequest] method invokes the [IronAjax] element to generate
@@ -65,10 +57,10 @@ class LearnAuthenticator extends PolymerElement {
 
   /// The [handleAuthResponse] method...
   @Listen('response')
-  void handleAuthResponse (event, [_]) {
+  void handleAuthResponse (event, details) {
     var response = _learnAuthAjax.lastResponse;
 
-    if (null != response['authResult']) {
+    if (response.keys.contains ('authResult')) {
       _result = response['authResult'];
     } else {
       _result = false;

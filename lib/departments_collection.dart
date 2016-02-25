@@ -24,8 +24,14 @@ class DepartmentsCollection extends PolymerElement {
   /// The [DepartmentsCollection] constructor.
   DepartmentsCollection.created() : super.created();
 
+  /// The [attached] method...
+  void attached() {
+    (_loader ??= $['departments-loader'] as SimpleLoader)
+      ..loadTypedData();
+  }
+
   /// The [handleDeptsLoaded] method...
-  @Listen('loaded-departments')
+  @Listen('departments-loaded')
   void handleDeptsLoaded (event, details) {
     ;
   }
