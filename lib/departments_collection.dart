@@ -27,7 +27,7 @@ class DepartmentsCollection extends PolymerElement {
   /// The [attached] method...
   void attached() {
     (_loader ??= $['departments-loader'] as SimpleLoader)
-      ..loadTypedData();
+      ..loadTypedData (isPost: false);
   }
 
   /// The [handleDeptsLoaded] method...

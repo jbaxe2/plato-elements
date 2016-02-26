@@ -36,17 +36,31 @@ class LearnAuthenticator extends PolymerElement {
   /// The [LearnAuthenticator] constructor.
   LearnAuthenticator.created() : super.created();
 
+  /// The [attached] method...
+  void attached() {
+    if (('' != username) && ('' != password)) {
+      performAuthRequest();
+    }
+  }
+
   /// The [handleUserPassChanged] method listens for changes to both the username
   /// and password properties, and once both updated will attempt authentication.
   @Observe('username, password')
   void handleUserPassChanged (String newUsername, String newPassword) {
-    //performAuthRequest();
+    performAuthRequest();
   }
 
   /// The [performAuthRequest] method invokes the [IronAjax] element to generate
   /// and perform an authentication request for Blackboard Learn.
   void performAuthRequest() {
-    (_learnAuthAjax = $['learn-auth-ajax'] as IronAjax)
+    _learnAuthAjax ??= $['learn-auth-ajax'] as IronAjax;
+
+    // If a request is loading, we're already attempting to authenticate.
+    if (_learnAuthAjax.loading) {
+      return;
+    }
+
+    _learnAuthAjax
       ..contentType = 'application/x-www-form-urlencoded'
       ..body = {
           'username': username,
@@ -60,7 +74,7 @@ class LearnAuthenticator extends PolymerElement {
   void handleAuthResponse (event, details) {
     var response = _learnAuthAjax.lastResponse;
 
-    if (response.keys.contains ('authResult')) {
+    if (null != response['authResult']) {
       _result = response['authResult'];
     } else {
       _result = false;

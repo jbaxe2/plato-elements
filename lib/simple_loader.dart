@@ -26,12 +26,25 @@ class SimpleLoader extends PolymerElement {
   SimpleLoader.created() : super.created();
 
   /// The [loadTypedData] method...
-  void loadTypedData() {
-    (_loaderAjax = $['loader-ajax'] as IronAjax)
-      ..contentType = 'application/x-www-form-urlencoded'
-      ..generateRequest();
+  void loadTypedData ({bool isPost: true}) {
+    _loaderAjax ??= $['loader-ajax'] as IronAjax;
 
-    print(_loaderAjax.url);
+    // Prevent double loading, when already attempting to load the same request.
+    if (_loaderAjax.loading) {
+      return;
+    }
+
+    if (isPost) {
+      _loaderAjax
+        ..method = 'POST'
+        ..contentType = 'application/x-www-form-urlencoded';
+    } else {
+      _loaderAjax
+        ..method = 'GET'
+        ..contentType = 'application/json';
+    }
+
+    _loaderAjax.generateRequest();
   }
 
   @Listen('type-changed')
