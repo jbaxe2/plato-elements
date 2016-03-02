@@ -1,7 +1,7 @@
 @HtmlImport('departments_collection.html')
 library plato_elements.departments_collection;
 
-import 'dart:html' show document;
+import 'dart:html';
 
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
@@ -22,7 +22,9 @@ class DepartmentsCollection extends PolymerElement {
   factory DepartmentsCollection() => document.createElement ('departments-collection');
 
   /// The [DepartmentsCollection] constructor.
-  DepartmentsCollection.created() : super.created();
+  DepartmentsCollection.created() : super.created() {
+    departments = new List<BannerDepartment>();
+  }
 
   /// The [attached] method...
   void attached() {
@@ -32,7 +34,15 @@ class DepartmentsCollection extends PolymerElement {
 
   /// The [handleDeptsLoaded] method...
   @Listen('departments-loaded')
-  void handleDeptsLoaded (event, details) {
-    ;
+  void handleDeptsLoaded (CustomEvent event, details) {
+    if (null != details['departments']) {
+      details['departments'].forEach ((deptDetails) {
+        window.console.debug (deptDetails);
+
+        BannerDepartment department = new BannerDepartment();
+
+        departments.add (department);
+      });
+    }
   }
 }

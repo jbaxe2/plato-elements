@@ -54,7 +54,7 @@ class SimpleLoader extends PolymerElement {
 
   /// The [handleLoadResponse] method...
   @Listen('response')
-  void handleLoadResponse (event, details) {
-    this.fire ('${type.toLowerCase()}-loaded', detail: details, canBubble: true);
+  void handleLoadResponse (event, [_]) {
+    this.fire ('${type.toLowerCase()}-loaded', detail: _loaderAjax.lastResponse);
   }
 }

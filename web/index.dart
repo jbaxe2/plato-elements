@@ -1,6 +1,7 @@
 // Copyright (c) 2016, Joseph B. Axenroth. All rights reserved. Use of this
 // source code is governed by a BSD-style license that can be found in the
 // LICENSE file.
+
 library plato_elements;
 
 import 'package:polymer/polymer.dart';
