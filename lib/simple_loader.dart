@@ -25,7 +25,9 @@ class SimpleLoader extends PolymerElement {
   /// The [SimpleLoader] named constructor...
   SimpleLoader.created() : super.created();
 
-  /// The [loadTypedData] method...
+  /// The [loadTypedData] method is used to load the data of some particular
+  /// type, via an Ajax-based request.  A request will not be sent if there is
+  /// a previous request already in progress.
   void loadTypedData ({bool isPost: true}) {
     _loaderAjax ??= $['loader-ajax'] as IronAjax;
 
@@ -47,6 +49,7 @@ class SimpleLoader extends PolymerElement {
     _loaderAjax.generateRequest();
   }
 
+  /// The [typeChanged] method...
   @Listen('type-changed')
   void typeChanged (event, details) {
     loadTypedData();
@@ -55,6 +58,12 @@ class SimpleLoader extends PolymerElement {
   /// The [handleLoadResponse] method...
   @Listen('response')
   void handleLoadResponse (event, [_]) {
-    this.fire ('${type.toLowerCase()}-loaded', detail: _loaderAjax.lastResponse);
+    var response = _loaderAjax.lastResponse;
+
+    if (null != response['error']) {
+      this.fire ('error-received', detail: response);
+    } else if (null != response[type]) {
+      this.fire ('${type.toLowerCase()}-loaded', detail: response);
+    }
   }
 }

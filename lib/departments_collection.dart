@@ -37,11 +37,11 @@ class DepartmentsCollection extends PolymerElement {
   void handleDeptsLoaded (CustomEvent event, details) {
     if (null != details['departments']) {
       details['departments'].forEach ((deptDetails) {
-        window.console.debug (deptDetails);
+        BannerDepartment department = new BannerDepartment()
+          ..code = deptDetails['code']
+          ..description = deptDetails['description'];
 
-        BannerDepartment department = new BannerDepartment();
-
-        departments.add (department);
+        add ('departments', department);
       });
     }
   }

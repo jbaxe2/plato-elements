@@ -1,0 +1,18 @@
+<dom-module id="terms-collection">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+    <simple-loader type="terms" id="terms-loader"></simple-loader>
+
+    <template is="dom-repeat" items="{{terms}}">
+      <banner-term
+        term-id="{{item.termId}}"
+        description="{{item.description}}">
+      </banner-term>
+    </template>
+  </template>
+</dom-module>

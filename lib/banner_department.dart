@@ -10,7 +10,7 @@ import 'package:polymer/polymer.dart';
 class BannerDepartment extends PolymerElement {
   /// The 3 or 4 letter code for the department (such as ART or MATH).
   @property
-  String departmentId;
+  String code;
 
   /// The description of the department.
   @property
