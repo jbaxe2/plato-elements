@@ -41,7 +41,7 @@ class DepartmentsCollection extends PolymerElement {
           ..code = deptDetails['code']
           ..description = deptDetails['description'];
 
-        add ('departments', department);
+        departments.add (department);
       });
     }
   }

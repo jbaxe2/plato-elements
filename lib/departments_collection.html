@@ -8,11 +8,6 @@
   <template>
     <simple-loader type="departments" id="departments-loader"></simple-loader>
 
-    <template is="dom-repeat" items="{{departments}}">
-      <banner-department
-        code="{{item.code}}"
-        description="{{item.description}}">
-      </banner-department>
-    </template>
+    <template is="dom-repeat">{{departments}}</template>
   </template>
 </dom-module>

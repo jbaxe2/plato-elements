@@ -41,7 +41,7 @@ class TermsCollection extends PolymerElement {
           ..termId = termDetails['id']
           ..description = termDetails['description'];
 
-        add ('terms', term);
+        terms.add (term);
       });
     }
   }
