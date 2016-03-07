@@ -43,6 +43,10 @@ class DepartmentsCollection extends PolymerElement {
 
         departments.add (department);
       });
+
+      notifyPath ('departments', departments);
+
+      window.console.debug (this);
     }
   }
 }

@@ -43,6 +43,10 @@ class TermsCollection extends PolymerElement {
 
         terms.add (term);
       });
+
+      notifyPath ('terms', terms);
+
+      window.console.debug (this);
     }
   }
 }
