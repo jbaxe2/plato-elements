@@ -21,13 +21,13 @@ class DepartmentsCollection extends PolymerElement {
   /// The [DepartmentsCollection] factory constructor.
   factory DepartmentsCollection() => document.createElement ('departments-collection');
 
-  /// The [DepartmentsCollection] constructor.
-  DepartmentsCollection.created() : super.created() {
-    departments = new List<BannerDepartment>();
-  }
+  /// The [DepartmentsCollection] named constructor.
+  DepartmentsCollection.created() : super.created();
 
   /// The [attached] method...
   void attached() {
+    departments = new List<BannerDepartment>();
+
     (_loader ??= $['departments-loader'] as SimpleLoader)
       ..loadTypedData (isPost: false);
   }
@@ -47,6 +47,8 @@ class DepartmentsCollection extends PolymerElement {
       notifyPath ('departments', departments);
 
       window.console.debug (this);
+
+      this.fire ('department-selected', detail: {'department': departments.first});
     }
   }
 }

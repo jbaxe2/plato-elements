@@ -21,13 +21,13 @@ class TermsCollection extends PolymerElement {
   /// The [TermsCollection] factory constructor.
   factory TermsCollection() => document.createElement ('terms-collection');
 
-  /// The [DepartmentsCollection] constructor.
-  TermsCollection.created() : super.created() {
-    terms = new List<BannerTerm>();
-  }
+  /// The [TermsCollection] constructor.
+  TermsCollection.created() : super.created();
 
   /// The [attached] method...
   void attached() {
+    terms = new List<BannerTerm>();
+
     (_loader ??= $['terms-loader'] as SimpleLoader)
       ..loadTypedData (isPost: false);
   }
@@ -47,6 +47,8 @@ class TermsCollection extends PolymerElement {
       notifyPath ('terms', terms);
 
       window.console.debug (this);
+
+      this.fire ('term-selected', detail: {'term': terms.first});
     }
   }
 }

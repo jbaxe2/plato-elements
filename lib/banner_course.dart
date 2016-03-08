@@ -1,7 +1,7 @@
 @HtmlImport('banner_course.html')
 library plato_elements.banner_course;
 
-import 'dart:html' show document;
+import 'dart:html';
 
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';

@@ -10,6 +10,7 @@ import 'package:polymer/polymer.dart';
 import '../lib/learn_authenticator.dart';
 import '../lib/departments_collection.dart';
 import '../lib/terms_collection.dart';
+import '../lib/courses_collection.dart';
 
 /// The [main] function (entry-point into application).
 main() async => await initPolymer();

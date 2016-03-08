@@ -28,7 +28,7 @@ class SimpleLoader extends PolymerElement {
   /// The [loadTypedData] method is used to load the data of some particular
   /// type, via an Ajax-based request.  A request will not be sent if there is
   /// a previous request already in progress.
-  void loadTypedData ({bool isPost: true}) {
+  void loadTypedData ({bool isPost: true, Map<String,String> postData}) {
     _loaderAjax ??= $['loader-ajax'] as IronAjax;
 
     // Prevent double loading, when already attempting to load the same request.
@@ -39,7 +39,8 @@ class SimpleLoader extends PolymerElement {
     if (isPost) {
       _loaderAjax
         ..method = 'POST'
-        ..contentType = 'application/x-www-form-urlencoded';
+        ..contentType = 'application/x-www-form-urlencoded'
+        ..body = postData;
     } else {
       _loaderAjax
         ..method = 'GET'
@@ -61,7 +62,9 @@ class SimpleLoader extends PolymerElement {
     var response = _loaderAjax.lastResponse;
 
     if (null != response['error']) {
-      this.fire ('error-received', detail: response);
+      this.fire (
+        'iron-signal', detail: {'name': 'error', 'data': response['error']}
+      );
     } else if (null != response[type]) {
       this.fire ('${type.toLowerCase()}-loaded', detail: response);
     }

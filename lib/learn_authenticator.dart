@@ -38,6 +38,8 @@ class LearnAuthenticator extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
+    _result = false;
+
     if (('' != username) && ('' != password)) {
       performAuthRequest();
     }
@@ -74,12 +76,14 @@ class LearnAuthenticator extends PolymerElement {
   void handleAuthResponse (event, details) {
     var response = _learnAuthAjax.lastResponse;
 
-    if (null != response['authResult']) {
+    if (null != response['error']) {
+      this.fire (
+        'iron-signal', detail: {'name': 'error', 'data': response['error']}
+      );
+    } else if (null != response['authResult']) {
       _result = response['authResult'];
-    } else {
-      _result = false;
-    }
 
-    notifyPath ('result', _result);
+      notifyPath ('result', _result);
+    }
   }
 }

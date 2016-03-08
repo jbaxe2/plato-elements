@@ -1,0 +1,13 @@
+<dom-module id="courses-collection">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+    <simple-loader type="courses" id="courses-loader"></simple-loader>
+
+    <template is="dom-repeat">{{courses}}</template>
+  </template>
+</dom-module>
