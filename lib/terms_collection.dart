@@ -9,6 +9,7 @@ import 'package:polymer/polymer.dart';
 import 'banner_term.dart';
 import 'simple_loader.dart';
 
+/// The [TermsCollection] element class...
 @PolymerRegister('terms-collection')
 class TermsCollection extends PolymerElement {
   /// The [List] of [BannerTerm] instances.
@@ -46,9 +47,10 @@ class TermsCollection extends PolymerElement {
 
       notifyPath ('terms', terms);
 
-      window.console.debug (this);
-
-      this.fire ('term-selected', detail: {'term': terms.first});
+      this.fire (
+        'iron-signal',
+        detail: {'name': 'term-selected', 'data': {'term': terms.first.termId}}
+      );
     }
   }
 }

@@ -8,9 +8,9 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_ajax.dart';
 
-/// The [LearnAuthenticator] element is a simple custom element that attempts
-/// to authenticate against a Blackboard Learn 9.1 instance using a username and
-/// password pair, configurable on the element.
+/// The [LearnAuthenticator] element class defines a simple custom element used
+/// to attempts authentication against a Blackboard Learn 9.1 instance using a
+/// username and password pair, configurable on the element.
 @PolymerRegister('learn-authenticator')
 class LearnAuthenticator extends PolymerElement {
   /// The Blackboard Learn username.

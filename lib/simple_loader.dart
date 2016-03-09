@@ -8,7 +8,7 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_ajax.dart';
 
-/// The [SimpleLoader] class...
+/// The [SimpleLoader] element class...
 @PolymerRegister('simple-loader')
 class SimpleLoader extends PolymerElement {
   /// The type of loader, to be configured by elements using an instance of this
@@ -28,7 +28,7 @@ class SimpleLoader extends PolymerElement {
   /// The [loadTypedData] method is used to load the data of some particular
   /// type, via an Ajax-based request.  A request will not be sent if there is
   /// a previous request already in progress.
-  void loadTypedData ({bool isPost: true, Map<String,String> postData}) {
+  void loadTypedData ({bool isPost: true, Map<String,String> data}) {
     _loaderAjax ??= $['loader-ajax'] as IronAjax;
 
     // Prevent double loading, when already attempting to load the same request.
@@ -40,11 +40,15 @@ class SimpleLoader extends PolymerElement {
       _loaderAjax
         ..method = 'POST'
         ..contentType = 'application/x-www-form-urlencoded'
-        ..body = postData;
+        ..body = data;
     } else {
       _loaderAjax
         ..method = 'GET'
         ..contentType = 'application/json';
+
+      if ((null != data) && (0 < data.length)) {
+        _loaderAjax.params = data;
+      }
     }
 
     _loaderAjax.generateRequest();

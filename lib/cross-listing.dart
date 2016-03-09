@@ -8,6 +8,7 @@ import 'package:polymer/polymer.dart';
 
 //import 'banner_section.dart';
 
+/// The [CrossListing] element class...
 @PolymerRegister('cross-listing')
 class CrossListing extends PolymerElement {
   //Map<String, BannerSection> _bannerSections;

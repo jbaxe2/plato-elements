@@ -8,6 +8,7 @@ import 'package:polymer/polymer.dart';
 
 //import 'banner_section.dart';
 
+/// The [RequestedCourse] element class...
 @PolymerRegister('requested-course')
 class RequestedCourse extends PolymerElement {
   //BannerSection _bannerSection;

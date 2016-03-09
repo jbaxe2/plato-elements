@@ -6,6 +6,7 @@ import 'dart:html' show document;
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
+/// The [BannerTerm] element class...
 @PolymerRegister('banner-term')
 class BannerTerm extends PolymerElement {
   @property

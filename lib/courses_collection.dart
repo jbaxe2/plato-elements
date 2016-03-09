@@ -6,9 +6,14 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
+import 'package:polymer_elements/iron_signals.dart';
+
 import 'banner_course.dart';
 import 'simple_loader.dart';
 
+/// Silence analyzer [IronSignals]
+///
+/// The [CoursesCollection] element class...
 @PolymerRegister('courses-collection')
 class CoursesCollection extends PolymerElement {
   /// The ID of the department associated with the courses.
@@ -30,8 +35,7 @@ class CoursesCollection extends PolymerElement {
   factory CoursesCollection() => document.createElement ('courses-collection');
 
   /// The [CoursesCollection] constructor.
-  CoursesCollection.created() : super.created() {
-  }
+  CoursesCollection.created() : super.created();
 
   /// The [attached] method...
   void attached() {
@@ -44,24 +48,28 @@ class CoursesCollection extends PolymerElement {
   @Observe('departmentId, termId')
   void updateDeptAndTerm (String newDeptId, String newTermId) {
     _loader.loadTypedData (
-      postData: {'dept': newDeptId, 'term': newTermId}
+      isPost: false, data: {'dept': departmentId, 'term': termId}
     );
   }
 
   /// The [handleDepartmentSelected] method...
-  @Listen('department-selected')
+  @Listen('iron-signal-department-selected')
   void handleDepartmentSelected (CustomEvent event, details) {
     if (null != details['department']) {
       departmentId = details['department'];
     }
+
+    notifyPath ('departmentId', departmentId);
   }
 
   /// The [handleTermSelected] method...
-  @Listen('term-selected')
+  @Listen('iron-signal-term-selected')
   void handleTermSelected (CustomEvent event, details) {
     if (null != details['term']) {
       termId = details['term'];
     }
+
+    notifyPath ('termId', termId);
   }
 
   /// The [handleCoursesLoaded] method...
@@ -70,15 +78,13 @@ class CoursesCollection extends PolymerElement {
     if (null != details['courses']) {
       details['courses'].forEach ((courseDetails) {
         BannerCourse course = new BannerCourse()
-          ..courseId = courseDetails['id']
-          ..courseTitle = courseDetails['description'];
+          ..courseId = courseDetails['crsno']
+          ..courseTitle = courseDetails['title'];
 
         courses.add (course);
       });
 
       notifyPath ('courses', courses);
-
-      window.console.debug (courses);
     }
   }
 }

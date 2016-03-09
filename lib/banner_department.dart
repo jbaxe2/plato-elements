@@ -6,6 +6,7 @@ import 'dart:html' show document;
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
+/// The [BannerDepartment] element class...
 @PolymerRegister('banner-department')
 class BannerDepartment extends PolymerElement {
   /// The 3 or 4 letter code for the department (such as ART or MATH).

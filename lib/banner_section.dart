@@ -6,27 +6,28 @@ import 'dart:html' show document;
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
+/// The [BannerSection] element class...
 @PolymerRegister('banner-section')
 class BannerSection extends PolymerElement {
-  @property
+  @Property(notify: true)
   String sectionId;
 
-  @property
+  @Property(notify: true)
   String crn;
 
-  @property
+  @Property(notify: true)
   String courseTitle;
 
-  @property
+  @Property(notify: true)
   String faculty;
 
-  @property
+  @Property(notify: true)
   String time;
 
-  @property
+  @Property(notify: true)
   String place;
 
-  @property
+  @Property(notify: true)
   String termId;
 
   /// The [BannerSection] factory constructor.

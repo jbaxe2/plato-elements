@@ -9,6 +9,7 @@ import 'package:polymer/polymer.dart';
 import 'banner_department.dart';
 import 'simple_loader.dart';
 
+/// The [DepartmentsCollection] element class...
 @PolymerRegister('departments-collection')
 class DepartmentsCollection extends PolymerElement {
   /// The [List] of [BannerDepartment] instances.
@@ -46,9 +47,10 @@ class DepartmentsCollection extends PolymerElement {
 
       notifyPath ('departments', departments);
 
-      window.console.debug (this);
-
-      this.fire ('department-selected', detail: {'department': departments.first});
+      this.fire (
+        'iron-signal',
+        detail: {'name': 'department-selected', 'data': {'department': departments.first.code}}
+      );
     }
   }
 }

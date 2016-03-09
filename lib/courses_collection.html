@@ -8,6 +8,9 @@
   <template>
     <simple-loader type="courses" id="courses-loader"></simple-loader>
 
+    <iron-signals on-iron-signal-department-selected="handleDepartmentSelected"></iron-signals>
+    <iron-signals on-iron-signal-term-selected="handleTermSelected"></iron-signals>
+
     <template is="dom-repeat">{{courses}}</template>
   </template>
 </dom-module>
