@@ -1,0 +1,16 @@
+<dom-module id="sections-collection">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+    <simple-loader type="sections" id="sections-loader"></simple-loader>
+
+    <iron-signals on-iron-signal-course-selected="handleCourseSelected"></iron-signals>
+    <iron-signals on-iron-signal-term-selected="handleTermSelected"></iron-signals>
+
+    <template is="dom-repeat">{{sections}}</template>
+  </template>
+</dom-module>

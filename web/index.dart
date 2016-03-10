@@ -6,11 +6,17 @@ library plato_elements;
 
 import 'package:polymer/polymer.dart';
 
-/// Import the custom elements creating using Polymer Dart.
+/// Import the custom Plato elements created using Polymer Dart.
 import '../lib/learn_authenticator.dart';
+
 import '../lib/departments_collection.dart';
 import '../lib/terms_collection.dart';
 import '../lib/courses_collection.dart';
+import '../lib/sections_collection.dart';
+
+/// Silence analyzer:
+/// [LearnAuthenticator] - [DepartmentsCollection] - [TermsCollection]
+/// [CoursesCollection] - [SectionsCollection]
 
 /// The [main] function (entry-point into application).
 main() async => await initPolymer();

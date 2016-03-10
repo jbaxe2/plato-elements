@@ -85,6 +85,11 @@ class CoursesCollection extends PolymerElement {
       });
 
       notifyPath ('courses', courses);
+
+      this.fire (
+        'iron-signal',
+        detail: {'name': 'course-selected', 'data': {'course': courses[5].courseId}}
+      );
     }
   }
 }
