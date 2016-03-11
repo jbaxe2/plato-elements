@@ -57,9 +57,9 @@ class CoursesCollection extends PolymerElement {
   void handleDepartmentSelected (CustomEvent event, details) {
     if (null != details['department']) {
       departmentId = details['department'];
-    }
 
-    notifyPath ('departmentId', departmentId);
+      notifyPath ('departmentId', departmentId);
+    }
   }
 
   /// The [handleTermSelected] method...
@@ -67,9 +67,9 @@ class CoursesCollection extends PolymerElement {
   void handleTermSelected (CustomEvent event, details) {
     if (null != details['term']) {
       termId = details['term'];
-    }
 
-    notifyPath ('termId', termId);
+      notifyPath ('termId', termId);
+    }
   }
 
   /// The [handleCoursesLoaded] method...
@@ -85,11 +85,6 @@ class CoursesCollection extends PolymerElement {
       });
 
       notifyPath ('courses', courses);
-
-      this.fire (
-        'iron-signal',
-        detail: {'name': 'course-selected', 'data': {'course': courses[5].courseId}}
-      );
     }
   }
 }

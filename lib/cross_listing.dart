@@ -1,4 +1,4 @@
-@HtmlImport('cross-listing.html')
+@HtmlImport('cross_listing.html')
 library plato_elements.cross_listing;
 
 import 'dart:html' show document;

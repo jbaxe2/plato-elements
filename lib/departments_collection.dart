@@ -47,10 +47,7 @@ class DepartmentsCollection extends PolymerElement {
 
       notifyPath ('departments', departments);
 
-      this.fire (
-        'iron-signal',
-        detail: {'name': 'department-selected', 'data': {'department': departments.first.code}}
-      );
+      this.fire ('departments-load-completed');
     }
   }
 }

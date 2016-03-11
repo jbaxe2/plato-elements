@@ -47,10 +47,7 @@ class TermsCollection extends PolymerElement {
 
       notifyPath ('terms', terms);
 
-      this.fire (
-        'iron-signal',
-        detail: {'name': 'term-selected', 'data': {'term': terms.first.termId}}
-      );
+      this.fire ('terms-load-completed');
     }
   }
 }

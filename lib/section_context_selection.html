@@ -1,0 +1,27 @@
+<dom-module id="section-context-selection">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+    <departments-collection id="depts-collection"></departments-collection>
+    <paper-dropdown-menu label="Departments">
+      <paper-listbox class="dropdown-content">
+        <template is="dom-repeat" items="{{deptsColl.departments}}">
+          <paper-item value="{{code}}">{{description}}</paper-item>
+        </template>
+      </paper-listbox>
+    </paper-dropdown-menu><br>
+
+    <terms-collection id="terms-collection"></terms-collection>
+    <paper-dropdown-menu label="Terms">
+      <paper-listbox class="dropdown-content">
+        <template is="dom-repeat" items="{{termsColl.terms}}">
+          <paper-item value="{{termId}}">{{description}}</paper-item>
+        </template>
+      </paper-listbox>
+    </paper-dropdown-menu>
+  </template>
+</dom-module>
