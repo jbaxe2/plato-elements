@@ -40,7 +40,7 @@ class SectionContextSelection extends PolymerElement {
   /// The [attached] method...
   void attached() {}
 
-  @Listen('departments-load-completed')
+  @Listen('departments-loaded-completed')
   void refreshDeptsCollection (e, [_]) {
     deptsColl ??= $['depts-collection'] as DepartmentsCollection;
 
@@ -49,7 +49,7 @@ class SectionContextSelection extends PolymerElement {
     window.console.debug (deptsColl.departments);
   }
 
-  @Listen('terms-load-completed')
+  @Listen('terms-loaded-completed')
   void refreshTermsCollection (e, [_]) {
     termsColl ??= $['terms-collection'] as TermsCollection;
 

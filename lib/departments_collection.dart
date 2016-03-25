@@ -47,7 +47,7 @@ class DepartmentsCollection extends PolymerElement {
 
       notifyPath ('departments', departments);
 
-      this.fire ('departments-load-completed');
+      this.fire ('departments-loaded-completed');
     }
   }
 }

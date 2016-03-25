@@ -7,19 +7,21 @@
 
   <template>
     <departments-collection id="depts-collection"></departments-collection>
-    <paper-dropdown-menu label="Departments">
-      <paper-listbox class="dropdown-content">
-        <template is="dom-repeat" items="{{deptsColl.departments}}">
-          <paper-item value="{{code}}">{{description}}</paper-item>
-        </template>
-      </paper-listbox>
-    </paper-dropdown-menu><br>
+    <template if="{{deptsColl.departments}}">
+      <paper-dropdown-menu label="Departments">
+        <paper-listbox class="dropdown-content">
+          <template is="dom-repeat" items="{{dept in deptsColl.departments}}">
+            <paper-item value="{{dept.code}}">{{dept.description}}</paper-item>
+          </template>
+        </paper-listbox>
+      </paper-dropdown-menu><br>
+    </template>
 
     <terms-collection id="terms-collection"></terms-collection>
     <paper-dropdown-menu label="Terms">
       <paper-listbox class="dropdown-content">
-        <template is="dom-repeat" items="{{termsColl.terms}}">
-          <paper-item value="{{termId}}">{{description}}</paper-item>
+        <template is="dom-repeat" items="{{term in termsColl.terms}}">
+          <paper-item value="{{term.termId}}">{{term.description}}</paper-item>
         </template>
       </paper-listbox>
     </paper-dropdown-menu>

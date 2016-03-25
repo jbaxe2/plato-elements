@@ -47,7 +47,7 @@ class TermsCollection extends PolymerElement {
 
       notifyPath ('terms', terms);
 
-      this.fire ('terms-load-completed');
+      this.fire ('terms-loaded-completed');
     }
   }
 }
