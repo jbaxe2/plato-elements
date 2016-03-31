@@ -44,7 +44,7 @@ class SectionContextSelection extends PolymerElement {
   void refreshDeptsCollection (e, [_]) {
     deptsColl ??= $['depts-collection'] as DepartmentsCollection;
 
-    //notifyPath ('deptsColl.departments', deptsColl.departments);
+    notifyPath ('deptsColl', deptsColl);
 
     window.console.debug (deptsColl.departments);
   }
@@ -53,7 +53,7 @@ class SectionContextSelection extends PolymerElement {
   void refreshTermsCollection (e, [_]) {
     termsColl ??= $['terms-collection'] as TermsCollection;
 
-    //notifyPath ('termsColl.terms', termsColl.terms);
+    notifyPath ('termsColl', termsColl);
 
     window.console.debug (termsColl.terms);
   }

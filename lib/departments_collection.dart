@@ -42,7 +42,10 @@ class DepartmentsCollection extends PolymerElement {
           ..code = deptDetails['code']
           ..description = deptDetails['description'];
 
-        departments.add (department);
+        async (() {
+          add ('departments', department);
+        });
+        //departments.add (department);
       });
 
       notifyPath ('departments', departments);
