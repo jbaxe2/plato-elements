@@ -45,7 +45,6 @@ class TermsCollection extends PolymerElement {
         async (() {
           add ('terms', term);
         });
-        //terms.add (term);
       });
 
       notifyPath ('terms', terms);

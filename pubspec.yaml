@@ -4,7 +4,7 @@ version: 0.0.1
 author: Joseph B. Axenroth
 
 environment:
-  sdk: '>=1.14.0 <2.0.0'
+  sdk: '>=1.15.0 <2.0.0'
 
 dependencies:
   browser: ^0.10.0+2

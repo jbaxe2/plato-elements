@@ -45,7 +45,6 @@ class DepartmentsCollection extends PolymerElement {
         async (() {
           add ('departments', department);
         });
-        //departments.add (department);
       });
 
       notifyPath ('departments', departments);
