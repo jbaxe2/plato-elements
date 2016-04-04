@@ -11,8 +11,8 @@ dependencies:
   polymer: ^1.0.0-rc.15
   polymer_elements: ^1.0.0-rc.8
   polymer_interop: ^1.0.0-rc.5
-  reflectable: ^0.5.1
-  web_components: ^0.12.2+2
+  reflectable: ^0.5.4
+  web_components: ^0.12.3
 
 transformers:
 - polymer:

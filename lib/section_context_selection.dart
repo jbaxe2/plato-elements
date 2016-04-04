@@ -8,7 +8,7 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/paper_dropdown_menu.dart';
 import 'package:polymer_elements/paper_item.dart';
-import 'package:polymer_elements/paper_listbox.dart';
+import 'package:polymer_elements/paper_menu.dart';
 
 import 'departments_collection.dart';
 import 'terms_collection.dart';
@@ -16,7 +16,7 @@ import 'courses_collection.dart';
 import 'sections_collection.dart';
 
 /// Silence analyzer:
-/// [PaperDropdownMenu] - [PaperItem] - [PaperListbox]
+/// [PaperDropdownMenu] - [PaperItem] - [PaperMenu]
 @PolymerRegister('section-context-selection')
 class SectionContextSelection extends PolymerElement {
   @Property(notify: true)
@@ -38,21 +38,20 @@ class SectionContextSelection extends PolymerElement {
   SectionContextSelection.created() : super.created();
 
   /// The [attached] method...
-  void attached() {}
+  void attached() {
+    deptsColl ??= $['depts-collection'] as DepartmentsCollection;
+    termsColl ??= $['terms-collection'] as TermsCollection;
+  }
 
   @Listen('departments-loaded-completed')
   void refreshDeptsCollection (e, [_]) {
-    deptsColl ??= $['depts-collection'] as DepartmentsCollection;
-
-    notifyPath ('deptsColl', deptsColl);
+    notifyPath ('deptsColl', deptsColl.departments);
 
     window.console.debug (deptsColl.departments);
   }
 
   @Listen('terms-loaded-completed')
   void refreshTermsCollection (e, [_]) {
-    termsColl ??= $['terms-collection'] as TermsCollection;
-
     notifyPath ('termsColl', termsColl);
 
     window.console.debug (termsColl.terms);
