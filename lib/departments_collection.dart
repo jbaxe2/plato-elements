@@ -37,19 +37,23 @@ class DepartmentsCollection extends PolymerElement {
   @Listen('departments-loaded')
   void handleDeptsLoaded (CustomEvent event, details) {
     if (null != details['departments']) {
-      details['departments'].forEach ((deptDetails) {
-        BannerDepartment department = new BannerDepartment()
-          ..code = deptDetails['code']
-          ..description = deptDetails['description'];
+      try {
+        details['departments'].forEach ((deptDetails) {
+          BannerDepartment department = new BannerDepartment()
+            ..code = deptDetails['code']
+            ..description = deptDetails['description'];
 
-        async (() {
-          add ('departments', department);
+          async (() {
+            add ('departments', department);
+          });
         });
-      });
 
-      notifyPath ('departments', departments);
+        notifyPath ('departments', departments);
+      } catch (e) {
+        window.console.debug (e);
+      }
 
-      this.fire ('departments-loaded-completed');
+      //this.fire ('departments-loaded-completed');
     }
   }
 }

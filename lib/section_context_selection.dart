@@ -41,19 +41,40 @@ class SectionContextSelection extends PolymerElement {
   void attached() {
     deptsColl ??= $['depts-collection'] as DepartmentsCollection;
     termsColl ??= $['terms-collection'] as TermsCollection;
+
+    //window.console.debug (deptsColl);
+    //window.console.debug (termsColl);
   }
 
-  @Listen('departments-loaded-completed')
+  void ready() {
+    async (() {
+      window.console.debug (deptsColl);
+      window.console.debug (termsColl);
+    });
+  }
+  @Observe('deptsColl.departments')
+  void departmentsChanged (newDeptsColl) {
+    window.console.debug (deptsColl);
+    window.console.debug (newDeptsColl);
+  }
+
+  @Observe('termsColl.terms')
+  void termsChanged (newTermsColl) {
+    window.console.debug (termsColl);
+    window.console.debug (newTermsColl);
+  }
+
+  //@Listen('departments-loaded-completed')
   void refreshDeptsCollection (e, [_]) {
-    notifyPath ('deptsColl', deptsColl.departments);
+    //notifyPath ('deptsColl', deptsColl.departments);
 
-    window.console.debug (deptsColl.departments);
+    //window.console.debug (deptsColl.departments);
   }
 
-  @Listen('terms-loaded-completed')
+  //@Listen('terms-loaded-completed')
   void refreshTermsCollection (e, [_]) {
-    notifyPath ('termsColl', termsColl);
+    //notifyPath ('termsColl', termsColl);
 
-    window.console.debug (termsColl.terms);
+    //window.console.debug (termsColl.terms);
   }
 }

@@ -37,19 +37,23 @@ class TermsCollection extends PolymerElement {
   @Listen('terms-loaded')
   void handleTermsLoaded (CustomEvent event, details) {
     if (null != details['terms']) {
-      details['terms'].forEach ((termDetails) {
-        BannerTerm term = new BannerTerm()
-          ..termId = termDetails['id']
-          ..description = termDetails['description'];
+      try {
+        details['terms'].forEach ((termDetails) {
+          BannerTerm term = new BannerTerm()
+            ..termId = termDetails['id']
+            ..description = termDetails['description'];
 
-        async (() {
-          add ('terms', term);
+          async (() {
+            add ('terms', term);
+          });
         });
-      });
 
-      notifyPath ('terms', terms);
+        notifyPath ('terms', terms);
+      } catch (e) {
+        window.console.debug (e);
+      }
 
-      this.fire ('terms-loaded-completed');
+      //this.fire ('terms-loaded-completed');
     }
   }
 }

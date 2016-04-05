@@ -6,45 +6,24 @@
   </style>
 
   <template>
-    <departments-collection departments="{{depts}}" id="depts-collection"></departments-collection>
+
+    <departments-collection departments="{{departments}}" id="depts-collection"></departments-collection>
     <paper-dropdown-menu label="Departments">
       <paper-menu class="dropdown-content">
-        <template is="dom-repeat" items="{{dept in depts}}">
+        <template is="dom-repeat" items="{{departments}}" as="dept">
           <paper-item value="{{dept.code}}">{{dept.description}}</paper-item>
         </template>
       </paper-menu>
     </paper-dropdown-menu>
 
-<!--
-    <template if="{{depts}}">
-      <paper-dropdown-menu label="Departments">
-        <paper-listbox class="dropdown-content">
-          <template is="dom-repeat" items="{{dept in depts}}">
-            <paper-item value="{{dept.code}}">{{dept.description}}</paper-item>
-          </template>
-        </paper-listbox>
-      </paper-dropdown-menu>
-    </template><br>
--->
-
     <terms-collection terms="{{terms}}" id="terms-collection"></terms-collection>
     <paper-dropdown-menu label="Terms">
       <paper-menu class="dropdown-content">
-        <template is="dom-repeat" items="{{term in terms}}">
+        <template is="dom-repeat" items="{{terms}}" as="term">
           <paper-item value="{{term.termId}}">{{term.description}}</paper-item>
         </template>
       </paper-menu>
     </paper-dropdown-menu>
-
-<!--
-    <paper-dropdown-menu label="Terms">
-      <paper-listbox class="dropdown-content">
-        <template is="dom-repeat" items="{{term in terms}}">
-          <paper-item value="{{term.termId}}">{{term.description}}</paper-item>
-        </template>
-      </paper-listbox>
-    </paper-dropdown-menu>
--->
 
   </template>
 </dom-module>
