@@ -52,6 +52,7 @@ class SectionContextSelection extends PolymerElement {
       window.console.debug (termsColl);
     });
   }
+
   @Observe('deptsColl.departments')
   void departmentsChanged (newDeptsColl) {
     window.console.debug (deptsColl);
