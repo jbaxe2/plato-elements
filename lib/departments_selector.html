@@ -1,0 +1,21 @@
+<dom-module id="departments-selector">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+    <departments-collection departments="{{departments}}"></departments-collection>
+
+    <paper-dropdown-menu label="Departments">
+      <paper-menu class="dropdown-content">
+        <template is="dom-repeat" items="{{departments}}" as="department" index-as="deptIndex">
+          <paper-item value="{{department.code}}">
+            <span>{{department.description}}</span>
+          </paper-item>
+        </template>
+      </paper-menu>
+    </paper-dropdown-menu>
+  </template>
+</dom-module>

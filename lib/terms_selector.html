@@ -1,0 +1,19 @@
+<dom-module id="terms-selector">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+    <terms-collection terms="{{terms}}"></terms-collection>
+
+    <paper-dropdown-menu label="Terms">
+      <paper-menu class="dropdown-content">
+        <template is="dom-repeat" items="{{terms}}" as="term">
+          <paper-item value="{{term.termId}}">{{term.description}}</paper-item>
+        </template>
+      </paper-menu>
+    </paper-dropdown-menu>
+  </template>
+</dom-module>
