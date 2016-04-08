@@ -6,7 +6,7 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
-import 'banner_term.dart';
+import 'data_models.dart' show BannerTerm;
 import 'simple_loader.dart';
 
 /// The [TermsCollection] element class...
@@ -39,9 +39,9 @@ class TermsCollection extends PolymerElement {
     if (null != details['terms']) {
       try {
         details['terms'].forEach ((termDetails) {
-          BannerTerm term = new BannerTerm()
-            ..termId = termDetails['id']
-            ..description = termDetails['description'];
+          BannerTerm term = new BannerTerm (
+            termDetails['id'], termDetails['description']
+          );
 
           async (() {
             add ('terms', term);
@@ -49,11 +49,7 @@ class TermsCollection extends PolymerElement {
         });
 
         notifyPath ('terms', terms);
-      } catch (e) {
-        window.console.debug (e);
-      }
-
-      //this.fire ('terms-loaded-completed');
+      } catch (_) {}
     }
   }
 }

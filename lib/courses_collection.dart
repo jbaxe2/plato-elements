@@ -8,7 +8,7 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_signals.dart';
 
-import 'banner_course.dart';
+import 'data_models.dart' show BannerCourse;
 import 'simple_loader.dart';
 
 /// Silence analyzer [IronSignals]
@@ -55,6 +55,8 @@ class CoursesCollection extends PolymerElement {
   /// The [handleDepartmentSelected] method...
   @Listen('iron-signal-department-selected')
   void handleDepartmentSelected (CustomEvent event, details) {
+    window.console.debug (details);
+
     if (null != details['department']) {
       departmentId = details['department'];
 
@@ -76,15 +78,19 @@ class CoursesCollection extends PolymerElement {
   @Listen('courses-loaded')
   void handleCoursesLoaded (CustomEvent event, details) {
     if (null != details['courses']) {
-      details['courses'].forEach ((courseDetails) {
-        BannerCourse course = new BannerCourse()
-          ..courseId = courseDetails['crsno']
-          ..courseTitle = courseDetails['title'];
+      try {
+        details['courses'].forEach ((courseDetails) {
+          BannerCourse course = new BannerCourse (
+            courseDetails['crsno'], courseDetails['title']
+          );
 
-        courses.add (course);
-      });
+          async (() {
+            add ('courses', course);
+          });
+        });
 
-      notifyPath ('courses', courses);
+        notifyPath ('courses', courses);
+      } catch (_) {}
     }
   }
 }

@@ -9,11 +9,9 @@
     <departments-collection departments="{{departments}}"></departments-collection>
 
     <paper-dropdown-menu label="Departments">
-      <paper-menu class="dropdown-content">
+      <paper-menu id="department-menu" class="dropdown-content" selected-attribute="value" on-iron-select="onDepartmentSelected">
         <template is="dom-repeat" items="{{departments}}" as="department" index-as="deptIndex">
-          <paper-item value="{{department.code}}">
-            <span>{{department.description}}</span>
-          </paper-item>
+          <paper-item value$="{{department.code}}">{{department.description}}</paper-item>
         </template>
       </paper-menu>
     </paper-dropdown-menu>

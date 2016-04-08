@@ -8,7 +8,7 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_signals.dart';
 
-import 'banner_section.dart';
+import 'data_models.dart' show BannerSection;
 import 'simple_loader.dart';
 
 /// Silence analyzer [IronSignals]
@@ -83,14 +83,11 @@ class SectionsCollection extends PolymerElement {
   void handleCoursesLoaded (CustomEvent event, details) {
     if (null != details['sections']) {
       details['sections'].forEach ((sectionDetails) {
-        BannerSection section = new BannerSection()
-          ..sectionId = sectionDetails['crsno']
-          ..crn = sectionDetails['crn']
-          ..courseTitle = sectionDetails['title']
-          ..faculty = sectionDetails['facname']
-          ..time = sectionDetails['mtime']
-          ..place = sectionDetails['mplace']
-          ..termId = sectionDetails['term'];
+        BannerSection section = new BannerSection (
+          sectionDetails['crsno'], sectionDetails['crn'], sectionDetails['title'],
+          sectionDetails['facname'], sectionDetails['mtime'],
+          sectionDetails['mplace'], sectionDetails['term']
+        );
 
         sections.add (section);
       });

@@ -6,7 +6,7 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
-import 'banner_department.dart';
+import 'data_models.dart' show BannerDepartment;
 import 'simple_loader.dart';
 
 /// The [DepartmentsCollection] element class...
@@ -39,9 +39,9 @@ class DepartmentsCollection extends PolymerElement {
     if (null != details['departments']) {
       try {
         details['departments'].forEach ((deptDetails) {
-          BannerDepartment department = new BannerDepartment()
-            ..code = deptDetails['code']
-            ..description = deptDetails['description'];
+          BannerDepartment department = new BannerDepartment (
+            deptDetails['code'], deptDetails['description']
+          );
 
           async (() {
             add ('departments', department);
@@ -49,11 +49,7 @@ class DepartmentsCollection extends PolymerElement {
         });
 
         notifyPath ('departments', departments);
-      } catch (e) {
-        window.console.debug (e);
-      }
-
-      //this.fire ('departments-loaded-completed');
+      } catch (_) {}
     }
   }
 }

@@ -17,11 +17,9 @@ import '../lib/sections_collection.dart';
 import '../lib/departments_selector.dart';
 import '../lib/terms_selector.dart';
 
-import '../lib/section_context_selection.dart';
-
 /// Silence analyzer:
 /// [LearnAuthenticator] - [DepartmentsCollection] - [TermsCollection]
-/// [CoursesCollection] - [SectionsCollection] - [SectionContextSelection]
+/// [CoursesCollection] - [SectionsCollection]
 /// [DepartmentsSelector] - [TermsSelector]
 
 /// The [main] function (entry-point into application).

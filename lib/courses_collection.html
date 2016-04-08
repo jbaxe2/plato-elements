@@ -11,6 +11,6 @@
     <iron-signals on-iron-signal-department-selected="handleDepartmentSelected"></iron-signals>
     <iron-signals on-iron-signal-term-selected="handleTermSelected"></iron-signals>
 
-    <template is="dom-repeat">{{courses}}</template>
+    <template is="dom-repeat" items="{{courses}}">{{courses}}</template>
   </template>
 </dom-module>
