@@ -14,13 +14,14 @@ import '../lib/terms_collection.dart';
 import '../lib/courses_collection.dart';
 import '../lib/sections_collection.dart';
 
+import '../lib/courses_selector.dart';
 import '../lib/departments_selector.dart';
 import '../lib/terms_selector.dart';
 
 /// Silence analyzer:
 /// [LearnAuthenticator] - [DepartmentsCollection] - [TermsCollection]
 /// [CoursesCollection] - [SectionsCollection]
-/// [DepartmentsSelector] - [TermsSelector]
+/// [DepartmentsSelector] - [TermsSelector] - [CoursesSelector]
 
 /// The [main] function (entry-point into application).
 main() async => await initPolymer();

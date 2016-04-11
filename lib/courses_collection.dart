@@ -55,8 +55,6 @@ class CoursesCollection extends PolymerElement {
   /// The [handleDepartmentSelected] method...
   @Listen('iron-signal-department-selected')
   void handleDepartmentSelected (CustomEvent event, details) {
-    window.console.debug (details);
-
     if (null != details['department']) {
       departmentId = details['department'];
 

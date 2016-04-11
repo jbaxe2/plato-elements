@@ -40,4 +40,23 @@ class TermsSelector extends PolymerElement {
 
     terms = _termsCollection.terms;
   }
+
+  /// The [onTermSelected] method...
+  @Listen('iron-select')
+  void onTermSelected (CustomEvent event, details) {
+    var selectedTerm = ($['terms-menu'] as PaperMenu).selectedItem;
+    var termCode = null;
+
+    terms.forEach ((BannerTerm term) {
+      if (0 == term.description.trim().compareTo (selectedTerm.text.trim())) {
+        termCode = term.termId;
+      }
+    });
+
+    if (null != termCode) {
+      this.fire ('iron-signal', detail: {
+        'name': 'term-selected', 'data': {'term': termCode}
+      });
+    }
+  }
 }

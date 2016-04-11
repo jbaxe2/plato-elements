@@ -1,0 +1,19 @@
+<dom-module id="courses-selector">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+    <courses-collection courses="{{courses}}" department-id="{{departmentId}}" term-id="{{termId}}"></courses-collection>
+
+    <paper-dropdown-menu label="Courses">
+      <paper-menu id="courses-menu" class="dropdown-content" selected-attribute="value" on-iron-select="onCourseSelected">
+        <template is="dom-repeat" items="{{courses}}" as="course">
+          <paper-item value$="{{course.courseId}}">{{course.courseTitle}}</paper-item>
+        </template>
+      </paper-menu>
+    </paper-dropdown-menu>
+  </template>
+</dom-module>

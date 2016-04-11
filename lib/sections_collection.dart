@@ -78,9 +78,9 @@ class SectionsCollection extends PolymerElement {
     notifyPath ('termId', termId);
   }
 
-  /// The [handleCoursesLoaded] method...
+  /// The [handleSectionsLoaded] method...
   @Listen('sections-loaded')
-  void handleCoursesLoaded (CustomEvent event, details) {
+  void handleSectionsLoaded (CustomEvent event, details) {
     if (null != details['sections']) {
       details['sections'].forEach ((sectionDetails) {
         BannerSection section = new BannerSection (
