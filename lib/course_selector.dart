@@ -1,5 +1,5 @@
-@HtmlImport('courses_selector.html')
-library plato_elements.courses_selector;
+@HtmlImport('course_selector.html')
+library plato_elements.course_selector;
 
 import 'dart:html';
 
@@ -16,9 +16,9 @@ import 'courses_collection.dart';
 /// Silence analyzer:
 /// [PaperDropdownMenu] - [PaperItem]
 ///
-/// The [CoursesSelector] element class...
-@PolymerRegister('courses-selector')
-class CoursesSelector extends PolymerElement {
+/// The [CourseSelector] element class...
+@PolymerRegister('course-selector')
+class CourseSelector extends PolymerElement {
   /// The [List] of [BannerCourse] instances.
   @Property(notify: true)
   List<BannerCourse> courses;
@@ -29,11 +29,11 @@ class CoursesSelector extends PolymerElement {
   @Property(notify: true)
   String termId;
 
-  /// The [CoursesSelector] factory constructor.
-  factory CoursesSelector() => document.createElement ('courses-selector');
+  /// The [CourseSelector] factory constructor.
+  factory CourseSelector() => document.createElement ('course-selector');
 
-  /// The [CoursesSelector] constructor.
-  CoursesSelector.created() : super.created() {
+  /// The [CourseSelector] constructor.
+  CourseSelector.created() : super.created() {
     courses = new List<BannerCourse>();
   }
 

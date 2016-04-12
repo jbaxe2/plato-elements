@@ -1,5 +1,5 @@
-@HtmlImport('terms_selector.html')
-library plato_elements.terms_selector;
+@HtmlImport('term_selector.html')
+library plato_elements.term_selector;
 
 import 'dart:html';
 
@@ -16,9 +16,9 @@ import 'terms_collection.dart';
 /// Silence analyzer:
 /// [PaperDropdownMenu] - [PaperItem] - [PaperMenu]
 ///
-/// The [TermsSelector] element class...
-@PolymerRegister('terms-selector')
-class TermsSelector extends PolymerElement {
+/// The [TermSelector] element class...
+@PolymerRegister('term-selector')
+class TermSelector extends PolymerElement {
   /// The [List] of [BannerTerm] instances.
   @Property(notify: true)
   List<BannerTerm> terms;
@@ -26,11 +26,11 @@ class TermsSelector extends PolymerElement {
   @Property(notify: true)
   TermsCollection _termsCollection;
 
-  /// The [TermsSelector] factory constructor.
-  factory TermsSelector() => document.createElement ('terms-selector');
+  /// The [TermSelector] factory constructor.
+  factory TermSelector() => document.createElement ('term-selector');
 
-  /// The [TermsSelector] constructor.
-  TermsSelector.created() : super.created() {
+  /// The [TermSelector] constructor.
+  TermSelector.created() : super.created() {
     terms = new List<BannerTerm>();
   }
 

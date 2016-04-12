@@ -77,6 +77,8 @@ class CoursesCollection extends PolymerElement {
   void handleCoursesLoaded (CustomEvent event, details) {
     if (null != details['courses']) {
       try {
+        courses = new List<BannerCourse>();
+
         details['courses'].forEach ((courseDetails) {
           BannerCourse course = new BannerCourse (
             courseDetails['crsno'], courseDetails['title']

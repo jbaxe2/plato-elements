@@ -82,6 +82,8 @@ class SectionsCollection extends PolymerElement {
   @Listen('sections-loaded')
   void handleSectionsLoaded (CustomEvent event, details) {
     if (null != details['sections']) {
+      sections = new List<BannerSection>();
+
       details['sections'].forEach ((sectionDetails) {
         BannerSection section = new BannerSection (
           sectionDetails['crsno'], sectionDetails['crn'], sectionDetails['title'],
@@ -93,6 +95,10 @@ class SectionsCollection extends PolymerElement {
       });
 
       notifyPath ('sections', sections);
+
+      this.fire ('iron-signal', detail: {
+        'name': 'sections-finished-loading', 'data': null
+      });
     }
   }
 }

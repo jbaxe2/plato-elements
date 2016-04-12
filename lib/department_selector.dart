@@ -1,5 +1,5 @@
-@HtmlImport('departments_selector.html')
-library plato_elements.departments_selector;
+@HtmlImport('department_selector.html')
+library plato_elements.department_selector;
 
 import 'dart:html';
 
@@ -16,9 +16,9 @@ import 'departments_collection.dart';
 /// Silence analyzer:
 /// [PaperDropdownMenu] - [PaperItem]
 ///
-/// The [DepartmentsSelector] element class...
-@PolymerRegister('departments-selector')
-class DepartmentsSelector extends PolymerElement {
+/// The [DepartmentSelector] element class...
+@PolymerRegister('department-selector')
+class DepartmentSelector extends PolymerElement {
   /// The [List] of [BannerDepartment] instances.
   @Property(notify: true)
   List<BannerDepartment> departments;
@@ -26,11 +26,11 @@ class DepartmentsSelector extends PolymerElement {
   @Property(notify: true)
   DepartmentsCollection _deptsCollection;
 
-  /// The [DepartmentsSelector] factory constructor.
-  factory DepartmentsSelector() => document.createElement ('departments-selector');
+  /// The [DepartmentSelector] factory constructor.
+  factory DepartmentSelector() => document.createElement ('department-selector');
 
-  /// The [DepartmentsSelector] constructor.
-  DepartmentsSelector.created() : super.created() {
+  /// The [DepartmentSelector] constructor.
+  DepartmentSelector.created() : super.created() {
     departments = new List<BannerDepartment>();
   }
 
