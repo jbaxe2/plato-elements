@@ -52,7 +52,7 @@ class SectionsSelector extends PolymerElement {
   }
 
   /// The [updateHaveSections] method...
-  @Listen('sections-finished-loading')
+  @Listen('sections-loaded-complete')
   void updateHaveSections (CustomEvent event, details) => notifyPath (
     'haveSections', haveSections
   );
@@ -60,7 +60,24 @@ class SectionsSelector extends PolymerElement {
   /// The [onSectionsSelected] method...
   @Listen('tap')
   void onSectionsSelected (CustomEvent event, details) {
-    window.console.log ('there may be some sections selected');
+    if ((Polymer.dom (event)).rootTarget is PaperButton) {
+      Map<String, BannerSection> selectedSections = new Map<String, BannerSection>();
+
+      sections.forEach ((BannerSection section) {
+        var sectionId = '${section.sectionId}_${section.termId}';
+        var sectionCheckbox = $$('#${section.sectionId}-checkbox') as PaperCheckbox;
+
+        if ((null != sectionCheckbox) && (sectionCheckbox.checked)) {
+          selectedSections[sectionId] = section;
+        }
+      });
+
+      if (0 < selectedSections.length) {
+        this.fire ('iron-signal', detail: {
+          'name': 'sections-added', 'data': {'sections': selectedSections}
+        });
+      }
+    }
   }
 
   /// The [_haveSections] method...

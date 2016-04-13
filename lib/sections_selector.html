@@ -7,13 +7,13 @@
 
   <template>
     <sections-collection sections="{{sections}}" course-id="{{courseId}}" term-id="{{termId}}"></sections-collection>
-    <iron-signals on-iron-signal-sections-finished-loading="updateHaveSections"></iron-signals>
+    <iron-signals on-iron-signal-sections-loaded-complete="updateHaveSections"></iron-signals>
 
     <template is="dom-if" if="{{haveSections}}">
       <paper-card heading="Select one or more sections...">
         <div>
           <template is="dom-repeat" items="{{sections}}" as="section">
-            <paper-checkbox name$="{{section.sectionId}}-checkbox">
+            <paper-checkbox name$="{{section.sectionId}}-checkbox" id$="{{section.sectionId}}-checkbox">
               [<span>{{section.sectionId}}</span>] <span>{{section.courseTitle}}</span>
             </paper-checkbox><br>
           </template>

@@ -97,7 +97,7 @@ class SectionsCollection extends PolymerElement {
       notifyPath ('sections', sections);
 
       this.fire ('iron-signal', detail: {
-        'name': 'sections-finished-loading', 'data': null
+        'name': 'sections-loaded-complete', 'data': null
       });
     }
   }

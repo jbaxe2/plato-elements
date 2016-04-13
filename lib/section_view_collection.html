@@ -1,0 +1,15 @@
+<dom-module id="section-view-collection">
+  <style type="text/css">
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+    <iron-signals on-iron-signal-sections-added="onSectionsAdded"></iron-signals>
+
+    <template is="dom-repeat" items="{{sections}}" as="section">
+      <section-view section="{{section}}"></section-view>
+    </template>
+  </template>
+</dom-module>

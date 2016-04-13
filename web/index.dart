@@ -19,6 +19,8 @@ import '../lib/department_selector.dart';
 import '../lib/sections_selector.dart';
 import '../lib/term_selector.dart';
 
+import '../lib/section_view_collection.dart';
+
 /// Silence analyzer:
 /// [LearnAuthenticator]
 ///
@@ -26,6 +28,8 @@ import '../lib/term_selector.dart';
 /// [SectionsCollection]
 ///
 /// [DepartmentSelector] - [TermSelector] - [CourseSelector] - [SectionsSelector]
-
+///
+/// [SectionViewCollection]
+///
 /// The [main] function (entry-point into application).
 main() async => await initPolymer();

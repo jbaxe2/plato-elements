@@ -1,0 +1,32 @@
+<dom-module id="section-view">
+  <style type="text/css">
+    :host {
+      display: block;
+      --paper-card-header: {
+        background-color: #eee;
+      }
+      --paper-card-actions: {
+        display: block;
+        float: right;
+      }
+    }
+  </style>
+
+  <template>
+    <paper-card heading$="{{section.sectionId}}">
+      <div class="card-content">
+        <p><strong>Title:</strong> <span>{{section.courseTitle}}</span></p>
+        <p><strong>CRN:</strong> <span>{{section.crn}}</span></p>
+        <p><strong>Faculty:</strong> <span>{{section.faculty}}</span></p>
+        <p><strong>Place:</strong> <span>{{section.place}}</span></p>
+        <p><strong>Time:</strong> <span>{{section.time}}</span></p>
+        <p><strong>Term:</strong> <span>{{section.termId}}</span></p>
+      </div>
+      <div class="card-actions">
+        <iron-icon icon="icons:cancel" title="remove section from request"></iron-icon>
+        <iron-icon icon="icons:content-copy" title="copy content from previous course"></iron-icon>
+        <iron-icon icon="icons:compare-arrows" title="add to cross-listing"></iron-icon>
+      </div>
+    </paper-card>
+  </template>
+</dom-module>
