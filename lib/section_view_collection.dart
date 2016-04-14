@@ -39,8 +39,13 @@ class SectionViewCollection extends PolymerElement {
   void onSectionsAdded (CustomEvent event, details) {
     if (null != details['sections']) {
       details['sections'].forEach ((String sectionId, BannerSection section) {
-        sections.add (section);
-        sectionIds.add (sectionId);
+        if (!sections.contains (section)) {
+          sections.add (section);
+        }
+
+        if (!sectionIds.contains (sectionId)) {
+          sectionIds.add (sectionId);
+        }
       });
 
       notifyPath ('sections', sections);

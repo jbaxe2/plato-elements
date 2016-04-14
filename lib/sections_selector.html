@@ -2,6 +2,22 @@
   <style>
     :host {
       display: block;
+
+      --paper-card-header: {
+        background-color: #ddd;
+        border: 1px dotted #718198;
+      }
+
+      --paper-card-content: {
+        padding: 8px;
+      }
+
+      --paper-checkbox-checked-color: #062c43;
+
+      --paper-button: {
+        background-color: #eee;
+        margin: 8px;
+      }
     }
   </style>
 
@@ -11,7 +27,7 @@
 
     <template is="dom-if" if="{{haveSections}}">
       <paper-card heading="Select one or more sections...">
-        <div>
+        <div class="card-content">
           <template is="dom-repeat" items="{{sections}}" as="section">
             <paper-checkbox name$="{{section.sectionId}}-checkbox" id$="{{section.sectionId}}-checkbox">
               [<span>{{section.sectionId}}</span>] <span>{{section.courseTitle}}</span>

@@ -2,12 +2,31 @@
   <style type="text/css">
     :host {
       display: block;
-      --paper-card-header: {
-        background-color: #eee;
+
+      --paper-card: {
+        margin-bottom: 4px;
       }
+
+      --paper-card-header: {
+        background-color: #718198;
+        border: 1px solid #062c43;
+        padding: 0px;
+        font-weight: bold;
+      }
+
       --paper-card-actions: {
-        display: block;
-        float: right;
+        background-color: #eee;
+        text-align: right;
+      }
+
+      --paper-icon-button: {
+        transition: all 0.4s;
+        -webkit-transition: all 0.4s;
+      }
+
+      --paper-icon-button-hover: {
+        background-color: #ddd;
+        color: #718198;
       }
     }
   </style>
@@ -23,9 +42,9 @@
         <p><strong>Term:</strong> <span>{{section.termId}}</span></p>
       </div>
       <div class="card-actions">
-        <iron-icon icon="icons:cancel" title="remove section from request"></iron-icon>
-        <iron-icon icon="icons:content-copy" title="copy content from previous course"></iron-icon>
-        <iron-icon icon="icons:compare-arrows" title="add to cross-listing"></iron-icon>
+        <paper-icon-button icon="icons:content-copy" title="copy content from previous course"></paper-icon-button>
+        <paper-icon-button icon="hardware:device-hub" title="add to cross-listing set"></paper-icon-button>
+        <paper-icon-button icon="icons:cancel" title="remove section from request"></paper-icon-button>
       </div>
     </paper-card>
   </template>
