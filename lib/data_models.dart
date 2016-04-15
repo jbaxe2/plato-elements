@@ -82,15 +82,77 @@ class BannerTerm extends JsProxy {
 
 /////////////////////////////////////////////////////////////////////
 
+/// The [CourseEnrollment] class...
+class CourseEnrollment extends JsProxy {}
+
+/////////////////////////////////////////////////////////////////////
+
 /// The [CourseRequest] class...
 class CourseRequest extends JsProxy {}
 
 /////////////////////////////////////////////////////////////////////
 
 /// The [CrossListing] class...
-class CrossListing extends JsProxy {}
+class CrossListing extends JsProxy {
+  @reflectable
+  List<BannerSection> sections;
+
+  /// The [CrossListing] constructor...
+  CrossListing() {
+    sections = new List<BannerSection>();
+  }
+
+  @reflectable
+  /// The [addSection] method...
+  void addSection (BannerSection section) {
+    if (!sections.contains (section)) {
+      sections.add (section);
+    }
+  }
+
+  @reflectable
+  /// The [removeSection] method...
+  void removeSection (BannerSection section) {
+    if (sections.contains (section)) {
+      sections.remove (section);
+    }
+  }
+}
 
 /////////////////////////////////////////////////////////////////////
 
 /// The [RequestedCourse] class...
 class RequestedCourse extends JsProxy {}
+
+/////////////////////////////////////////////////////////////////////
+
+/// The [UserInformation] class...
+class UserInformation extends JsProxy {
+  @reflectable
+  String username;
+
+  @reflectable
+  String password;
+
+  @reflectable
+  String firstName;
+
+  @reflectable
+  String lastName;
+
+  @reflectable
+  String email;
+
+  /// The [UserInformation] default constructor.
+  UserInformation (
+    this.username, this.password, this.firstName, this.lastName, this.email
+  );
+
+  /// The [UserInformation] named constructor...
+  UserInformation.fromUsername (this.username, this.password);
+
+  /// The [UserInformation] named constructor...
+  UserInformation.fromName (this.firstName, this.lastName, this.email);
+}
+
+/////////////////////////////////////////////////////////////////////

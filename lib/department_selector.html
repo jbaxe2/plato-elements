@@ -2,11 +2,11 @@
   <style>
     :host {
       display: block;
+    }
 
-      paper-item.dept-info:hover {
-        background-color: #718198;
-        font-weight: bold;
-      }
+    paper-item:hover {
+      background-color: #718198;
+      font-weight: bold;
     }
   </style>
 
@@ -14,9 +14,11 @@
     <departments-collection departments="{{departments}}"></departments-collection>
 
     <paper-dropdown-menu label="Departments">
-      <paper-menu id="departments-menu" class="dropdown-content" selected-attribute="value" on-iron-select="onDepartmentSelected">
+      <paper-menu id="departments-menu" class="dropdown-content" on-iron-select="onDepartmentSelected">
         <template is="dom-repeat" items="{{departments}}" as="department">
-          <paper-item class="dept-info" value$="{{department.code}}">{{department.description}}</paper-item>
+          <paper-item value$="{{department.code}}">
+            {{department.description}}
+          </paper-item>
         </template>
       </paper-menu>
     </paper-dropdown-menu>
