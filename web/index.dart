@@ -8,6 +8,9 @@ import 'package:polymer/polymer.dart';
 
 /// Import the custom Plato elements created using Polymer Dart.
 import '../lib/learn_authenticator.dart';
+import '../lib/learn_authentication_view.dart';
+import '../lib/learn_authentication_widget.dart';
+import '../lib/user_information_view.dart';
 
 import '../lib/courses_collection.dart';
 import '../lib/departments_collection.dart';
@@ -22,7 +25,8 @@ import '../lib/term_selector.dart';
 import '../lib/section_view_collection.dart';
 
 /// Silence analyzer:
-/// [LearnAuthenticator]
+/// [LearnAuthenticator] - [LearnAuthenticationView] - [LearnAuthenticationWidget]
+/// [UserInformationView]
 ///
 /// [DepartmentsCollection] - [TermsCollection] - [CoursesCollection]
 /// [SectionsCollection]

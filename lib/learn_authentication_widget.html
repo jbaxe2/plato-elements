@@ -1,0 +1,17 @@
+<dom-module id="learn-authentication-widget">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+    <learn-authentication-view
+      username="{{username}}" password="{{password}}" user-info="{{userInfo}}">
+    </learn-authentication-view>
+
+    <user-retriever user-info="{{userInfo}}"></user-retriever>
+
+    <user-information-view user-info="{{userInfo}}"></user-information-view>
+  </template>
+</dom-module>

@@ -25,5 +25,6 @@ class UserInformationView extends PolymerElement {
   /// The [UserInformationView] constructor.
   UserInformationView.created() : super.created();
 
+  /// The [attached] method...
   void attached() {}
 }

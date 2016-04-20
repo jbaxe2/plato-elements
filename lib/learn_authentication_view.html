@@ -1,0 +1,28 @@
+<dom-module id="learn-authentication-view">
+  <style type="text/css">
+    :host {
+      display: block;
+      width: 300px;
+
+      --paper-button: {
+        background-color: #718198;
+      }
+
+      --paper-input-container-focus-color: #062c43;
+    }
+
+    paper-material {
+      padding: 15px;
+    }
+  </style>
+
+  <template>
+    <paper-material animated>
+      <paper-input label="Plato Username" value="{{username}}"></paper-input><br>
+      <paper-input label="Plato Password" value="{{password}}" type="password"></paper-input><br>
+      <paper-button raised on-tap="retrieveUser">
+        <iron-icon icon="communication:vpn-key"></iron-icon> Authenticate Plato
+      </paper-button>
+    </paper-material>
+  </template>
+</dom-module>
