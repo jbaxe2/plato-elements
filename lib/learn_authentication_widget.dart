@@ -64,9 +64,7 @@ class LearnAuthenticationWidget extends PolymerElement {
   /// The [updateUserInfo] method...
   @Listen('update-user-info')
   void updateUserInfo (CustomEvent event, details) {
-    _userLoaded = true;
-
     notifyPath ('userInfo', userInfo);
-    notifyPath ('userLoaded', _userLoaded);
+    notifyPath ('userLoaded', _userLoaded = true);
   }
 }
