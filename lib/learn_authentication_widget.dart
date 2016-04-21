@@ -17,15 +17,25 @@ import 'user_retriever.dart';
 /// The [LearnAuthenticationWidget] class...
 @PolymerRegister('learn-authentication-widget')
 class LearnAuthenticationWidget extends PolymerElement {
+  @Property(notify: true)
+  String username;
+
+  @Property(notify: true)
+  String password;
+
   /// The [UserInformation] instance...
   @Property(notify: true)
-  static UserInformation userInfo;
+  UserInformation userInfo;
 
   /// The value of whether the user information has been loaded.
+  @Property(notify: true)
   bool get userLoaded => _userLoaded;
 
   /// The internal value of whether the user information has been loaded.
-  bool _userLoaded;
+  bool _userLoaded = false;
+
+  /// An internal flag for whether we're currently attempting authentication.
+  bool _inUserLoading = false;
 
   /// The [LearnAuthenticationWidget] factory constructor.
   factory LearnAuthenticationWidget() => document.createElement ('learn-authentication-widget');
@@ -34,7 +44,29 @@ class LearnAuthenticationWidget extends PolymerElement {
   LearnAuthenticationWidget.created() : super.created();
 
   /// The [attached] method...
-  void attached() {
-    _userLoaded = false;
+  void attached() {}
+
+  /// The [handleUserRetrieval] method...
+  @Listen('retrieve-user')
+  void handleUserRetrieval (CustomEvent event, details) {
+    if (!(_inUserLoading && _userLoaded)) {
+      _inUserLoading = true;
+
+      notifyPath ('username', username);
+      notifyPath ('password', password);
+
+      ($['user-retriever-elmnt'] as UserRetriever).loadUserInfo ();
+
+      async (() => _inUserLoading = false);
+    }
+  }
+
+  /// The [updateUserInfo] method...
+  @Listen('update-user-info')
+  void updateUserInfo (CustomEvent event, details) {
+    _userLoaded = true;
+
+    notifyPath ('userInfo', userInfo);
+    notifyPath ('userLoaded', _userLoaded);
   }
 }

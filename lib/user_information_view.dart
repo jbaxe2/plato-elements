@@ -17,7 +17,7 @@ import 'data_models.dart' show UserInformation;
 @PolymerRegister('user-information-view')
 class UserInformationView extends PolymerElement {
   @Property(notify: true)
-  static UserInformation userInformation;
+  UserInformation userInformation;
 
   /// The [UserInformationView] factory constructor.
   factory UserInformationView() => document.createElement ('user-information-view');

@@ -7,11 +7,13 @@
 
   <template>
     <learn-authentication-view
-      username="{{username}}" password="{{password}}" user-info="{{userInfo}}">
+      username="{{username}}" password="{{password}}" user-info="{{userInfo}}" hidden$="{{userLoaded}}">
     </learn-authentication-view>
 
-    <user-retriever user-info="{{userInfo}}"></user-retriever>
+    <user-retriever
+      id="user-retriever-elmnt" username="{{username}}" password="{{password}}" user-info="{{userInfo}}">
+    </user-retriever>
 
-    <user-information-view user-info="{{userInfo}}"></user-information-view>
+    <user-information-view user-info="{{userInfo}}" hidden$="{{!userLoaded}}"></user-information-view>
   </template>
 </dom-module>

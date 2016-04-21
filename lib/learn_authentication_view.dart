@@ -27,7 +27,7 @@ class LearnAuthenticationView extends PolymerElement {
   String password;
 
   @Property(notify: true)
-  static UserInformation userInfo;
+  UserInformation userInfo;
 
   /// The [LearnAuthenticationView] factory constructor.
   factory LearnAuthenticationView() => document.createElement ('learn-authentication-view');
@@ -41,7 +41,10 @@ class LearnAuthenticationView extends PolymerElement {
   /// The [retrieveUser] method...
   @Listen('tap')
   void retrieveUser (CustomEvent event, details) {
-    window.console.debug (event);
-    window.console.debug (details);
+    if ((Polymer.dom (event)).rootTarget is PaperButton) {
+      this.fire (
+        'retrieve-user', detail: {'username': username, 'password': password}
+      );
+    }
   }
 }

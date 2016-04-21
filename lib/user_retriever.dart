@@ -9,8 +9,7 @@ import 'package:polymer/polymer.dart';
 import 'data_models.dart' show UserInformation;
 import 'simple_loader.dart';
 
-/// Silence analyzer:
-/// [SimpleLoader]
+/// Silence analyzer:  [SimpleLoader]
 ///
 /// The [UserRetriever] class...
 @PolymerRegister('user-retriever')
@@ -25,10 +24,7 @@ class UserRetriever extends PolymerElement {
 
   /// The [UserInformation] instance, to be initialized once user info is loaded.
   @Property(notify: true)
-  static UserInformation userInfo;
-
-  /// The [SimpleLoader] instance that handles loading of user info.
-  SimpleLoader _userLoader;
+  UserInformation userInfo;
 
   /// The [UserRetriever] factory constructor.
   factory UserRetriever() => document.createElement ('user-retriever');
@@ -41,16 +37,26 @@ class UserRetriever extends PolymerElement {
 
   /// The [loadUserInfo] method...
   void loadUserInfo() {
-    //(_userLoader = $['user-loader'] as SimpleLoader).loadTypedData (
-    //  data: {'username': username, 'password': password}
-    //);
+    ($['user-loader'] as SimpleLoader).loadTypedData (
+      data: {'username': username, 'password': password}
+    );
   }
 
   /// The [onUserLoaded] method...
   @Listen('user-loaded')
   void onUserLoaded (CustomEvent event, details) {
     if (null != details['user']) {
-      window.console.debug (details['user']);
+      var user = details['user'];
+
+      try {
+        userInfo = new UserInformation (
+          username, password, user.first, user.last, user.email, user.cwid
+        );
+
+        notifyPath ('userInfo', userInfo);
+
+        this.fire ('update-user-info');
+      } catch (_) {}
     }
   }
 }

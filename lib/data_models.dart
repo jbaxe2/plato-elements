@@ -143,16 +143,19 @@ class UserInformation extends JsProxy {
   @reflectable
   String email;
 
+  @reflectable
+  String cwid;
+
   /// The [UserInformation] default constructor.
   UserInformation (
-    this.username, this.password, this.firstName, this.lastName, this.email
+    this.username, this.password, this.firstName, this.lastName, this.email, this.cwid
   );
 
   /// The [UserInformation] named constructor...
   UserInformation.fromUsername (this.username, this.password);
 
   /// The [UserInformation] named constructor...
-  UserInformation.fromName (this.firstName, this.lastName, this.email);
+  UserInformation.fromName (this.firstName, this.lastName, this.email, this.cwid);
 }
 
 /////////////////////////////////////////////////////////////////////
