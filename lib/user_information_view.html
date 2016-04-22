@@ -2,16 +2,31 @@
   <style>
     :host {
       display: block;
+      width: 300px;
+    }
+
+    paper-material {
+      padding: 8px 0px 8px 0px;
+    }
+
+    div {
+      background-color: #eee;
+      margin: 8px;
+      padding: 8px;
     }
   </style>
 
   <template>
     <paper-material animated>
-      <p><strong>Plato username:</strong> <span>{{userInformation.username}}</span></p>
-      <p><strong>Plato password:</strong> <span>**********</span></p><br>
-      <p><strong>First name:</strong> <span>{{userInformation.firstName}}</span></p>
-      <p><strong>Last name:</strong> <span>{{userInformation.lastName}}</span></p>
-      <p><strong>E-mail address:</strong> <span>{{userInformation.email}}</span></p>
+      <div>
+        <p><strong>Plato username:</strong> &nbsp;<span>{{userInfo.username}}</span></p>
+        <p><strong>Plato password:</strong> &nbsp;<span>**********</span></p>
+      </div>
+      <div>
+        <p><strong>First name:</strong> &nbsp;<span>{{userInfo.firstName}}</span></p>
+        <p><strong>Last name:</strong> &nbsp;<span>{{userInfo.lastName}}</span></p>
+        <p><strong>E-mail address:</strong> <span>{{userInfo.email}}</span></p>
+      </div>
     </paper-material>
   </template>
 </dom-module>

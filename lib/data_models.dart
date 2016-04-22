@@ -129,33 +129,29 @@ class RequestedCourse extends JsProxy {}
 /// The [UserInformation] class...
 class UserInformation extends JsProxy {
   @reflectable
-  String username;
+  String get username => _username;
 
   @reflectable
-  String password;
+  String get password => _password;
 
   @reflectable
-  String firstName;
+  String get firstName => _firstName;
 
   @reflectable
-  String lastName;
+  String get lastName => _lastName;
 
   @reflectable
-  String email;
+  String get email => _email;
 
   @reflectable
-  String cwid;
+  String get cwid => _cwid;
+
+  String _username, _password, _firstName, _lastName, _email, _cwid;
 
   /// The [UserInformation] default constructor.
   UserInformation (
-    this.username, this.password, this.firstName, this.lastName, this.email, this.cwid
+    this._username, this._password, this._firstName, this._lastName, this._email, this._cwid
   );
-
-  /// The [UserInformation] named constructor...
-  UserInformation.fromUsername (this.username, this.password);
-
-  /// The [UserInformation] named constructor...
-  UserInformation.fromName (this.firstName, this.lastName, this.email, this.cwid);
 }
 
 /////////////////////////////////////////////////////////////////////

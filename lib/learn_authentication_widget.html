@@ -11,7 +11,8 @@
     </learn-authentication-view>
 
     <user-retriever
-      id="user-retriever-elmnt" username="{{username}}" password="{{password}}" user-info="{{userInfo}}">
+      id="user-retriever-elmnt" username="{{username}}" password="{{password}}"
+      user-info="{{userInfo}}" on-updated-user-info="onUpdatedUserInfo">
     </user-retriever>
 
     <user-information-view user-info="{{userInfo}}" hidden$="{{!userLoaded}}"></user-information-view>

@@ -50,13 +50,16 @@ class UserRetriever extends PolymerElement {
 
       try {
         userInfo = new UserInformation (
-          username, password, user.first, user.last, user.email, user.cwid
+          username, password, user['first'], user['last'], user['email'], user['cwid']
         );
 
         notifyPath ('userInfo', userInfo);
 
-        this.fire ('update-user-info');
-      } catch (_) {}
+        this.fire ('updated-user-info');
+      } catch (_) {
+        window.console.debug (_);
+        window.console.debug (user);
+      }
     }
   }
 }
