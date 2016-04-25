@@ -41,6 +41,10 @@ class LearnAuthenticationView extends PolymerElement {
   /// The [retrieveUser] method...
   @Listen('tap')
   void retrieveUser (CustomEvent event, details) {
+    if (('' == username) || ('' == password)) {
+      return;
+    }
+
     if ((Polymer.dom (event)).rootTarget is PaperButton) {
       this.fire (
         'retrieve-user', detail: {'username': username, 'password': password}

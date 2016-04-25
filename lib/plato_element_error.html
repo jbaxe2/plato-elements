@@ -1,0 +1,44 @@
+<dom-module id="plato-element-error">
+  <style>
+    :host {
+      display: block;
+
+      --paper-button: {
+        background-color: #718198;
+      }
+    }
+
+    h2 {
+      display: block;
+      background-color: #ddd;
+      margin-top: 0px;
+    }
+
+    .error-message {
+      background-color: #eee;
+    }
+
+    .button-holder {
+      text-align: right;
+    }
+  </style>
+
+  <template>
+    <iron-signals on-iron-signal-error="handleError"></iron-signals>
+
+    <paper-dialog
+      id="error-dialog"
+      entry-animation="fade-in-animation" exit-animation="fade-out-animation"
+      with-backdrop>
+
+      <h2>
+        <iron-icon icon="icons:error-outline"></iron-icon>&nbsp;<span>{{title}}</span>
+      </h2>
+      <div class="error-message">{{message}}</div>
+
+      <div class="button-holder">
+        <paper-button dialog-confirm>OK</paper-button>
+      </div>
+    </paper-dialog>
+  </template>
+</dom-module>

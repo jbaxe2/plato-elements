@@ -67,7 +67,7 @@ class SimpleLoader extends PolymerElement {
 
     if (null != response['error']) {
       this.fire (
-        'iron-signal', detail: {'name': 'error', 'data': response['error']}
+        'iron-signal', detail: {'name': 'error', 'data': response}
       );
     } else if (null != response[type]) {
       this.fire ('${type.toLowerCase()}-loaded', detail: response);
