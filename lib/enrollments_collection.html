@@ -1,0 +1,13 @@
+<dom-module id="enrollments-collection">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+    <simple-loader type="enrollments" id="enrollments-loader"></simple-loader>
+
+    <template is="dom-repeat" items="{{enrollments}}">{{enrollments}}</template>
+  </template>
+</dom-module>

@@ -83,7 +83,27 @@ class BannerTerm extends JsProxy {
 /////////////////////////////////////////////////////////////////////
 
 /// The [CourseEnrollment] class...
-class CourseEnrollment extends JsProxy {}
+class CourseEnrollment extends JsProxy {
+  @reflectable
+  String username;
+
+  @reflectable
+  String courseId;
+
+  @reflectable
+  String courseName;
+
+  @reflectable
+  String role;
+
+  @reflectable
+  String available;
+
+  /// The [CourseEnrollment] constructor...
+  CourseEnrollment (
+    this.username, this.courseId, this.courseName, this.role, this.available
+  );
+}
 
 /////////////////////////////////////////////////////////////////////
 

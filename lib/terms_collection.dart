@@ -33,9 +33,9 @@ class TermsCollection extends PolymerElement {
       ..loadTypedData (isPost: false);
   }
 
-  /// The [handleTermsLoaded] method...
+  /// The [onTermsLoaded] method...
   @Listen('terms-loaded')
-  void handleTermsLoaded (CustomEvent event, details) {
+  void onTermsLoaded (CustomEvent event, details) {
     if (null != details['terms']) {
       try {
         details['terms'].forEach ((termDetails) {

@@ -60,9 +60,9 @@ class SimpleLoader extends PolymerElement {
     loadTypedData();
   }
 
-  /// The [handleLoadResponse] method...
+  /// The [onLoadResponse] method...
   @Listen('response')
-  void handleLoadResponse (event, [_]) {
+  void onLoadResponse (event, [_]) {
     var response = _loaderAjax.lastResponse;
 
     if (null != response['error']) {

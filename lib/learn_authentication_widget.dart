@@ -7,12 +7,14 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
 import 'data_models.dart' show UserInformation;
+import 'enrollments_collection.dart';
 import 'learn_authentication_view.dart';
 import 'user_information_view.dart';
 import 'user_retriever.dart';
 
 /// Silence analyzer:
-/// [LearnAuthenticationView] - [UserInformationView] - [UserRetriever]
+/// [EnrollmentsCollection] - [LearnAuthenticationView] - [UserInformationView]
+/// [UserRetriever]
 ///
 /// The [LearnAuthenticationWidget] class...
 @PolymerRegister('learn-authentication-widget')
@@ -46,16 +48,16 @@ class LearnAuthenticationWidget extends PolymerElement {
   /// The [attached] method...
   void attached() {}
 
-  /// The [handleUserRetrieval] method...
+  /// The [onUserRetrieval] method...
   @Listen('retrieve-user')
-  void handleUserRetrieval (CustomEvent event, details) {
+  void onUserRetrieval (CustomEvent event, details) {
     if (!(_inUserLoading && _userLoaded)) {
       _inUserLoading = true;
 
       notifyPath ('username', username);
       notifyPath ('password', password);
 
-      ($['user-retriever-elmnt'] as UserRetriever).loadUserInfo ();
+      ($['user-retriever-elmnt'] as UserRetriever).loadUserInfo();
 
       async (() => _inUserLoading = false);
     }
@@ -65,5 +67,7 @@ class LearnAuthenticationWidget extends PolymerElement {
   @Listen('updated-user-info')
   void onUpdatedUserInfo (CustomEvent event, details) {
     notifyPath ('userLoaded', _userLoaded = true);
+
+    ($['enrollments-collection'] as EnrollmentsCollection).loadEnrollments();
   }
 }

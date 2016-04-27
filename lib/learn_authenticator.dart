@@ -45,10 +45,10 @@ class LearnAuthenticator extends PolymerElement {
     }
   }
 
-  /// The [handleUserPassChanged] method listens for changes to both the username
-  /// and password properties, and once both updated will attempt authentication.
+  /// The [usernameAndPasswordChanged] method listens for changes to both the
+  /// username and password, and will then attempt authentication.
   @Observe('username, password')
-  void handleUserPassChanged (String newUsername, String newPassword) {
+  void usernameAndPasswordChanged (String newUsername, String newPassword) {
     performAuthRequest();
   }
 
@@ -71,9 +71,9 @@ class LearnAuthenticator extends PolymerElement {
       ..generateRequest();
   }
 
-  /// The [handleAuthResponse] method...
+  /// The [onAuthenticationResponse] method...
   @Listen('response')
-  void handleAuthResponse (event, details) {
+  void onAuthenticationResponse (event, details) {
     var response = _learnAuthAjax.lastResponse;
 
     if (null != response['error']) {

@@ -52,9 +52,9 @@ class CoursesCollection extends PolymerElement {
     );
   }
 
-  /// The [handleDepartmentSelected] method...
+  /// The [onDepartmentSelected] method...
   @Listen('iron-signal-department-selected')
-  void handleDepartmentSelected (CustomEvent event, details) {
+  void onDepartmentSelected (CustomEvent event, details) {
     if (null != details['department']) {
       departmentId = details['department'];
 
@@ -62,9 +62,9 @@ class CoursesCollection extends PolymerElement {
     }
   }
 
-  /// The [handleTermSelected] method...
+  /// The [onTermSelected] method...
   @Listen('iron-signal-term-selected')
-  void handleTermSelected (CustomEvent event, details) {
+  void onTermSelected (CustomEvent event, details) {
     if (null != details['term']) {
       termId = details['term'];
 
@@ -72,9 +72,9 @@ class CoursesCollection extends PolymerElement {
     }
   }
 
-  /// The [handleCoursesLoaded] method...
+  /// The [onCoursesLoaded] method...
   @Listen('courses-loaded')
-  void handleCoursesLoaded (CustomEvent event, details) {
+  void onCoursesLoaded (CustomEvent event, details) {
     if (null != details['courses']) {
       try {
         courses = new List<BannerCourse>();
@@ -84,9 +84,7 @@ class CoursesCollection extends PolymerElement {
             courseDetails['crsno'], courseDetails['title']
           );
 
-          async (() {
-            add ('courses', course);
-          });
+          async (() => add ('courses', course));
         });
 
         notifyPath ('courses', courses);

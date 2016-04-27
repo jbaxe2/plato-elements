@@ -44,17 +44,17 @@ class SectionsCollection extends PolymerElement {
     _loader ??= $['sections-loader'] as SimpleLoader;
   }
 
-  /// The [updateCourseAndTerm] method...
+  /// The [courseAndTermChanged] method...
   @Observe('courseId, termId')
-  void updateCourseAndTerm (String newCourseId, String newTermId) {
+  void courseAndTermChanged (String newCourseId, String newTermId) {
     _loader.loadTypedData (
       isPost: false, data: {'course': courseId, 'term': termId}
     );
   }
 
-  /// The [handleCourseSelected] method...
+  /// The [onCourseSelected] method...
   @Listen('iron-signal-course-selected')
-  void handleCourseSelected (CustomEvent event, details) {
+  void onCourseSelected (CustomEvent event, details) {
     if (null != details['course']) {
       var _courseId = details['course'];
 
@@ -68,9 +68,9 @@ class SectionsCollection extends PolymerElement {
     }
   }
 
-  /// The [handleTermSelected] method...
+  /// The [onTermSelected] method...
   @Listen('iron-signal-term-selected')
-  void handleTermSelected (CustomEvent event, details) {
+  void onTermSelected (CustomEvent event, details) {
     if (null != details['term']) {
       termId = details['term'];
     }
@@ -78,9 +78,9 @@ class SectionsCollection extends PolymerElement {
     notifyPath ('termId', termId);
   }
 
-  /// The [handleSectionsLoaded] method...
+  /// The [onSectionsLoaded] method...
   @Listen('sections-loaded')
-  void handleSectionsLoaded (CustomEvent event, details) {
+  void onSectionsLoaded (CustomEvent event, details) {
     if (null != details['sections']) {
       sections = new List<BannerSection>();
 

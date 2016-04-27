@@ -33,9 +33,9 @@ class DepartmentsCollection extends PolymerElement {
       ..loadTypedData (isPost: false);
   }
 
-  /// The [handleDeptsLoaded] method...
+  /// The [onDepartmentsLoaded] method...
   @Listen('departments-loaded')
-  void handleDeptsLoaded (CustomEvent event, details) {
+  void onDepartmentsLoaded (CustomEvent event, details) {
     if (null != details['departments']) {
       try {
         details['departments'].forEach ((deptDetails) {

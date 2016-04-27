@@ -40,9 +40,9 @@ class PlatoElementError extends PolymerElement {
     _error = $['error-dialog'] as PaperDialog;
   }
 
-  /// The [handleError] method...
+  /// The [onPlatoError] method...
   @Listen('iron-signal-error')
-  void handleError (CustomEvent event, details) {
+  void onPlatoError (CustomEvent event, details) {
     if (null != details['error']) {
       if (details['error'] is String) {
         title = 'Error!';
