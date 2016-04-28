@@ -38,7 +38,7 @@ class UserRetriever extends PolymerElement {
   /// The [loadUserInfo] method...
   void loadUserInfo() {
     ($['user-loader'] as SimpleLoader).loadTypedData (
-      isPost: false, data: {'username': username, 'password': password}
+      data: {'username': username, 'password': password}
     );
   }
 
@@ -56,10 +56,7 @@ class UserRetriever extends PolymerElement {
         notifyPath ('userInfo', userInfo);
 
         this.fire ('updated-user-info');
-      } catch (_) {
-        window.console.debug (_);
-        window.console.debug (user);
-      }
+      } catch (_) {}
     }
   }
 }

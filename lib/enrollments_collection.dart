@@ -37,9 +37,7 @@ class EnrollmentsCollection extends PolymerElement {
 
   /// The [loadEnrollments] method...
   void loadEnrollments() {
-    _loader.loadTypedData (
-      isPost: false, data: {'username': username, 'password': password}
-    );
+    _loader.loadTypedData (data: {'username': username, 'password': password});
   }
 
   /// The [onEnrollmentsLoaded] method...
