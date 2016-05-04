@@ -108,7 +108,16 @@ class CourseEnrollment extends JsProxy {
 /////////////////////////////////////////////////////////////////////
 
 /// The [CourseRequest] class...
-class CourseRequest extends JsProxy {}
+class CourseRequest extends JsProxy {
+  @reflectable
+  List<BannerSection> sections;
+
+  @reflectable
+  List<CrossListing> crossListings;
+
+  /// The [CourseRequest] constructor...
+  CourseRequest();
+}
 
 /////////////////////////////////////////////////////////////////////
 
