@@ -28,6 +28,6 @@ class CrossListingView extends PolymerElement {
   /// The [onSectionAddedToCL] method...
   @Listen('iron-signal-section-added-to-cross-listing')
   void onSectionAddedToCL (CustomEvent event, details) {
-    ;
+    BannerSection section;
   }
 }
