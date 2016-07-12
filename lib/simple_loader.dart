@@ -46,7 +46,7 @@ class SimpleLoader extends PolymerElement {
         ..method = 'GET'
         ..contentType = 'application/json';
 
-      if ((null != data) && (0 < data.length)) {
+      if (0 < data?.length) {
         _loaderAjax.params = data;
       }
     }
@@ -56,9 +56,7 @@ class SimpleLoader extends PolymerElement {
 
   /// The [typeChanged] method...
   @Listen('type-changed')
-  void typeChanged (event, details) {
-    loadTypedData();
-  }
+  void typeChanged (event, details) => loadTypedData();
 
   /// The [onLoadResponse] method...
   @Listen('response')

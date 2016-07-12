@@ -6,15 +6,15 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
-import 'data_models.dart' show BannerTerm;
+import 'data_models.dart' show LearnTerm;
 import 'simple_loader.dart';
 
 /// The [TermsCollection] element class...
 @PolymerRegister('terms-collection')
 class TermsCollection extends PolymerElement {
-  /// The [List] of [BannerTerm] instances.
+  /// The [List] of [LearnTerm] instances.
   @Property(notify: true)
-  List<BannerTerm> terms;
+  List<LearnTerm> terms;
 
   /// The [SimpleLoader] element...
   SimpleLoader _loader;
@@ -27,7 +27,7 @@ class TermsCollection extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    terms = new List<BannerTerm>();
+    terms = new List<LearnTerm>();
 
     (_loader ??= $['terms-loader'] as SimpleLoader)
       ..loadTypedData (isPost: false);
@@ -39,7 +39,7 @@ class TermsCollection extends PolymerElement {
     if (null != details['terms']) {
       try {
         details['terms'].forEach ((termDetails) {
-          BannerTerm term = new BannerTerm (
+          LearnTerm term = new LearnTerm (
             termDetails['id'], termDetails['description']
           );
 

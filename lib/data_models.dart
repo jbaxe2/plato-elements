@@ -66,8 +66,8 @@ class BannerSection extends JsProxy {
 
 /////////////////////////////////////////////////////////////////////
 
-/// The [BannerTerm] class...
-class BannerTerm extends JsProxy {
+/// The [LearnTerm] class...
+class LearnTerm extends JsProxy {
   /// The code or ID of the term.
   @reflectable
   String termId;
@@ -76,8 +76,8 @@ class BannerTerm extends JsProxy {
   @reflectable
   String description;
 
-  /// The [BannerTerm] constructor.
-  BannerTerm (this.termId, this.description);
+  /// The [LearnTerm] constructor.
+  LearnTerm (this.termId, this.description);
 }
 
 /////////////////////////////////////////////////////////////////////

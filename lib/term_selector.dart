@@ -10,7 +10,7 @@ import 'package:polymer_elements/paper_dropdown_menu.dart';
 import 'package:polymer_elements/paper_item.dart';
 import 'package:polymer_elements/paper_menu.dart';
 
-import 'data_models.dart' show BannerTerm;
+import 'data_models.dart' show LearnTerm;
 import 'terms_collection.dart';
 
 /// Silence analyzer:
@@ -19,9 +19,9 @@ import 'terms_collection.dart';
 /// The [TermSelector] element class...
 @PolymerRegister('term-selector')
 class TermSelector extends PolymerElement {
-  /// The [List] of [BannerTerm] instances.
+  /// The [List] of [LearnTerm] instances.
   @Property(notify: true)
-  List<BannerTerm> terms;
+  List<LearnTerm> terms;
 
   @Property(notify: true)
   TermsCollection _termsCollection;
@@ -31,7 +31,7 @@ class TermSelector extends PolymerElement {
 
   /// The [TermSelector] constructor.
   TermSelector.created() : super.created() {
-    terms = new List<BannerTerm>();
+    terms = new List<LearnTerm>();
   }
 
   /// The [attached] method...
@@ -47,7 +47,7 @@ class TermSelector extends PolymerElement {
     var selectedTerm = ($['terms-menu'] as PaperMenu).selectedItem;
     var termCode = null;
 
-    terms.forEach ((BannerTerm term) {
+    terms.forEach ((LearnTerm term) {
       if (0 == term.description.trim().compareTo (selectedTerm.text.trim())) {
         termCode = term.termId;
       }
