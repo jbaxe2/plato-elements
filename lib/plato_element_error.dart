@@ -1,5 +1,5 @@
 @HtmlImport('plato_element_error.html')
-library plato_elements.error;
+library plato.elements.error;
 
 import 'dart:html';
 

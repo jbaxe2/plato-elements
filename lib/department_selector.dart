@@ -1,5 +1,5 @@
 @HtmlImport('department_selector.html')
-library plato_elements.department_selector;
+library plato.elements.selector.department;
 
 import 'dart:html';
 

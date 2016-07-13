@@ -1,5 +1,5 @@
 @HtmlImport('terms_collection.html')
-library plato_elements.terms_collection;
+library plato.elements.collection.terms;
 
 import 'dart:html';
 

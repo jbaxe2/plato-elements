@@ -1,5 +1,5 @@
-@HtmlImport('section_view_collection.html')
-library plato_elements.section_view_collection;
+@HtmlImport('section_views_collection.html')
+library plato.elements.collection.view.section;
 
 import 'dart:html';
 
@@ -13,20 +13,20 @@ import 'section_view.dart';
 
 /// Silence analyzer: [IronSignals] - [SectionView]
 ///
-/// The [SectionViewCollection] class...
-@PolymerRegister('section-view-collection')
-class SectionViewCollection extends PolymerElement {
+/// The [SectionViewsCollection] class...
+@PolymerRegister('section-views-collection')
+class SectionViewsCollection extends PolymerElement {
   @Property(notify: true)
   List<BannerSection> sections;
 
   @Property(notify: true)
   List<String> sectionIds;
 
-  /// The [SectionViewCollection] factory constructor.
-  factory SectionViewCollection() => document.createElement ('section-view-collection');
+  /// The [SectionViewsCollection] factory constructor.
+  factory SectionViewsCollection() => document.createElement ('section-view-collection');
 
-  /// The [SectionViewCollection] named constructor.
-  SectionViewCollection.created() : super.created();
+  /// The [SectionViewsCollection] named constructor.
+  SectionViewsCollection.created() : super.created();
 
   /// The [attached] method...
   void attached() {

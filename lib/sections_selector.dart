@@ -1,5 +1,5 @@
 @HtmlImport('sections_selector.html')
-library plato_elements.sections_selector;
+library plato.elements.selector.sections;
 
 import 'dart:html';
 

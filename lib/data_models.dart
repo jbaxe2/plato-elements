@@ -1,4 +1,4 @@
-library plato_elements.data_models;
+library plato.elements.data_models;
 
 import 'package:polymer/polymer.dart';
 

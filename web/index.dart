@@ -2,7 +2,7 @@
 // source code is governed by a BSD-style license that can be found in the
 // LICENSE file.
 
-library plato_elements;
+library plato.elements;
 
 import 'package:polymer/polymer.dart';
 
@@ -22,7 +22,7 @@ import '../lib/department_selector.dart';
 import '../lib/sections_selector.dart';
 import '../lib/term_selector.dart';
 
-import '../lib/section_view_collection.dart';
+import '../lib/section_views_collection.dart';
 
 import '../lib/plato_element_error.dart';
 
@@ -35,7 +35,7 @@ import '../lib/plato_element_error.dart';
 ///
 /// [DepartmentSelector] - [TermSelector] - [CourseSelector] - [SectionsSelector]
 ///
-/// [SectionViewCollection]
+/// [SectionViewsCollection]
 ///
 /// [PlatoElementError]
 ///

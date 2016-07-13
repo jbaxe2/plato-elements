@@ -1,5 +1,5 @@
 @HtmlImport('learn_authentication_widget.html')
-library plato_elements.learn_authentication_widget;
+library plato.elements.widget.learn_authentication;
 
 import 'dart:html';
 

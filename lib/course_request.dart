@@ -1,5 +1,5 @@
 @HtmlImport('course_request.html')
-library plato_elements.course_request;
+library plato.elements.request.course;
 
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';

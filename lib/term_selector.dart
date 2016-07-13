@@ -1,5 +1,5 @@
 @HtmlImport('term_selector.html')
-library plato_elements.term_selector;
+library plato.elements.selector.term;
 
 import 'dart:html';
 

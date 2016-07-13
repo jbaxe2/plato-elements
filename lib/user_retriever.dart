@@ -1,5 +1,5 @@
 @HtmlImport('user_retriever.html')
-library plato_elements.user_retriever;
+library plato.elements.retriever.user;
 
 import 'dart:html';
 
