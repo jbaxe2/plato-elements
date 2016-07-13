@@ -23,7 +23,7 @@ class SectionViewsCollection extends PolymerElement {
   List<String> sectionIds;
 
   /// The [SectionViewsCollection] factory constructor.
-  factory SectionViewsCollection() => document.createElement ('section-view-collection');
+  factory SectionViewsCollection() => document.createElement ('section-views-collection');
 
   /// The [SectionViewsCollection] named constructor.
   SectionViewsCollection.created() : super.created();

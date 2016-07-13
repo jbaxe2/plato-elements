@@ -38,7 +38,7 @@ class UserRetriever extends PolymerElement {
   /// The [loadUserInfo] method...
   void loadUserInfo() {
     ($['user-loader'] as SimpleLoader).loadTypedData (
-      data: {'username': username, 'password': password}
+      data: {'username': username}
     );
   }
 

@@ -1,5 +1,5 @@
 @HtmlImport('learn_authentication_view.html')
-library plato.elements.view.learn_authentication;
+library plato.elements.view.authentication.learn;
 
 import 'dart:html';
 
@@ -38,16 +38,16 @@ class LearnAuthenticationView extends PolymerElement {
   /// The [attached] method...
   void attached() {}
 
-  /// The [retrieveUser] method...
+  /// The [authenticateLearn] method...
   @Listen('tap')
-  void retrieveUser (CustomEvent event, details) {
+  void authenticateLearn (CustomEvent event, details) {
     if (('' == username) || ('' == password)) {
       return;
     }
 
     if ((Polymer.dom (event)).rootTarget is PaperButton) {
       this.fire (
-        'retrieve-user', detail: {'username': username, 'password': password}
+        'authenticate-learn', detail: {'username': username, 'password': password}
       );
     }
   }

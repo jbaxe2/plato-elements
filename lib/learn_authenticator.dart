@@ -80,8 +80,8 @@ class LearnAuthenticator extends PolymerElement {
       this.fire (
         'iron-signal', detail: {'name': 'error', 'data': response}
       );
-    } else if (null != response['authResult']) {
-      _result = response['authResult'];
+    } else if (null != response['learn.user.authenticated']) {
+      _result = response['learn.user.authenticated'];
 
       notifyPath ('result', _result);
     }
