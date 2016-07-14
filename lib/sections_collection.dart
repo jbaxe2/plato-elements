@@ -53,7 +53,6 @@ class SectionsCollection extends PolymerElement {
   /// The [onCourseSelected] method...
   @Listen('iron-signal-course-selected')
   void onCourseSelected (CustomEvent event, details) {
-    print ('got in course selected');
     if (null != details['course']) {
       var _courseId = details['course'];
 

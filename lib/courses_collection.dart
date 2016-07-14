@@ -81,7 +81,7 @@ class CoursesCollection extends PolymerElement {
 
         details['courses'].forEach ((courseDetails) {
           BannerCourse course = new BannerCourse (
-            courseDetails['crsno'], courseDetails['title']
+            courseDetails['courseId'], courseDetails['title']
           );
 
           async (() => add ('courses', course));

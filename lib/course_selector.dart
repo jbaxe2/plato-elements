@@ -26,9 +26,6 @@ class CourseSelector extends PolymerElement {
   @Property(notify: true)
   CoursesCollection _coursesCollection;
 
-  @Property(notify: true)
-  String termId;
-
   /// The [CourseSelector] factory constructor.
   factory CourseSelector() => document.createElement ('course-selector');
 
@@ -42,7 +39,6 @@ class CourseSelector extends PolymerElement {
     _coursesCollection = new CoursesCollection();
 
     courses = _coursesCollection.courses;
-    termId = _coursesCollection.termId;
   }
 
   /// The [onCourseSelected] method...
@@ -59,7 +55,7 @@ class CourseSelector extends PolymerElement {
 
     if (null != courseCode) {
       this.fire ('iron-signal', detail: {
-        'name': 'course-selected', 'data': {'course': courseCode, 'term': termId}
+        'name': 'course-selected', 'data': {'course': courseCode}
       });
     }
   }

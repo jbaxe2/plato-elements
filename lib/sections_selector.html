@@ -1,4 +1,4 @@
-<dom-module id="sections-selector" xmlns="">
+<dom-module id="sections-selector">
   <style>
     :host {
       display: block;
@@ -15,7 +15,7 @@
       --paper-checkbox-checked-color: #062c43;
 
       --paper-button: {
-        background-color: #eee;
+        background-color: #ddd;
         margin: 8px;
       }
     }
@@ -23,7 +23,7 @@
 
   <template>
     <sections-collection sections="{{sections}}" course-id="{{courseId}}" term-id="{{termId}}"></sections-collection>
-    <iron-signals on-iron-signal-sections-loaded-complete="updateHaveSections"></iron-signals>
+    <iron-signals on-iron-signal-sections-retrieved-complete="updateHaveSections"></iron-signals>
 
     <template is="dom-if" if="{{haveSections}}">
       <paper-card heading="Select one or more sections...">

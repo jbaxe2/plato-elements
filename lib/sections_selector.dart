@@ -52,7 +52,7 @@ class SectionsSelector extends PolymerElement {
   }
 
   /// The [updateHaveSections] method...
-  @Listen('sections-loaded-complete')
+  @Listen('sections-retrieved-complete')
   void updateHaveSections (CustomEvent event, details) => notifyPath (
     'haveSections', haveSections
   );
