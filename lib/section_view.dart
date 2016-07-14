@@ -6,7 +6,7 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
-import 'package:polymer_elements/iron_icon.dart';
+import 'package:polymer_elements/iron_icons.dart';
 import 'package:polymer_elements/hardware_icons.dart';
 import 'package:polymer_elements/paper_card.dart';
 import 'package:polymer_elements/paper_icon_button.dart';
@@ -14,7 +14,7 @@ import 'package:polymer_elements/paper_icon_button.dart';
 import 'data_models.dart' show BannerSection;
 
 /// Silence analyzer:
-/// [IronIcon] - [PaperCard] - [PaperIconButton]
+/// [PaperCard] - [PaperIconButton]
 ///
 /// The [SectionView] class...
 @PolymerRegister('section-view')
@@ -33,4 +33,25 @@ class SectionView extends PolymerElement {
 
   /// The [updateSection] method...
   void updateSection (BannerSection newSection) => set ('section', newSection);
+
+  /// The [onCopyContent] method...
+  @Listen('tap')
+  void onCopyContent (CustomEvent event, details) {
+    print ('in on copy content');
+    print (details);
+  }
+
+  /// The [onAddToClSet] method...
+  @Listen('tap')
+  void onAddToClSet (CustomEvent event, details) {
+    print ('in on add to cross-listing set');
+    print (details);
+  }
+
+  /// The [onRemoveSection] method...
+  @Listen('tap')
+  void onRemoveSection (CustomEvent event, details) {
+    print ('in on remove section');
+    print (details);
+  }
 }
