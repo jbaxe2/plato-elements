@@ -29,11 +29,11 @@ class LearnAuthenticationWidget extends PolymerElement {
   @Property(notify: true)
   UserInformation userInfo;
 
-  /// The value of whether the user information has been loaded.
+  /// The value of whether the user information has been retrieved.
   @Property(notify: true)
   bool get userLoaded => _userLoaded;
 
-  /// The internal value of whether the user information has been loaded.
+  /// The internal value of whether the user information has been retrieved.
   bool _userLoaded = false;
 
   /// An internal flag for whether we're currently attempting authentication.
@@ -57,7 +57,7 @@ class LearnAuthenticationWidget extends PolymerElement {
       notifyPath ('username', username);
       notifyPath ('password', password);
 
-      ($['user-retriever-elmnt'] as UserRetriever).loadUserInfo();
+      ($['user-retriever-elmnt'] as UserRetriever).retrieveUserInfo();
 
       async (() => _inUserLoading = false);
     }
@@ -68,6 +68,6 @@ class LearnAuthenticationWidget extends PolymerElement {
   void onUpdatedUserInfo (CustomEvent event, details) {
     notifyPath ('userLoaded', _userLoaded = true);
 
-    ($['enrollments-collection'] as EnrollmentsCollection).loadEnrollments();
+    ($['enrollments-collection'] as EnrollmentsCollection).retrieveEnrollments();
   }
 }

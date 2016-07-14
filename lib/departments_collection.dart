@@ -7,7 +7,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
 import 'data_models.dart' show BannerDepartment;
-import 'simple_loader.dart';
+import 'simple_retriever.dart';
 
 /// The [DepartmentsCollection] element class...
 @PolymerRegister('departments-collection')
@@ -16,8 +16,8 @@ class DepartmentsCollection extends PolymerElement {
   @Property(notify: true)
   List<BannerDepartment> departments;
 
-  /// The [SimpleLoader] element...
-  SimpleLoader _loader;
+  /// The [SimpleRetriever] element...
+  SimpleRetriever _retriever;
 
   /// The [DepartmentsCollection] factory constructor.
   factory DepartmentsCollection() => document.createElement ('departments-collection');
@@ -29,13 +29,13 @@ class DepartmentsCollection extends PolymerElement {
   void attached() {
     departments = new List<BannerDepartment>();
 
-    (_loader ??= $['departments-loader'] as SimpleLoader)
-      ..loadTypedData (isPost: false);
+    (_retriever ??= $['departments-retriever'] as SimpleRetriever)
+      ..retrieveTypedData();
   }
 
-  /// The [onDepartmentsLoaded] method...
-  @Listen('departments-loaded')
-  void onDepartmentsLoaded (CustomEvent event, details) {
+  /// The [onDepartmentsRetrieved] method...
+  @Listen('departments-retrieved')
+  void onDepartmentsRetrieved (CustomEvent event, details) {
     if (null != details['departments']) {
       try {
         details['departments'].forEach ((deptDetails) {

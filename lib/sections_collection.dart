@@ -9,7 +9,7 @@ import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/iron_signals.dart';
 
 import 'data_models.dart' show BannerSection;
-import 'simple_loader.dart';
+import 'simple_retriever.dart';
 
 /// Silence analyzer [IronSignals]
 ///
@@ -28,8 +28,8 @@ class SectionsCollection extends PolymerElement {
   @Property(notify: true)
   List<BannerSection> sections;
 
-  /// The [SimpleLoader] element...
-  SimpleLoader _loader;
+  /// The [SimpleRetriever] element...
+  SimpleRetriever _retriever;
 
   /// The [SectionsCollection] factory constructor.
   factory SectionsCollection() => document.createElement ('sections-collection');
@@ -41,14 +41,14 @@ class SectionsCollection extends PolymerElement {
   void attached() {
     sections = new List<BannerSection>();
 
-    _loader ??= $['sections-loader'] as SimpleLoader;
+    _retriever ??= $['sections-retriever'] as SimpleRetriever;
   }
 
   /// The [courseAndTermChanged] method...
   @Observe('courseId, termId')
   void courseAndTermChanged (String newCourseId, String newTermId) {
-    _loader.loadTypedData (
-      isPost: false, data: {'course': courseId, 'term': termId}
+    _retriever.retrieveTypedData (
+      data: {'course': courseId, 'term': termId}
     );
   }
 
@@ -78,9 +78,9 @@ class SectionsCollection extends PolymerElement {
     notifyPath ('termId', termId);
   }
 
-  /// The [onSectionsLoaded] method...
-  @Listen('sections-loaded')
-  void onSectionsLoaded (CustomEvent event, details) {
+  /// The [onSectionsRetrieved] method...
+  @Listen('sections-retrieved')
+  void onSectionsRetrieved (CustomEvent event, details) {
     if (null != details['sections']) {
       sections = new List<BannerSection>();
 
@@ -97,7 +97,7 @@ class SectionsCollection extends PolymerElement {
       notifyPath ('sections', sections);
 
       this.fire ('iron-signal', detail: {
-        'name': 'sections-loaded-complete', 'data': null
+        'name': 'sections-retrieved-complete', 'data': null
       });
     }
   }

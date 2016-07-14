@@ -1,5 +1,5 @@
 @HtmlImport('user_information_view.html')
-library plato.elements.view.user_inforamtion;
+library plato.elements.view.user.inforamtion;
 
 import 'dart:html';
 

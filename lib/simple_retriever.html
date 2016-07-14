@@ -1,4 +1,4 @@
-<dom-module id="simple-loader">
+<dom-module id="simple-retriever">
   <style>
     :host {
       display: none;
@@ -11,7 +11,7 @@
       method="POST"
       url="/plato/retrieve/{{type}}"
       handle-as="json"
-      on-response="onLoadResponse"
+      on-response="onRetrieveResponse"
       debounce-duration="300">
     </iron-ajax>
   </template>

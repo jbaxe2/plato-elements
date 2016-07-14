@@ -7,9 +7,9 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
 import 'data_models.dart' show UserInformation;
-import 'simple_loader.dart';
+import 'simple_retriever.dart';
 
-/// Silence analyzer:  [SimpleLoader]
+/// Silence analyzer:  [SimpleRetriever]
 ///
 /// The [UserRetriever] class...
 @PolymerRegister('user-retriever')
@@ -22,7 +22,7 @@ class UserRetriever extends PolymerElement {
   @Property(notify: true)
   String password;
 
-  /// The [UserInformation] instance, to be initialized once user info is loaded.
+  /// The [UserInformation] instance, to be initialized once user info is retrieved.
   @Property(notify: true)
   UserInformation userInfo;
 
@@ -35,16 +35,16 @@ class UserRetriever extends PolymerElement {
   /// The [attached] method...
   void attached() {}
 
-  /// The [loadUserInfo] method...
-  void loadUserInfo() {
-    ($['user-loader'] as SimpleLoader).loadTypedData (
-      data: {'username': username}
+  /// The [retrieveUserInfo] method...
+  void retrieveUserInfo() {
+    ($['user-retriever'] as SimpleRetriever).retrieveTypedData (
+      isPost: true, data: {'username': username}
     );
   }
 
-  /// The [onUserLoaded] method...
-  @Listen('user-loaded')
-  void onUserLoaded (CustomEvent event, details) {
+  /// The [onUserRetrieved] method...
+  @Listen('user-retrieved')
+  void onUserRetrieved (CustomEvent event, details) {
     if (null != details['user']) {
       var user = details['user'];
 

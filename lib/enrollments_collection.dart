@@ -7,7 +7,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
 import 'data_models.dart' show CourseEnrollment;
-import 'simple_loader.dart';
+import 'simple_retriever.dart';
 
 @PolymerRegister('enrollments-collection')
 class EnrollmentsCollection extends PolymerElement {
@@ -20,7 +20,7 @@ class EnrollmentsCollection extends PolymerElement {
   @Property(notify: true)
   List<CourseEnrollment> enrollments;
 
-  SimpleLoader _loader;
+  SimpleRetriever _retriever;
 
   /// The [EnrollmentsCollection] factory constructor.
   factory EnrollmentsCollection() => document.createElement ('enrollments-collection');
@@ -32,17 +32,17 @@ class EnrollmentsCollection extends PolymerElement {
   void attached() {
     enrollments = new List<CourseEnrollment>();
 
-    _loader ??= $['enrollments-loader'] as SimpleLoader;
+    _retriever ??= $['enrollments-retriever'] as SimpleRetriever;
   }
 
-  /// The [loadEnrollments] method...
-  void loadEnrollments() {
-    _loader.loadTypedData (data: {'username': username, 'password': password});
+  /// The [retrieveEnrollments] method...
+  void retrieveEnrollments() {
+    _retriever.retrieveTypedData (data: {'username': username, 'password': password});
   }
 
-  /// The [onEnrollmentsLoaded] method...
-  @Listen('enrollments-loaded')
-  void onEnrollmentsLoaded (CustomEvent event, details) {
+  /// The [onEnrollmentsRetrieved] method...
+  @Listen('enrollments-retrieved')
+  void onEnrollmentsRetrieved (CustomEvent event, details) {
     if (null != details['enrollments']) {
       try {
         enrollments = new List<CourseEnrollment>();

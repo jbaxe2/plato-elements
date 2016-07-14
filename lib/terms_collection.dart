@@ -7,7 +7,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
 import 'data_models.dart' show LearnTerm;
-import 'simple_loader.dart';
+import 'simple_retriever.dart';
 
 /// The [TermsCollection] element class...
 @PolymerRegister('terms-collection')
@@ -16,8 +16,8 @@ class TermsCollection extends PolymerElement {
   @Property(notify: true)
   List<LearnTerm> terms;
 
-  /// The [SimpleLoader] element...
-  SimpleLoader _loader;
+  /// The [SimpleRetriever] element...
+  SimpleRetriever _retriever;
 
   /// The [TermsCollection] factory constructor.
   factory TermsCollection() => document.createElement ('terms-collection');
@@ -29,13 +29,13 @@ class TermsCollection extends PolymerElement {
   void attached() {
     terms = new List<LearnTerm>();
 
-    (_loader ??= $['terms-loader'] as SimpleLoader)
-      ..loadTypedData (isPost: false);
+    (_retriever ??= $['terms-retriever'] as SimpleRetriever)
+      ..retrieveTypedData();
   }
 
-  /// The [onTermsLoaded] method...
-  @Listen('terms-loaded')
-  void onTermsLoaded (CustomEvent event, details) {
+  /// The [onTermsRetrieved] method...
+  @Listen('terms-retrieved')
+  void onTermsRetrieved (CustomEvent event, details) {
     if (null != details['terms']) {
       try {
         details['terms'].forEach ((termDetails) {
