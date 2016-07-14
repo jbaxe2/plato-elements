@@ -54,9 +54,9 @@ class SimpleRetriever extends PolymerElement {
     _retrieverAjax.generateRequest();
   }
 
-  /// The [typeChanged] method...
-  @Listen('type-changed')
-  void typeChanged (event, details) => retrieveTypedData();
+  // The [typeChanged] method...
+  //@Listen('type-changed')
+  //void typeChanged (event, details) => retrieveTypedData();
 
   /// The [onRetrieveResponse] method...
   @Listen('response')

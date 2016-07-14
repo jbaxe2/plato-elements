@@ -53,7 +53,7 @@ class CourseSelector extends PolymerElement {
 
     courses.forEach ((BannerCourse course) {
       if (0 == course.courseTitle.trim().compareTo (selectedCourse.text.trim())) {
-        courseCode = course.courseId.substring (0, (course.courseId.length - 3));
+        courseCode = course.courseId;
       }
     });
 
