@@ -4,13 +4,13 @@ version: 0.20.3
 author: Joseph B. Axenroth
 
 environment:
-  sdk: '>=1.16.0 <2.0.0'
+  sdk: '>=1.17.0 <2.0.0'
 
 dependencies:
   browser: ^0.10.0+2
-  polymer: ^1.0.0-rc.15
-  polymer_elements: ^1.0.0-rc.8
-  polymer_interop: ^1.0.0-rc.5
+  polymer: ^1.0.0-rc.17
+  polymer_elements: ^1.0.0-rc.9
+  polymer_interop: ^1.0.0-rc.9
   reflectable: ^0.5.4
   web_components: ^0.12.3
 

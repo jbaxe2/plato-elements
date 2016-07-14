@@ -47,9 +47,7 @@ class SectionsCollection extends PolymerElement {
   /// The [courseAndTermChanged] method...
   @Observe('courseId, termId')
   void courseAndTermChanged (String newCourseId, String newTermId) {
-    _retriever.retrieveTypedData (
-      data: {'course': courseId, 'term': termId}
-    );
+    _retriever.retrieveTypedData (data: {'course': courseId, 'term': termId});
   }
 
   /// The [onCourseSelected] method...
