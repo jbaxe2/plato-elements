@@ -38,20 +38,20 @@ class SectionView extends PolymerElement {
   @Listen('tap')
   void onCopyContent (CustomEvent event, details) {
     print ('in on copy content');
-    print (details);
+    window.console.debug (event);
   }
 
   /// The [onAddToClSet] method...
   @Listen('tap')
   void onAddToClSet (CustomEvent event, details) {
     print ('in on add to cross-listing set');
-    print (details);
+    window.console.debug (event);
   }
 
   /// The [onRemoveSection] method...
   @Listen('tap')
   void onRemoveSection (CustomEvent event, details) {
     print ('in on remove section');
-    print (details);
+    window.console.debug (event);
   }
 }
