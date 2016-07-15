@@ -15,9 +15,6 @@ class EnrollmentsCollection extends PolymerElement {
   String username;
 
   @Property(notify: true)
-  String password;
-
-  @Property(notify: true)
   List<CourseEnrollment> enrollments;
 
   SimpleRetriever _retriever;
@@ -37,7 +34,7 @@ class EnrollmentsCollection extends PolymerElement {
 
   /// The [retrieveEnrollments] method...
   void retrieveEnrollments() {
-    _retriever.retrieveTypedData (data: {'username': username, 'password': password});
+    _retriever.retrieveTypedData();
   }
 
   /// The [onEnrollmentsRetrieved] method...
@@ -48,7 +45,18 @@ class EnrollmentsCollection extends PolymerElement {
         enrollments = new List<CourseEnrollment>();
 
         details['enrollments'].forEach ((enrollDetails) {
-          CourseEnrollment enrollment = new CourseEnrollment(
+          if (enrollDetails['username'] != username) {
+            var error = {
+              'title': 'Enrollment retrieval error',
+              'message': 'The retrieved enrollments do not match the authenticated user.'
+            };
+
+            this.fire (
+              'iron-signal', detail: {'name': 'error', 'data': error}
+            );
+          }
+
+          CourseEnrollment enrollment = new CourseEnrollment (
             enrollDetails['username'], enrollDetails['courseId'], enrollDetails['courseName'],
             enrollDetails['role'], enrollDetails['available']
           );

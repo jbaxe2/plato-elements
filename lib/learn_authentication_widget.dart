@@ -48,9 +48,9 @@ class LearnAuthenticationWidget extends PolymerElement {
   /// The [attached] method...
   void attached() {}
 
-  /// The [onUserRetrieval] method...
+  /// The [onRetrieveUser] method...
   @Listen('retrieve-user')
-  void onUserRetrieval (CustomEvent event, details) {
+  void onRetrieveUser (CustomEvent event, details) {
     if (!(_inUserLoading && _userLoaded)) {
       _inUserLoading = true;
 

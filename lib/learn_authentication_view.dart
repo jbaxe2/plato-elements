@@ -14,6 +14,8 @@ import 'package:polymer_elements/paper_material.dart';
 
 import 'data_models.dart' show UserInformation;
 
+import 'learn_authenticator.dart';
+
 /// Silence analyzer:
 /// [IronIcon] - [PaperButton] - [PaperInput] - [PaperMaterial]
 ///
@@ -26,6 +28,8 @@ class LearnAuthenticationView extends PolymerElement {
   @Property(notify: true)
   String password;
 
+  LearnAuthenticator _learnAuthenticator;
+
   @Property(notify: true)
   UserInformation userInfo;
 
@@ -36,7 +40,9 @@ class LearnAuthenticationView extends PolymerElement {
   LearnAuthenticationView.created() : super.created();
 
   /// The [attached] method...
-  void attached() {}
+  void attached() {
+    _learnAuthenticator = new LearnAuthenticator();
+  }
 
   /// The [authenticateLearn] method...
   @Listen('tap')
@@ -46,9 +52,14 @@ class LearnAuthenticationView extends PolymerElement {
     }
 
     if ((Polymer.dom (event)).rootTarget is PaperButton) {
-      this.fire (
-        'authenticate-learn', detail: {'username': username, 'password': password}
-      );
+      _learnAuthenticator
+        ..username = username
+        ..password = password
+        ..performAuthRequest();
+
+      //this.fire (
+      //  'authenticate-learn', detail: {'username': username, 'password': password}
+      //);
     }
   }
 }

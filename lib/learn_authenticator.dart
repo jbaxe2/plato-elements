@@ -63,10 +63,10 @@ class LearnAuthenticator extends PolymerElement {
     }
 
     _learnAuthAjax
+      ..method = 'POST'
       ..contentType = 'application/x-www-form-urlencoded'
       ..body = {
-          'username': username,
-          'password': password
+          'username': username, 'password': password
         }
       ..generateRequest();
   }
