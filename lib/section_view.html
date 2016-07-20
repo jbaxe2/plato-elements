@@ -42,9 +42,9 @@
         <p><strong>Term:</strong> <span>{{section.termId}}</span></p>
       </div>
       <div class="card-actions">
-        <paper-icon-button icon="icons:content-copy" title="copy content from previous course" on-tap="onCopyContent"></paper-icon-button>
-        <paper-icon-button icon="hardware:device-hub" title="add to cross-listing set" on-tap="onAddToClSet"></paper-icon-button>
-        <paper-icon-button icon="icons:cancel" title="remove section from request" on-tap="onRemoveSection"></paper-icon-button>
+        <paper-icon-button icon="icons:content-copy" id="copyContentIcon" title="copy content from previous course" on-tap="onCopyContent"></paper-icon-button>
+        <paper-icon-button icon="hardware:device-hub" id="addToClSetIcon" title="add to cross-listing set" on-tap="onAddToClSet"></paper-icon-button>
+        <paper-icon-button icon="icons:cancel" id="removeSectionIcon" title="remove section from request" on-tap="onRemoveSection"></paper-icon-button>
       </div>
     </paper-card>
   </template>
