@@ -22,7 +22,7 @@ class LearnAuthenticator extends PolymerElement {
   String password;
 
   /// The result of the authentication attempt; read-only.
-  @property
+  @Property(notify: true)
   bool get result => _result;
 
   bool _result;
@@ -43,13 +43,6 @@ class LearnAuthenticator extends PolymerElement {
     if (('' != username) && ('' != password)) {
       performAuthRequest();
     }
-  }
-
-  /// The [usernameAndPasswordChanged] method listens for changes to both the
-  /// username and password, and will then attempt authentication.
-  @Observe('username, password')
-  void usernameAndPasswordChanged (String newUsername, String newPassword) {
-    performAuthRequest();
   }
 
   /// The [performAuthRequest] method invokes the [IronAjax] element to generate
@@ -84,6 +77,10 @@ class LearnAuthenticator extends PolymerElement {
       _result = response['learn.user.authenticated'];
 
       notifyPath ('result', _result);
+
+      if (_result) {
+        this.fire ('retrieve-user', canBubble: true);
+      }
     }
   }
 }

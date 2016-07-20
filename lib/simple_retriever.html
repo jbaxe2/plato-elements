@@ -8,7 +8,7 @@
   <template>
     <iron-ajax
       id="retriever-ajax"
-      method="POST"
+      method="GET"
       url="/plato/retrieve/{{type}}"
       handle-as="json"
       on-response="onRetrieveResponse"

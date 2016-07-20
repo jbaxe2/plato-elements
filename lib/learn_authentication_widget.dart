@@ -57,7 +57,7 @@ class LearnAuthenticationWidget extends PolymerElement {
       notifyPath ('username', username);
       notifyPath ('password', password);
 
-      ($['user-retriever-elmnt'] as UserRetriever).retrieveUserInfo();
+      ($['user-retriever'] as UserRetriever).retrieveUserInfo();
 
       async (() => _inUserLoading = false);
     }

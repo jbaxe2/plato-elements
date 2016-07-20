@@ -7,11 +7,11 @@
 
   <template>
     <learn-authentication-view
-      username="{{username}}" password="{{password}}" user-info="{{userInfo}}" hidden$="{{userLoaded}}">
+      username="{{username}}" password="{{password}}" hidden$="{{userLoaded}}">
     </learn-authentication-view>
 
     <user-retriever
-      id="user-retriever-elmnt" username="{{username}}" password="{{password}}"
+      id="user-retriever" username="{{username}}" password="{{password}}" on-retrieve-user="onRetrieveUser"
       user-info="{{userInfo}}" on-updated-user-info="onUpdatedUserInfo">
     </user-retriever>
 

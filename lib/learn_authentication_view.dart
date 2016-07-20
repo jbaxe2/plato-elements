@@ -12,8 +12,6 @@ import 'package:polymer_elements/paper_button.dart';
 import 'package:polymer_elements/paper_input.dart';
 import 'package:polymer_elements/paper_material.dart';
 
-import 'data_models.dart' show UserInformation;
-
 import 'learn_authenticator.dart';
 
 /// Silence analyzer:
@@ -30,9 +28,6 @@ class LearnAuthenticationView extends PolymerElement {
 
   LearnAuthenticator _learnAuthenticator;
 
-  @Property(notify: true)
-  UserInformation userInfo;
-
   /// The [LearnAuthenticationView] factory constructor.
   factory LearnAuthenticationView() => document.createElement ('learn-authentication-view');
 
@@ -41,7 +36,7 @@ class LearnAuthenticationView extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    _learnAuthenticator = new LearnAuthenticator();
+    _learnAuthenticator = $['learnAuthenticator'] as LearnAuthenticator;
   }
 
   /// The [authenticateLearn] method...
@@ -56,10 +51,6 @@ class LearnAuthenticationView extends PolymerElement {
         ..username = username
         ..password = password
         ..performAuthRequest();
-
-      //this.fire (
-      //  'authenticate-learn', detail: {'username': username, 'password': password}
-      //);
     }
   }
 }

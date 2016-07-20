@@ -37,9 +37,7 @@ class UserRetriever extends PolymerElement {
 
   /// The [retrieveUserInfo] method...
   void retrieveUserInfo() {
-    ($['user-retriever'] as SimpleRetriever).retrieveTypedData (
-      isPost: true, data: {'username': username}
-    );
+    ($['user-retriever'] as SimpleRetriever).retrieveTypedData();
   }
 
   /// The [onUserRetrieved] method...
@@ -50,12 +48,16 @@ class UserRetriever extends PolymerElement {
 
       try {
         userInfo = new UserInformation (
-          username, password, user['first'], user['last'], user['email'], user['cwid']
+          username, password,
+          user['learn.user.firstName'],
+          user['learn.user.lastName'],
+          user['learn.user.email'],
+          user['banner.user.cwid']
         );
 
         notifyPath ('userInfo', userInfo);
 
-        this.fire ('updated-user-info');
+        this.fire ('updated-user-info', canBubble: true);
       } catch (_) {}
     }
   }

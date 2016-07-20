@@ -57,8 +57,9 @@ class EnrollmentsCollection extends PolymerElement {
           }
 
           CourseEnrollment enrollment = new CourseEnrollment (
-            enrollDetails['username'], enrollDetails['courseId'], enrollDetails['courseName'],
-            enrollDetails['role'], enrollDetails['available']
+            enrollDetails['learn.user.username'], enrollDetails['learn.course.id'],
+            enrollDetails['learn.course.name'], enrollDetails['learn.membership.role'],
+            enrollDetails['learn.membership.available']
           );
 
           async (() => add ('enrollments', enrollment));
