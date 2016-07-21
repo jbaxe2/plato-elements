@@ -27,8 +27,6 @@ class EnrollmentsCollection extends PolymerElement {
 
   /// The [attached] constructor...
   void attached() {
-    enrollments = new List<CourseEnrollment>();
-
     _retriever ??= $['enrollments-retriever'] as SimpleRetriever;
   }
 
@@ -45,7 +43,7 @@ class EnrollmentsCollection extends PolymerElement {
         enrollments = new List<CourseEnrollment>();
 
         details['enrollments'].forEach ((enrollDetails) {
-          if (enrollDetails['username'] != username) {
+          if (enrollDetails['learn.user.username'] != username) {
             var error = {
               'title': 'Enrollment retrieval error',
               'message': 'The retrieved enrollments do not match the authenticated user.'
