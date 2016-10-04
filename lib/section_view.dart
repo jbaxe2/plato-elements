@@ -36,11 +36,21 @@ class SectionView extends PolymerElement {
 
   /// The [onCopyContent] method...
   @Listen('tap')
-  void onCopyContent (CustomEvent event, details) {}
+  void onCopyContent (CustomEvent event, details) {
+    if ('copyContentIcon' == (Polymer.dom (event)).rootTarget.id) {
+      window.console.log ('in on tab for copy content');
+      window.console.debug ((Polymer.dom (event)).rootTarget.id);
+    }
+  }
 
   /// The [onAddToClSet] method...
   @Listen('tap')
-  void onAddToClSet (CustomEvent event, details) {}
+  void onAddToClSet (CustomEvent event, details) {
+    if ('addToClSetIcon' == (Polymer.dom (event)).rootTarget.id) {
+      window.console.log ('in on tab for add to cl set');
+      window.console.debug ((Polymer.dom (event)).rootTarget.id);
+    }
+  }
 
   /// The [onRemoveSection] method...
   @Listen('tap')
@@ -48,7 +58,8 @@ class SectionView extends PolymerElement {
     if ('removeSectionIcon' == (Polymer.dom (event)).rootTarget.id) {
       window.console.debug ('in remove section, correctly');
     } else {
-      //window.console.debug ((Polymer.dom (event)).rootTarget);
+      window.console.debug ('in the wrong element for the on tap event');
+      window.console.debug ((Polymer.dom (event)).rootTarget);
     }
   }
 }

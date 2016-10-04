@@ -110,7 +110,10 @@ class CourseEnrollment extends JsProxy {
 /// The [CourseRequest] class...
 class CourseRequest extends JsProxy {
   @reflectable
-  List<BannerSection> sections;
+  UserInformation userInfo;
+
+  @reflectable
+  List<RequestedCourse> sections;
 
   @reflectable
   List<CrossListing> crossListings;
@@ -151,7 +154,16 @@ class CrossListing extends JsProxy {
 /////////////////////////////////////////////////////////////////////
 
 /// The [RequestedCourse] class...
-class RequestedCourse extends JsProxy {}
+class RequestedCourse extends JsProxy {
+  @reflectable
+  BannerSection section;
+
+  @reflectable
+  CourseEnrollment courseEnrollment;
+
+  /// The [RequestedCourse] constructor...
+  RequestedCourse();
+}
 
 /////////////////////////////////////////////////////////////////////
 
