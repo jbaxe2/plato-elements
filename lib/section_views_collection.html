@@ -7,6 +7,7 @@
 
   <template>
     <iron-signals on-iron-signal-sections-added="onSectionsAdded"></iron-signals>
+    <iron-signals on-iron-signal-section-removed="onSectionRemoved"></iron-signals>
 
     <template is="dom-repeat" items="{{sections}}" as="section">
       <section-view section="{{section}}"></section-view>

@@ -118,8 +118,15 @@ class CourseRequest extends JsProxy {
   @reflectable
   List<CrossListing> crossListings;
 
+  @reflectable
+  Map<BannerSection, CourseEnrollment> previousContents;
+
   /// The [CourseRequest] constructor...
-  CourseRequest();
+  CourseRequest() {
+    sections = new List<RequestedCourse>();
+    crossListings = new List<CrossListing>();
+    previousContents = new Map<BannerSection, CourseEnrollment>();
+  }
 }
 
 /////////////////////////////////////////////////////////////////////

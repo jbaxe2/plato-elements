@@ -52,4 +52,30 @@ class SectionViewsCollection extends PolymerElement {
       notifyPath ('sectionIds', sectionIds);
     }
   }
+
+  /// The [onSectionRemoved] method...
+  @Listen('iron-signal-section-removed')
+  void onSectionRemoved (CustomEvent event, details) {
+    if (null != details['section']) {
+      BannerSection section = details['section'];
+      var sectionId = '${section.sectionId}_${section.termId}';
+
+      if (!(sections.contains (section) && (sectionIds.contains (sectionId)))) {
+        this.fire (
+          'iron-signal',
+          detail: {'name': 'error', 'data': 'Attempting to remove a non-requested section from the request.'}
+        );
+
+        return;
+      } else {
+        window.console.debug ('setting up to remove section for $sectionId');
+      }
+
+      sections.remove (section);
+      sectionIds.remove (sectionId);
+
+      notifyPath ('sections', sections);
+      notifyPath ('sectionsIds', sectionIds);
+    }
+  }
 }

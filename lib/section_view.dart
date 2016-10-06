@@ -37,29 +37,33 @@ class SectionView extends PolymerElement {
   /// The [onCopyContent] method...
   @Listen('tap')
   void onCopyContent (CustomEvent event, details) {
-    if ('copyContentIcon' == (Polymer.dom (event)).rootTarget.id) {
-      window.console.log ('in on tab for copy content');
-      window.console.debug ((Polymer.dom (event)).rootTarget.id);
+    if ('copyContentIcon' == (Polymer.dom (event)).localTarget.id) {
+      window.console.debug (section);
+      window.console.debug (
+        'copy content for ${(Polymer.dom (event)).localTarget.parent.parent.attributes['heading']}'
+      );
     }
   }
 
   /// The [onAddToClSet] method...
   @Listen('tap')
   void onAddToClSet (CustomEvent event, details) {
-    if ('addToClSetIcon' == (Polymer.dom (event)).rootTarget.id) {
-      window.console.log ('in on tab for add to cl set');
-      window.console.debug ((Polymer.dom (event)).rootTarget.id);
+    if ('addToClSetIcon' == (Polymer.dom (event)).localTarget.id) {
+      window.console.debug (section);
+      window.console.debug (
+        'add to cl set for ${(Polymer.dom (event)).localTarget.parent.parent.attributes['heading']}'
+      );
     }
   }
 
   /// The [onRemoveSection] method...
   @Listen('tap')
   void onRemoveSection (CustomEvent event, details) {
-    if ('removeSectionIcon' == (Polymer.dom (event)).rootTarget.id) {
-      window.console.debug ('in remove section, correctly');
-    } else {
-      window.console.debug ('in the wrong element for the on tap event');
-      window.console.debug ((Polymer.dom (event)).rootTarget);
+    if ('removeSectionIcon' == (Polymer.dom (event)).localTarget.id) {
+      this.fire (
+        'iron-signal',
+        detail: {'name': 'section-removed', 'data': {'section': section}}
+      );
     }
   }
 }
