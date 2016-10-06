@@ -63,13 +63,16 @@ class SectionViewsCollection extends PolymerElement {
       if (!(sections.contains (section) && (sectionIds.contains (sectionId)))) {
         this.fire (
           'iron-signal',
-          detail: {'name': 'error', 'data': 'Attempting to remove a non-requested section from the request.'}
+          detail: {
+            'name': 'error',
+            'data': 'Attempting to remove a non-requested section from the request.'
+          }
         );
 
         return;
-      } else {
-        window.console.debug ('setting up to remove section for $sectionId');
       }
+
+      removeItem ('sections', section);
 
       sections.remove (section);
       sectionIds.remove (sectionId);
