@@ -24,6 +24,8 @@ import '../lib/term_selector.dart';
 
 import '../lib/section_views_collection.dart';
 
+import '../lib/previous_content_selector.dart';
+
 import '../lib/plato_element_error.dart';
 
 /// Silence analyzer:
@@ -36,6 +38,8 @@ import '../lib/plato_element_error.dart';
 /// [DepartmentSelector] - [TermSelector] - [CourseSelector] - [SectionsSelector]
 ///
 /// [SectionViewsCollection]
+///
+/// [PreviousContentSelector]
 ///
 /// [PlatoElementError]
 ///

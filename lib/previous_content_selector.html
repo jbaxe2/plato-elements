@@ -1,0 +1,15 @@
+<dom-module id="previous-content-selector">
+  <style>
+    :host {
+      display: block;
+    }
+  </style>
+
+  <template>
+    <enrollment-selector
+      hidden$="{{!haveEnrollments}}"
+      selected-enrollment="{{selectedEnrollment}}"
+      enrollments="{{enrollments}}">
+    </enrollment-selector>
+  </template>
+</dom-module>

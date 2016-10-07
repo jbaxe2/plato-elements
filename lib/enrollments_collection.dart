@@ -66,7 +66,7 @@ class EnrollmentsCollection extends PolymerElement {
         notifyPath ('enrollments', enrollments);
 
         this.fire ('iron-signal', detail: {
-          'name': 'enrollments-retrieved-complete', 'data': enrollments
+          'name': 'enrollments-retrieved-complete', 'data': {'enrollments': enrollments}
         });
       } catch (_) {}
     }
