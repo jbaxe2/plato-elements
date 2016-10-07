@@ -54,7 +54,7 @@ class EnrollmentsCollection extends PolymerElement {
             );
           }
 
-          CourseEnrollment enrollment = new CourseEnrollment (
+          var enrollment = new CourseEnrollment (
             enrollDetails['learn.user.username'], enrollDetails['learn.course.id'],
             enrollDetails['learn.course.name'], enrollDetails['learn.membership.role'],
             enrollDetails['learn.membership.available']
@@ -64,6 +64,10 @@ class EnrollmentsCollection extends PolymerElement {
         });
 
         notifyPath ('enrollments', enrollments);
+
+        this.fire ('iron-signal', detail: {
+          'name': 'enrollments-retrieved-complete', 'data': enrollments
+        });
       } catch (_) {}
     }
   }

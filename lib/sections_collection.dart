@@ -83,7 +83,7 @@ class SectionsCollection extends PolymerElement {
       sections = new List<BannerSection>();
 
       details['sections'].forEach ((sectionDetails) {
-        BannerSection section = new BannerSection (
+        var section = new BannerSection (
           sectionDetails['crsno'], sectionDetails['crn'], sectionDetails['title'],
           sectionDetails['facname'], sectionDetails['mtime'],
           sectionDetails['mplace'], sectionDetails['term']

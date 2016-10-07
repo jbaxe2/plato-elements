@@ -80,7 +80,7 @@ class CoursesCollection extends PolymerElement {
         courses = new List<BannerCourse>();
 
         details['courses'].forEach ((courseDetails) {
-          BannerCourse course = new BannerCourse (
+          var course = new BannerCourse (
             courseDetails['courseId'], courseDetails['title']
           );
 

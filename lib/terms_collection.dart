@@ -39,13 +39,9 @@ class TermsCollection extends PolymerElement {
     if (null != details['terms']) {
       try {
         details['terms'].forEach ((termDetails) {
-          LearnTerm term = new LearnTerm (
-            termDetails['id'], termDetails['description']
-          );
+          var term = new LearnTerm (termDetails['id'], termDetails['description']);
 
-          async (() {
-            add ('terms', term);
-          });
+          async (() => add ('terms', term));
         });
 
         notifyPath ('terms', terms);

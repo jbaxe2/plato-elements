@@ -1,0 +1,27 @@
+<dom-module id="enrollment-selector">
+  <style>
+    :host {
+      display: block;
+
+      --paper-card-header: {
+        background-color: #ddd;
+        border: 1px dotted #718198;
+      };
+
+      --paper-card-content: {
+        padding: 8px;
+      };
+
+      --paper-checkbox-checked-color: #062c43;
+
+      --paper-button: {
+        background-color: #ddd;
+        margin: 8px;
+      }
+    }
+  </style>
+
+  <template>
+    <iron-signals on-iron-signal-enrollments-retrieved-complete=""></iron-signals>
+  </template>
+</dom-module>

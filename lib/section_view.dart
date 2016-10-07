@@ -60,10 +60,9 @@ class SectionView extends PolymerElement {
   @Listen('tap')
   void onRemoveSection (CustomEvent event, details) {
     if ('removeSectionIcon' == (Polymer.dom (event)).localTarget.id) {
-      this.fire (
-        'iron-signal',
-        detail: {'name': 'section-removed', 'data': {'section': section}}
-      );
+      this.fire ('iron-signal', detail: {
+        'name': 'section-removed', 'data': {'section': section}
+      });
     }
   }
 }

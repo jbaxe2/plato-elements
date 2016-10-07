@@ -39,17 +39,19 @@ class SectionViewsCollection extends PolymerElement {
   void onSectionsAdded (CustomEvent event, details) {
     if (null != details['sections']) {
       details['sections'].forEach ((String sectionId, BannerSection section) {
-        if (!sections.contains (section)) {
-          sections.add (section);
-        }
-
         if (!sectionIds.contains (sectionId)) {
           sectionIds.add (sectionId);
         }
+
+        async (() {
+          if (!(sections.contains (section) && sectionIds.contains (sectionId))) {
+            add ('sections', section);
+          }
+        });
       });
 
-      notifyPath ('sections', sections);
       notifyPath ('sectionIds', sectionIds);
+      notifyPath ('sections', sections);
     }
   }
 
@@ -61,13 +63,13 @@ class SectionViewsCollection extends PolymerElement {
       var sectionId = '${section.sectionId}_${section.termId}';
 
       if (!(sections.contains (section) && (sectionIds.contains (sectionId)))) {
-        this.fire (
-          'iron-signal',
-          detail: {
-            'name': 'error',
-            'data': 'Attempting to remove a non-requested section from the request.'
+        this.fire ('iron-signal', detail: {
+          'name': 'error',
+          'data': {
+            'title': 'Invalid action warning',
+            'message': 'Cannot remove a non-requested section from the request.'
           }
-        );
+        });
 
         return;
       }

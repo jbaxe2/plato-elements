@@ -39,13 +39,11 @@ class DepartmentsCollection extends PolymerElement {
     if (null != details['departments']) {
       try {
         details['departments'].forEach ((deptDetails) {
-          BannerDepartment department = new BannerDepartment (
+          var department = new BannerDepartment (
             deptDetails['code'], deptDetails['description']
           );
 
-          async (() {
-            add ('departments', department);
-          });
+          async (() => add ('departments', department));
         });
 
         notifyPath ('departments', departments);
