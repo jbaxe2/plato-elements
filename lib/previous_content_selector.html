@@ -2,14 +2,34 @@
   <style>
     :host {
       display: block;
+
+      --paper-card-header: {
+        background-color: #ddd;
+        border: 1px dotted #718198;
+      };
+
+      --paper-card-content: {
+        padding: 8px;
+      };
+
+      --paper-button: {
+        background-color: #ddd;
+        margin: 8px;
+      }
     }
   </style>
 
   <template>
-    <enrollment-selector
-      hidden$="{{!haveEnrollments}}"
-      selected-enrollment="{{selectedEnrollment}}"
-      enrollments="{{enrollments}}">
-    </enrollment-selector>
+    <paper-card heading="Enrollment selection..." hidden$="{{!haveEnrollments}}">
+      <div class="card-content">
+        <enrollment-selector
+          selected-enrollment="{{selectedEnrollment}}"
+          enrollments="{{enrollments}}">
+        </enrollment-selector>
+      </div>
+      <div class="card-actions">
+        <paper-button raised on-tap="onEnrollmentSelected"></paper-button>
+      </div>
+    </paper-card>
   </template>
 </dom-module>

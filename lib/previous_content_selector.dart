@@ -6,11 +6,15 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
+import 'package:polymer_elements/paper_button.dart';
+import 'package:polymer_elements/paper_card.dart';
+
 import 'enrollment_selector.dart';
 
 import 'data_models.dart' show CourseEnrollment;
 
-/// Silence analyzer: [EnrollmentSelector]
+/// Silence analyzer:
+/// [PaperButton] - [PaperCard] - [EnrollmentSelector]
 ///
 /// The [PreviousContentSelector] element class...
 @PolymerRegister('previous-content-selector')
@@ -46,5 +50,9 @@ class PreviousContentSelector extends PolymerElement {
 
   /// The [onEnrollmentSelected] method...
   @Listen('enrollment-selected')
-  void onEnrollmentSelected (CustomEvent event, detail) {}
+  void onEnrollmentSelected (CustomEvent event, detail) {
+    window.console.debug ('an enrollment has been selected');
+    window.console.debug (event);
+    window.console.debug (detail);
+  }
 }
