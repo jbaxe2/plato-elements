@@ -56,5 +56,9 @@ class EnrollmentSelector extends PolymerElement {
 
   /// The [onEnrollmentSelected] method...
   @Listen('iron-select')
-  void onEnrollmentSelected (CustomEvent event, details) {}
+  void onEnrollmentSelected (CustomEvent event, details) {
+    selectedEnrollment = ($['enrollmentSelector'] as PaperRadioGroup).selectedItem.value;
+
+    notifyPath ('selectedEnrollment', selectedEnrollment);
+  }
 }

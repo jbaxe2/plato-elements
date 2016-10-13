@@ -20,7 +20,8 @@
   </style>
 
   <template>
-    <paper-card heading="Enrollment selection..." hidden$="{{!haveEnrollments}}">
+    <iron-signals on-iron-signal-show-copy-content-selector=""></iron-signals>
+    <paper-card heading="Select enrollment for previous content..." hidden$="{{!isVisible}}">
       <div class="card-content">
         <enrollment-selector
           selected-enrollment="{{selectedEnrollment}}"
@@ -28,7 +29,7 @@
         </enrollment-selector>
       </div>
       <div class="card-actions">
-        <paper-button raised on-tap="onEnrollmentSelected"></paper-button>
+        <paper-button raised on-tap="onEnrollmentSelected">Use the selected for previous content</paper-button>
       </div>
     </paper-card>
   </template>
