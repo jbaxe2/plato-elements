@@ -20,8 +20,8 @@
   </style>
 
   <template>
-    <iron-signals on-iron-signal-show-copy-content-selector=""></iron-signals>
-    <paper-card heading="Select enrollment for previous content..." hidden$="{{!isVisible}}">
+    <iron-signals on-iron-signal-show-copy-content-selector="onShowCopyContentSelector"></iron-signals>
+    <paper-card heading="Select previous content for {{currentSection.sectionId}}..." hidden$="{{!isVisible}}">
       <div class="card-content">
         <enrollment-selector
           selected-enrollment="{{selectedEnrollment}}"

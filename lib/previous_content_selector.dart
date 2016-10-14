@@ -13,7 +13,7 @@ import 'package:polymer_elements/paper_card.dart';
 
 import 'enrollment_selector.dart';
 
-import 'data_models.dart' show CourseEnrollment;
+import 'data_models.dart' show BannerSection, CourseEnrollment;
 
 /// Silence analyzer:
 /// [PaperButton] - [PaperCard] - [IronSignals] - [EnrollmentSelector]
@@ -28,6 +28,10 @@ class PreviousContentSelector extends PolymerElement {
   /// The [CourseEnrollment] instance representing the selected enrollment.
   @Property(notify: true)
   CourseEnrollment selectedEnrollment;
+
+  /// The current [BannerSection] instance for which previous content will be copied.
+  @Property(notify: true)
+  BannerSection currentSection;
 
   @Property(notify: true)
   bool get haveEnrollments => _haveEnrollments;
@@ -58,16 +62,19 @@ class PreviousContentSelector extends PolymerElement {
   /// The [onEnrollmentSelected] method...
   @Listen('enrollment-selected')
   void onEnrollmentSelected (CustomEvent event, detail) {
-    window.console.debug ('an enrollment has been selected');
-    window.console.debug (selectedEnrollment);
+    if (null == selectedEnrollment) {
+      return;
+    }
 
     notifyPath ('isVisible', _isVisible = false);
+    notifyPath ('currentSection', null);
   }
 
   /// The [onShowCopyContentSelector] method...
   @Listen('iron-signal-show-copy-content-selector')
   void onShowCopyContentSelector (CustomEvent event, detail) {
     if (null != detail['section']) {
+      notifyPath ('currentSection', (detail['section'] as BannerSection));
       notifyPath ('isVisible', _isVisible = true);
     }
   }

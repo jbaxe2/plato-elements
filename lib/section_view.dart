@@ -41,11 +41,6 @@ class SectionView extends PolymerElement {
       this.fire ('iron-signal', detail: {
         'name': 'show-copy-content-selector', 'data': {'section': section}
       });
-
-      window.console.debug (section);
-      window.console.debug (
-        'copy content for ${(Polymer.dom (event)).localTarget.parent.parent.attributes['heading']}'
-      );
     }
   }
 

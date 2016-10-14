@@ -1,0 +1,21 @@
+<dom-module id="plato-element-processing">
+  <style>
+    :host {
+      display: block;
+
+      --paper-progress-active-color: #062c43;
+      --paper-progress-secondary-color: #718198;
+    }
+  </style>
+
+  <template>
+    <iron-signals on-iron-signal-show-progress="onShowProgressBar"></iron-signals>
+    <iron-signals on-iron-signal-hide-progress="onHideProgressBar"></iron-signals>
+
+    <paper-dialog id="progress-dialog"
+        entry-animation="fade-in-animation" exit-animation="fade-out-animation"
+        modal with-backdrop>
+      <paper-progress indeterminate></paper-progress>
+    </paper-dialog>
+  </template>
+</dom-module>

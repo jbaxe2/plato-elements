@@ -55,6 +55,8 @@ class LearnAuthenticator extends PolymerElement {
       return;
     }
 
+    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
+
     _learnAuthAjax
       ..method = 'POST'
       ..contentType = 'application/x-www-form-urlencoded'
@@ -68,6 +70,8 @@ class LearnAuthenticator extends PolymerElement {
   @Listen('response')
   void onAuthenticationResponse (event, details) {
     var response = _learnAuthAjax.lastResponse;
+
+    this.fire ('iron-signal', detail: {'name': 'hide-progress', 'data': null});
 
     if (null != response['error']) {
       this.fire (

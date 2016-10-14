@@ -61,4 +61,9 @@ class EnrollmentSelector extends PolymerElement {
 
     notifyPath ('selectedEnrollment', selectedEnrollment);
   }
+
+  /// The [onEnrollmentDeselected] method...
+  @Listen('iron-deselect')
+  void onEnrollmentDeselected (CustomEvent event, details) =>
+    notifyPath ('selectedEnrollment', null);
 }

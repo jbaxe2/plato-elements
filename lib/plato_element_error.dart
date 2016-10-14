@@ -43,14 +43,11 @@ class PlatoElementError extends PolymerElement {
   /// The [onPlatoError] method...
   @Listen('iron-signal-error')
   void onPlatoError (CustomEvent event, details) {
-    window.console.debug (event);
-    window.console.debug (details);
-
     if (null != details['error']) {
       if (details['error'] is String) {
         title = 'Error!';
         message = details['error'];
-      } if (details['error'] is Map) {
+      } else if (details['error'] is Map) {
         if (null != details['error']['title']) {
           title = details['error]']['title'];
         }
