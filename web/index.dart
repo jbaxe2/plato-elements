@@ -27,6 +27,7 @@ import '../lib/section_views_collection.dart';
 import '../lib/previous_content_selector.dart';
 
 import '../lib/plato_element_error.dart';
+import '../lib/plato_element_processing.dart';
 
 /// Silence analyzer:
 /// [LearnAuthenticator] - [LearnAuthenticationView] - [LearnAuthenticationWidget]
@@ -41,7 +42,7 @@ import '../lib/plato_element_error.dart';
 ///
 /// [PreviousContentSelector]
 ///
-/// [PlatoElementError]
+/// [PlatoElementError] - [PlatoElementProcessing]
 ///
 /// The [main] function (entry-point into application).
 main() async => await initPolymer();

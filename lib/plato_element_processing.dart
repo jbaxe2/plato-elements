@@ -31,8 +31,6 @@ class PlatoElementProcessing extends PolymerElement {
   /// The [onShowProgressBar] method...
   @Listen('iron-signal-show-progress')
   void onShowProgressBar (CustomEvent event, details) {
-    window.console.debug ('got here to show progress');
-
     _progress
       ..refit()
       ..center()
@@ -42,8 +40,6 @@ class PlatoElementProcessing extends PolymerElement {
   /// The [onHideProgressBar] method...
   @Listen('iron-signal-hide-progress')
   void onHideProgressBar (CustomEvent event, details) {
-    window.console.debug ('got here to hide progress');
-
     _progress.close();
   }
 }

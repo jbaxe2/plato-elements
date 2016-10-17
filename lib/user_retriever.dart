@@ -59,6 +59,8 @@ class UserRetriever extends PolymerElement {
 
         this.fire ('updated-user-info', canBubble: true);
       } catch (_) {}
+
+      this.fire ('iron-signal', detail: {'name': 'hide-progress', 'data': null});
     }
   }
 }

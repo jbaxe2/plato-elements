@@ -10,11 +10,12 @@ import 'package:polymer_elements/iron_icons.dart';
 import 'package:polymer_elements/hardware_icons.dart';
 import 'package:polymer_elements/paper_card.dart';
 import 'package:polymer_elements/paper_icon_button.dart';
+import 'package:polymer_elements/paper_material.dart';
 
 import 'data_models.dart' show BannerSection;
 
 /// Silence analyzer:
-/// [PaperCard] - [PaperIconButton]
+/// [PaperCard] - [PaperIconButton] - [PaperMaterial]
 ///
 /// The [SectionView] class...
 @PolymerRegister('section-view')
