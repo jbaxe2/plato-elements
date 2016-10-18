@@ -13,7 +13,7 @@ import 'package:polymer_elements/paper_card.dart';
 import 'package:polymer_elements/paper_icon_button.dart';
 import 'package:polymer_elements/paper_material.dart';
 
-import 'data_models.dart' show BannerSection, CrossListing, PreviousContentCourse;
+import 'data_models.dart' show BannerSection, CrossListing, PreviousContentMapping;
 
 /// Silence analyzer:
 /// [IronSignals] - [PaperCard] - [PaperIconButton] - [PaperMaterial]
@@ -25,7 +25,7 @@ class SectionView extends PolymerElement {
   BannerSection section;
 
   @Property(notify: true)
-  PreviousContentCourse withPreviousContent;
+  PreviousContentMapping withPreviousContent;
 
   @Property(notify: true)
   bool get hasPreviousContent => _hasPreviousContent;
@@ -74,9 +74,7 @@ class SectionView extends PolymerElement {
   void onAddToClSet (CustomEvent event, details) {
     if ('addToClSetIcon' == (Polymer.dom (event)).localTarget.id) {
       window.console.debug (section);
-      window.console.debug (
-        'add to cl set for ${(Polymer.dom (event)).localTarget.parent.parent.attributes['heading']}'
-      );
+      window.console.debug ('add to cl set for ${section.sectionId}');
     }
   }
 
@@ -95,7 +93,7 @@ class SectionView extends PolymerElement {
   void onPreviousContentSpecified (CustomEvent event, details) {
     if ((null == details['section']) || (null == details['previousContent']) ||
         (section != details['section']) ||
-        (section != (details['previousContent'] as PreviousContentCourse).section)) {
+        (section != (details['previousContent'] as PreviousContentMapping).section)) {
       return;
     }
 
@@ -125,7 +123,7 @@ class SectionView extends PolymerElement {
       notifyPath ('withPreviousContent', withPreviousContent = null);
       notifyPath ('hasPreviousContent', _hasPreviousContent = false);
 
-      if ((null == withPreviousContent) || (null == withCrossListing)) {
+      if ((null == withPreviousContent) && (null == withCrossListing)) {
         notifyPath ('hasExtraInfo', hasExtraInfo = false);
       }
     }
@@ -138,7 +136,7 @@ class SectionView extends PolymerElement {
       notifyPath ('withCrossListing', withCrossListing = null);
       notifyPath ('hasCrossListing', _hasCrossListing = false);
 
-      if ((null == withPreviousContent) || (null == withCrossListing)) {
+      if ((null == withPreviousContent) && (null == withCrossListing)) {
         notifyPath ('hasExtraInfo', hasExtraInfo = false);
       }
     }

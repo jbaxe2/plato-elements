@@ -13,7 +13,7 @@ import 'package:polymer_elements/paper_card.dart';
 
 import 'enrollment_selector.dart';
 
-import 'data_models.dart' show BannerSection, CourseEnrollment, PreviousContentCourse;
+import 'data_models.dart' show BannerSection, CourseEnrollment, PreviousContentMapping;
 
 /// Silence analyzer:
 /// [PaperButton] - [PaperCard] - [IronSignals] - [EnrollmentSelector]
@@ -69,7 +69,7 @@ class PreviousContentSelector extends PolymerElement {
         'data': {
           'section': currentSection,
           'previousContent':
-            new PreviousContentCourse()
+            new PreviousContentMapping()
               ..section = currentSection
               ..courseEnrollment = selectedEnrollment
         }

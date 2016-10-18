@@ -113,19 +113,19 @@ class CourseRequest extends JsProxy {
   UserInformation userInfo;
 
   @reflectable
-  List<RequestedCourse> sections;
+  List<BannerSection> sections;
 
   @reflectable
   List<CrossListing> crossListings;
 
   @reflectable
-  Map<BannerSection, CourseEnrollment> previousContents;
+  List<PreviousContentMapping> previousContents;
 
   /// The [CourseRequest] constructor...
   CourseRequest() {
-    sections = new List<RequestedCourse>();
+    sections = new List<BannerSection>();
     crossListings = new List<CrossListing>();
-    previousContents = new Map<BannerSection, CourseEnrollment>();
+    previousContents = new List<PreviousContentMapping>();
   }
 }
 
@@ -160,30 +160,16 @@ class CrossListing extends JsProxy {
 
 /////////////////////////////////////////////////////////////////////
 
-/// The [PreviousContentCourse] class...
-class PreviousContentCourse extends JsProxy {
+/// The [PreviousContentMapping] class...
+class PreviousContentMapping extends JsProxy {
   @reflectable
   BannerSection section;
 
   @reflectable
   CourseEnrollment courseEnrollment;
 
-  /// The [PreviousContentCourse] constructor...
-  PreviousContentCourse();
-}
-
-/////////////////////////////////////////////////////////////////////
-
-/// The [RequestedCourse] class...
-class RequestedCourse extends JsProxy {
-  @reflectable
-  BannerSection section;
-
-  @reflectable
-  CourseEnrollment courseEnrollment;
-
-  /// The [RequestedCourse] constructor...
-  RequestedCourse();
+  /// The [PreviousContentMapping] constructor...
+  PreviousContentMapping();
 }
 
 /////////////////////////////////////////////////////////////////////

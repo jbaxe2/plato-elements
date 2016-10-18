@@ -26,6 +26,8 @@ import '../lib/section_views_collection.dart';
 
 import '../lib/previous_content_selector.dart';
 
+import '../lib/cross_listing_views_collection.dart';
+
 import '../lib/plato_element_error.dart';
 import '../lib/plato_element_processing.dart';
 
@@ -41,6 +43,8 @@ import '../lib/plato_element_processing.dart';
 /// [SectionViewsCollection]
 ///
 /// [PreviousContentSelector]
+///
+/// [CrossListingViewsCollection]
 ///
 /// [PlatoElementError] - [PlatoElementProcessing]
 ///
