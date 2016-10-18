@@ -37,6 +37,9 @@
   </style>
 
   <template>
+    <iron-signals on-iron-signal-previous-content-specified="onPreviousContentSpecified"></iron-signals>
+    <iron-signals on-iron-signal-cross-listing-specified="onCrossListingSpecified"></iron-signals>
+
     <paper-card heading$="{{section.sectionId}}">
       <div class="card-content">
         <p><strong>Title:</strong> <span>{{section.courseTitle}}</span></p>
@@ -49,7 +52,6 @@
         <template if="{{hasExtraInfo}}">
           <hr style="color: #062c43; width: 100%; text-align: center;">
 
-          <iron-signals on-iron-signal-previous-content-specified="onPreviousContentSpecified"></iron-signals>
           <paper-material id="{{section.sectionId}}-copied-content-info" hidden$="{{!hasPreviousContent}}">
             <p>
               Previous Content: <span>{{withPreviousContent.courseEnrollment.courseId}}</span>
@@ -62,7 +64,6 @@
             </p>
           </paper-material>
 
-          <iron-signals on-iron-signal-cross-listing-specified="onCrossListingSpecified"></iron-signals>
           <paper-material id="{{section.sectionId}}-cross-listed-info" hidden$="{{!hasCrossListing}}">
             <paper-icon-button
               icon="icons:eject"

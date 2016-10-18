@@ -94,20 +94,15 @@ class SectionView extends PolymerElement {
   /// The [onPreviousContentSpecified] method...
   @Listen('iron-signal-previous-content-specified')
   void onPreviousContentSpecified (CustomEvent event, details) {
-    window.console.debug ('in on previous content specified');
-
     if ((null == details['section']) || (null == details['previousContent']) ||
         (section != details['section']) ||
         (section != (details['previousContent'] as PreviousContentCourse).section)) {
-      window.console.debug ('previous content specified conditions issue');
       return;
     }
 
-    window.console.debug (details);
-
-    notifyPath ('withPreviousContent', details['previousContent'] as PreviousContentCourse);
-    notifyPath ('hasExtraInfo', true);
+    notifyPath ('hasExtraInfo', hasExtraInfo = true);
     notifyPath ('hasPreviousContent', _hasPreviousContent = true);
+    notifyPath ('withPreviousContent', withPreviousContent = details['previousContent']);
   }
 
   /// The [onCrossListingSpecified] method...
@@ -119,9 +114,9 @@ class SectionView extends PolymerElement {
       return;
     }
 
-    notifyPath ('withCrossListing', details['crossListing']);
     notifyPath ('hasExtraInfo', true);
     notifyPath ('hasCrossListing', _hasCrossListing = true);
+    notifyPath ('withCrossListing', details['crossListing']);
   }
 
   /// The [onRemovePreviousContent] method...
