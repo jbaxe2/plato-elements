@@ -36,12 +36,12 @@ class PreviousContentSelector extends PolymerElement {
   @Property(notify: true)
   bool get haveEnrollments => _haveEnrollments;
 
-  bool _haveEnrollments = false;
+  bool _haveEnrollments;
 
   @Property(notify: true)
   bool get isVisible => _isVisible;
 
-  bool _isVisible = false;
+  bool _isVisible;
 
   /// The [PreviousContentSelector] factory constructor.
   factory PreviousContentSelector() => document.createElement ('previous-content-selector');
@@ -52,7 +52,10 @@ class PreviousContentSelector extends PolymerElement {
   }
 
   /// The [attached] method...
-  void attached();
+  void attached() {
+    notifyPath ('haveEnrollments', _haveEnrollments = false);
+    notifyPath ('isVisible', _isVisible = false);
+  }
 
   /// The [enrollmentsComplete] method...
   @Listen('enrollments-complete')
@@ -84,7 +87,7 @@ class PreviousContentSelector extends PolymerElement {
   @Listen('iron-signal-show-copy-content-selector')
   void onShowCopyContentSelector (CustomEvent event, detail) {
     if (null != detail['section']) {
-      notifyPath ('currentSection', (detail['section'] as BannerSection));
+      notifyPath ('currentSection', currentSection = (detail['section'] as BannerSection));
       notifyPath ('isVisible', _isVisible = true);
     }
   }

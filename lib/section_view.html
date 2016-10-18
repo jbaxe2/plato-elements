@@ -15,7 +15,7 @@
       };
 
       --paper-card-actions: {
-        background-color: #eee;
+        background-color: #ddd;
         text-align: right;
       };
 
@@ -82,9 +82,9 @@
       </div>
 
       <div class="card-actions">
-        <paper-icon-button icon="icons:content-copy" id="copyContentIcon" title="copy content from previous course" on-tap="onCopyContent"></paper-icon-button>
-        <paper-icon-button icon="hardware:device-hub" id="addToClSetIcon" title="add section to cross-listing set" on-tap="onAddToClSet"></paper-icon-button>
-        <paper-icon-button icon="icons:cancel" id="removeSectionIcon" title="remove section from request" on-tap="onRemoveSection"></paper-icon-button>
+        <paper-icon-button icon="icons:content-copy" id="copyContentIcon" title="copy content from a previous course" on-tap="onCopyContent"></paper-icon-button>
+        <paper-icon-button icon="hardware:device-hub" id="addToClSetIcon" title="add {{section.sectionId}} to a cross-listing set" on-tap="onAddToClSet"></paper-icon-button>
+        <paper-icon-button icon="icons:cancel" id="removeSectionIcon" title="remove {{section.sectionId}} from the request" on-tap="onRemoveSection"></paper-icon-button>
       </div>
     </paper-card>
   </template>
