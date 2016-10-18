@@ -30,8 +30,8 @@
       };
 
       --paper-material: {
-        margin: 8px 8px 8px 15px;
-        padding: 15px;
+        margin: 8px 8px 8px 8px;
+        padding: 8px;
       };
     }
   </style>
@@ -49,12 +49,12 @@
         <p><strong>Time:</strong> <span>{{section.time}}</span></p>
         <p><strong>Term:</strong> <span>{{section.termId}}</span></p>
 
-        <template if="{{hasExtraInfo}}">
+        <template is="dom-if" if="{{hasExtraInfo}}">
           <hr style="color: #062c43; width: 100%; text-align: center;">
 
           <paper-material id="{{section.sectionId}}-copied-content-info" hidden$="{{!hasPreviousContent}}">
-            <p>
-              Previous Content: <span>{{withPreviousContent.courseEnrollment.courseId}}</span>
+            <p style="margin: 0 0 0 8px;">
+              <strong>Previous Content:</strong> &nbsp; <span>{{withPreviousContent.courseEnrollment.courseId}}</span>
               <paper-icon-button
                 icon="icons:backspace"
                 id="removePreviousContentIcon"
@@ -83,7 +83,7 @@
 
       <div class="card-actions">
         <paper-icon-button icon="icons:content-copy" id="copyContentIcon" title="copy content from previous course" on-tap="onCopyContent"></paper-icon-button>
-        <paper-icon-button icon="hardware:device-hub" id="addToClSetIcon" title="add to cross-listing set" on-tap="onAddToClSet"></paper-icon-button>
+        <paper-icon-button icon="hardware:device-hub" id="addToClSetIcon" title="add section to cross-listing set" on-tap="onAddToClSet"></paper-icon-button>
         <paper-icon-button icon="icons:cancel" id="removeSectionIcon" title="remove section from request" on-tap="onRemoveSection"></paper-icon-button>
       </div>
     </paper-card>

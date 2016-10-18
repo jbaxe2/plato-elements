@@ -51,10 +51,9 @@ class SectionView extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    hasExtraInfo = false;
-
-    _hasPreviousContent = false;
-    _hasCrossListing = false;
+    notifyPath ('hasExtraInfo', hasExtraInfo = false);
+    notifyPath ('hasPreviousContent', _hasPreviousContent = false);
+    notifyPath ('hasCrossListing', _hasCrossListing = false);
   }
 
   /// The [updateSection] method...
@@ -114,21 +113,20 @@ class SectionView extends PolymerElement {
       return;
     }
 
-    notifyPath ('hasExtraInfo', true);
+    notifyPath ('hasExtraInfo', hasExtraInfo = true);
     notifyPath ('hasCrossListing', _hasCrossListing = true);
-    notifyPath ('withCrossListing', details['crossListing']);
+    notifyPath ('withCrossListing', withCrossListing = details['crossListing']);
   }
 
   /// The [onRemovePreviousContent] method...
   @Listen('tap')
   void onRemovePreviousContent (CustomEvent event, details) {
     if ('removePreviousContentIcon' == (Polymer.dom (event)).localTarget.id) {
-      ;
-
+      notifyPath ('withPreviousContent', withPreviousContent = null);
       notifyPath ('hasPreviousContent', _hasPreviousContent = false);
 
       if ((null == withPreviousContent) || (null == withCrossListing)) {
-        notifyPath ('hasExtraInfo', false);
+        notifyPath ('hasExtraInfo', hasExtraInfo = false);
       }
     }
   }
@@ -137,12 +135,11 @@ class SectionView extends PolymerElement {
   @Listen('tap')
   void onRemoveFromCrossListing (CustomEvent event, details) {
     if ('removeFromCrossListingIcon' == (Polymer.dom (event)).localTarget.id) {
-      ;
-
+      notifyPath ('withCrossListing', withCrossListing = null);
       notifyPath ('hasCrossListing', _hasCrossListing = false);
 
       if ((null == withPreviousContent) || (null == withCrossListing)) {
-        notifyPath ('hasExtraInfo', false);
+        notifyPath ('hasExtraInfo', hasExtraInfo = false);
       }
     }
   }
