@@ -7,21 +7,41 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_icons.dart';
+import 'package:polymer_elements/iron_signals.dart';
 import 'package:polymer_elements/hardware_icons.dart';
 import 'package:polymer_elements/paper_card.dart';
 import 'package:polymer_elements/paper_icon_button.dart';
 import 'package:polymer_elements/paper_material.dart';
 
-import 'data_models.dart' show BannerSection;
+import 'data_models.dart' show BannerSection, CrossListing, PreviousContentCourse;
 
 /// Silence analyzer:
-/// [PaperCard] - [PaperIconButton] - [PaperMaterial]
+/// [IronSignals] - [PaperCard] - [PaperIconButton] - [PaperMaterial]
 ///
 /// The [SectionView] class...
 @PolymerRegister('section-view')
 class SectionView extends PolymerElement {
   @Property(notify: true)
   BannerSection section;
+
+  @Property(notify: true)
+  PreviousContentCourse withPreviousContent;
+
+  @Property(notify: true)
+  bool get hasPreviousContent => _hasPreviousContent;
+
+  bool _hasPreviousContent;
+
+  @Property(notify: true)
+  CrossListing withCrossListing;
+
+  @Property(notify: true)
+  bool get hasCrossListing => _hasCrossListing;
+
+  bool _hasCrossListing;
+
+  @Property(notify: true)
+  bool hasExtraInfo;
 
   /// The [SectionView] factory constructor.
   factory SectionView() => document.createElement ('section-view');
@@ -30,7 +50,12 @@ class SectionView extends PolymerElement {
   SectionView.created() : super.created();
 
   /// The [attached] method...
-  void attached() {}
+  void attached() {
+    hasExtraInfo = false;
+
+    _hasPreviousContent = false;
+    _hasCrossListing = false;
+  }
 
   /// The [updateSection] method...
   void updateSection (BannerSection newSection) => set ('section', newSection);
@@ -63,6 +88,67 @@ class SectionView extends PolymerElement {
       this.fire ('iron-signal', detail: {
         'name': 'section-removed', 'data': {'section': section}
       });
+    }
+  }
+
+  /// The [onPreviousContentSpecified] method...
+  @Listen('iron-signal-previous-content-specified')
+  void onPreviousContentSpecified (CustomEvent event, details) {
+    window.console.debug ('in on previous content specified');
+
+    if ((null == details['section']) || (null == details['previousContent']) ||
+        (section != details['section']) ||
+        (section != (details['previousContent'] as PreviousContentCourse).section)) {
+      window.console.debug ('previous content specified conditions issue');
+      return;
+    }
+
+    window.console.debug (details);
+
+    notifyPath ('withPreviousContent', details['previousContent'] as PreviousContentCourse);
+    notifyPath ('hasExtraInfo', true);
+    notifyPath ('hasPreviousContent', _hasPreviousContent = true);
+  }
+
+  /// The [onCrossListingSpecified] method...
+  @Listen('iron-signal-cross-listing-specified')
+  void onCrossListingSpecified (CustomEvent event, details) {
+    if ((null == details['section']) || (null == details['crossListing']) ||
+        (section != details['section']) ||
+        ((details['crossListing'] as CrossListing).sections.contains (section))) {
+      return;
+    }
+
+    notifyPath ('withCrossListing', details['crossListing']);
+    notifyPath ('hasExtraInfo', true);
+    notifyPath ('hasCrossListing', _hasCrossListing = true);
+  }
+
+  /// The [onRemovePreviousContent] method...
+  @Listen('tap')
+  void onRemovePreviousContent (CustomEvent event, details) {
+    if ('removePreviousContentIcon' == (Polymer.dom (event)).localTarget.id) {
+      ;
+
+      notifyPath ('hasPreviousContent', _hasPreviousContent = false);
+
+      if ((null == withPreviousContent) || (null == withCrossListing)) {
+        notifyPath ('hasExtraInfo', false);
+      }
+    }
+  }
+
+  /// The [onRemoveFromCrossListing] method...
+  @Listen('tap')
+  void onRemoveFromCrossListing (CustomEvent event, details) {
+    if ('removeFromCrossListingIcon' == (Polymer.dom (event)).localTarget.id) {
+      ;
+
+      notifyPath ('hasCrossListing', _hasCrossListing = false);
+
+      if ((null == withPreviousContent) || (null == withCrossListing)) {
+        notifyPath ('hasExtraInfo', false);
+      }
     }
   }
 }

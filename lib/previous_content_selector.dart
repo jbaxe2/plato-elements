@@ -13,7 +13,7 @@ import 'package:polymer_elements/paper_card.dart';
 
 import 'enrollment_selector.dart';
 
-import 'data_models.dart' show BannerSection, CourseEnrollment;
+import 'data_models.dart' show BannerSection, CourseEnrollment, PreviousContentCourse;
 
 /// Silence analyzer:
 /// [PaperButton] - [PaperCard] - [IronSignals] - [EnrollmentSelector]
@@ -60,14 +60,24 @@ class PreviousContentSelector extends PolymerElement {
     notifyPath ('haveEnrollments', _haveEnrollments = true);
 
   /// The [onEnrollmentSelected] method...
-  @Listen('enrollment-selected')
+  @Listen('tap')
   void onEnrollmentSelected (CustomEvent event, detail) {
-    if (null == selectedEnrollment) {
-      return;
-    }
+    if (('enrollmentSelectedButton' == (Polymer.dom (event)).rootTarget.id) &&
+        (null != selectedEnrollment)) {
+      this.fire ('iron-signal', detail: {
+        'name': 'previous-content-specified',
+        'data': {
+          'section': currentSection,
+          'previousContent':
+            new PreviousContentCourse()
+              ..section = currentSection
+              ..courseEnrollment = selectedEnrollment
+        }
+      });
 
-    notifyPath ('isVisible', _isVisible = false);
-    notifyPath ('currentSection', null);
+      notifyPath ('isVisible', _isVisible = false);
+      notifyPath ('currentSection', null);
+    }
   }
 
   /// The [onShowCopyContentSelector] method...

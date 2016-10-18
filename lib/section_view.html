@@ -30,7 +30,7 @@
       };
 
       --paper-material: {
-        margin: 8px;
+        margin: 8px 8px 8px 15px;
         padding: 15px;
       };
     }
@@ -45,12 +45,41 @@
         <p><strong>Place:</strong> <span>{{section.place}}</span></p>
         <p><strong>Time:</strong> <span>{{section.time}}</span></p>
         <p><strong>Term:</strong> <span>{{section.termId}}</span></p>
-        <iron-collapse id="{{section.sectionId}}-extra-info">
-          <hr style="color: #062c43; width: 94%; text-align: center;">
-          <paper-material id="{{section.sectionId}}-copied-content-info">Copied content info will go here.</paper-material>
-          <paper-material id="{{section.sectionId}}-cross-listed-info">Cross-listing info will go here.</paper-material>
-        </iron-collapse>
+
+        <template if="{{hasExtraInfo}}">
+          <hr style="color: #062c43; width: 100%; text-align: center;">
+
+          <iron-signals on-iron-signal-previous-content-specified="onPreviousContentSpecified"></iron-signals>
+          <paper-material id="{{section.sectionId}}-copied-content-info" hidden$="{{!hasPreviousContent}}">
+            <p>
+              Previous Content: <span>{{withPreviousContent.courseEnrollment.courseId}}</span>
+              <paper-icon-button
+                icon="icons:backspace"
+                id="removePreviousContentIcon"
+                title="remove previous content"
+                on-tap="onRemovePreviousContent">
+              </paper-icon-button>
+            </p>
+          </paper-material>
+
+          <iron-signals on-iron-signal-cross-listing-specified="onCrossListingSpecified"></iron-signals>
+          <paper-material id="{{section.sectionId}}-cross-listed-info" hidden$="{{!hasCrossListing}}">
+            <paper-icon-button
+              icon="icons:eject"
+              id="removeFromCrossListingIcon"
+              title="remove from cross-listing"
+              on-tap="onRemoveFromCrossListing">
+            </paper-icon-button>
+            <p>
+              This course is currently cross-listed with:<br>
+              <template is="dom-repeat" items="{{withCrossListing.sections}}" as="crossListedSection">
+                <strong> - &nbsp; {{crossListedSection.sectionId}}</strong><br>
+              </template>
+            </p>
+          </paper-material>
+        </template>
       </div>
+
       <div class="card-actions">
         <paper-icon-button icon="icons:content-copy" id="copyContentIcon" title="copy content from previous course" on-tap="onCopyContent"></paper-icon-button>
         <paper-icon-button icon="hardware:device-hub" id="addToClSetIcon" title="add to cross-listing set" on-tap="onAddToClSet"></paper-icon-button>

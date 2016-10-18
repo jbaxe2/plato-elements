@@ -160,6 +160,20 @@ class CrossListing extends JsProxy {
 
 /////////////////////////////////////////////////////////////////////
 
+/// The [PreviousContentCourse] class...
+class PreviousContentCourse extends JsProxy {
+  @reflectable
+  BannerSection section;
+
+  @reflectable
+  CourseEnrollment courseEnrollment;
+
+  /// The [PreviousContentCourse] constructor...
+  PreviousContentCourse();
+}
+
+/////////////////////////////////////////////////////////////////////
+
 /// The [RequestedCourse] class...
 class RequestedCourse extends JsProxy {
   @reflectable
