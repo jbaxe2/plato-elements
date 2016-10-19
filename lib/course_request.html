@@ -6,5 +6,40 @@
   </style>
 
   <template>
+    <paper-drawer-panel right-drawer>
+      <paper-header-panel main>
+        <paper-toolbar>
+          <span>Plato Course Request Form v5 (alpha)</span>
+        </paper-toolbar>
+
+        <div>
+          <paper-tabs selected="{{selected}}">
+            <paper-tab>User Information</paper-tab>
+            <paper-tab>Courses Selection</paper-tab>
+          </paper-tabs>
+
+          <iron-pages selected="{{selected}}">
+            <div>
+              <learn-authentication-widget></learn-authentication-widget>
+            </div>
+
+            <div>
+              <department-selector></department-selector><br>
+              <term-selector></term-selector><br>
+              <course-selector></course-selector><br>
+              <sections-selector></sections-selector><br>
+            </div>
+          </iron-pages>
+        </div>
+
+        <previous-content-selector></previous-content-selector>
+
+        <cross-listing-views-collection></cross-listing-views-collection>
+      </paper-header-panel>
+
+      <paper-header-panel drawer>
+        <section-views-collection></section-views-collection>
+      </paper-header-panel>
+    </paper-drawer-panel>
   </template>
 </dom-module>

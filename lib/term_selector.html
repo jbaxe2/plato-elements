@@ -16,7 +16,7 @@
     <paper-dropdown-menu label="Terms">
       <paper-menu id="terms-menu" class="dropdown-content" selected-attribute="value" on-iron-select="onTermSelected">
         <template is="dom-repeat" items="{{terms}}" as="term">
-          <paper-item value="{{term.termId}}">{{term.description}}</paper-item>
+          <paper-item value$="{{term.termId}}">{{term.description}}</paper-item>
         </template>
       </paper-menu>
     </paper-dropdown-menu>

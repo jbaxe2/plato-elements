@@ -6,10 +6,10 @@
   </style>
 
   <template>
-    <simple-retriever type="courses" id="courses-retriever"></simple-retriever>
-
     <iron-signals on-iron-signal-department-selected="onDepartmentSelected"></iron-signals>
     <iron-signals on-iron-signal-term-selected="onTermSelected"></iron-signals>
+
+    <simple-retriever type="courses" id="courses-retriever"></simple-retriever>
 
     <template is="dom-repeat" items="{{courses}}">{{courses}}</template>
   </template>

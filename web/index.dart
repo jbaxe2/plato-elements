@@ -31,6 +31,8 @@ import '../lib/cross_listing_views_collection.dart';
 import '../lib/plato_element_error.dart';
 import '../lib/plato_element_processing.dart';
 
+import '../lib/course_request.dart';
+
 /// Silence analyzer:
 /// [LearnAuthenticator] - [LearnAuthenticationView] - [LearnAuthenticationWidget]
 /// [UserInformationView]
@@ -47,6 +49,8 @@ import '../lib/plato_element_processing.dart';
 /// [CrossListingViewsCollection]
 ///
 /// [PlatoElementError] - [PlatoElementProcessing]
+///
+/// [CourseRequest]
 ///
 /// The [main] function (entry-point into application).
 main() async => await initPolymer();

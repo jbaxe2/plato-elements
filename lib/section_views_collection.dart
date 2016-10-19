@@ -44,6 +44,7 @@ class SectionViewsCollection extends PolymerElement {
         }
 
         async (() {
+          // A Polymer bug causes a second check with the section ID's.
           if (!(sections.contains (section) && sectionIds.contains (sectionId))) {
             add ('sections', section);
           }

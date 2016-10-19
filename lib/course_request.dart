@@ -1,36 +1,42 @@
 @HtmlImport('course_request.html')
 library plato.elements.request.course;
 
+import 'dart:html';
+
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
+import 'package:polymer_elements/iron_pages.dart';
+
+import 'package:polymer_elements/paper_drawer_panel.dart';
+import 'package:polymer_elements/paper_header_panel.dart';
+import 'package:polymer_elements/paper_tabs.dart';
+import 'package:polymer_elements/paper_tab.dart';
+import 'package:polymer_elements/paper_toolbar.dart';
+
+import 'cross_listing_views_collection.dart';
+import 'learn_authentication_widget.dart';
+import 'previous_content_selector.dart';
+import 'section_views_collection.dart';
+
+/// Silence analyzer:
+/// [IronPages]
+///
+/// [PaperDrawerPanel] - [PaperHeaderPanel] - [PaperToolbar]
+/// [PaperTabs] - [PaperTab]
+///
+/// [CrossListingViewsCollection] - [LearnAuthenticationWidget]
+/// [PreviousContentSelector] - [SectionViewsCollection]
+///
+/// The [CourseRequest] class...
 @PolymerRegister('course-request')
 class CourseRequest extends PolymerElement {
   @property
   String request;
 
-  /// Constructor used to create instance of CourseRequest.
+  /// The [CourseRequest] factory constructor...
+  factory CourseRequest() => document.createElement ('course-request');
+
+  /// The [CourseRequest] named constructor...
   CourseRequest.created() : super.created();
-
-  // Optional lifecycle methods - uncomment if needed.
-//  /// Called when an instance of main-app is inserted into the DOM.
-//  attached() {
-//    super.attached();
-//  }
-
-//  /// Called when an instance of main-app is removed from the DOM.
-//  detached() {
-//    super.detached();
-//  }
-
-//  /// Called when an attribute (such as a class) of an instance of
-//  /// main-app is added, changed, or removed.
-//  attributeChanged(String name, String oldValue, String newValue) {
-//    super.attributeChanged(name, oldValue, newValue);
-//  }
-
-//  /// Called when main-app has been fully prepared (Shadow DOM created,
-//  /// property observers set up, event listeners attached).
-//  ready() {
-//  }
 }
