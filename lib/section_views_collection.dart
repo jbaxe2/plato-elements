@@ -8,10 +8,12 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_signals.dart';
 
+import 'package:polymer_elements/paper_card.dart';
+
 import 'data_models.dart' show BannerSection;
 import 'section_view.dart';
 
-/// Silence analyzer: [IronSignals] - [SectionView]
+/// Silence analyzer: [IronSignals] - [PaperCard] - [SectionView]
 ///
 /// The [SectionViewsCollection] class...
 @PolymerRegister('section-views-collection')
@@ -21,6 +23,9 @@ class SectionViewsCollection extends PolymerElement {
 
   @Property(notify: true)
   List<String> sectionIds;
+
+  @Property(notify: true)
+  bool haveSections;
 
   /// The [SectionViewsCollection] factory constructor.
   factory SectionViewsCollection() => document.createElement ('section-views-collection');
@@ -32,6 +37,8 @@ class SectionViewsCollection extends PolymerElement {
   void attached() {
     sections = new List<BannerSection>();
     sectionIds = new List<String>();
+
+    notifyPath ('haveSections', haveSections = false);
   }
 
   /// The [onSectionsAdded] method...
@@ -53,6 +60,8 @@ class SectionViewsCollection extends PolymerElement {
 
       notifyPath ('sectionIds', sectionIds);
       notifyPath ('sections', sections);
+
+      notifyPath ('haveSections', haveSections = true);
     }
   }
 
@@ -82,6 +91,10 @@ class SectionViewsCollection extends PolymerElement {
 
       notifyPath ('sections', sections);
       notifyPath ('sectionsIds', sectionIds);
+
+      if (sections.isEmpty) {
+        notifyPath ('haveSections', haveSections = false);
+      }
     }
   }
 }

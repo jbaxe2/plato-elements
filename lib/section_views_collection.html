@@ -2,12 +2,22 @@
   <style>
     :host {
       display: block;
+
+      --paper-card-content: {
+        padding: 15px;
+      }
     }
   </style>
 
   <template>
     <iron-signals on-iron-signal-sections-added="onSectionsAdded"></iron-signals>
     <iron-signals on-iron-signal-section-removed="onSectionRemoved"></iron-signals>
+
+    <template is="dom-if" if="{{!haveSections}}">
+      <paper-card>
+        <p>Requested courses will appear here once one or more sections have been selected.</p>
+      </paper-card>
+    </template>
 
     <template is="dom-repeat" items="{{sections}}" as="section">
       <section-view section="{{section}}"></section-view>

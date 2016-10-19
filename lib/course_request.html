@@ -2,11 +2,33 @@
   <style>
     :host {
       display: block;
+
+      --paper-drawer-panel-drawer-container: {
+        background-color: #ddd;
+        padding: 15px;
+      };
+
+      --paper-toolbar-background: #718198;
+
+      --paper-tabs: {
+        background-color: #ddd;
+      };
+
+      --paper-tabs-selection-bar: {
+        background-color: #bbb;
+      };
+
+      --paper-tabs-selection-bar-color: #062c43;
+      --paper-tab-ink: #062c43;
+    }
+
+    div {
+      padding: 15px;
     }
   </style>
 
   <template>
-    <paper-drawer-panel right-drawer>
+    <paper-drawer-panel right-drawer drawer-width="448px">
       <paper-header-panel main>
         <paper-toolbar>
           <span>Plato Course Request Form v5 (alpha)</span>

@@ -31,12 +31,17 @@ import 'section_views_collection.dart';
 /// The [CourseRequest] class...
 @PolymerRegister('course-request')
 class CourseRequest extends PolymerElement {
-  @property
-  String request;
+  @Property(notify: true)
+  int selected;
 
   /// The [CourseRequest] factory constructor...
   factory CourseRequest() => document.createElement ('course-request');
 
   /// The [CourseRequest] named constructor...
   CourseRequest.created() : super.created();
+
+  /// The [attached] method...
+  void attached() {
+    notifyPath ('selected', selected = 0);
+  }
 }
