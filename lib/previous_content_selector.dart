@@ -86,6 +86,10 @@ class PreviousContentSelector extends PolymerElement {
   /// The [onShowCopyContentSelector] method...
   @Listen('iron-signal-show-copy-content-selector')
   void onShowCopyContentSelector (CustomEvent event, detail) {
+    if (enrollments.isEmpty) {
+      return;
+    }
+
     if (null != detail['section']) {
       notifyPath ('currentSection', currentSection = (detail['section'] as BannerSection));
       notifyPath ('isVisible', _isVisible = true);

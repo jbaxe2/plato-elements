@@ -1,10 +1,15 @@
 <dom-module id="section-view">
   <style>
+    #removePreviousContentIcon {
+      float: right;
+    }
+
     :host {
       display: block;
 
       --paper-card: {
         margin-bottom: 8px;
+        width: 100%;
       };
 
       --paper-card-header: {
@@ -53,14 +58,14 @@
           <hr style="color: #062c43; width: 100%; text-align: center;">
 
           <paper-material id="{{section.sectionId}}-copied-content-info" hidden$="{{!hasPreviousContent}}">
-            <p style="margin: 0 0 0 8px;">
-              <strong>Previous Content:</strong> &nbsp; <span>{{withPreviousContent.courseEnrollment.courseId}}</span>
+            <p style="padding: 8px 0 8px 8px;">
               <paper-icon-button
                 icon="icons:backspace"
                 id="removePreviousContentIcon"
                 title="remove previous content"
                 on-tap="onRemovePreviousContent">
               </paper-icon-button>
+              <strong>Previous Content:</strong><br><span>{{withPreviousContent.courseEnrollment.courseId}}</span>
             </p>
           </paper-material>
 

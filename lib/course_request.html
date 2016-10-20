@@ -1,11 +1,19 @@
 <dom-module id="course-request">
   <style>
+    div {
+      padding: 15px;
+    }
+
     :host {
       display: block;
 
       --paper-drawer-panel-drawer-container: {
         background-color: #ddd;
         padding: 15px;
+      };
+
+      --paper-toolbar: {
+        font-weight: bold;
       };
 
       --paper-toolbar-background: #718198;
@@ -15,15 +23,11 @@
       };
 
       --paper-tabs-selection-bar: {
-        background-color: #bbb;
+        background-color: #062c43;
       };
 
       --paper-tabs-selection-bar-color: #062c43;
       --paper-tab-ink: #062c43;
-    }
-
-    div {
-      padding: 15px;
     }
   </style>
 
@@ -36,11 +40,11 @@
 
         <div>
           <paper-tabs selected="{{selected}}">
-            <paper-tab>User Information</paper-tab>
-            <paper-tab>Courses Selection</paper-tab>
+            <paper-tab>User Information (do first)</paper-tab>
+            <paper-tab>Courses Selection (do second)</paper-tab>
           </paper-tabs>
 
-          <iron-pages selected="{{selected}}">
+          <iron-pages selected="{{selected}}" style="border: 1px solid #062c43;">
             <div>
               <learn-authentication-widget></learn-authentication-widget>
             </div>
@@ -59,8 +63,12 @@
         <cross-listing-views-collection></cross-listing-views-collection>
       </paper-header-panel>
 
-      <paper-header-panel drawer>
-        <section-views-collection></section-views-collection>
+      <paper-header-panel drawer style="border: 1px solid black;">
+        <paper-toolbar>
+          <span>Requested Courses</span>
+        </paper-toolbar>
+
+        <section-views-collection class="fullbleed vertical layout"></section-views-collection>
       </paper-header-panel>
     </paper-drawer-panel>
   </template>
