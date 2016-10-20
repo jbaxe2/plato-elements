@@ -7,6 +7,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_signals.dart';
+import 'package:polymer_elements/paper_dialog.dart';
 
 import 'package:polymer_elements/paper_button.dart';
 import 'package:polymer_elements/paper_card.dart';
@@ -16,7 +17,9 @@ import 'enrollment_selector.dart';
 import 'data_models.dart' show BannerSection, CourseEnrollment, PreviousContentMapping;
 
 /// Silence analyzer:
-/// [PaperButton] - [PaperCard] - [IronSignals] - [EnrollmentSelector]
+/// [PaperButton] - [PaperCard] - [IronSignals]
+///
+/// [EnrollmentSelector]
 ///
 /// The [PreviousContentSelector] element class...
 @PolymerRegister('previous-content-selector')
@@ -38,10 +41,7 @@ class PreviousContentSelector extends PolymerElement {
 
   bool _haveEnrollments;
 
-  @Property(notify: true)
-  bool get isVisible => _isVisible;
-
-  bool _isVisible;
+  PaperDialog _previousContentDialog;
 
   /// The [PreviousContentSelector] factory constructor.
   factory PreviousContentSelector() => document.createElement ('previous-content-selector');
@@ -54,7 +54,8 @@ class PreviousContentSelector extends PolymerElement {
   /// The [attached] method...
   void attached() {
     notifyPath ('haveEnrollments', _haveEnrollments = false);
-    notifyPath ('isVisible', _isVisible = false);
+
+    _previousContentDialog = $['previous-content-dialog'] as PaperDialog;
   }
 
   /// The [enrollmentsComplete] method...
@@ -78,7 +79,8 @@ class PreviousContentSelector extends PolymerElement {
         }
       });
 
-      notifyPath ('isVisible', _isVisible = false);
+      _previousContentDialog.close();
+
       notifyPath ('currentSection', null);
     }
   }
@@ -92,7 +94,11 @@ class PreviousContentSelector extends PolymerElement {
 
     if (null != detail['section']) {
       notifyPath ('currentSection', currentSection = (detail['section'] as BannerSection));
-      notifyPath ('isVisible', _isVisible = true);
+
+      _previousContentDialog
+        ..refit()
+        ..center()
+        ..open();
     }
   }
 }
