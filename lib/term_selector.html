@@ -1,19 +1,23 @@
 <dom-module id="term-selector">
   <style>
-    :host {
-      display: block;
-    }
-
     paper-item:hover {
       background-color: #718198;
       font-weight: bold;
+    }
+
+    :host {
+      display: block;
+
+      --paper-input-container-focus-color: {
+        color: #062c43;
+      };
     }
   </style>
 
   <template>
     <terms-collection terms="{{terms}}"></terms-collection>
 
-    <paper-dropdown-menu label="Terms">
+    <paper-dropdown-menu label="Terms" horizontal-align="left">
       <paper-menu id="terms-menu" class="dropdown-content" selected-attribute="value" on-iron-select="onTermSelected">
         <template is="dom-repeat" items="{{terms}}" as="term">
           <paper-item value$="{{term.termId}}">{{term.description}}</paper-item>

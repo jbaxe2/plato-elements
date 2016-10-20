@@ -1,23 +1,23 @@
 <dom-module id="department-selector">
   <style>
-    :host {
-      display: block;
-
-      --paper-dropdown-menu: {
-        color: #062c43;
-      };
-    }
-
     paper-item:hover {
       background-color: #718198;
       font-weight: bold;
+    }
+
+    :host {
+      display: block;
+
+      --paper-input-container-focus-color: {
+        color: #062c43;
+      };
     }
   </style>
 
   <template>
     <departments-collection departments="{{departments}}"></departments-collection>
 
-    <paper-dropdown-menu label="Departments">
+    <paper-dropdown-menu label="Departments" horizontal-align="left">
       <paper-menu id="departments-menu" class="dropdown-content" on-iron-select="onDepartmentSelected">
         <template is="dom-repeat" items="{{departments}}" as="department">
           <paper-item value$="{{department.code}}">

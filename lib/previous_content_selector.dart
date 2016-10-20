@@ -7,17 +7,21 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_signals.dart';
-import 'package:polymer_elements/paper_dialog.dart';
 
 import 'package:polymer_elements/paper_button.dart';
-import 'package:polymer_elements/paper_card.dart';
+import 'package:polymer_elements/paper_dialog.dart';
+import 'package:polymer_elements/paper_material.dart';
+
+import 'package:polymer_elements/neon_animation/animations/fade_in_animation.dart';
+import 'package:polymer_elements/neon_animation/animations/fade_out_animation.dart';
 
 import 'enrollment_selector.dart';
 
 import 'data_models.dart' show BannerSection, CourseEnrollment, PreviousContentMapping;
 
 /// Silence analyzer:
-/// [PaperButton] - [PaperCard] - [IronSignals]
+/// [IronSignals] - [PaperButton] - [PaperMaterial]
+/// [FadeInAnimation] - [FadeOutAnimation]
 ///
 /// [EnrollmentSelector]
 ///

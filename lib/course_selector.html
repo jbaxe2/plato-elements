@@ -1,19 +1,23 @@
 <dom-module id="course-selector">
   <style>
-    :host {
-      display: block;
-    }
-
     paper-item:hover {
       background-color: #718198;
       font-weight: bold;
+    }
+
+    :host {
+      display: block;
+
+      --paper-input-container-focus-color: {
+        color: #062c43;
+      };
     }
   </style>
 
   <template>
     <courses-collection courses="{{courses}}"></courses-collection>
 
-    <paper-dropdown-menu label="Courses">
+    <paper-dropdown-menu label="Courses" horizontal-align="left">
       <paper-menu id="courses-menu" class="dropdown-content" selected-attribute="value" on-iron-select="onCourseSelected">
         <template is="dom-repeat" items="{{courses}}" as="course">
           <paper-item value$="{{course.courseId}}">{{course.courseTitle}}</paper-item>
