@@ -32,6 +32,8 @@
   </style>
 
   <template>
+    <iron-signals on-iron-signal-user-retrieved-complete="onUserRetrievedComplete"></iron-signals>
+
     <paper-drawer-panel right-drawer drawer-width="448px">
       <paper-header-panel main>
         <paper-toolbar>
@@ -56,6 +58,12 @@
               <sections-selector></sections-selector><br>
             </div>
           </iron-pages>
+
+          <paper-toast
+            id="navigation-toast"
+            duration="5000"
+            text="Please click on the 'Courses Selection' tab to continue.">
+          </paper-toast>
         </div>
 
         <previous-content-selector></previous-content-selector>

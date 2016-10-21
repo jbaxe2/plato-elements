@@ -12,6 +12,7 @@ import 'package:polymer_elements/paper_drawer_panel.dart';
 import 'package:polymer_elements/paper_header_panel.dart';
 import 'package:polymer_elements/paper_tabs.dart';
 import 'package:polymer_elements/paper_tab.dart';
+import 'package:polymer_elements/paper_toast.dart';
 import 'package:polymer_elements/paper_toolbar.dart';
 
 import 'cross_listing_views_collection.dart';
@@ -22,7 +23,7 @@ import 'section_views_collection.dart';
 /// Silence analyzer:
 /// [IronPages]
 ///
-/// [PaperDrawerPanel] - [PaperHeaderPanel] - [PaperToolbar]
+/// [PaperDrawerPanel] - [PaperHeaderPanel] - [PaperToolbar] - [PaperToast]
 /// [PaperTabs] - [PaperTab]
 ///
 /// [CrossListingViewsCollection] - [LearnAuthenticationWidget]
@@ -34,6 +35,8 @@ class CourseRequest extends PolymerElement {
   @Property(notify: true)
   int selected;
 
+  PaperToast _navToast;
+
   /// The [CourseRequest] factory constructor...
   factory CourseRequest() => document.createElement ('course-request');
 
@@ -43,5 +46,13 @@ class CourseRequest extends PolymerElement {
   /// The [attached] method...
   void attached() {
     notifyPath ('selected', selected = 0);
+
+    _navToast = $['navigation-toast'] as PaperToast;
+  }
+
+  /// The [onUserRetrievedComplete] method...
+  @Listen('iron-signal-user-retrieved-complete')
+  void onUserRetrievedComplete (CustomEvent event, details) {
+    _navToast.open();
   }
 }
