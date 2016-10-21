@@ -1,9 +1,68 @@
 <dom-module id="cross-listing-views-collection">
   <style>
+    h2 {
+      background-color: #718198;
+      border: 1px solid #062c43;
+      padding: 15px;
+      font-weight: bold;
+    }
+
+    #noCrossListingDiv {
+      border: 1px dashed #062c43;
+    }
+
+    #addNewClSetIcon {
+      float: right;
+    }
+
     :host {
       display: block;
+
+      --paper-icon-button: {
+        transition: all 0.4s;
+        -webkit-transition: all 0.4s;
+      };
+
+      --paper-icon-button-hover: {
+        background-color: #ddd;
+        color: #718198;
+      };
+
+      --paper-material: {
+        margin: 8px 8px 8px 8px;
+        padding: 8px;
+      };
     }
   </style>
 
-  <template></template>
+  <template>
+    <iron-signals on-iron-signal-show-cross-listing-selection="onShowCrossListingSelector"></iron-signals>
+
+    <paper-dialog
+        id="cross-listing-dialog"
+        with-backdrop
+        entry-animation="fade-in-animation"
+        exit-animation="fade-out-animation">
+      <paper-material>
+        <h2>Select a cross-listing set for {{currentSection.sectionId}}</h2>
+
+        <paper-icon-button icon="icons:add-box" id="addNewClSetIcon" title="add a new cross-listing set" on-tap="addNewClSet"></paper-icon-button>
+
+        <p id="noCrossListingDiv" hidden$="{{!haveCrossListings}}">
+          Click the '+' icon button on the top right to add a new cross-listing set.
+        </p>
+
+        <template is="dom-repeat" items="{{crossListings}}" as="crossListing">
+          <cross-listing-view cross-listing="{{crossListing}}"></cross-listing-view>
+        </template>
+      </paper-material>
+
+      <div class="button-holder">
+        <paper-button raised id="crossListingSelectedButton" on-tap="onCrossListingSelected">
+          Confirm the cross-listing choices
+        </paper-button>
+        <paper-button raised dialog-dismiss>Cancel</paper-button>
+      </div>
+    </paper-dialog>
+  </template>
 </dom-module>

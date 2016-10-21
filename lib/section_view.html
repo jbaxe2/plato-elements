@@ -58,13 +58,13 @@
           <hr style="color: #062c43; width: 100%; text-align: center;">
 
           <paper-material id="{{section.sectionId}}-copied-content-info" hidden$="{{!hasPreviousContent}}">
+            <paper-icon-button
+              icon="icons:backspace"
+              id="removePreviousContentIcon"
+              title="remove previous content"
+              on-tap="onRemovePreviousContent">
+            </paper-icon-button>
             <p style="padding: 8px 0 8px 8px;">
-              <paper-icon-button
-                icon="icons:backspace"
-                id="removePreviousContentIcon"
-                title="remove previous content"
-                on-tap="onRemovePreviousContent">
-              </paper-icon-button>
               <strong>Previous Content:</strong><br><span>{{withPreviousContent.courseEnrollment.courseId}}</span>
             </p>
           </paper-material>

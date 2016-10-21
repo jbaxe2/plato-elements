@@ -73,8 +73,9 @@ class SectionView extends PolymerElement {
   @Listen('tap')
   void onAddToClSet (CustomEvent event, details) {
     if ('addToClSetIcon' == (Polymer.dom (event)).localTarget.id) {
-      window.console.debug (section);
-      window.console.debug ('add to cl set for ${section.sectionId}');
+      this.fire ('iron-signal', detail: {
+        'name': 'show-cross-listing-selector', 'data': {'sectionView': this}
+      });
     }
   }
 
