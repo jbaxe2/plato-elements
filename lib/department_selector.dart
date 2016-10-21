@@ -48,7 +48,9 @@ class DepartmentSelector extends PolymerElement {
     var deptCode = null;
 
     departments.forEach ((BannerDepartment dept) {
-      if (0 == dept.description.trim().compareTo (selectedDept.text.trim())) {
+      var deptDesc = '[${dept.code}] ${dept.description}'.trim();
+
+      if (0 == deptDesc.compareTo (selectedDept.text.trim())) {
         deptCode = dept.code;
       }
     });

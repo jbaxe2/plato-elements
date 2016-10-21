@@ -17,6 +17,9 @@ class CrossListingView extends PolymerElement {
   @Property(notify: true)
   CrossListing crossListing;
 
+  @Property(notify: true)
+  int clSetNumber;
+
   /// The [CrossListingView] factory constructor.
   factory CrossListingView() => document.createElement ('cross-listing-view');
 

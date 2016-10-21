@@ -39,6 +39,18 @@ class LearnAuthenticationView extends PolymerElement {
     _learnAuthenticator = $['learnAuthenticator'] as LearnAuthenticator;
   }
 
+  @Listen('keydown')
+  void authLearnByEnter (KeyboardEvent event, details) {
+    try {
+      if ((13 == event.keyCode) && !(username.isEmpty || password.isEmpty)) {
+        _requestAuth();
+      }
+    } catch (_) {
+      window.console.debug (_);
+      window.console.debug (_.toString());
+    }
+  }
+
   /// The [authenticateLearn] method...
   @Listen('tap')
   void authenticateLearn (CustomEvent event, details) {
@@ -47,10 +59,15 @@ class LearnAuthenticationView extends PolymerElement {
     }
 
     if ((Polymer.dom (event)).rootTarget is PaperButton) {
-      _learnAuthenticator
-        ..username = username
-        ..password = password
-        ..performAuthRequest();
+      _requestAuth();
     }
+  }
+
+  /// The [_requestAuth] method...
+  void _requestAuth() {
+    _learnAuthenticator
+      ..username = username
+      ..password = password
+      ..performAuthRequest();
   }
 }

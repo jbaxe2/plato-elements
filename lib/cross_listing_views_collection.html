@@ -1,5 +1,12 @@
 <dom-module id="cross-listing-views-collection">
   <style>
+    p {
+      display: inline;
+      margin: 8px;
+      border: 1px dashed #718198;
+      padding: 8px;
+    }
+
     h2 {
       background-color: #718198;
       border: 1px solid #062c43;
@@ -7,9 +14,9 @@
       font-weight: bold;
     }
 
-    #noCrossListingHelpText {
+    #crossListings {
       margin-bottom: 8px;
-      border: 1px dashed #062c43;
+      border: 1px solid #062c43;
       padding: 8px;
     }
 
@@ -21,6 +28,11 @@
     :host {
       display: block;
 
+      --paper-material: {
+        margin: 8px;
+        padding: 8px;
+      };
+
       --paper-icon-button: {
         transition: all 0.4s;
         -webkit-transition: all 0.4s;
@@ -31,10 +43,11 @@
         color: #718198;
       };
 
-      --paper-material: {
+      --paper-button: {
+        background-color: #ddd;
         margin: 8px;
-        padding: 8px;
-      };
+        border-color: #062c43;
+      }
     }
   </style>
 
@@ -51,13 +64,13 @@
 
         <paper-icon-button icon="icons:add-box" id="addNewClSetIcon" title="add a new cross-listing set" on-tap="addNewClSet"></paper-icon-button>
 
-        <div id="noCrossListingHelpText" hidden$="{{haveCrossListings}}">
-          <p style="margin: 8px;">Click the '+' icon button to the right to add a new cross-listing set.</p>
-        </div>
+        <div id="crossListings">
+          <p>Click the '+' icon button to the right to add a new cross-listing set.</p><br>
 
-        <template is="dom-repeat" items="{{crossListings}}" as="crossListing">
-          <cross-listing-view cross-listing="{{crossListing}}"></cross-listing-view>
-        </template>
+          <template is="dom-repeat" items="{{crossListings}}" as="crossListing">
+            <cross-listing-view cross-listing="{{crossListing}}" cl-set-number="{{clSetNumber}}"></cross-listing-view>
+          </template>
+        </div>
       </paper-material>
 
       <div class="button-holder">
