@@ -8,6 +8,9 @@ import 'package:polymer/polymer.dart';
 
 import 'data_models.dart' show BannerSection, CrossListing;
 
+/// Silence analyzer:
+/// [BannerSection]
+///
 /// The [CrossListingView] class...
 @PolymerRegister('cross-listing-view')
 class CrossListingView extends PolymerElement {
@@ -22,6 +25,8 @@ class CrossListingView extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    crossListing = new CrossListing();
+    if (null == crossListing) {
+      crossListing = new CrossListing();
+    }
   }
 }

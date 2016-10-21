@@ -7,12 +7,15 @@
       font-weight: bold;
     }
 
-    #noCrossListingDiv {
+    #noCrossListingHelpText {
+      margin-bottom: 8px;
       border: 1px dashed #062c43;
+      padding: 8px;
     }
 
     #addNewClSetIcon {
       float: right;
+      margin: 1px;
     }
 
     :host {
@@ -29,14 +32,14 @@
       };
 
       --paper-material: {
-        margin: 8px 8px 8px 8px;
+        margin: 8px;
         padding: 8px;
       };
     }
   </style>
 
   <template>
-    <iron-signals on-iron-signal-show-cross-listing-selection="onShowCrossListingSelector"></iron-signals>
+    <iron-signals on-iron-signal-show-cross-listing-selector="onShowCrossListingSelector"></iron-signals>
 
     <paper-dialog
         id="cross-listing-dialog"
@@ -44,13 +47,13 @@
         entry-animation="fade-in-animation"
         exit-animation="fade-out-animation">
       <paper-material>
-        <h2>Select a cross-listing set for {{currentSection.sectionId}}</h2>
+        <h2>Cross-list {{currentSection.sectionId}} with other requested sections...</h2>
 
         <paper-icon-button icon="icons:add-box" id="addNewClSetIcon" title="add a new cross-listing set" on-tap="addNewClSet"></paper-icon-button>
 
-        <p id="noCrossListingDiv" hidden$="{{!haveCrossListings}}">
-          Click the '+' icon button on the top right to add a new cross-listing set.
-        </p>
+        <div id="noCrossListingHelpText" hidden$="{{haveCrossListings}}">
+          <p style="margin: 8px;">Click the '+' icon button to the right to add a new cross-listing set.</p>
+        </div>
 
         <template is="dom-repeat" items="{{crossListings}}" as="crossListing">
           <cross-listing-view cross-listing="{{crossListing}}"></cross-listing-view>

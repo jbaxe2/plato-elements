@@ -8,6 +8,7 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_icons.dart';
 import 'package:polymer_elements/paper_icon_button.dart';
+import 'package:polymer_elements/paper_dialog.dart';
 
 import 'data_models.dart' show BannerSection, CrossListing;
 
@@ -37,6 +38,8 @@ class CrossListingViewsCollection extends PolymerElement {
 
   BannerSection _currentSection;
 
+  PaperDialog _clDialog;
+
   /// The [CrossListingViewsCollection] factory constructor...
   factory CrossListingViewsCollection() => document.createElement ('cross-listing-views-collection');
 
@@ -45,7 +48,11 @@ class CrossListingViewsCollection extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
+    crossListings = new List<CrossListing>();
+
     notifyPath ('haveCrossListings', _haveCrossListings = false);
+
+    _clDialog = $['cross-listing-dialog'] as PaperDialog;
   }
 
   /// The [onShowCrossListingSelector] method...
@@ -57,6 +64,11 @@ class CrossListingViewsCollection extends PolymerElement {
       );
 
       notifyPath ('currentSection', _currentSection = _currentSectionView.section);
+
+      _clDialog
+        ..refit()
+        ..center()
+        ..open();
     }
   }
 
@@ -70,6 +82,17 @@ class CrossListingViewsCollection extends PolymerElement {
         return;
       }
 
+      notifyPath ('crossListings', crossListings.add (new CrossListing()));
+      notifyPath ('haveCrossListings', _haveCrossListings = true);
+
+      window.console.debug (crossListings);
+    }
+  }
+
+  /// The [onCrossListingSelected] method...
+  @Listen('tap')
+  void onCrossListingSelected (CustomEvent event, details) {
+    if ('crossListingSelectedButton' == (Polymer.dom (event)).localTarget.id) {
       ;
     }
   }

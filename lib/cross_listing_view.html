@@ -6,6 +6,17 @@
   </style>
 
   <template>
-    <paper-material></paper-material>
+    <paper-material>
+      <h4>Cross-listing Set #{{clSetNumber}}</h4>
+      <div>
+        <p>Courses contained within this cross-listing set:</p>
+
+        <ul>
+          <template is="dom-repeat" items="{{crossListing.sections}}" as="section">
+            <li>{{section.courseTitle}} [{{section.sectionId}}]</li>
+          </template>
+        </ul>
+      </div>
+    </paper-material>
   </template>
 </dom-module>
