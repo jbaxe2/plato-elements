@@ -12,21 +12,17 @@ import 'package:polymer_elements/paper_dialog.dart';
 
 import 'data_models.dart' show BannerSection, CrossListing;
 
+import 'cross_listing_view.dart';
 import 'section_view.dart';
 
 /// Silence analyzer:
-/// [PaperIconButton]
+/// [PaperIconButton] - [CrossListingView]
 ///
 /// The [CrossListingViewsCollection] class...
 @PolymerRegister('cross-listing-views-collection')
 class CrossListingViewsCollection extends PolymerElement {
   @Property(notify: true)
   List<CrossListing> crossListings;
-
-  @Property(notify: true)
-  bool get haveCrossListings => _haveCrossListings;
-
-  bool _haveCrossListings;
 
   @Property(notify: true)
   SectionView get currentSectionView => _currentSectionView;
@@ -49,8 +45,6 @@ class CrossListingViewsCollection extends PolymerElement {
   /// The [attached] method...
   void attached() {
     crossListings = new List<CrossListing>();
-
-    notifyPath ('haveCrossListings', _haveCrossListings = false);
 
     _clDialog = $['cross-listing-dialog'] as PaperDialog;
   }
@@ -82,10 +76,9 @@ class CrossListingViewsCollection extends PolymerElement {
         return;
       }
 
-      notifyPath ('crossListings', crossListings.add (new CrossListing()));
-      notifyPath ('haveCrossListings', _haveCrossListings = true);
+      crossListings.add (new CrossListing());
 
-      window.console.debug (crossListings);
+      notifyPath ('crossListings', crossListings);
     }
   }
 
@@ -93,7 +86,7 @@ class CrossListingViewsCollection extends PolymerElement {
   @Listen('tap')
   void onCrossListingSelected (CustomEvent event, details) {
     if ('crossListingSelectedButton' == (Polymer.dom (event)).localTarget.id) {
-      ;
+      this.fire ('cross-listing-selected', detail: {'section': currentSection});
     }
   }
 }

@@ -1,5 +1,20 @@
 <dom-module id="cross-listing-view">
   <style>
+    p, span {
+      margin: 8px;
+    }
+
+    h4 {
+      display: block;
+      background-color: #718198;
+      margin: 4px;
+      padding: 15px;
+    }
+
+    paper-material {
+      margin-top: 15px;
+    }
+
     :host {
       display: block;
     }
@@ -11,11 +26,17 @@
       <div>
         <p>Courses contained within this cross-listing set:</p>
 
-        <ul>
-          <template is="dom-repeat" items="{{crossListing.sections}}" as="section">
-            <li>{{section.courseTitle}} [{{section.sectionId}}]</li>
-          </template>
-        </ul>
+        <template is="dom-if" if="{{!haveSections}}">
+          <span>No courses have been added to this cross-listing set.</span>
+        </template>
+
+        <template is="dom-if" if="{{haveSections}}">
+          <ul>
+            <template is="dom-repeat" items="{{crossListing.sections}}" as="section">
+              <li>[{{section.sectionId}}] {{section.courseTitle}}</li>
+            </template>
+          </ul>
+        </template>
       </div>
     </paper-material>
   </template>

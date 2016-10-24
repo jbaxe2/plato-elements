@@ -62,6 +62,30 @@ class BannerSection extends JsProxy {
     this.sectionId, this.crn, this.courseTitle, this.faculty,
     this.time, this.place, this.termId
   );
+
+  /// The [isDay] method...
+  bool isDay() {
+    String digitStr = sectionId.substring (
+      (sectionId.length - 3), (sectionId.length - 2)
+    );
+
+    // Dual enrollment, and DGCE sections for Day division cross-registration.
+    if (('R' == digitStr) || ('E' == digitStr)) {
+      return false;
+    }
+
+    // Day division honors courses, and whatever a 'P' section refers to.
+    if (('H' == digitStr) || ('P' == digitStr)) {
+      return true;
+    }
+
+    try {
+      return (5 == int.parse (digitStr)) ? false : true;
+    } catch (e) {}
+
+    // If it is indeterminable that the course is Day, default to false.
+    return false;
+  }
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -142,9 +166,23 @@ class CrossListing extends JsProxy {
   }
 
   @reflectable
+  bool isCrossListableWith (BannerSection section) {
+    if (sections.isEmpty) {
+      return true;
+    }
+
+    if ((sections.first.isDay() && section.isDay()) ||
+        !(sections.first.isDay() || section.isDay())) {
+      return true;
+    }
+
+    return false;
+  }
+
+  @reflectable
   /// The [addSection] method...
   void addSection (BannerSection section) {
-    if (!sections.contains (section)) {
+    if (!sections.contains (section) && isCrossListableWith (section)) {
       sections.add (section);
     }
   }
