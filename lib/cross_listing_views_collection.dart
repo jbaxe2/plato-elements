@@ -53,11 +53,15 @@ class CrossListingViewsCollection extends PolymerElement {
   @Listen('iron-signal-show-cross-listing-selector')
   void onShowCrossListingSelector (CustomEvent event, details) {
     if (null != details['sectionView']) {
-      notifyPath (
-        'currentSectionView', _currentSectionView = details['sectionView'] as SectionView
-      );
+      _currentSectionView = details['sectionView'] as SectionView;
+      _currentSection = _currentSectionView.section;
 
-      notifyPath ('currentSection', _currentSection = _currentSectionView.section);
+      notifyPath ('currentSectionView', _currentSectionView);
+      notifyPath ('currentSection', _currentSection);
+
+      if (!crossListings.isEmpty) {
+        notifyPath ('crossListings', crossListings);
+      }
 
       _clDialog
         ..refit()
@@ -89,8 +93,6 @@ class CrossListingViewsCollection extends PolymerElement {
   /// The [onRemoveCrossListingSet] method...
   @Listen('remove-cross-listing-set')
   void onRemoveCrossListingSet (CustomEvent event, details) {
-    window.console.debug (details);
-
     if (null != details['crossListing']) {
       try {
         crossListings.remove (details['crossListing'] as CrossListing);

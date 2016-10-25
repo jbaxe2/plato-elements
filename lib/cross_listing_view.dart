@@ -75,23 +75,34 @@ class CrossListingView extends PolymerElement {
   @Listen('tap')
   void onRemoveSectionFromCl (CustomEvent event, details) {
     if ('removeSectionFromClIcon' == (Polymer.dom (event)).localTarget.id) {
-      if (crossListing.sections.contains (currentSection)) {
-        crossListing.removeSection (currentSection);
-
-        notifyPath ('crossListing', crossListing);
-        notifyPath ('clHasSection', _clHasSection = false);
-
-        if (crossListing.sections.isEmpty) {
-          notifyPath ('haveSections', haveSections = false);
-        }
-      }
+      _removeSectionFromCl();
     }
   }
 
+  /// The [onRemoveCrossListingSet] method...
   @Listen('tap')
   void onRemoveCrossListingSet (CustomEvent event, details) {
     if ('removeClSetIcon' == (Polymer.dom (event)).localTarget.id) {
+      _removeSectionFromCl();
+      crossListing.sections.clear();
+
+      notifyPath ('crossListing', crossListing);
+
       this.fire ('remove-cross-listing-set', detail: {'crossListing': crossListing});
+    }
+  }
+
+  /// The [_removeSectionFromCl] method...
+  void _removeSectionFromCl() {
+    if (crossListing.sections.contains (currentSection)) {
+      crossListing.removeSection (currentSection);
+
+      notifyPath ('crossListing', crossListing);
+      notifyPath ('clHasSection', _clHasSection = false);
+
+      if (crossListing.sections.isEmpty) {
+        notifyPath ('haveSections', haveSections = false);
+      }
     }
   }
 }

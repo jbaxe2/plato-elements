@@ -72,6 +72,8 @@ class PreviousContentSelector extends PolymerElement {
   void onEnrollmentSelected (CustomEvent event, detail) {
     if (('enrollmentSelectedButton' == (Polymer.dom (event)).rootTarget.id) &&
         (null != selectedEnrollment)) {
+      _previousContentDialog.close();
+
       this.fire ('iron-signal', detail: {
         'name': 'previous-content-specified',
         'data': {
@@ -83,9 +85,7 @@ class PreviousContentSelector extends PolymerElement {
         }
       });
 
-      _previousContentDialog.close();
-
-      notifyPath ('currentSection', null);
+      notifyPath ('currentSection', currentSection = null);
     }
   }
 
