@@ -95,10 +95,16 @@ class CrossListingViewsCollection extends PolymerElement {
   void onRemoveCrossListingSet (CustomEvent event, details) {
     if (null != details['crossListing']) {
       try {
-        crossListings.remove (details['crossListing'] as CrossListing);
+        async (() {
+          removeItem ('crossListings', details['crossListing'] as CrossListing);
+
+          notifyPath ('crossListings', crossListings);
+        });
+
+        //crossListings.remove (details['crossListing'] as CrossListing);
       } catch (_) {}
 
-      notifyPath ('crossListings', crossListings);
+      //notifyPath ('crossListings', crossListings);
 
       _clDialog
         ..refit()
