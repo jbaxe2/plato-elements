@@ -8,6 +8,7 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_icons.dart';
 import 'package:polymer_elements/iron_signals.dart';
+import 'package:polymer_elements/av_icons.dart';
 import 'package:polymer_elements/hardware_icons.dart';
 import 'package:polymer_elements/paper_card.dart';
 import 'package:polymer_elements/paper_icon_button.dart';

@@ -79,14 +79,36 @@ class CrossListingViewsCollection extends PolymerElement {
       crossListings.add (new CrossListing());
 
       notifyPath ('crossListings', crossListings);
+
+      _clDialog
+        ..refit()
+        ..center();
     }
   }
 
-  /// The [onCrossListingSelected] method...
+  /// The [onRemoveCrossListingSet] method...
+  @Listen('remove-cross-listing-set')
+  void onRemoveCrossListingSet (CustomEvent event, details) {
+    window.console.debug (details);
+
+    if (null != details['crossListing']) {
+      try {
+        crossListings.remove (details['crossListing'] as CrossListing);
+      } catch (_) {}
+
+      notifyPath ('crossListings', crossListings);
+
+      _clDialog
+        ..refit()
+        ..center();
+    }
+  }
+
+  /// The [onCrossListingConfirmed] method...
   @Listen('tap')
-  void onCrossListingSelected (CustomEvent event, details) {
-    if ('crossListingSelectedButton' == (Polymer.dom (event)).localTarget.id) {
-      this.fire ('cross-listing-selected', detail: {'section': currentSection});
+  void onCrossListingConfirmed (CustomEvent event, details) {
+    if ('crossListingConfirmedButton' == (Polymer.dom (event)).localTarget.id) {
+      this.fire ('cross-listing-confirmed', detail: {'section': currentSection});
     }
   }
 }

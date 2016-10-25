@@ -68,14 +68,14 @@
           <p>Click the '+' icon button to the right to add a new cross-listing set.</p><br>
 
           <template is="dom-repeat" items="{{crossListings}}" as="crossListing">
-            <cross-listing-view cross-listing="{{crossListing}}" cl-set-number="{{index}}"></cross-listing-view>
+            <cross-listing-view cross-listing="{{crossListing}}" cl-set-number="{{index}}" current-section="{{currentSection}}"></cross-listing-view>
           </template>
         </div>
       </paper-material>
 
       <div class="button-holder">
-        <paper-button raised id="crossListingSelectedButton" on-tap="onCrossListingSelected">
-          Confirm the cross-listing choices
+        <paper-button raised id="crossListingConfirmedButton" on-tap="onCrossListingConfirmed">
+          Confirm cross-listing for {{currentSection.sectionId}}
         </paper-button>
         <paper-button raised dialog-dismiss>Cancel</paper-button>
       </div>

@@ -1,31 +1,53 @@
 <dom-module id="cross-listing-view">
   <style>
-    p, span {
-      margin: 8px;
+    p, span, ul {
+      margin: 0;
+      padding: 0;
     }
 
-    h4 {
-      display: block;
-      background-color: #718198;
-      margin: 4px;
-      padding: 15px;
-    }
-
-    paper-material {
-      margin-top: 15px;
+    li {
+      margin: 4px 8px 4px 23px;
     }
 
     :host {
       display: block;
+
+      --paper-card: {
+        margin: 15px 0 8px 0;
+        width: 100%;
+      };
+
+      --paper-card-header: {
+        background-color: #718198;
+        border: 1px solid #062c43;
+        padding: 0;
+        font-weight: bold;
+      };
+
+      --paper-card-content: {
+        padding: 8px;
+      };
+
+      --paper-card-actions: {
+        background-color: #bbb;
+        text-align: right;
+      };
+
+      --paper-icon-button: {
+        transition: all 0.4s;
+        -webkit-transition: all 0.4s;
+      };
+
+      --paper-icon-button-hover: {
+        background-color: #ddd;
+        color: #718198;
+      };
     }
   </style>
 
   <template>
-    <paper-material>
-      <h4>Cross-listing Set #{{clSetNumber}}</h4>
-      <div>
-        <p>Courses contained within this cross-listing set:</p>
-
+    <paper-card heading="Courses contained in cross-listing set #{{clSetNumDisplay}}">
+      <div class="card-content">
         <template is="dom-if" if="{{!haveSections}}">
           <span>No courses have been added to this cross-listing set.</span>
         </template>
@@ -38,6 +60,31 @@
           </ul>
         </template>
       </div>
-    </paper-material>
+
+      <div class="card-actions">
+        <paper-icon-button
+          icon="av:playlist-add"
+          id="addSectionToClIcon"
+          title="add {{currentSection.sectionId}} to cross-listing set #{{clSetNumDisplay}}"
+          on-tap="onAddSectionToCl"
+          hidden$="{{clHasSection}}">
+        </paper-icon-button>
+
+        <paper-icon-button
+          icon="icons:remove-circle-outline"
+          id="removeSectionFromClIcon"
+          title="remove {{currentSection.sectionId}} from cross-listing set #{{clSetNumDisplay}}"
+          on-tap="onRemoveSectionFromCl"
+          hidden$="{{!clHasSection}}">
+        </paper-icon-button>
+
+        <paper-icon-button
+          icon="icons:highlight-off"
+          id="removeClSetIcon"
+          title="remove cross-listing set"
+          on-tap="onRemoveCrossListingSet">
+        </paper-icon-button>
+      </div>
+    </paper-card>
   </template>
 </dom-module>
