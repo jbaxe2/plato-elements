@@ -77,10 +77,13 @@ class CrossListingViewsCollection extends PolymerElement {
       if (crossListings.any (
         (CrossListing crossListing) => (crossListing.sections.isEmpty) ? true : false
       )) {
+        window.console.debug (crossListings);
         return;
       }
 
-      crossListings.add (new CrossListing());
+      async (() {
+        add ('crossListings', new CrossListing());
+      });
 
       notifyPath ('crossListings', crossListings);
 
@@ -94,17 +97,12 @@ class CrossListingViewsCollection extends PolymerElement {
   @Listen('remove-cross-listing-set')
   void onRemoveCrossListingSet (CustomEvent event, details) {
     if (null != details['crossListing']) {
-      try {
-        async (() {
-          removeItem ('crossListings', details['crossListing'] as CrossListing);
+      var crossListing = details['crossListing'] as CrossListing;
 
-          notifyPath ('crossListings', crossListings);
-        });
+      removeItem ('crossListings', crossListing);
+      crossListings.remove (crossListing);
 
-        //crossListings.remove (details['crossListing'] as CrossListing);
-      } catch (_) {}
-
-      //notifyPath ('crossListings', crossListings);
+      notifyPath ('crossListings', crossListings);
 
       _clDialog
         ..refit()

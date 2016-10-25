@@ -57,11 +57,20 @@ class BannerSection extends JsProxy {
   @reflectable
   String termId;
 
+  @reflectable
+  bool hasCrossListing;
+
+  @reflectable
+  bool hasPreviousContent;
+
   /// The [BannerSection] method...
   BannerSection (
     this.sectionId, this.crn, this.courseTitle, this.faculty,
     this.time, this.place, this.termId
-  );
+  ) {
+    hasCrossListing = false;
+    hasPreviousContent = false;
+  }
 
   /// The [isDay] method...
   bool isDay() {
@@ -160,9 +169,13 @@ class CrossListing extends JsProxy {
   @reflectable
   List<BannerSection> sections;
 
+  @reflectable
+  bool isValid;
+
   /// The [CrossListing] constructor...
   CrossListing() {
     sections = new List<BannerSection>();
+    isValid = false;
   }
 
   @reflectable
@@ -184,6 +197,10 @@ class CrossListing extends JsProxy {
   void addSection (BannerSection section) {
     if (!sections.contains (section) && isCrossListableWith (section)) {
       sections.add (section);
+
+      if (1 < sections.length) {
+        isValid = true;
+      }
     }
   }
 
@@ -192,6 +209,10 @@ class CrossListing extends JsProxy {
   void removeSection (BannerSection section) {
     if (sections.contains (section)) {
       sections.remove (section);
+
+      if (2 > sections.length) {
+        isValid = false;
+      }
     }
   }
 }
