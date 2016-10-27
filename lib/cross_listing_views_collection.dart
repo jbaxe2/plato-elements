@@ -59,20 +59,15 @@ class CrossListingViewsCollection extends PolymerElement {
       notifyPath ('currentSectionView', _currentSectionView);
       notifyPath ('currentSection', _currentSection);
 
-      if (!crossListings.isEmpty) {
-        notifyPath ('crossListings', crossListings);
-      }
-
       var clViewsList = this.querySelectorAll ('cross-listing-view');
 
       clViewsList.forEach (
         (Element viewElement) => (viewElement as CrossListingView).updateView()
       );
 
-      _clDialog
-        ..refit()
-        ..center()
-        ..open();
+      _updateView();
+
+      _clDialog.open();
     }
   }
 
@@ -90,11 +85,7 @@ class CrossListingViewsCollection extends PolymerElement {
         add ('crossListings', new CrossListing());
       });
 
-      notifyPath ('crossListings', crossListings);
-
-      _clDialog
-        ..refit()
-        ..center();
+      _updateView();
     }
   }
 
@@ -107,11 +98,35 @@ class CrossListingViewsCollection extends PolymerElement {
       removeItem ('crossListings', crossListing);
       crossListings.remove (crossListing);
 
-      notifyPath ('crossListings', crossListings);
-
-      _clDialog
-        ..refit()
-        ..center();
+      _removalCleanup (crossListing);
     }
+  }
+
+  /// The [onRemovedSectionFromCl] method...
+  @Listen('removed-section-from-cl')
+  void onRemovedSectionFromCl (CustomEvent event, details) {
+    if (null != details['crossListing']) {
+      _removalCleanup (details['crossListing'] as CrossListing);
+    };
+  }
+
+  /// The [removalCleanup] method...
+  void _removalCleanup (CrossListing crossListing) {
+    if (1 < crossListings.length) {
+      removeWhere ('crossListings',
+        (CrossListing aCrossListing) => (1 > aCrossListing.sections.length) ? true : false
+      );
+    }
+
+    _updateView();
+  }
+
+  /// The [_updateView] method...
+  void _updateView() {
+    notifyPath ('crossListings', crossListings);
+
+    _clDialog
+      ..refit()
+      ..center();
   }
 }

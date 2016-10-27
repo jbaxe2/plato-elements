@@ -147,6 +147,8 @@ class CrossListingView extends PolymerElement {
     if (theSection == currentSection) {
       notifyPath ('clHasSection', _clHasSection = false);
     }
+
+    this.fire ('removed-section-from-cl', detail: {'crossListing': crossListing});
   }
 
   /// The [updateView] method...
