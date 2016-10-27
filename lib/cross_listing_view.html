@@ -58,8 +58,8 @@
               <li>[{{section.sectionId}}] {{section.courseTitle}}</li>
             </template>
 
-            <template is="dom-if" if="{{crossListing.isValid}}">
-              <li><strong style="color: red;">Please add one or more sections to the set.</strong></li>
+            <template is="dom-if" if="{{!crossListing.isValid}}">
+              <li><strong style="color: #a44;">Please add one or more other sections to the set.</strong></li>
             </template>
           </ul>
         </template>

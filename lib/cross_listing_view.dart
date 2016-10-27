@@ -19,6 +19,7 @@ import 'data_models.dart' show BannerSection, CrossListing;
 /// The [CrossListingView] class...
 @PolymerRegister('cross-listing-view')
 class CrossListingView extends PolymerElement {
+  /// The cross-listing serving as the main model for this element.
   @Property(notify: true)
   CrossListing crossListing;
 
@@ -28,12 +29,15 @@ class CrossListingView extends PolymerElement {
   @Property(computed: 'displayClSetNum(clSetNumber)')
   int clSetNumDisplay;
 
+  /// True if the cross-listing contains one or more sections.
   @Property(notify: true)
   bool haveSections;
 
+  /// The current section for which interactions with the cross-listing shall be used.
   @Property(notify: true)
   BannerSection currentSection;
 
+  /// True if the cross-listing contains the current section.
   @Property(notify: true)
   bool get clHasSection => _clHasSection;
 
@@ -48,7 +52,10 @@ class CrossListingView extends PolymerElement {
   /// The [attached] method...
   void attached() {
     notifyPath ('haveSections', haveSections = false);
-    notifyPath ('clHasSection', _clHasSection = false);
+
+    notifyPath (
+      'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)
+    );
 
     if (null == crossListing) {
       crossListing = new CrossListing();
@@ -71,6 +78,7 @@ class CrossListingView extends PolymerElement {
       notifyPath ('crossListing', crossListing);
       notifyPath ('haveSections', haveSections = true);
       notifyPath ('clHasSection', _clHasSection = true);
+      notifyPath ('currentSection', currentSection);
     }
   }
 
@@ -90,6 +98,7 @@ class CrossListingView extends PolymerElement {
       crossListing.sections.clear();
 
       notifyPath ('crossListing', crossListing);
+      notifyPath ('currentSection', currentSection);
 
       this.fire ('remove-cross-listing-set', detail: {'crossListing': crossListing});
     }
@@ -104,6 +113,7 @@ class CrossListingView extends PolymerElement {
 
       notifyPath ('crossListing', crossListing);
       notifyPath ('clHasSection', _clHasSection = false);
+      notifyPath ('currentSection', currentSection);
 
       if (crossListing.sections.isEmpty) {
         notifyPath ('haveSections', haveSections = false);

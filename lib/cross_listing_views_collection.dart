@@ -77,7 +77,6 @@ class CrossListingViewsCollection extends PolymerElement {
       if (crossListings.any (
         (CrossListing crossListing) => (crossListing.sections.isEmpty) ? true : false
       )) {
-        window.console.debug (crossListings);
         return;
       }
 
@@ -110,11 +109,17 @@ class CrossListingViewsCollection extends PolymerElement {
     }
   }
 
-  /// The [onCrossListingConfirmed] method...
-  @Listen('tap')
-  void onCrossListingConfirmed (CustomEvent event, details) {
-    if ('crossListingConfirmedButton' == (Polymer.dom (event)).localTarget.id) {
-      this.fire ('cross-listing-confirmed', detail: {'section': currentSection});
+  /// The [onSectionRemoved] method...
+  @Listen('iron-signal-section-removed')
+  void onSectionRemoved (CustomEvent event, details) {
+    if (null != details['section']) {
+      var section = details['section'] as BannerSection;
+
+      if (section.hasCrossListing) {
+        var crossListing = crossListings.firstWhere ((CrossListing aCrossListing) {
+          ;
+        });
+      }
     }
   }
 }
