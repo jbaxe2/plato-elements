@@ -8,13 +8,15 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/av_icons.dart';
 
+import 'package:polymer_elements/iron_signals.dart';
+
 import 'package:polymer_elements/paper_card.dart';
 import 'package:polymer_elements/paper_icon_button.dart';
 
 import 'data_models.dart' show BannerSection, CrossListing;
 
 /// Silence analyzer:
-/// [PaperCard] - [PaperIconButton]
+/// [IronSignals] - [PaperCard] - [PaperIconButton]
 ///
 /// The [CrossListingView] class...
 @PolymerRegister('cross-listing-view')
@@ -51,15 +53,15 @@ class CrossListingView extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    notifyPath ('haveSections', haveSections = false);
+    if (null == crossListing) {
+      crossListing = new CrossListing();
+    }
+
+    notifyPath ('haveSections', haveSections = !crossListing.sections.isEmpty);
 
     notifyPath (
       'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)
     );
-
-    if (null == crossListing) {
-      crossListing = new CrossListing();
-    }
   }
 
   /// The [displayClSetNum] method...
@@ -70,15 +72,24 @@ class CrossListingView extends PolymerElement {
   @Listen('tap')
   void onAddSectionToCl (CustomEvent event, details) {
     if (('addSectionToClIcon' == (Polymer.dom (event)).localTarget.id) &&
-        (!currentSection.hasCrossListing)) {
-      crossListing.addSection (currentSection);
+        (!currentSection.hasCrossListing) &&
+        (crossListing.isCrossListableWith (currentSection))) {
+      async (() {
+        add ('crossListing.sections', currentSection);
 
-      currentSection.hasCrossListing = true;
+        currentSection.hasCrossListing = true;
 
-      notifyPath ('crossListing', crossListing);
-      notifyPath ('haveSections', haveSections = true);
-      notifyPath ('clHasSection', _clHasSection = true);
-      notifyPath ('currentSection', currentSection);
+        if (1 < crossListing.sections.length) {
+          notifyPath ('crossListing.isValid', crossListing.isValid = true);
+        }
+
+        notifyPath ('crossListing', crossListing);
+        notifyPath ('haveSections', haveSections = true);
+        notifyPath ('currentSection', currentSection);
+        notifyPath (
+          'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)
+        );
+      });
     }
   }
 
@@ -86,7 +97,9 @@ class CrossListingView extends PolymerElement {
   @Listen('tap')
   void onRemoveSectionFromCl (CustomEvent event, details) {
     if ('removeSectionFromClIcon' == (Polymer.dom (event)).localTarget.id) {
-      _removeSectionFromCl();
+      _removeSectionFromCl (currentSection);
+
+      notifyPath ('currentSection', currentSection);
     }
   }
 
@@ -94,7 +107,7 @@ class CrossListingView extends PolymerElement {
   @Listen('tap')
   void onRemoveCrossListingSet (CustomEvent event, details) {
     if ('removeClSetIcon' == (Polymer.dom (event)).localTarget.id) {
-      _removeSectionFromCl();
+      _removeSectionFromCl (currentSection);
       crossListing.sections.clear();
 
       notifyPath ('crossListing', crossListing);
@@ -104,20 +117,45 @@ class CrossListingView extends PolymerElement {
     }
   }
 
-  /// The [_removeSectionFromCl] method...
-  void _removeSectionFromCl() {
-    if (crossListing.sections.contains (currentSection)) {
-      crossListing.removeSection (currentSection);
+  /// The [onSectionRemoved] method...
+  @Listen('iron-signal-section-removed')
+  void onSectionRemoved (CustomEvent event, details) {
+    if (null != details['section']) {
+      _removeSectionFromCl (details['section'] as BannerSection);
+    }
+  }
 
-      currentSection.hasCrossListing = false;
+  /// The [_removeSectionFromCl] method...
+  void _removeSectionFromCl (BannerSection theSection) {
+    if (crossListing.sections.contains (theSection)) {
+      removeItem ('crossListing.sections', theSection);
+      crossListing.removeSection (theSection);
+
+      theSection.hasCrossListing = false;
 
       notifyPath ('crossListing', crossListing);
-      notifyPath ('clHasSection', _clHasSection = false);
-      notifyPath ('currentSection', currentSection);
 
       if (crossListing.sections.isEmpty) {
         notifyPath ('haveSections', haveSections = false);
       }
+
+      if (2 > crossListing.sections.length) {
+        notifyPath ('crossListing.isValid', crossListing.isValid = false);
+      }
     }
+
+    if (theSection == currentSection) {
+      notifyPath ('clHasSection', _clHasSection = false);
+    }
+  }
+
+  /// The [updateView] method...
+  void updateView() {
+    notifyPath ('crossListing', crossListing);
+    notifyPath ('haveSections', haveSections);
+    notifyPath ('currentSection', currentSection);
+    notifyPath (
+      'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)
+    );
   }
 }

@@ -63,6 +63,12 @@ class CrossListingViewsCollection extends PolymerElement {
         notifyPath ('crossListings', crossListings);
       }
 
+      var clViewsList = this.querySelectorAll ('cross-listing-view');
+
+      clViewsList.forEach (
+        (Element viewElement) => (viewElement as CrossListingView).updateView()
+      );
+
       _clDialog
         ..refit()
         ..center()
@@ -106,20 +112,6 @@ class CrossListingViewsCollection extends PolymerElement {
       _clDialog
         ..refit()
         ..center();
-    }
-  }
-
-  /// The [onSectionRemoved] method...
-  @Listen('iron-signal-section-removed')
-  void onSectionRemoved (CustomEvent event, details) {
-    if (null != details['section']) {
-      var section = details['section'] as BannerSection;
-
-      if (section.hasCrossListing) {
-        var crossListing = crossListings.firstWhere ((CrossListing aCrossListing) {
-          ;
-        });
-      }
     }
   }
 }

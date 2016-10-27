@@ -53,7 +53,6 @@
 
   <template>
     <iron-signals on-iron-signal-show-cross-listing-selector="onShowCrossListingSelector"></iron-signals>
-    <iron-signals on-iron-signal-section-removed="onSectionRemoved"></iron-signals>
 
     <paper-dialog
         id="cross-listing-dialog"
@@ -75,9 +74,7 @@
       </paper-material>
 
       <div class="button-holder">
-        <paper-button raised dialog-confirm>
-          Confirm current cross-listing information
-        </paper-button>
+        <paper-button raised dialog-confirm>Confirm current cross-listing information</paper-button>
         <paper-button raised dialog-dismiss>Cancel</paper-button>
       </div>
     </paper-dialog>
