@@ -112,9 +112,11 @@ class SectionView extends PolymerElement {
       return;
     }
 
+    withCrossListing = details['crossListing'] as CrossListing;
+
     notifyPath ('hasExtraInfo', hasExtraInfo = true);
     notifyPath ('hasCrossListing', _hasCrossListing = true);
-    notifyPath ('withCrossListing', withCrossListing = details['crossListing'] as CrossListing);
+    notifyPath ('withCrossListing', withCrossListing);
     notifyPath ('withCrossListing.sections', withCrossListing.sections);
   }
 
