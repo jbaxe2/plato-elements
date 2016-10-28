@@ -114,20 +114,10 @@ class CrossListingViewsCollection extends PolymerElement {
   @Listen('tap')
   void onConfirmClSets (CustomEvent event, details) {
     if ('confirmClSetsButton' == (Polymer.dom (event)).localTarget.id) {
-      CrossListing clForSection;
-
-      try {
-        clForSection = crossListings.firstWhere (
-          (CrossListing crossListing) => crossListing.sections.contains (currentSection)
-        );
-      } catch (_) {}
-
-      if (null != clForSection) {
-        this.fire ('iron-signal', detail: {
-          'name': 'cross-listing-specified',
-          'data': {'section': currentSection, 'crossListing': clForSection}
-        });
-      }
+      this.fire ('iron-signal', detail: {
+        'name': 'cross-listings-specified',
+        'data': {'section': currentSection, 'crossListings': crossListings}
+      });
     }
   }
 

@@ -104,26 +104,28 @@ class SectionView extends PolymerElement {
     notifyPath ('withPreviousContent', withPreviousContent = details['previousContent']);
   }
 
-  /// The [onCrossListingSpecified] method...
-  @Listen('iron-signal-cross-listing-specified')
-  void onCrossListingSpecified (CustomEvent event, details) {
-    if ((null == details['section']) || (null == details['crossListing']) ||
-        (!(details['crossListing'] as CrossListing).sections.contains (section))) {
+  /// The [onCrossListingsSpecified] method...
+  @Listen('iron-signal-cross-listings-specified')
+  void onCrossListingsSpecified (CustomEvent event, details) {
+    if ((null == details['section']) || (null == details['crossListings'])) {
       return;
     }
 
-    var crossListings = details['crossListing'] as CrossListing;
-
     set ('withCrossListing', new CrossListing());
+    set ('hasExtraInfo', true);
+    notifyPath ('hasCrossListing', _hasCrossListing = true);
 
-    crossListings.sections.forEach ((BannerSection clSection) {
-      async (() {
-        add ('withCrossListing.sections', clSection);
+    var crossListings = details['crossListings'] as List<CrossListing>;
+
+    crossListings.where (
+      (CrossListing crossListing) => crossListing.sections.contains (section)
+    ).forEach ((CrossListing clSet) {
+      clSet.sections.forEach ((BannerSection clSection) {
+        async (() {
+          add ('withCrossListing.sections', clSection);
+        });
       });
     });
-
-    notifyPath ('hasExtraInfo', hasExtraInfo = true);
-    notifyPath ('hasCrossListing', _hasCrossListing = true);
   }
 
   /// The [onRemovePreviousContent] method...
