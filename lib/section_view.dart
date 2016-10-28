@@ -115,6 +115,7 @@ class SectionView extends PolymerElement {
     notifyPath ('hasExtraInfo', hasExtraInfo = true);
     notifyPath ('hasCrossListing', _hasCrossListing = true);
     notifyPath ('withCrossListing', withCrossListing = details['crossListing'] as CrossListing);
+    notifyPath ('withCrossListing.sections', withCrossListing.sections);
   }
 
   /// The [onRemovePreviousContent] method...
