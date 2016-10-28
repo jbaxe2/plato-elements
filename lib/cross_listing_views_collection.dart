@@ -65,7 +65,7 @@ class CrossListingViewsCollection extends PolymerElement {
         (Element viewElement) => (viewElement as CrossListingView).updateView()
       );
 
-      _updateView();
+      updateView();
 
       _clDialog.open();
     }
@@ -85,7 +85,7 @@ class CrossListingViewsCollection extends PolymerElement {
         add ('crossListings', new CrossListing());
       });
 
-      _updateView();
+      updateView();
     }
   }
 
@@ -110,7 +110,24 @@ class CrossListingViewsCollection extends PolymerElement {
     };
   }
 
-  /// The [removalCleanup] method...
+  /// The [onConfirmClSets] method...
+  @Listen('tap')
+  void onConfirmClSets (CustomEvent event, details) {
+    if ('confirmClSetsButton' == (Polymer.dom (event)).localTarget.id) {
+      CrossListing clForSection = crossListings.firstWhere (
+        (CrossListing crossListing) => crossListing.sections.contains (currentSection)
+      );
+
+      if (null != clForSection) {
+        this.fire ('iron-signal', detail: {
+          'name': 'cross-listing-specified',
+          'data': {'section': currentSection, 'crossListing': clForSection}
+        });
+      }
+    }
+  }
+
+  /// The [_removalCleanup] method...
   void _removalCleanup (CrossListing crossListing) {
     if (1 < crossListings.length) {
       removeWhere ('crossListings',
@@ -118,11 +135,11 @@ class CrossListingViewsCollection extends PolymerElement {
       );
     }
 
-    _updateView();
+    updateView();
   }
 
-  /// The [_updateView] method...
-  void _updateView() {
+  /// The [updateView] method...
+  void updateView() {
     notifyPath ('crossListings', crossListings);
 
     _clDialog

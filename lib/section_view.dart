@@ -108,14 +108,13 @@ class SectionView extends PolymerElement {
   @Listen('iron-signal-cross-listing-specified')
   void onCrossListingSpecified (CustomEvent event, details) {
     if ((null == details['section']) || (null == details['crossListing']) ||
-        (section != details['section']) ||
-        ((details['crossListing'] as CrossListing).sections.contains (section))) {
+        (!(details['crossListing'] as CrossListing).sections.contains (section))) {
       return;
     }
 
     notifyPath ('hasExtraInfo', hasExtraInfo = true);
     notifyPath ('hasCrossListing', _hasCrossListing = true);
-    notifyPath ('withCrossListing', withCrossListing = details['crossListing']);
+    notifyPath ('withCrossListing', withCrossListing = details['crossListing'] as CrossListing);
   }
 
   /// The [onRemovePreviousContent] method...
@@ -125,7 +124,7 @@ class SectionView extends PolymerElement {
       notifyPath ('withPreviousContent', withPreviousContent = null);
       notifyPath ('hasPreviousContent', _hasPreviousContent = false);
 
-      if ((null == withPreviousContent) && (null == withCrossListing)) {
+      if (null == withCrossListing) {
         notifyPath ('hasExtraInfo', hasExtraInfo = false);
       }
     }
@@ -138,9 +137,13 @@ class SectionView extends PolymerElement {
       notifyPath ('withCrossListing', withCrossListing = null);
       notifyPath ('hasCrossListing', _hasCrossListing = false);
 
-      if ((null == withPreviousContent) && (null == withCrossListing)) {
+      if (null == withPreviousContent) {
         notifyPath ('hasExtraInfo', hasExtraInfo = false);
       }
+
+      this.fire ('iron-signal', detail: {
+        'name': 'section-removed', 'data': {'section': section}
+      });
     }
   }
 }

@@ -1,6 +1,6 @@
 <dom-module id="section-view">
   <style>
-    #removePreviousContentIcon {
+    #removePreviousContentIcon, #removeFromCrossListingIcon {
       float: right;
     }
 
@@ -76,10 +76,10 @@
               title="remove from cross-listing"
               on-tap="onRemoveFromCrossListing">
             </paper-icon-button>
-            <p>
+            <p style="padding: 8px 0 8px 8px;">
               This course is currently cross-listed with:<br>
               <template is="dom-repeat" items="{{withCrossListing.sections}}" as="crossListedSection">
-                <strong> - &nbsp; {{crossListedSection.sectionId}}</strong><br>
+                <strong>&nbsp; - &nbsp; {{crossListedSection.sectionId}}</strong><br>
               </template>
             </p>
           </paper-material>
