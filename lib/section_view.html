@@ -68,6 +68,7 @@
               title="remove previous content"
               on-tap="onRemovePreviousContent">
             </paper-icon-button>
+
             <p style="padding: 8px 0 8px 8px;">
               <strong>Previous Content:</strong><br>
               <span>{{withPreviousContent.courseEnrollment.courseId}}</span>
@@ -81,9 +82,11 @@
               title="remove {{section.sectionId}} from cross-listing set"
               on-tap="onRemoveFromCrossListing">
             </paper-icon-button>
+
             <p style="padding: 8px 0 0 8px;">
               <strong>This section will be cross-listed with:</strong>
             </p>
+
             <ul style="margin: -4px 0 8px 8px; padding: 0 0 8px 23px;">
               <template is="dom-repeat" items="{{withCrossListing.sections}}" as="crossListedSection">
                 <li>{{crossListedSection.sectionId}}</li>
