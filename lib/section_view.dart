@@ -112,7 +112,15 @@ class SectionView extends PolymerElement {
       return;
     }
 
-    set ('withCrossListing', withCrossListing = details['crossListing'] as CrossListing);
+    var crossListings = details['crossListing'] as CrossListing;
+
+    set ('withCrossListing', new CrossListing());
+
+    crossListings.sections.forEach ((BannerSection clSection) {
+      async (() {
+        add ('withCrossListing.sections', clSection);
+      });
+    });
 
     notifyPath ('hasExtraInfo', hasExtraInfo = true);
     notifyPath ('hasCrossListing', _hasCrossListing = true);
@@ -143,7 +151,7 @@ class SectionView extends PolymerElement {
       }
 
       this.fire ('iron-signal', detail: {
-        'name': 'section-removed', 'data': {'section': section}
+        'name': 'section-removed-from-cl', 'data': {'section': section}
       });
     }
   }

@@ -118,7 +118,7 @@ class CrossListingView extends PolymerElement {
   }
 
   /// The [onSectionRemoved] method...
-  @Listen('iron-signal-section-removed')
+  @Listen('iron-signal-section-removed-from-cl')
   void onSectionRemoved (CustomEvent event, details) {
     if (null != details['section']) {
       _removeSectionFromCl (details['section'] as BannerSection);
