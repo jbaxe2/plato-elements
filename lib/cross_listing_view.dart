@@ -123,6 +123,11 @@ class CrossListingView extends PolymerElement {
     if (null != details['section']) {
       _removeSectionFromCl (details['section'] as BannerSection);
     }
+
+    this.fire ('iron-signal', detail: {
+      'name': 'cross-listings-specified',
+      'data': {'section': currentSection, 'crossListings': [crossListing]}
+    });
   }
 
   /// The [_removeSectionFromCl] method...

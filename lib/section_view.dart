@@ -44,6 +44,9 @@ class SectionView extends PolymerElement {
   @Property(notify: true)
   bool hasExtraInfo;
 
+  @Property(notify: true)
+  bool showInvalid;
+
   /// The [SectionView] factory constructor.
   factory SectionView() => document.createElement ('section-view');
 
@@ -52,7 +55,9 @@ class SectionView extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    notifyPath ('hasExtraInfo', hasExtraInfo = false);
+    set ('hasExtraInfo', false);
+    set ('showInvalid', false);
+
     notifyPath ('hasPreviousContent', _hasPreviousContent = false);
     notifyPath ('hasCrossListing', _hasCrossListing = false);
   }
@@ -112,8 +117,6 @@ class SectionView extends PolymerElement {
     }
 
     set ('withCrossListing', new CrossListing());
-    set ('hasExtraInfo', true);
-    notifyPath ('hasCrossListing', _hasCrossListing = true);
 
     var crossListings = details['crossListings'] as List<CrossListing>;
 
@@ -123,6 +126,28 @@ class SectionView extends PolymerElement {
       clSet.sections.forEach ((BannerSection clSection) {
         async (() {
           add ('withCrossListing.sections', clSection);
+
+          int clLength = withCrossListing.sections.length;
+
+          if (0 < clLength) {
+            set ('hasExtraInfo', true);
+            notifyPath ('hasCrossListing', _hasCrossListing = true);
+          }
+
+          if (1 == clLength) {
+            set ('showInvalid', true);
+          } else {
+            set ('showInvalid', false);
+
+            if (0 == clLength) {
+              set ('hasExtraInfo', false);
+              notifyPath ('hasCrossListing', _hasCrossListing = false);
+            }
+
+            if (1 < clLength) {
+              withCrossListing.isValid = true;
+            }
+          }
         });
       });
     });

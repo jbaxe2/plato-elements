@@ -91,6 +91,10 @@
               <template is="dom-repeat" items="{{withCrossListing.sections}}" as="crossListedSection">
                 <li>{{crossListedSection.sectionId}}</li>
               </template>
+
+              <template is="dom-if" if="{{showInvalid}}">
+                <li><strong style="color: #a44;">Please add one or more other sections to the set.</strong></li>
+              </template>
             </ul>
           </paper-material>
         </template>
