@@ -97,7 +97,6 @@ class CrossListingViewsCollection extends PolymerElement {
       var crossListing = details['crossListing'] as CrossListing;
 
       removeItem ('crossListings', crossListing);
-      //crossListings.remove (crossListing);
 
       _removalCleanup (crossListing);
     }

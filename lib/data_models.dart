@@ -58,18 +58,32 @@ class BannerSection extends JsProxy {
   String termId;
 
   @reflectable
-  bool hasCrossListing;
+  bool get hasCrossListing => _hasCrossListing;
+
+  bool _hasCrossListing;
 
   @reflectable
-  bool hasPreviousContent;
+  CrossListing get crossListing => _crossListing;
+
+  CrossListing _crossListing;
+
+  @reflectable
+  bool get hasPreviousContent => _hasPreviousContent;
+
+  bool _hasPreviousContent;
+
+  @reflectable
+  PreviousContentMapping get previousContent => _previousContent;
+
+  PreviousContentMapping _previousContent;
 
   /// The [BannerSection] method...
   BannerSection (
     this.sectionId, this.crn, this.courseTitle, this.faculty,
     this.time, this.place, this.termId
   ) {
-    hasCrossListing = false;
-    hasPreviousContent = false;
+    _hasCrossListing = false;
+    _hasPreviousContent = false;
   }
 
   /// The [isDay] method...
@@ -94,6 +108,19 @@ class BannerSection extends JsProxy {
 
     // If it is indeterminable that the course is Day, default to false.
     return false;
+  }
+
+  bool setPreviousContent (PreviousContentMapping previousContent) {
+    if (hasCrossListing) {
+      if ((crossListing.sections.every ((section) => previousContent == section.previousContent)) ||
+          (crossListing.sections.every ((section) => null == section.previousContent))) {
+        _previousContent = previousContent;
+      }
+    }
+
+    _previousContent = previousContent;
+
+    return true;
   }
 }
 
