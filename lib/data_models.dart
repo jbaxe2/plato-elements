@@ -115,6 +115,8 @@ class BannerSection extends JsProxy {
       if ((crossListing.sections.every ((section) => previousContent == section.previousContent)) ||
           (crossListing.sections.every ((section) => null == section.previousContent))) {
         _previousContent = previousContent;
+      } else {
+        return false;
       }
     }
 
