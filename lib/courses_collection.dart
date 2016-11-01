@@ -39,7 +39,7 @@ class CoursesCollection extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    courses = new List<BannerCourse>();
+    set ('courses', new List<BannerCourse>());
 
     _retriever ??= $['courses-retriever'] as SimpleRetriever;
   }
@@ -56,9 +56,7 @@ class CoursesCollection extends PolymerElement {
   @Listen('iron-signal-department-selected')
   void onDepartmentSelected (CustomEvent event, details) {
     if (null != details['department']) {
-      departmentId = details['department'];
-
-      notifyPath ('departmentId', departmentId);
+      set ('departmentId', details['department']);
     }
   }
 
@@ -66,9 +64,7 @@ class CoursesCollection extends PolymerElement {
   @Listen('iron-signal-term-selected')
   void onTermSelected (CustomEvent event, details) {
     if (null != details['term']) {
-      termId = details['term'];
-
-      notifyPath ('termId', termId);
+      set ('termId', details['term']);
     }
   }
 
@@ -77,7 +73,7 @@ class CoursesCollection extends PolymerElement {
   void onCoursesRetrieved (CustomEvent event, details) {
     if (null != details['courses']) {
       try {
-        courses = new List<BannerCourse>();
+        set ('courses', new List<BannerCourse>());
 
         details['courses'].forEach ((courseDetails) {
           var course = new BannerCourse (
@@ -86,8 +82,6 @@ class CoursesCollection extends PolymerElement {
 
           async (() => add ('courses', course));
         });
-
-        notifyPath ('courses', courses);
       } catch (_) {}
     }
   }

@@ -52,7 +52,7 @@ class PreviousContentSelector extends PolymerElement {
 
   /// The [PreviousContentSelector] constructor.
   PreviousContentSelector.created() : super.created() {
-    enrollments = new List<CourseEnrollment>();
+    set ('enrollments', new List<CourseEnrollment>());
   }
 
   /// The [attached] method...
@@ -85,7 +85,7 @@ class PreviousContentSelector extends PolymerElement {
         }
       });
 
-      notifyPath ('currentSection', currentSection = null);
+      set ('currentSection', null);
     }
   }
 
@@ -97,7 +97,7 @@ class PreviousContentSelector extends PolymerElement {
     }
 
     if (null != detail['section']) {
-      notifyPath ('currentSection', currentSection = (detail['section'] as BannerSection));
+      set ('currentSection', (detail['section'] as BannerSection));
 
       _previousContentDialog
         ..refit()

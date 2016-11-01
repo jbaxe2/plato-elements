@@ -35,7 +35,7 @@ class EnrollmentSelector extends PolymerElement {
 
   /// The [EnrollmentSelector] constructor.
   EnrollmentSelector.created() : super.created() {
-    enrollments = new List<CourseEnrollment>();
+    set ('enrollments', new List<CourseEnrollment>());
   }
 
   /// The [attached] method...
@@ -45,9 +45,7 @@ class EnrollmentSelector extends PolymerElement {
   @Listen('iron-signal-enrollments-retrieved-complete')
   void onEnrollmentsRetrievedComplete (CustomEvent event, details) {
     if (null != details['enrollments']) {
-      enrollments = details['enrollments'];
-
-      notifyPath ('enrollments', enrollments);
+      set ('enrollments', details['enrollments']);
       notifyPath ('enrollmentsRetrieved', _enrollmentsRetrieved = true);
 
       this.fire ('enrollments-complete');
@@ -57,13 +55,10 @@ class EnrollmentSelector extends PolymerElement {
   /// The [onEnrollmentSelected] method...
   @Listen('iron-select')
   void onEnrollmentSelected (CustomEvent event, details) {
-    selectedEnrollment = ($['enrollmentSelector'] as PaperRadioGroup).selectedItem.value;
-
-    notifyPath ('selectedEnrollment', selectedEnrollment);
+    set ('selectedEnrollment', ($['enrollmentSelector'] as PaperRadioGroup).selectedItem.value);
   }
 
   /// The [onEnrollmentDeselected] method...
   @Listen('iron-deselect')
-  void onEnrollmentDeselected (CustomEvent event, details) =>
-    notifyPath ('selectedEnrollment', null);
+  void onEnrollmentDeselected (CustomEvent event, details) => set ('selectedEnrollment', null);
 }

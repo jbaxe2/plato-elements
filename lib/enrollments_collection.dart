@@ -40,7 +40,7 @@ class EnrollmentsCollection extends PolymerElement {
   void onEnrollmentsRetrieved (CustomEvent event, details) {
     if (null != details['enrollments']) {
       try {
-        enrollments = new List<CourseEnrollment>();
+        set ('enrollments', new List<CourseEnrollment>());
 
         details['enrollments'].forEach ((enrollDetails) {
           if (enrollDetails['learn.user.username'] != username) {
@@ -62,8 +62,6 @@ class EnrollmentsCollection extends PolymerElement {
 
           async (() => add ('enrollments', enrollment));
         });
-
-        notifyPath ('enrollments', enrollments);
 
         this.fire ('iron-signal', detail: {
           'name': 'enrollments-retrieved-complete', 'data': {'enrollments': enrollments}

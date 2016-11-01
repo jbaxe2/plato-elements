@@ -27,7 +27,7 @@ class TermsCollection extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    terms = new List<LearnTerm>();
+    set ('terms', new List<LearnTerm>());
 
     (_retriever ??= $['terms-retriever'] as SimpleRetriever)
       ..retrieveTypedData();
@@ -43,8 +43,6 @@ class TermsCollection extends PolymerElement {
 
           async (() => add ('terms', term));
         });
-
-        notifyPath ('terms', terms);
       } catch (_) {}
     }
   }

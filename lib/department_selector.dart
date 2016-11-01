@@ -23,7 +23,6 @@ class DepartmentSelector extends PolymerElement {
   @Property(notify: true)
   List<BannerDepartment> departments;
 
-  @Property(notify: true)
   DepartmentsCollection _deptsCollection;
 
   /// The [DepartmentSelector] factory constructor.
@@ -31,14 +30,14 @@ class DepartmentSelector extends PolymerElement {
 
   /// The [DepartmentSelector] constructor.
   DepartmentSelector.created() : super.created() {
-    departments = new List<BannerDepartment>();
+    set ('departments', new List<BannerDepartment>());
   }
 
   /// The [attached] method...
   void attached() {
     _deptsCollection = new DepartmentsCollection();
 
-    departments = _deptsCollection.departments;
+    set ('departments', _deptsCollection.departments);
   }
 
   /// The [onDepartmentSelected] method...

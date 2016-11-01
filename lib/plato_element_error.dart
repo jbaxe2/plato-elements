@@ -45,24 +45,32 @@ class PlatoElementError extends PolymerElement {
   void onPlatoError (CustomEvent event, details) {
     if (null != details['error']) {
       if (details['error'] is String) {
-        title = 'Error!';
-        message = details['error'];
+        set ('title', 'Error!');
+        set ('message', details['error']);
+
+        //title = 'Error!';
+        //message = details['error'];
       } else if (details['error'] is Map) {
         if (null != details['error']['title']) {
-          title = details['error]']['title'];
+          set ('title', details['error]']['title']);
+          //title = details['error]']['title'];
         }
 
         if (null != details['error']['message']) {
-          message = details['error']['message'];
+          set ('message', details['error']['message']);
+          //message = details['error']['message'];
         }
       }
     } else {
-      title = 'Error!';
-      message = 'An unknown error has occurred.';
+      set ('title', 'Error!');
+      set ('message', 'An unknown error has occurred.');
+
+      //title = 'Error!';
+      //message = 'An unknown error has occurred.';
     }
 
-    notifyPath ('title', title);
-    notifyPath ('message', message);
+    //notifyPath ('title', title);
+    //notifyPath ('message', message);
 
     /// Resize, center, and display the error dialog.
     _error

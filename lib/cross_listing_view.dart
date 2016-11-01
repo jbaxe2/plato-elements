@@ -54,10 +54,10 @@ class CrossListingView extends PolymerElement {
   /// The [attached] method...
   void attached() {
     if (null == crossListing) {
-      crossListing = new CrossListing();
+      set ('crossListing', new CrossListing());
     }
 
-    notifyPath ('haveSections', haveSections = !crossListing.sections.isEmpty);
+    set ('haveSections', !crossListing.sections.isEmpty);
 
     notifyPath (
       'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)
@@ -77,14 +77,15 @@ class CrossListingView extends PolymerElement {
       async (() {
         add ('crossListing.sections', currentSection);
 
-        currentSection.hasCrossListing = true;
+        set ('currentSection.hasCrossListing', true);
 
         if (1 < crossListing.sections.length) {
-          notifyPath ('crossListing.isValid', crossListing.isValid = true);
+          set ('crossListing.isValid', true);
         }
 
+        set ('haveSections', true);
+
         notifyPath ('crossListing', crossListing);
-        notifyPath ('haveSections', haveSections = true);
         notifyPath ('currentSection', currentSection);
         notifyPath (
           'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)
@@ -141,11 +142,11 @@ class CrossListingView extends PolymerElement {
       notifyPath ('crossListing', crossListing);
 
       if (crossListing.sections.isEmpty) {
-        notifyPath ('haveSections', haveSections = false);
+        set ('haveSections', false);
       }
 
       if (2 > crossListing.sections.length) {
-        notifyPath ('crossListing.isValid', crossListing.isValid = false);
+        set ('crossListing.isValid', false);
       }
     }
 

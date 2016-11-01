@@ -23,7 +23,6 @@ class CourseSelector extends PolymerElement {
   @Property(notify: true)
   List<BannerCourse> courses;
 
-  @Property(notify: true)
   CoursesCollection _coursesCollection;
 
   /// The [CourseSelector] factory constructor.
@@ -31,14 +30,14 @@ class CourseSelector extends PolymerElement {
 
   /// The [CourseSelector] constructor.
   CourseSelector.created() : super.created() {
-    courses = new List<BannerCourse>();
+    set ('courses', new List<BannerCourse>());
   }
 
   /// The [attached] method...
   void attached() {
     _coursesCollection = new CoursesCollection();
 
-    courses = _coursesCollection.courses;
+    set ('courses', _coursesCollection.courses);
   }
 
   /// The [onCourseSelected] method...

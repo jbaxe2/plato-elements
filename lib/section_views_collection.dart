@@ -35,10 +35,9 @@ class SectionViewsCollection extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    sections = new List<BannerSection>();
-    sectionIds = new List<String>();
-
-    notifyPath ('haveSections', haveSections = false);
+    set ('sections', new List<BannerSection>());
+    set ('sectionIds', new List<String>());
+    set ('haveSections', false);
   }
 
   /// The [onSectionsAdded] method...
@@ -61,7 +60,7 @@ class SectionViewsCollection extends PolymerElement {
       notifyPath ('sectionIds', sectionIds);
       notifyPath ('sections', sections);
 
-      notifyPath ('haveSections', haveSections = true);
+      set ('haveSections', true);
     }
   }
 

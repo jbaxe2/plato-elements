@@ -39,7 +39,8 @@ class SectionsCollection extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    sections = new List<BannerSection>();
+    set ('sections', new List<BannerSection>());
+    //sections = new List<BannerSection>();
 
     _retriever ??= $['sections-retriever'] as SimpleRetriever;
   }
@@ -60,9 +61,9 @@ class SectionsCollection extends PolymerElement {
         _courseId = _courseId.substring (0, (_courseId.length - 3));
       }
 
-      courseId = _courseId;
-
-      notifyPath ('courseId', courseId);
+      set ('courseId', _courseId);
+      //courseId = _courseId;
+      //notifyPath ('courseId', courseId);
     }
   }
 
@@ -70,17 +71,19 @@ class SectionsCollection extends PolymerElement {
   @Listen('iron-signal-term-selected')
   void onTermSelected (CustomEvent event, details) {
     if (null != details['term']) {
-      termId = details['term'];
+      set ('termId', details['term']);
+      //termId = details['term'];
     }
 
-    notifyPath ('termId', termId);
+    //notifyPath ('termId', termId);
   }
 
   /// The [onSectionsRetrieved] method...
   @Listen('sections-retrieved')
   void onSectionsRetrieved (CustomEvent event, details) {
     if (null != details['sections']) {
-      sections = new List<BannerSection>();
+      set ('sections', new List<BannerSection>());
+      //sections = new List<BannerSection>();
 
       details['sections'].forEach ((sectionDetails) {
         var section = new BannerSection (

@@ -27,7 +27,7 @@ class DepartmentsCollection extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    departments = new List<BannerDepartment>();
+    set ('departments', new List<BannerDepartment>());
 
     (_retriever ??= $['departments-retriever'] as SimpleRetriever)
       ..retrieveTypedData();
@@ -45,8 +45,6 @@ class DepartmentsCollection extends PolymerElement {
 
           async (() => add ('departments', department));
         });
-
-        notifyPath ('departments', departments);
       } catch (_) {}
     }
   }

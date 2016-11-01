@@ -23,7 +23,6 @@ class TermSelector extends PolymerElement {
   @Property(notify: true)
   List<LearnTerm> terms;
 
-  @Property(notify: true)
   TermsCollection _termsCollection;
 
   /// The [TermSelector] factory constructor.
@@ -31,14 +30,14 @@ class TermSelector extends PolymerElement {
 
   /// The [TermSelector] constructor.
   TermSelector.created() : super.created() {
-    terms = new List<LearnTerm>();
+    set ('terms', new List<LearnTerm>());
   }
 
   /// The [attached] method...
   void attached() {
     _termsCollection = new TermsCollection();
 
-    terms = _termsCollection.terms;
+    set ('terms', _termsCollection.terms);
   }
 
   /// The [onTermSelected] method...
