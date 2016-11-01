@@ -27,35 +27,35 @@ class SectionsSelector extends PolymerElement {
   List<BannerSection> sections;
 
   @Property(notify: true)
-  SectionsCollection _sectionsCollection;
-
-  @Property(notify: true)
   String termId;
 
   @Property(notify: true)
-  bool get haveSections => _haveSections();
+  bool haveSections;
+
+  SectionsCollection _sectionsCollection;
 
   /// The [SectionsSelector] factory constructor.
   factory SectionsSelector() => document.createElement ('sections-selector');
 
   /// The [SectionsSelector] constructor.
   SectionsSelector.created() : super.created() {
-    sections = new List<BannerSection>();
+    set ('sections', new List<BannerSection>());
+    set ('haveSections', false);
   }
 
   /// The [attached] method...
   void attached() {
     _sectionsCollection = new SectionsCollection();
 
-    sections = _sectionsCollection.sections;
-    termId = _sectionsCollection.termId;
+    set ('sections', _sectionsCollection.sections);
+    set ('termId', _sectionsCollection.termId);
   }
 
-  /// The [updateHaveSections] method...
+  /// The [onSectionsRetrievedComplete] method...
   @Listen('sections-retrieved-complete')
-  void updateHaveSections (CustomEvent event, details) => notifyPath (
-    'haveSections', haveSections
-  );
+  void onSectionsRetrievedComplete (CustomEvent event, details) {
+    set ('haveSections', true);
+  }
 
   /// The [onSectionsSelected] method...
   @Listen('tap')
@@ -79,7 +79,4 @@ class SectionsSelector extends PolymerElement {
       }
     }
   }
-
-  /// The [_haveSections] method...
-  bool _haveSections() => ((null == sections) || (sections.isEmpty)) ? false : true;
 }

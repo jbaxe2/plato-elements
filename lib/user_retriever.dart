@@ -47,15 +47,15 @@ class UserRetriever extends PolymerElement {
       var user = details['user'];
 
       try {
-        userInfo = new UserInformation (
-          username, password,
-          user['learn.user.firstName'],
-          user['learn.user.lastName'],
-          user['learn.user.email'],
-          user['banner.user.cwid']
+        set ('userInfo',
+          new UserInformation (
+            username, password,
+            user['learn.user.firstName'],
+            user['learn.user.lastName'],
+            user['learn.user.email'],
+            user['banner.user.cwid']
+          )
         );
-
-        notifyPath ('userInfo', userInfo);
 
         this.fire ('updated-user-info', canBubble: true);
       } catch (_) {}

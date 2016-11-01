@@ -170,16 +170,17 @@ class SectionView extends PolymerElement {
   @Listen('tap')
   void onRemoveFromCrossListing (CustomEvent event, details) {
     if ('removeFromCrossListingIcon' == (Polymer.dom (event)).localTarget.id) {
+      this.fire ('iron-signal', detail: {
+        'name': 'section-removed-from-cl',
+        'data': {'crossListing': withCrossListing, 'section': section}
+      });
+
       set ('withCrossListing', null);
       notifyPath ('hasCrossListing', _hasCrossListing = false);
 
       if (null == withPreviousContent) {
         set ('hasExtraInfo', false);
       }
-
-      this.fire ('iron-signal', detail: {
-        'name': 'section-removed-from-cl', 'data': {'section': section}
-      });
     }
   }
 }

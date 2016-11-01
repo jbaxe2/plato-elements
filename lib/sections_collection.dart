@@ -40,7 +40,6 @@ class SectionsCollection extends PolymerElement {
   /// The [attached] method...
   void attached() {
     set ('sections', new List<BannerSection>());
-    //sections = new List<BannerSection>();
 
     _retriever ??= $['sections-retriever'] as SimpleRetriever;
   }
@@ -62,8 +61,6 @@ class SectionsCollection extends PolymerElement {
       }
 
       set ('courseId', _courseId);
-      //courseId = _courseId;
-      //notifyPath ('courseId', courseId);
     }
   }
 
@@ -72,10 +69,7 @@ class SectionsCollection extends PolymerElement {
   void onTermSelected (CustomEvent event, details) {
     if (null != details['term']) {
       set ('termId', details['term']);
-      //termId = details['term'];
     }
-
-    //notifyPath ('termId', termId);
   }
 
   /// The [onSectionsRetrieved] method...
@@ -83,7 +77,6 @@ class SectionsCollection extends PolymerElement {
   void onSectionsRetrieved (CustomEvent event, details) {
     if (null != details['sections']) {
       set ('sections', new List<BannerSection>());
-      //sections = new List<BannerSection>();
 
       details['sections'].forEach ((sectionDetails) {
         var section = new BannerSection (
@@ -92,13 +85,13 @@ class SectionsCollection extends PolymerElement {
           sectionDetails['mplace'], sectionDetails['term']
         );
 
-        sections.add (section);
-      });
+        async (() => add ('sections', section));
 
-      notifyPath ('sections', sections);
-
-      this.fire ('iron-signal', detail: {
-        'name': 'sections-retrieved-complete', 'data': null
+        if (sectionDetails == details['sections'].last) {
+          this.fire ('iron-signal', detail: {
+            'name': 'sections-retrieved-complete', 'data': null
+          });
+        }
       });
     }
   }

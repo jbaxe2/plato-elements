@@ -24,7 +24,7 @@
   </style>
 
   <template>
-    <iron-signals on-iron-signal-sections-retrieved-complete="updateHaveSections"></iron-signals>
+    <iron-signals on-iron-signal-sections-retrieved-complete="onSectionsRetrievedComplete"></iron-signals>
 
     <sections-collection sections="{{sections}}" course-id="{{courseId}}" term-id="{{termId}}"></sections-collection>
 

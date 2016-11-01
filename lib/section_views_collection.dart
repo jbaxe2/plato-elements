@@ -45,20 +45,13 @@ class SectionViewsCollection extends PolymerElement {
   void onSectionsAdded (CustomEvent event, details) {
     if (null != details['sections']) {
       details['sections'].forEach ((String sectionId, BannerSection section) {
-        if (!sectionIds.contains (sectionId)) {
-          sectionIds.add (sectionId);
-        }
-
         async (() {
-          // A Polymer bug causes a second check with the section ID's.
-          if (!(sections.contains (section) && sectionIds.contains (sectionId))) {
+          if (!(sectionIds.contains (sectionId) && sections.contains(section))) {
+            add ('sectionIds', sectionId);
             add ('sections', section);
           }
         });
       });
-
-      notifyPath ('sectionIds', sectionIds);
-      notifyPath ('sections', sections);
 
       set ('haveSections', true);
     }
@@ -84,15 +77,10 @@ class SectionViewsCollection extends PolymerElement {
       }
 
       removeItem ('sections', section);
-
-      sections.remove (section);
-      sectionIds.remove (sectionId);
-
-      notifyPath ('sections', sections);
-      notifyPath ('sectionsIds', sectionIds);
+      removeItem ('sectionIds', sectionId);
 
       if (sections.isEmpty) {
-        notifyPath ('haveSections', haveSections = false);
+        set ('haveSections', false);
       }
     }
   }

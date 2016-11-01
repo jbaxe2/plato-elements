@@ -44,7 +44,8 @@ class CrossListingViewsCollection extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    crossListings = new List<CrossListing>();
+    set ('crossListings', new List<CrossListing>());
+    //crossListings = new List<CrossListing>();
 
     _clDialog = $['cross-listing-dialog'] as PaperDialog;
   }
@@ -96,7 +97,7 @@ class CrossListingViewsCollection extends PolymerElement {
       var crossListing = details['crossListing'] as CrossListing;
 
       removeItem ('crossListings', crossListing);
-      crossListings.remove (crossListing);
+      //crossListings.remove (crossListing);
 
       _removalCleanup (crossListing);
     }
@@ -114,11 +115,20 @@ class CrossListingViewsCollection extends PolymerElement {
   @Listen('tap')
   void onConfirmClSets (CustomEvent event, details) {
     if ('confirmClSetsButton' == (Polymer.dom (event)).localTarget.id) {
-      this.fire ('iron-signal', detail: {
-        'name': 'cross-listings-specified',
-        'data': {'section': currentSection, 'crossListings': crossListings}
-      });
+      _confirmCrossListings();
     }
+  }
+
+  /// The [onConfirmClSetsFromCl] method...
+  @Listen('confirm-cl-sets-from-cl')
+  void onConfirmClSetsFromCl (CustomEvent event, details) => _confirmCrossListings();
+
+  /// The [_confirmCrossListings] method...
+  void _confirmCrossListings() {
+    this.fire ('iron-signal', detail: {
+      'name': 'cross-listings-specified',
+      'data': {'section': currentSection, 'crossListings': crossListings}
+    });
   }
 
   /// The [_removalCleanup] method...
