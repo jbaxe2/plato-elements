@@ -58,9 +58,7 @@ class BannerSection extends JsProxy {
   String termId;
 
   @reflectable
-  bool get hasCrossListing => _hasCrossListing;
-
-  bool _hasCrossListing;
+  bool hasCrossListing;
 
   @reflectable
   CrossListing get crossListing => _crossListing;
@@ -68,9 +66,7 @@ class BannerSection extends JsProxy {
   CrossListing _crossListing;
 
   @reflectable
-  bool get hasPreviousContent => _hasPreviousContent;
-
-  bool _hasPreviousContent;
+  bool hasPreviousContent;
 
   @reflectable
   PreviousContentMapping get previousContent => _previousContent;
@@ -82,8 +78,8 @@ class BannerSection extends JsProxy {
     this.sectionId, this.crn, this.courseTitle, this.faculty,
     this.time, this.place, this.termId
   ) {
-    _hasCrossListing = false;
-    _hasPreviousContent = false;
+    hasCrossListing = false;
+    hasPreviousContent = false;
   }
 
   /// The [isDay] method...
@@ -110,17 +106,32 @@ class BannerSection extends JsProxy {
     return false;
   }
 
-  bool setPreviousContent (PreviousContentMapping previousContent) {
+  /// The [setPreviousContent] method...
+  bool setPreviousContent (PreviousContentMapping aPreviousContent) {
     if (hasCrossListing) {
-      if ((crossListing.sections.every ((section) => previousContent == section.previousContent)) ||
-          (crossListing.sections.every ((section) => null == section.previousContent))) {
-        _previousContent = previousContent;
-      } else {
+      if (!((crossListing.sections.every ((section) => aPreviousContent == section.previousContent)) ||
+            (crossListing.sections.every ((section) => null == section.previousContent))
+      )) {
         return false;
       }
     }
 
-    _previousContent = previousContent;
+    _previousContent = aPreviousContent;
+    hasPreviousContent = true;
+
+    return true;
+  }
+
+  /// The [setCrossListing] method...
+  bool setCrossListing (CrossListing aCrossListing) {
+    if (!((hasPreviousContent) &&
+          (aCrossListing.sections.every ((section) => previousContent == section.previousContent))
+    )) {
+      return false;
+    }
+
+    _crossListing = aCrossListing;
+    hasCrossListing = true;
 
     return true;
   }
