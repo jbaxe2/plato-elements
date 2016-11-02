@@ -76,14 +76,12 @@ class CrossListingView extends PolymerElement {
         (crossListing.isCrossListableWith (currentSection))) {
       async (() {
         add ('crossListing.sections', currentSection);
-
         set ('currentSection.hasCrossListing', true);
+        set ('haveSections', true);
 
         if (1 < crossListing.sections.length) {
           set ('crossListing.isValid', true);
         }
-
-        set ('haveSections', true);
 
         notifyPath ('crossListing', crossListing);
         notifyPath ('currentSection', currentSection);

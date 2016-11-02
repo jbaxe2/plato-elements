@@ -57,22 +57,6 @@ class BannerSection extends JsProxy {
   @reflectable
   String termId;
 
-  @reflectable
-  bool hasCrossListing;
-
-  @reflectable
-  CrossListing get crossListing => _crossListing;
-
-  CrossListing _crossListing;
-
-  @reflectable
-  bool hasPreviousContent;
-
-  @reflectable
-  PreviousContentMapping get previousContent => _previousContent;
-
-  PreviousContentMapping _previousContent;
-
   /// The [BannerSection] method...
   BannerSection (
     this.sectionId, this.crn, this.courseTitle, this.faculty,
@@ -104,36 +88,6 @@ class BannerSection extends JsProxy {
 
     // If it is indeterminable that the course is Day, default to false.
     return false;
-  }
-
-  /// The [setPreviousContent] method...
-  bool setPreviousContent (PreviousContentMapping aPreviousContent) {
-    if (hasCrossListing) {
-      if (!((crossListing.sections.every ((section) => aPreviousContent == section.previousContent)) ||
-            (crossListing.sections.every ((section) => null == section.previousContent))
-      )) {
-        return false;
-      }
-    }
-
-    _previousContent = aPreviousContent;
-    hasPreviousContent = true;
-
-    return true;
-  }
-
-  /// The [setCrossListing] method...
-  bool setCrossListing (CrossListing aCrossListing) {
-    if (!((hasPreviousContent) &&
-          (aCrossListing.sections.every ((section) => previousContent == section.previousContent))
-    )) {
-      return false;
-    }
-
-    _crossListing = aCrossListing;
-    hasCrossListing = true;
-
-    return true;
   }
 }
 
@@ -269,6 +223,79 @@ class PreviousContentMapping extends JsProxy {
 
   /// The [PreviousContentMapping] constructor...
   PreviousContentMapping();
+}
+
+/////////////////////////////////////////////////////////////////////
+
+/// The [RequestedSection] class...
+class RequestedSection extends JsProxy {
+  @reflectable
+  BannerSection get section => _section;
+
+  BannerSection _section;
+
+  @reflectable
+  bool hasCrossListing;
+
+  @reflectable
+  CrossListing get crossListing => _crossListing;
+
+  CrossListing _crossListing;
+
+  @reflectable
+  bool hasPreviousContent;
+
+  @reflectable
+  PreviousContentMapping get previousContent => _previousContent;
+
+  PreviousContentMapping _previousContent;
+
+  /// The [RequestedSection] constructor...
+  RequestedSection() {
+    hasCrossListing = false;
+    hasPreviousContent = false;
+  }
+
+  /// The [setSection] method...
+  void setSection (BannerSection aSection) {
+    _section = aSection;
+
+    _crossListing = null;
+    _previousContent = null;
+
+    hasCrossListing = false;
+    hasPreviousContent = false;
+  }
+
+  /// The [setPreviousContent] method...
+  bool setPreviousContent (PreviousContentMapping aPreviousContent) {
+    if (hasCrossListing) {
+      if (!((crossListing.sections.every ((section) => aPreviousContent == section.previousContent)) ||
+          (crossListing.sections.every ((section) => null == section.previousContent))
+      )) {
+        return false;
+      }
+    }
+
+    _previousContent = aPreviousContent;
+    hasPreviousContent = true;
+
+    return true;
+  }
+
+  /// The [setCrossListing] method...
+  bool setCrossListing (CrossListing aCrossListing) {
+    if (!((hasPreviousContent) &&
+        (aCrossListing.sections.every ((section) => previousContent == section.previousContent))
+    )) {
+      return false;
+    }
+
+    _crossListing = aCrossListing;
+    hasCrossListing = true;
+
+    return true;
+  }
 }
 
 /////////////////////////////////////////////////////////////////////

@@ -45,7 +45,6 @@ class CrossListingViewsCollection extends PolymerElement {
   /// The [attached] method...
   void attached() {
     set ('crossListings', new List<CrossListing>());
-    //crossListings = new List<CrossListing>();
 
     _clDialog = $['cross-listing-dialog'] as PaperDialog;
   }
