@@ -72,7 +72,7 @@ class CrossListingView extends PolymerElement {
   @Listen('tap')
   void onAddSectionToCl (CustomEvent event, details) {
     if (('addSectionToClIcon' == (Polymer.dom (event)).localTarget.id) &&
-        (!currentSection.hasCrossListing) &&
+        //(!currentSection.hasCrossListing) &&
         (crossListing.isCrossListableWith (currentSection))) {
       async (() {
         add ('crossListing.sections', currentSection);
@@ -141,7 +141,7 @@ class CrossListingView extends PolymerElement {
       removeItem ('crossListing.sections', theSection);
       notifyPath ('crossListing', crossListing);
 
-      theSection.hasCrossListing = false;
+      //theSection.hasCrossListing = false;
 
       if (crossListing.sections.isEmpty) {
         set ('haveSections', false);

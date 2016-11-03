@@ -61,10 +61,7 @@ class BannerSection extends JsProxy {
   BannerSection (
     this.sectionId, this.crn, this.courseTitle, this.faculty,
     this.time, this.place, this.termId
-  ) {
-    hasCrossListing = false;
-    hasPreviousContent = false;
-  }
+  );
 
   /// The [isDay] method...
   bool isDay() {
@@ -251,7 +248,9 @@ class RequestedSection extends JsProxy {
   PreviousContentMapping _previousContent;
 
   /// The [RequestedSection] constructor...
-  RequestedSection() {
+  RequestedSection (BannerSection aSection) {
+    _section = aSection;
+
     hasCrossListing = false;
     hasPreviousContent = false;
   }
@@ -269,12 +268,12 @@ class RequestedSection extends JsProxy {
 
   /// The [setPreviousContent] method...
   bool setPreviousContent (PreviousContentMapping aPreviousContent) {
+    if (aPreviousContent.section != section) {
+      return false;
+    }
+
     if (hasCrossListing) {
-      if (!((crossListing.sections.every ((section) => aPreviousContent == section.previousContent)) ||
-          (crossListing.sections.every ((section) => null == section.previousContent))
-      )) {
-        return false;
-      }
+      ;
     }
 
     _previousContent = aPreviousContent;
@@ -285,10 +284,12 @@ class RequestedSection extends JsProxy {
 
   /// The [setCrossListing] method...
   bool setCrossListing (CrossListing aCrossListing) {
-    if (!((hasPreviousContent) &&
-        (aCrossListing.sections.every ((section) => previousContent == section.previousContent))
-    )) {
-      return false;
+    if (aCrossListing.sections.contains (section)) {
+      ;
+    }
+
+    if (hasPreviousContent) {
+      ;
     }
 
     _crossListing = aCrossListing;
