@@ -2,7 +2,7 @@ library plato.elements.data_models;
 
 import 'package:polymer/polymer.dart';
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 /// The [BannerCourse] class...
 class BannerCourse extends JsProxy {
@@ -16,7 +16,7 @@ class BannerCourse extends JsProxy {
   BannerCourse (this.courseId, this.courseTitle);
 }
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 /// The [BannerDepartment] class...
 class BannerDepartment extends JsProxy {
@@ -32,7 +32,7 @@ class BannerDepartment extends JsProxy {
   BannerDepartment (this.code, this.description);
 }
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 /// The [BannerSection] class...
 class BannerSection extends JsProxy {
@@ -88,23 +88,7 @@ class BannerSection extends JsProxy {
   }
 }
 
-/////////////////////////////////////////////////////////////////////
-
-/// The [LearnTerm] class...
-class LearnTerm extends JsProxy {
-  /// The code or ID of the term.
-  @reflectable
-  String termId;
-
-  /// The name or description of the term.
-  @reflectable
-  String description;
-
-  /// The [LearnTerm] constructor.
-  LearnTerm (this.termId, this.description);
-}
-
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 /// The [CourseEnrollment] class...
 class CourseEnrollment extends JsProxy {
@@ -129,7 +113,7 @@ class CourseEnrollment extends JsProxy {
   );
 }
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 /// The [CourseRequest] class...
 class CourseRequest extends JsProxy {
@@ -153,7 +137,7 @@ class CourseRequest extends JsProxy {
   }
 }
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 /// The [CrossListing] class...
 class CrossListing extends JsProxy {
@@ -208,7 +192,23 @@ class CrossListing extends JsProxy {
   }
 }
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+/// The [LearnTerm] class...
+class LearnTerm extends JsProxy {
+  /// The code or ID of the term.
+  @reflectable
+  String termId;
+
+  /// The name or description of the term.
+  @reflectable
+  String description;
+
+  /// The [LearnTerm] constructor.
+  LearnTerm (this.termId, this.description);
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 /// The [PreviousContentMapping] class...
 class PreviousContentMapping extends JsProxy {
@@ -222,7 +222,7 @@ class PreviousContentMapping extends JsProxy {
   PreviousContentMapping();
 }
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
 /// The [RequestedSection] class...
 class RequestedSection extends JsProxy {
@@ -247,17 +247,23 @@ class RequestedSection extends JsProxy {
 
   PreviousContentMapping _previousContent;
 
+  _RequestedSectionRegistry _requestedSections;
+
   /// The [RequestedSection] constructor...
   RequestedSection (BannerSection aSection) {
     _section = aSection;
 
     hasCrossListing = false;
     hasPreviousContent = false;
+
+    _requestedSections = new _RequestedSectionRegistry()
+      ..addRequestedSection (this);
   }
 
   /// The [setSection] method...
   void setSection (BannerSection aSection) {
     _section = aSection;
+    _requestedSections.addRequestedSection (this);
 
     _crossListing = null;
     _previousContent = null;
@@ -268,38 +274,115 @@ class RequestedSection extends JsProxy {
 
   /// The [setPreviousContent] method...
   bool setPreviousContent (PreviousContentMapping aPreviousContent) {
-    if (aPreviousContent.section != section) {
+    if (aPreviousContent?.section != section) {
       return false;
     }
 
-    if (hasCrossListing) {
-      ;
+    if (_requestedSections.canUsePreviousContent (this, aPreviousContent)) {
+      _previousContent = aPreviousContent;
+      hasPreviousContent = true;
+
+      return true;
     }
 
-    _previousContent = aPreviousContent;
-    hasPreviousContent = true;
-
-    return true;
+    return false;
   }
 
   /// The [setCrossListing] method...
   bool setCrossListing (CrossListing aCrossListing) {
-    if (aCrossListing.sections.contains (section)) {
-      ;
+    if (!aCrossListing.sections.contains (section)) {
+      return false;
     }
 
-    if (hasPreviousContent) {
-      ;
+    if (_requestedSections.canUseCrossListing (this, aCrossListing)) {
+      _crossListing = aCrossListing;
+      hasCrossListing = true;
+
+      return true;
     }
 
-    _crossListing = aCrossListing;
-    hasCrossListing = true;
-
-    return true;
+    return false;
   }
 }
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+/// The [_RequestedSectionRegistry] class...
+class _RequestedSectionRegistry extends JsProxy {
+  static _RequestedSectionRegistry _instance;
+
+  @reflectable
+  List<RequestedSection> get requestedSections => _requestedSections;
+
+  List<RequestedSection> _requestedSections;
+
+  /// The [_RequestedSectionRegistry] constructor...
+  factory _RequestedSectionRegistry() {
+    return _instance ??= new _RequestedSectionRegistry._internal();
+  }
+
+  _RequestedSectionRegistry._internal() {
+    _requestedSections = new List<RequestedSection>();
+  }
+
+  /// The [addRequestedSection] method...
+  void addRequestedSection (RequestedSection requestedSection) {
+    if (null != requestedSection) {
+      requestedSections.add (requestedSection);
+    }
+  }
+
+  /// The [removeRequestedSection] method...
+  bool removeRequestedSection (RequestedSection requestedSection) {
+    return requestedSections.remove (requestedSection);
+  }
+
+  /// The [canUsePreviousContent] method...
+  bool canUsePreviousContent (RequestedSection forSection, PreviousContentMapping previousContent) {
+    if (!forSection.hasCrossListing) {
+      return true;
+    }
+
+    if (requestedSections.contains (forSection)) {
+      List<RequestedSection> requestedList = requestedSections.where (
+        (requestedSection) => requestedSection.crossListing == forSection.crossListing
+      );
+
+      if (requestedList.any ((requested) => requested.hasPreviousContent)) {
+        if (requestedList.every ((pcRequested) => pcRequested.previousContent == previousContent)) {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  /// The [canUseCrossListing] method...
+  bool canUseCrossListing (RequestedSection forSection, CrossListing crossListing) {
+    if (!forSection.hasPreviousContent) {
+      return true;
+    }
+
+    if (requestedSections.contains (forSection)) {
+      List<RequestedSection> requestedList = requestedSections.where (
+        (requestedSection) => requestedSection.crossListing == crossListing
+      );
+
+      var pcRequested = requestedList.first.previousContent;
+
+      if (requestedList.every ((requested) => requested.previousContent == pcRequested)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 /// The [UserInformation] class...
 class UserInformation extends JsProxy {
@@ -329,4 +412,4 @@ class UserInformation extends JsProxy {
   );
 }
 
-/////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
