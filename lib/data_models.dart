@@ -1,5 +1,7 @@
 library plato.elements.data_models;
 
+import 'dart:html' show window;
+
 import 'package:polymer/polymer.dart';
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -290,8 +292,14 @@ class RequestedSection extends JsProxy {
 
   /// The [setCrossListing] method...
   bool setCrossListing (CrossListing aCrossListing) {
-    if (!aCrossListing.sections.contains (section)) {
-      return false;
+    window.console.debug (aCrossListing);
+
+    try {
+      if (!aCrossListing.sections.contains (section)) {
+        return false;
+      }
+    } catch (e) {
+      window.console.debug (e);
     }
 
     if (_requestedSections.canUseCrossListing (this, aCrossListing)) {

@@ -14,7 +14,8 @@ import 'package:polymer_elements/paper_card.dart';
 import 'package:polymer_elements/paper_icon_button.dart';
 import 'package:polymer_elements/paper_material.dart';
 
-import 'data_models.dart' show BannerSection, CrossListing, PreviousContentMapping;
+import 'data_models.dart'
+  show BannerSection, CrossListing, PreviousContentMapping, RequestedSection;
 
 /// Silence analyzer:
 /// [IronSignals] - [PaperCard] - [PaperIconButton] - [PaperMaterial]
@@ -24,6 +25,8 @@ import 'data_models.dart' show BannerSection, CrossListing, PreviousContentMappi
 class SectionView extends PolymerElement {
   @Property(notify: true)
   BannerSection section;
+
+  RequestedSection _requestedSection;
 
   @Property(notify: true)
   PreviousContentMapping withPreviousContent;
@@ -60,6 +63,8 @@ class SectionView extends PolymerElement {
 
     notifyPath ('hasPreviousContent', _hasPreviousContent = false);
     notifyPath ('hasCrossListing', _hasCrossListing = false);
+
+    _requestedSection = new RequestedSection (section);
   }
 
   /// The [updateSection] method...
@@ -105,7 +110,7 @@ class SectionView extends PolymerElement {
     }
 
     set ('hasExtraInfo', true);
-    set ('withPreviousContent', details['previousContent']);
+    set ('withPreviousContent', details['previousContent'] as PreviousContentMapping);
     notifyPath ('hasPreviousContent', _hasPreviousContent = true);
   }
 
@@ -116,13 +121,21 @@ class SectionView extends PolymerElement {
       return;
     }
 
-    set ('withCrossListing', new CrossListing());
-
     var crossListings = details['crossListings'] as List<CrossListing>;
 
-    crossListings.where (
-      (CrossListing crossListing) => crossListing.sections.contains (section)
-    ).forEach ((CrossListing clSet) {
+    List<CrossListing> clList = crossListings.where (
+      (crossListing) => crossListing.sections.contains (section)
+    );
+
+    clList.forEach ((CrossListing clSet) {
+      if (!_requestedSection.setCrossListing (clSet)) {
+        clSet.sections.remove (section);
+
+        return;
+      }
+
+      set ('withCrossListing', new CrossListing());
+
       clSet.sections.forEach ((BannerSection clSection) {
         async (() {
           add ('withCrossListing.sections', clSection);

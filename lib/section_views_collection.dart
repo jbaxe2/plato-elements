@@ -61,7 +61,7 @@ class SectionViewsCollection extends PolymerElement {
   @Listen('iron-signal-section-removed')
   void onSectionRemoved (CustomEvent event, details) {
     if (null != details['section']) {
-      BannerSection section = details['section'];
+      var section = details['section'] as BannerSection;
       var sectionId = '${section.sectionId}_${section.termId}';
 
       if (!(sections.contains (section) && (sectionIds.contains (sectionId)))) {
