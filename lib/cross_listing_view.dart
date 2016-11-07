@@ -13,7 +13,9 @@ import 'package:polymer_elements/iron_signals.dart';
 import 'package:polymer_elements/paper_card.dart';
 import 'package:polymer_elements/paper_icon_button.dart';
 
-import 'data_models.dart' show BannerSection, CrossListing;
+import 'data_models.dart' show BannerSection, CrossListing, RequestedSection;
+
+import 'plato_elements_utils.dart';
 
 /// Silence analyzer:
 /// [IronSignals] - [PaperCard] - [PaperIconButton]
@@ -39,6 +41,8 @@ class CrossListingView extends PolymerElement {
   @Property(notify: true)
   BannerSection currentSection;
 
+  RequestedSection _requestedSection;
+
   /// True if the cross-listing contains the current section.
   @Property(notify: true)
   bool get clHasSection => _clHasSection;
@@ -62,6 +66,8 @@ class CrossListingView extends PolymerElement {
     notifyPath (
       'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)
     );
+
+    _requestedSection = new RequestedSection (currentSection);
   }
 
   /// The [displayClSetNum] method...
@@ -74,6 +80,15 @@ class CrossListingView extends PolymerElement {
     if (('addSectionToClIcon' == (Polymer.dom (event)).localTarget.id) &&
         (crossListing.isCrossListableWith (currentSection))) {
       async (() {
+        if (!_requestedSection.setCrossListing (crossListing)) {
+          raiseError (this,
+            'Invalid cross-listing action warning',
+            'Unable to cross-list this section, as its previous content differs from the other section(s)\' previous content.'
+          );
+
+          return;
+        }
+
         add ('crossListing.sections', currentSection);
         set ('currentSection.hasCrossListing', true);
         set ('haveSections', true);

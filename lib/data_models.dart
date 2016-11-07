@@ -371,10 +371,16 @@ class _RequestedSectionsRegistry extends JsProxy {
         (requestedSection) => requestedSection.crossListing == crossListing
       ).toList();
 
-      var pcRequested = requestedList.first.previousContent;
-
-      if (requestedList.every ((requested) => requested.previousContent == pcRequested)) {
+      if ((0 == requestedList.length) || (1 == requestedList.length)) {
         return true;
+      }
+
+      if (1 < requestedList.length) {
+        var pcRequested = requestedList.first.previousContent;
+
+        if (requestedList.every ((requested) => requested.previousContent == pcRequested)) {
+          return true;
+        }
       }
     }
 
