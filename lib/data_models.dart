@@ -1,7 +1,5 @@
 library plato.elements.data_models;
 
-import 'dart:html' show window;
-
 import 'package:polymer/polymer.dart';
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -348,7 +346,7 @@ class _RequestedSectionsRegistry extends JsProxy {
     if (requestedSections.contains (forSection)) {
       List<RequestedSection> requestedList = requestedSections.where (
         (requestedSection) => requestedSection.crossListing == forSection.crossListing
-      );
+      ).toList();
 
       if (requestedList.any ((requested) => requested.hasPreviousContent)) {
         if (requestedList.every ((pcRequested) => pcRequested.previousContent == previousContent)) {
@@ -371,7 +369,7 @@ class _RequestedSectionsRegistry extends JsProxy {
     if (requestedSections.contains (forSection)) {
       List<RequestedSection> requestedList = requestedSections.where (
         (requestedSection) => requestedSection.crossListing == crossListing
-      );
+      ).toList();
 
       var pcRequested = requestedList.first.previousContent;
 

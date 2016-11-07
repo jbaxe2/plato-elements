@@ -17,6 +17,8 @@ import 'package:polymer_elements/paper_material.dart';
 import 'data_models.dart'
   show BannerSection, CrossListing, PreviousContentMapping, RequestedSection;
 
+import 'plato_elements_utils.dart';
+
 /// Silence analyzer:
 /// [IronSignals] - [PaperCard] - [PaperIconButton] - [PaperMaterial]
 ///
@@ -109,8 +111,19 @@ class SectionView extends PolymerElement {
       return;
     }
 
+    var previousContent = details['previousContent'] as PreviousContentMapping;
+
+    if (!_requestedSection.setPreviousContent (previousContent)) {
+      raiseError (this,
+        'Invalid previous content action warning',
+        'Cannot add previous content to a section that is cross-listed with another section having differing previous content.'
+      );
+
+      return;
+    }
+
     set ('hasExtraInfo', true);
-    set ('withPreviousContent', details['previousContent'] as PreviousContentMapping);
+    set ('withPreviousContent', previousContent);
     notifyPath ('hasPreviousContent', _hasPreviousContent = true);
   }
 
@@ -133,6 +146,11 @@ class SectionView extends PolymerElement {
       List<BannerSection> clSections = clSet.sections;
 
       if (!_requestedSection.setCrossListing (clSet)) {
+        raiseError (this,
+          'Invalid cross-listing action warning',
+          'Unable to cross-list this section, as its previous content differs from the other section(s)\' previous content.'
+        );
+
         clSections.remove (section);
 
         return;
