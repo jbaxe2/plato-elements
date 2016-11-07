@@ -121,22 +121,24 @@ class SectionView extends PolymerElement {
       return;
     }
 
+    set ('withCrossListing', new CrossListing());
+
     var crossListings = details['crossListings'] as List<CrossListing>;
 
     List<CrossListing> clList = crossListings.where (
       (crossListing) => crossListing.sections.contains (section)
-    );
+    ).toList();
 
     clList.forEach ((CrossListing clSet) {
+      List<BannerSection> clSections = clSet.sections;
+
       if (!_requestedSection.setCrossListing (clSet)) {
-        clSet.sections.remove (section);
+        clSections.remove (section);
 
         return;
       }
 
-      set ('withCrossListing', new CrossListing());
-
-      clSet.sections.forEach ((BannerSection clSection) {
+      clSections.forEach ((BannerSection clSection) {
         async (() {
           add ('withCrossListing.sections', clSection);
 

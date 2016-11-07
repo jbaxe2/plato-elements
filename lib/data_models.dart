@@ -249,7 +249,7 @@ class RequestedSection extends JsProxy {
 
   PreviousContentMapping _previousContent;
 
-  _RequestedSectionRegistry _requestedSections;
+  _RequestedSectionsRegistry _requestedSections;
 
   /// The [RequestedSection] constructor...
   RequestedSection (BannerSection aSection) {
@@ -258,7 +258,7 @@ class RequestedSection extends JsProxy {
     hasCrossListing = false;
     hasPreviousContent = false;
 
-    _requestedSections = new _RequestedSectionRegistry()
+    _requestedSections = new _RequestedSectionsRegistry()
       ..addRequestedSection (this);
   }
 
@@ -292,14 +292,8 @@ class RequestedSection extends JsProxy {
 
   /// The [setCrossListing] method...
   bool setCrossListing (CrossListing aCrossListing) {
-    window.console.debug (aCrossListing);
-
-    try {
-      if (!aCrossListing.sections.contains (section)) {
-        return false;
-      }
-    } catch (e) {
-      window.console.debug (e);
+    if (!aCrossListing.sections.contains (section)) {
+      return false;
     }
 
     if (_requestedSections.canUseCrossListing (this, aCrossListing)) {
@@ -315,21 +309,21 @@ class RequestedSection extends JsProxy {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/// The [_RequestedSectionRegistry] class...
-class _RequestedSectionRegistry extends JsProxy {
-  static _RequestedSectionRegistry _instance;
+/// The [_RequestedSectionsRegistry] class...
+class _RequestedSectionsRegistry extends JsProxy {
+  static _RequestedSectionsRegistry _instance;
 
   @reflectable
   List<RequestedSection> get requestedSections => _requestedSections;
 
   List<RequestedSection> _requestedSections;
 
-  /// The [_RequestedSectionRegistry] constructor...
-  factory _RequestedSectionRegistry() {
-    return _instance ??= new _RequestedSectionRegistry._internal();
+  /// The [_RequestedSectionsRegistry] constructor...
+  factory _RequestedSectionsRegistry() {
+    return _instance ??= new _RequestedSectionsRegistry._internal();
   }
 
-  _RequestedSectionRegistry._internal() {
+  _RequestedSectionsRegistry._internal() {
     _requestedSections = new List<RequestedSection>();
   }
 

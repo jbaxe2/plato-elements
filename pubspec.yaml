@@ -1,6 +1,6 @@
 name: 'plato.elements'
 description: A collection of HTML5 custom elements, named Plato Elements, built using Polymer.dart.
-version: 0.26.20161104
+version: 0.26.20161107
 author: Joseph B. Axenroth
 
 dependencies:
