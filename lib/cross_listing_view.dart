@@ -80,16 +80,19 @@ class CrossListingView extends PolymerElement {
     if (('addSectionToClIcon' == (Polymer.dom (event)).localTarget.id) &&
         (crossListing.isCrossListableWith (currentSection))) {
       async (() {
+        add ('crossListing.sections', currentSection);
+
         if (!_requestedSection.setCrossListing (crossListing)) {
           raiseError (this,
             'Invalid cross-listing action warning',
-            'Unable to cross-list this section, as its previous content differs from the other section(s)\' previous content.'
+            'Unable to cross-list this section, as its previous content differs from the previous content of the other section(s).'
           );
+
+          removeItem ('crossListing.sections', currentSection);
 
           return;
         }
 
-        add ('crossListing.sections', currentSection);
         set ('currentSection.hasCrossListing', true);
         set ('haveSections', true);
 

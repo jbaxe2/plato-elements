@@ -145,17 +145,6 @@ class SectionView extends PolymerElement {
     clList.forEach ((CrossListing clSet) {
       List<BannerSection> clSections = clSet.sections;
 
-      if (!_requestedSection.setCrossListing (clSet)) {
-        raiseError (this,
-          'Invalid cross-listing action warning',
-          'Unable to cross-list this section, as its previous content differs from the other section(s)\' previous content.'
-        );
-
-        clSections.remove (section);
-
-        return;
-      }
-
       clSections.forEach ((BannerSection clSection) {
         async (() {
           add ('withCrossListing.sections', clSection);
@@ -183,6 +172,17 @@ class SectionView extends PolymerElement {
           }
         });
       });
+
+      if (!_requestedSection.setCrossListing (clSet)) {
+        raiseError (this,
+          'Invalid cross-listing action warning',
+          'Unable to cross-list this section, as its previous content differs from the previous content of the other section(s).'
+        );
+
+        clSections.remove (section);
+
+        return;
+      }
     });
   }
 
