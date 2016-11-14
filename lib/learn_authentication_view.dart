@@ -45,10 +45,7 @@ class LearnAuthenticationView extends PolymerElement {
       if ((13 == event.keyCode) && !(username.isEmpty || password.isEmpty)) {
         _requestAuth();
       }
-    } catch (_) {
-      window.console.debug (_);
-      window.console.debug (_.toString());
-    }
+    } catch (_) {}
   }
 
   /// The [authenticateLearn] method...

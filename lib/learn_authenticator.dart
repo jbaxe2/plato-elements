@@ -8,6 +8,8 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_ajax.dart';
 
+import 'plato_elements_utils.dart';
+
 /// The [LearnAuthenticator] element class defines a simple custom element used
 /// to attempts authentication against a Blackboard Learn 9.1 instance using a
 /// username and password pair, configurable on the element.
@@ -74,7 +76,9 @@ class LearnAuthenticator extends PolymerElement {
     var response = _learnAuthAjax.lastResponse;
 
     if (null != response['error']) {
-      this.fire ('iron-signal', detail: {'name': 'error', 'data': response});
+      //this.fire ('iron-signal', detail: {'name': 'error', 'data': response});
+
+      raiseError (this, 'Authentication error', response['error']);
     } else if (null != response['learn.user.authenticated']) {
       notifyPath ('result', _result = response['learn.user.authenticated']);
 

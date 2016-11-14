@@ -11,6 +11,7 @@ import 'package:polymer_elements/iron_signals.dart';
 import 'package:polymer_elements/paper_card.dart';
 
 import 'data_models.dart' show BannerSection;
+import 'plato_elements_utils.dart';
 import 'section_view.dart';
 
 /// Silence analyzer: [IronSignals] - [PaperCard] - [SectionView]
@@ -65,13 +66,10 @@ class SectionViewsCollection extends PolymerElement {
       var sectionId = '${section.sectionId}_${section.termId}';
 
       if (!(sections.contains (section) && (sectionIds.contains (sectionId)))) {
-        this.fire ('iron-signal', detail: {
-          'name': 'error',
-          'data': {
-            'title': 'Invalid action warning',
-            'message': 'Cannot remove a non-requested section from the request.'
-          }
-        });
+        raiseError (this,
+          'Invalid action warning',
+          'Cannot remove a non-requested section from the request.'
+        );
 
         return;
       }

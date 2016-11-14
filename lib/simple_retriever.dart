@@ -8,6 +8,8 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_ajax.dart';
 
+import 'plato_elements_utils.dart';
+
 /// The [SimpleRetriever] element class...
 @PolymerRegister('simple-retriever')
 class SimpleRetriever extends PolymerElement {
@@ -64,9 +66,11 @@ class SimpleRetriever extends PolymerElement {
     var response = _retrieverAjax.lastResponse;
 
     if (null != response['error']) {
-      this.fire (
-        'iron-signal', detail: {'name': 'error', 'data': response}
-      );
+      raiseError (this, 'Server information load error', response['error']);
+
+      //this.fire (
+      //  'iron-signal', detail: {'name': 'error', 'data': response}
+      //);
     } else if (null != response[type]) {
       this.fire ('${type.toLowerCase()}-retrieved', detail: response);
     }

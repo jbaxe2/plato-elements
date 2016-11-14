@@ -7,6 +7,7 @@ import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
 import 'data_models.dart' show CourseEnrollment;
+import 'plato_elements_utils.dart';
 import 'simple_retriever.dart';
 
 @PolymerRegister('enrollments-collection')
@@ -44,13 +45,9 @@ class EnrollmentsCollection extends PolymerElement {
 
         details['enrollments'].forEach ((enrollDetails) {
           if (enrollDetails['learn.user.username'] != username) {
-            var error = {
-              'title': 'Enrollment retrieval error',
-              'message': 'The retrieved enrollments do not match the authenticated user.'
-            };
-
-            this.fire (
-              'iron-signal', detail: {'name': 'error', 'data': error}
+            raiseError (this,
+              'Enrollment retrieval error',
+              'The retrieved enrollments do not match the authenticated user.'
             );
           }
 
