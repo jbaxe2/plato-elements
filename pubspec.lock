@@ -6,7 +6,7 @@ packages:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.27.6"
+    version: "0.29.1"
   args:
     description:
       name: args
@@ -36,7 +36,7 @@ packages:
       name: charcode
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   cli_util:
     description:
       name: cli_util
@@ -48,7 +48,7 @@ packages:
       name: code_transformers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2+3"
+    version: "0.5.0+1"
   collection:
     description:
       name: collection
@@ -72,7 +72,7 @@ packages:
       name: csslib
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.2+1"
+    version: "0.13.2+2"
   dart_style:
     description:
       name: dart_style
@@ -90,13 +90,13 @@ packages:
       name: html
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2+2"
+    version: "0.13.0"
   initialize:
     description:
       name: initialize
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.2+2"
+    version: "0.6.2+5"
   isolate:
     description:
       name: isolate
@@ -109,6 +109,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.11.3+1"
+  meta:
+    description:
+      name: meta
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   package_config:
     description:
       name: package_config
@@ -132,7 +138,7 @@ packages:
       name: polymer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0-rc.18"
+    version: "1.0.0-rc.19"
   polymer_elements:
     description:
       name: polymer_elements
@@ -156,7 +162,7 @@ packages:
       name: reflectable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.4"
+    version: "1.0.1"
   source_maps:
     description:
       name: source_maps
@@ -174,7 +180,7 @@ packages:
       name: stack_trace
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.8"
+    version: "1.7.0"
   string_scanner:
     description:
       name: string_scanner
@@ -204,7 +210,7 @@ packages:
       name: web_components
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.3"
+    version: "0.12.5"
   when:
     description:
       name: when
