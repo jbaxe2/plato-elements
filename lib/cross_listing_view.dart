@@ -20,7 +20,9 @@ import 'plato_elements_utils.dart';
 /// Silence analyzer:
 /// [IronSignals] - [PaperCard] - [PaperIconButton]
 ///
-/// The [CrossListingView] class...
+/// The [CrossListingView] class establishes the view for interacting with one
+/// particular cross-listing set.  Interactions with the cross-listing set are
+/// performed under the context of a 'current' section.
 @PolymerRegister('cross-listing-view')
 class CrossListingView extends PolymerElement {
   /// The cross-listing serving as the main model for this element.

@@ -16,7 +16,12 @@ import 'section_view.dart';
 
 /// Silence analyzer: [IronSignals] - [PaperCard] - [SectionView]
 ///
-/// The [SectionViewsCollection] class...
+/// The [SectionViewsCollection] class establishes the potential collection of
+/// one or more section views.  This collection of section views MUST be singleton,
+/// although there are no protections to prevent more than one instance from being
+/// created.  One or more sections may be added to this collection at a time,
+/// while only one section may be removed at a time.  Sections that are a part
+/// of this collection represent those that should be part of the course request.
 @PolymerRegister('section-views-collection')
 class SectionViewsCollection extends PolymerElement {
   @Property(notify: true)
@@ -34,14 +39,17 @@ class SectionViewsCollection extends PolymerElement {
   /// The [SectionViewsCollection] named constructor.
   SectionViewsCollection.created() : super.created();
 
-  /// The [attached] method...
+  /// The [attached] method provides some initialization for when the section
+  /// views collection element has been added to the DOM.
   void attached() {
     set ('sections', new List<BannerSection>());
     set ('sectionIds', new List<String>());
     set ('haveSections', false);
   }
 
-  /// The [onSectionsAdded] method...
+  /// The [onSectionsAdded] method allows for the addition of one or more sections
+  /// to the collection, whereby a section view will be created for each section,
+  /// This method will prevent the addition of the same section multiple times.
   @Listen('iron-signal-sections-added')
   void onSectionsAdded (CustomEvent event, details) {
     if (null != details['sections']) {
@@ -58,7 +66,9 @@ class SectionViewsCollection extends PolymerElement {
     }
   }
 
-  /// The [onSectionRemoved] method...
+  /// The [onSectionRemoved] method establishes that one (and only one) section
+  /// may be removed from the collection, for which the arguments passed will
+  /// specify which section is to be removed.
   @Listen('iron-signal-section-removed')
   void onSectionRemoved (CustomEvent event, details) {
     if (null != details['section']) {

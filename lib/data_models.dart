@@ -224,7 +224,10 @@ class PreviousContentMapping extends JsProxy {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/// The [RequestedSection] class...
+/// The [RequestedSection] class provides the data model for a requested course.
+/// Underlying aspects of the model includes a [BannerSection] instance, and
+/// attaches the potential for previous content (via [PreviousContentMapping])
+/// and inclusion in a cross-listing set (via [CrossListing]).
 class RequestedSection extends JsProxy {
   @reflectable
   BannerSection get section => _section;
@@ -307,7 +310,9 @@ class RequestedSection extends JsProxy {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/// The [_RequestedSectionsRegistry] class...
+/// The [_RequestedSectionsRegistry] class is an internal (to the library)
+/// representation of the courses that have been requested during a particular
+/// use of the course request form.
 class _RequestedSectionsRegistry extends JsProxy {
   static _RequestedSectionsRegistry _instance;
 

@@ -22,7 +22,11 @@ import 'plato_elements_utils.dart';
 /// Silence analyzer:
 /// [IronSignals] - [PaperCard] - [PaperIconButton] - [PaperMaterial]
 ///
-/// The [SectionView] class...
+/// The [SectionView] class establishes the view for interacting with a single
+/// requested section.  The underlying model for the view is a [BannerSection]
+/// instance.  This view also provides controls for adding/removing this section
+/// to a cross-listing set, or specifying that the content from a previous course
+/// should be copied into the underlying section.
 @PolymerRegister('section-view')
 class SectionView extends PolymerElement {
   @Property(notify: true)
@@ -72,7 +76,8 @@ class SectionView extends PolymerElement {
   /// The [updateSection] method...
   void updateSection (BannerSection newSection) => set ('section', newSection);
 
-  /// The [onCopyContent] method...
+  /// The [onCopyContent] method listens for the user to signify that he or she
+  /// would like to copy content from a previous course into this one.
   @Listen('tap')
   void onCopyContent (CustomEvent event, details) {
     if ('copyContentIcon' == (Polymer.dom (event)).localTarget.id) {
@@ -82,7 +87,8 @@ class SectionView extends PolymerElement {
     }
   }
 
-  /// The [onAddToClSet] method...
+  /// The [onAddToClSet] method listens for the user to signify that he or she
+  /// would like to add this course to some cross-listing set.
   @Listen('tap')
   void onAddToClSet (CustomEvent event, details) {
     if ('addToClSetIcon' == (Polymer.dom (event)).localTarget.id) {
@@ -92,7 +98,8 @@ class SectionView extends PolymerElement {
     }
   }
 
-  /// The [onRemoveSection] method...
+  /// The [onRemoveSection] method listens for the user to signify this section
+  /// should be removed from the collection of requested sections.
   @Listen('tap')
   void onRemoveSection (CustomEvent event, details) {
     if ('removeSectionIcon' == (Polymer.dom (event)).localTarget.id) {
@@ -102,7 +109,8 @@ class SectionView extends PolymerElement {
     }
   }
 
-  /// The [onPreviousContentSpecified] method...
+  /// The [onPreviousContentSpecified] method listens for the signal that some
+  /// previous content should be copied into this section.
   @Listen('iron-signal-previous-content-specified')
   void onPreviousContentSpecified (CustomEvent event, details) {
     if ((null == details['section']) || (null == details['previousContent']) ||
@@ -127,7 +135,10 @@ class SectionView extends PolymerElement {
     notifyPath ('hasPreviousContent', _hasPreviousContent = true);
   }
 
-  /// The [onCrossListingsSpecified] method...
+  /// The [onCrossListingsSpecified] method listens for the signal that the
+  /// cross-listing options have changed, and that this section may have been
+  /// affected by those changes.  If the cross-listing options' changes includes
+  /// this section, the change configurations are applied to this section.
   @Listen('iron-signal-cross-listings-specified')
   void onCrossListingsSpecified (CustomEvent event, details) {
     if ((null == details['section']) || (null == details['crossListings'])) {
@@ -186,7 +197,9 @@ class SectionView extends PolymerElement {
     });
   }
 
-  /// The [onRemovePreviousContent] method...
+  /// The [onRemovePreviousContent] method listens for the user to signify that
+  /// this section should cancel the previous content for this section, even if
+  /// previous content may not have been specified (effectively cleans the slate).
   @Listen('tap')
   void onRemovePreviousContent (CustomEvent event, details) {
     if ('removePreviousContentIcon' == (Polymer.dom (event)).localTarget.id) {
@@ -199,7 +212,8 @@ class SectionView extends PolymerElement {
     }
   }
 
-  /// The [onRemoveFromCrossListing] method...
+  /// The [onRemoveFromCrossListing] method listens for the user to signify that
+  /// this section should be removed from whichever cross-listing set it belongs.
   @Listen('tap')
   void onRemoveFromCrossListing (CustomEvent event, details) {
     if ('removeFromCrossListingIcon' == (Polymer.dom (event)).localTarget.id) {
