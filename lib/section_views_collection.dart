@@ -48,7 +48,7 @@ class SectionViewsCollection extends PolymerElement {
   }
 
   /// The [onSectionsAdded] method allows for the addition of one or more sections
-  /// to the collection, whereby a section view will be created for each section,
+  /// to the collection, whereby a section view will be created for each section.
   /// This method will prevent the addition of the same section multiple times.
   @Listen('iron-signal-sections-added')
   void onSectionsAdded (CustomEvent event, details) {

@@ -86,6 +86,39 @@ class BannerSection extends JsProxy {
     // If it is indeterminable that the course is Day, default to false.
     return false;
   }
+
+  /// The '==' operator for determining equivalency (NOT identicality) between
+  /// two different [BannerSection] instances.
+  @override
+  bool operator ==(BannerSection other) {
+    if ((other.sectionId == sectionId) &&
+        (other.crn == crn) &&
+        (other.courseTitle == courseTitle) &&
+        (other.faculty == faculty) &&
+        (other.time == time) &&
+        (other.place == place) &&
+        (other.termId == termId)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /// The hashCode getter, which must be overridden whenever the '==' operator is.
+  @override
+  int get hashCode {
+    int result = 3;
+
+    result = 7 * result + ((null == sectionId) ? 0 : sectionId.hashCode);
+    result = 7 * result + ((null == crn) ? 0 : crn.hashCode);
+    result = 7 * result + ((null == courseTitle) ? 0 : courseTitle.hashCode);
+    result = 7 * result + ((null == faculty) ? 0 : faculty.hashCode);
+    result = 7 * result + ((null == time) ? 0 : time.hashCode);
+    result = 7 * result + ((null == place) ? 0 : place.hashCode);
+    result = 7 * result + ((null == termId) ? 0 : termId.hashCode);
+
+    return result;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -111,6 +144,35 @@ class CourseEnrollment extends JsProxy {
   CourseEnrollment (
     this.username, this.courseId, this.courseName, this.role, this.available
   );
+
+  /// The '==' operator for determining equivalency (NOT identicality) between
+  /// two different [CourseEnrollment] instances.
+  @override
+  bool operator ==(CourseEnrollment other) {
+    if ((other.username == username) &&
+        (other.courseId == courseId) &&
+        (other.courseName == courseName) &&
+        (other.role == role) &&
+        (other.available == available)) {
+      return true;
+    };
+
+    return false;
+  }
+
+  /// The hashCode getter, which must be overridden whenever the '==' operator is.
+  @override
+  int get hashCode {
+    int result = 3;
+
+    result = 7 * result + ((null == username) ? 0 : username.hashCode);
+    result = 7 * result + ((null == courseId) ? 0 : courseId.hashCode);
+    result = 7 * result + ((null == courseName) ? 0 : courseName.hashCode);
+    result = 7 * result + ((null == role) ? 0 : role.hashCode);
+    result = 7 * result + ((null == available) ? 0 : available.hashCode);
+
+    return result;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -190,6 +252,30 @@ class CrossListing extends JsProxy {
       }
     }
   }
+
+  /// The '==' operator for determining equivalency (NOT identicality) between
+  /// two different [CrossListing] instances.
+  @override
+  bool operator ==(CrossListing other) {
+    if ((other.sections.every ((BannerSection oSection) => sections.contains (oSection))) &&
+        (sections.every ((BannerSection section) => other.sections.contains (section)))) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /// The hashCode getter, which must be overridden whenever the '==' operator is.
+  @override
+  int get hashCode {
+    int result = 3;
+
+    sections.forEach (
+      (BannerSection section) => result = 7 * result + section.hashCode
+    );
+
+    return result;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -220,6 +306,23 @@ class PreviousContentMapping extends JsProxy {
 
   /// The [PreviousContentMapping] constructor...
   PreviousContentMapping();
+
+  /// The '==' operator for determining equivalency (NOT identicality) between
+  /// two different [PreviousContentMapping] instances.
+  @override
+  bool operator ==(PreviousContentMapping mapping) =>
+    ((mapping.section == section) && (mapping.courseEnrollment == courseEnrollment));
+
+  /// The hashCode getter, which must be overridden whenever the '==' operator is.
+  @override
+  int get hashCode {
+    int result = 3;
+
+    result = 7 * result + section.hashCode;
+    result = 7 * result + courseEnrollment.hashCode;
+
+    return result;
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -252,7 +355,9 @@ class RequestedSection extends JsProxy {
 
   _RequestedSectionsRegistry _requestedSections;
 
-  /// The [RequestedSection] constructor...
+  /// The [RequestedSection] constructor creates the requested section instance,
+  /// but also initializes the cross-listing and previous content information.
+  /// This requested section is also added to the requested sections registry.
   RequestedSection (BannerSection aSection) {
     _section = aSection;
 
@@ -263,10 +368,13 @@ class RequestedSection extends JsProxy {
       ..addRequestedSection (this);
   }
 
-  /// The [setSection] method...
+  /// The [setSection] method allows for the setting of a different [BannerSection]
+  /// instance.  As a result, the cross-listing and previous content will become
+  /// nullified, as those properties were specifically tied to the previous
+  /// section instance.
   void setSection (BannerSection aSection) {
     _section = aSection;
-    _requestedSections.addRequestedSection (this);
+    //_requestedSections.addRequestedSection (this);
 
     _crossListing = null;
     _previousContent = null;
@@ -275,7 +383,9 @@ class RequestedSection extends JsProxy {
     hasPreviousContent = false;
   }
 
-  /// The [setPreviousContent] method...
+  /// The [setPreviousContent] method attempts to attach a [PreviousContentMapping]
+  /// instance to the underlying [BannerSection] instance.  This method will return
+  /// true if the mapping is successful, or false on any error.
   bool setPreviousContent (PreviousContentMapping aPreviousContent) {
     if (aPreviousContent?.section != section) {
       return false;
@@ -291,7 +401,10 @@ class RequestedSection extends JsProxy {
     return false;
   }
 
-  /// The [setCrossListing] method...
+  /// The [setCrossListing] method attempts to attach a [CrossListing] instance
+  /// to the underlying [BannerSection] instance.  If the cross-listing set can
+  /// contain the [BannerSection], the method will return true.  False will be
+  /// returned if the cross-listing set cannot add the section.
   bool setCrossListing (CrossListing aCrossListing) {
     if (!aCrossListing.sections.contains (section)) {
       return false;
@@ -305,6 +418,31 @@ class RequestedSection extends JsProxy {
     }
 
     return false;
+  }
+
+  /// The '==' operator for determining equivalency (NOT identicality) between
+  /// two different [RequestedSection] instances.
+  @override
+  bool operator ==(RequestedSection other) {
+    if ((other.section == section) &&
+        (other.crossListing == crossListing) &&
+        (other.previousContent == previousContent)) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /// The hashCode getter, which must be overridden whenever the '==' operator is.
+  @override
+  int get hashCode {
+    int result = 3;
+
+    result = 7 * result + section.hashCode;
+    result = 7 * result + crossListing.hashCode;
+    result = 7 * result + previousContent.hashCode;
+
+    return result;
   }
 }
 
@@ -332,7 +470,7 @@ class _RequestedSectionsRegistry extends JsProxy {
 
   /// The [addRequestedSection] method...
   void addRequestedSection (RequestedSection requestedSection) {
-    if (null != requestedSection) {
+    if ((null != requestedSection) && !requestedSections.contains (requestedSection)) {
       requestedSections.add (requestedSection);
     }
   }
@@ -352,6 +490,10 @@ class _RequestedSectionsRegistry extends JsProxy {
       List<RequestedSection> requestedList = requestedSections.where (
         (requestedSection) => requestedSection.crossListing == forSection.crossListing
       ).toList();
+
+      if (requestedList.isEmpty) {
+        return true;
+      }
 
       if (requestedList.any ((requested) => requested.hasPreviousContent)) {
         if (requestedList.every ((pcRequested) => pcRequested.previousContent == previousContent)) {
@@ -383,7 +525,9 @@ class _RequestedSectionsRegistry extends JsProxy {
       if (1 < requestedList.length) {
         var pcRequested = requestedList.first.previousContent;
 
-        if (requestedList.every ((requested) => requested.previousContent == pcRequested)) {
+        if (requestedList.every ((requested) => (
+          (requested.previousContent == pcRequested) || (null == requested.previousContent)
+        ))) {
           return true;
         }
       }

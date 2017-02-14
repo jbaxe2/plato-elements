@@ -84,6 +84,7 @@ class CrossListingView extends PolymerElement {
       async (() {
         add ('crossListing.sections', currentSection);
 
+        /*
         if (!_requestedSection.setCrossListing (crossListing)) {
           raiseError (this,
             'Invalid cross-listing action warning',
@@ -94,6 +95,7 @@ class CrossListingView extends PolymerElement {
 
           return;
         }
+        */
 
         set ('currentSection.hasCrossListing', true);
         set ('haveSections', true);

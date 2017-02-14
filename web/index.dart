@@ -1,4 +1,4 @@
-// Copyright (c) 2016, Joseph B. Axenroth. All rights reserved. Use of this
+// Copyright (c) 2016-2017, Joseph B. Axenroth. All rights reserved. Use of this
 // source code is governed by a BSD-style license that can be found in the
 // LICENSE file.
 
@@ -28,6 +28,8 @@ import '../lib/previous_content_selector.dart';
 
 import '../lib/cross_listing_views_collection.dart';
 
+import '../lib/crf_review.dart';
+
 import '../lib/plato_element_error.dart';
 import '../lib/plato_element_processing.dart';
 
@@ -47,6 +49,8 @@ import '../lib/course_request.dart';
 /// [PreviousContentSelector]
 ///
 /// [CrossListingViewsCollection]
+///
+/// [CrfReview]
 ///
 /// [PlatoElementError] - [PlatoElementProcessing]
 ///
