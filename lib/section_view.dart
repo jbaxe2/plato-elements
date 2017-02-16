@@ -25,8 +25,8 @@ import 'plato_elements_utils.dart';
 /// The [SectionView] class establishes the view for interacting with a single
 /// requested section.  The underlying model for the view is a [BannerSection]
 /// instance.  This view also provides controls for adding/removing this section
-/// to a cross-listing set, or specifying that the content from a previous course
-/// should be copied into the underlying section.
+/// to/from a cross-listing set, or specifying that the content from a previous
+/// course section should be copied into the underlying section.
 @PolymerRegister('section-view')
 class SectionView extends PolymerElement {
   @Property(notify: true)
@@ -206,6 +206,8 @@ class SectionView extends PolymerElement {
       set ('withPreviousContent', null);
       notifyPath ('hasPreviousContent', _hasPreviousContent = false);
 
+      _requestedSection.removePreviousContent();
+
       if (null == withCrossListing) {
         set ('hasExtraInfo', false);
       }
@@ -224,6 +226,8 @@ class SectionView extends PolymerElement {
 
       set ('withCrossListing', null);
       notifyPath ('hasCrossListing', _hasCrossListing = false);
+
+      _requestedSection.removeCrossListing();
 
       if (null == withPreviousContent) {
         set ('hasExtraInfo', false);

@@ -1,5 +1,7 @@
 library plato.elements.data_models;
 
+import 'dart:html';
+
 import 'package:polymer/polymer.dart';
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -204,14 +206,16 @@ class CourseRequest extends JsProxy {
 /// The [CrossListing] class...
 class CrossListing extends JsProxy {
   @reflectable
-  List<BannerSection> sections;
+  List<BannerSection> get sections => _sections;
+
+  List<BannerSection> _sections;
 
   @reflectable
   bool isValid;
 
   /// The [CrossListing] constructor...
   CrossListing() {
-    sections = new List<BannerSection>();
+    _sections = new List<BannerSection>();
     isValid = false;
   }
 
@@ -233,7 +237,7 @@ class CrossListing extends JsProxy {
   /// The [addSection] method...
   void addSection (BannerSection section) {
     if (!sections.contains (section) && isCrossListableWith (section)) {
-      sections.add (section);
+      _sections.add (section);
 
       if (1 < sections.length) {
         isValid = true;
@@ -245,7 +249,7 @@ class CrossListing extends JsProxy {
   /// The [removeSection] method...
   void removeSection (BannerSection section) {
     if (sections.contains (section)) {
-      sections.remove (section);
+      _sections.remove (section);
 
       if (2 > sections.length) {
         isValid = false;
@@ -253,14 +257,22 @@ class CrossListing extends JsProxy {
     }
   }
 
-  /// The '==' operator for determining equivalency (NOT identicality) between
-  /// two different [CrossListing] instances.
+  /// The '==' operator for determining equivalency (NOT necessarily identicality)
+  /// between two (potentially) different [CrossListing] instances.
   @override
   bool operator ==(CrossListing other) {
-    if ((other.sections.every ((BannerSection oSection) => sections.contains (oSection))) &&
-        (sections.every ((BannerSection section) => other.sections.contains (section)))) {
+    if (identical (other, this)) {
       return true;
     }
+
+    List<BannerSection> oSections = other.sections;
+
+    try {
+      if ((oSections.every ((BannerSection oSection) => sections.contains (oSection))) &&
+          (sections.every ((BannerSection section) => oSections.contains (section)))) {
+        return true;
+      }
+    } catch (_) {}
 
     return false;
   }
@@ -310,8 +322,9 @@ class PreviousContentMapping extends JsProxy {
   /// The '==' operator for determining equivalency (NOT identicality) between
   /// two different [PreviousContentMapping] instances.
   @override
-  bool operator ==(PreviousContentMapping mapping) =>
-    ((mapping.section == section) && (mapping.courseEnrollment == courseEnrollment));
+  bool operator ==(PreviousContentMapping mapping) => (
+    (mapping.section == section) && (mapping.courseEnrollment == courseEnrollment)
+  );
 
   /// The hashCode getter, which must be overridden whenever the '==' operator is.
   @override
@@ -338,20 +351,20 @@ class RequestedSection extends JsProxy {
   BannerSection _section;
 
   @reflectable
-  bool hasCrossListing;
-
-  @reflectable
   CrossListing get crossListing => _crossListing;
 
   CrossListing _crossListing;
 
   @reflectable
-  bool hasPreviousContent;
+  bool hasCrossListing;
 
   @reflectable
   PreviousContentMapping get previousContent => _previousContent;
 
   PreviousContentMapping _previousContent;
+
+  @reflectable
+  bool hasPreviousContent;
 
   _RequestedSectionsRegistry _requestedSections;
 
@@ -401,6 +414,18 @@ class RequestedSection extends JsProxy {
     return false;
   }
 
+  /// The [removePreviousContent] method...
+  PreviousContentMapping removePreviousContent() {
+    PreviousContentMapping thePreviousContent = previousContent;
+
+    if (null != previousContent) {
+      _previousContent = null;
+      hasPreviousContent = false;
+    };
+
+    return thePreviousContent;
+  }
+
   /// The [setCrossListing] method attempts to attach a [CrossListing] instance
   /// to the underlying [BannerSection] instance.  If the cross-listing set can
   /// contain the [BannerSection], the method will return true.  False will be
@@ -418,6 +443,18 @@ class RequestedSection extends JsProxy {
     }
 
     return false;
+  }
+
+  /// The [removeCrossListing] method...
+  CrossListing removeCrossListing() {
+    CrossListing theCrossListing = crossListing;
+
+    if (null != crossListing) {
+      _crossListing = null;
+      hasCrossListing = false;
+    }
+
+    return theCrossListing;
   }
 
   /// The '==' operator for determining equivalency (NOT identicality) between
