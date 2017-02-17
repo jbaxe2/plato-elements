@@ -173,8 +173,11 @@ class SectionView extends PolymerElement {
             set ('showInvalid', false);
 
             if (0 == clLength) {
-              set ('hasExtraInfo', false);
               notifyPath ('hasCrossListing', _hasCrossListing = false);
+
+              if (!hasPreviousContent) {
+                set ('hasExtraInfo', false);
+              }
             }
 
             if (1 < clLength) {

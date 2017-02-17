@@ -268,8 +268,8 @@ class CrossListing extends JsProxy {
     List<BannerSection> oSections = other.sections;
 
     try {
-      if ((oSections.every ((BannerSection oSection) => sections.contains (oSection))) &&
-          (sections.every ((BannerSection section) => oSections.contains (section)))) {
+      if ((oSections.every ((oSection) => sections.contains (oSection))) &&
+          (sections.every ((section) => oSections.contains (section)))) {
         return true;
       }
     } catch (_) {}
@@ -387,7 +387,6 @@ class RequestedSection extends JsProxy {
   /// section instance.
   void setSection (BannerSection aSection) {
     _section = aSection;
-    //_requestedSections.addRequestedSection (this);
 
     _crossListing = null;
     _previousContent = null;
@@ -395,6 +394,10 @@ class RequestedSection extends JsProxy {
     hasCrossListing = false;
     hasPreviousContent = false;
   }
+
+  /// The [canUsePreviousContent] method...
+  bool canUsePreviousContent (PreviousContentMapping aPreviousContent) =>
+    _requestedSections.canUseCrossListing (this, aPreviousContent);
 
   /// The [setPreviousContent] method attempts to attach a [PreviousContentMapping]
   /// instance to the underlying [BannerSection] instance.  This method will return
@@ -426,6 +429,10 @@ class RequestedSection extends JsProxy {
     return thePreviousContent;
   }
 
+  /// The [canUseCrossListing] method...
+  bool canUseCrossListing (CrossListing aCrossListing) =>
+    _requestedSections.canUseCrossListing (this, aCrossListing);
+
   /// The [setCrossListing] method attempts to attach a [CrossListing] instance
   /// to the underlying [BannerSection] instance.  If the cross-listing set can
   /// contain the [BannerSection], the method will return true.  False will be
@@ -447,6 +454,8 @@ class RequestedSection extends JsProxy {
 
   /// The [removeCrossListing] method...
   CrossListing removeCrossListing() {
+    crossListing.removeSection (section);
+
     CrossListing theCrossListing = crossListing;
 
     if (null != crossListing) {
@@ -501,6 +510,7 @@ class _RequestedSectionsRegistry extends JsProxy {
     return _instance ??= new _RequestedSectionsRegistry._internal();
   }
 
+  /// The [_RequestedSectionsRegistry] internal named constructor...
   _RequestedSectionsRegistry._internal() {
     _requestedSections = new List<RequestedSection>();
   }
@@ -513,9 +523,8 @@ class _RequestedSectionsRegistry extends JsProxy {
   }
 
   /// The [removeRequestedSection] method...
-  bool removeRequestedSection (RequestedSection requestedSection) {
-    return requestedSections.remove (requestedSection);
-  }
+  bool removeRequestedSection (RequestedSection requestedSection) =>
+    requestedSections.remove (requestedSection);
 
   /// The [canUsePreviousContent] method...
   bool canUsePreviousContent (RequestedSection forSection, PreviousContentMapping previousContent) {
@@ -533,7 +542,14 @@ class _RequestedSectionsRegistry extends JsProxy {
       }
 
       if (requestedList.any ((requested) => requested.hasPreviousContent)) {
-        if (requestedList.every ((pcRequested) => pcRequested.previousContent == previousContent)) {
+        if (requestedList.every ((RequestedSection pcRequested) {
+          if ((null == pcRequested.previousContent) ||
+              (pcRequested.previousContent.courseEnrollment == previousContent.courseEnrollment)) {
+            return true;
+          }
+
+          return false;
+        })) {
           return true;
         }
       } else {
@@ -555,18 +571,17 @@ class _RequestedSectionsRegistry extends JsProxy {
         (requestedSection) => requestedSection.crossListing == crossListing
       ).toList();
 
-      if ((0 == requestedList.length) || (1 == requestedList.length)) {
+      if (requestedList.isEmpty) { // || (1 == requestedList.length)) {
         return true;
       }
 
-      if (1 < requestedList.length) {
-        var pcRequested = requestedList.first.previousContent;
+      PreviousContentMapping pcRequested = requestedList.first.previousContent;
 
-        if (requestedList.every ((requested) => (
-          (requested.previousContent == pcRequested) || (null == requested.previousContent)
-        ))) {
-          return true;
-        }
+      if (requestedList.every ((requested) => (
+        (null == requested.previousContent) ||
+        (pcRequested.courseEnrollment == requested.previousContent.courseEnrollment)
+      ))) {
+        return true;
       }
     }
 
