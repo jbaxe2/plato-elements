@@ -114,7 +114,7 @@ class SectionView extends PolymerElement {
   @Listen('iron-signal-previous-content-specified')
   void onPreviousContentSpecified (CustomEvent event, details) {
     if ((null == details['section']) || (null == details['previousContent']) ||
-        (section != details['section']) ||
+        (section != details['section'] as BannerSection) ||
         (section != (details['previousContent'] as PreviousContentMapping).section)) {
       return;
     }
@@ -154,9 +154,7 @@ class SectionView extends PolymerElement {
     ).toList();
 
     clList.forEach ((CrossListing clSet) {
-      List<BannerSection> clSections = clSet.sections;
-
-      clSections.forEach ((BannerSection clSection) {
+      clSet.sections.forEach ((BannerSection clSection) {
         async (() {
           add ('withCrossListing.sections', clSection);
 
@@ -193,7 +191,7 @@ class SectionView extends PolymerElement {
           'Unable to cross-list this section, as its previous content differs from the previous content of the other section(s).'
         );
 
-        clSections.remove (section);
+        clSet.sections.remove (section);
 
         return;
       }

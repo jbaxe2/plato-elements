@@ -397,7 +397,7 @@ class RequestedSection extends JsProxy {
 
   /// The [canUsePreviousContent] method...
   bool canUsePreviousContent (PreviousContentMapping aPreviousContent) =>
-    _requestedSections.canUseCrossListing (this, aPreviousContent);
+    _requestedSections.canUsePreviousContent (this, aPreviousContent);
 
   /// The [setPreviousContent] method attempts to attach a [PreviousContentMapping]
   /// instance to the underlying [BannerSection] instance.  This method will return
@@ -562,10 +562,61 @@ class _RequestedSectionsRegistry extends JsProxy {
 
   /// The [canUseCrossListing] method...
   bool canUseCrossListing (RequestedSection forSection, CrossListing crossListing) {
+    if (!crossListing.isCrossListableWith (forSection.section)) {
+      return false;
+    }
+
     if (!forSection.hasPreviousContent) {
       return true;
     }
 
+    if (crossListing.sections.every ((BannerSection clSection) {
+      requestedSections.forEach ((RequestedSection reqSection) {
+        window.console.log (
+          'got here for ${clSection.sectionId} and ${reqSection.section.sectionId}'
+        );
+
+        if (reqSection.section == clSection) {
+          return true;
+        }
+
+        if (!reqSection.hasCrossListing) {
+          return true;
+        }
+
+        try {
+          if (reqSection.section != clSection) {
+            if (!reqSection.hasPreviousContent) {
+              return true;
+            }
+
+            if (reqSection.previousContent.courseEnrollment ==
+                forSection.previousContent.courseEnrollment) {
+              return true;
+            }
+          }
+
+          if (requestedSections.last == reqSection) {
+            return false;
+          }
+        } catch (e) {
+          window.console.log ('got an error');
+        }
+      });
+    })) {
+      return true;
+    }
+
+    /*
+    requestedSections.forEach ((RequestedSection reqSection) {
+      if ((reqSection.crossListing == crossListing) && (reqSection.hasPreviousContent)) {
+        if (reqSection.previousContent.courseEnrollment != forSection.previousContent.courseEnrollment) {
+          return false;
+        }
+      }
+    });
+    */
+    /**
     if (requestedSections.contains (forSection)) {
       List<RequestedSection> requestedList = requestedSections.where (
         (requestedSection) => requestedSection.crossListing == crossListing
@@ -584,6 +635,7 @@ class _RequestedSectionsRegistry extends JsProxy {
         return true;
       }
     }
+    */
 
     return false;
   }

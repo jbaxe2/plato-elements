@@ -79,8 +79,7 @@ class CrossListingView extends PolymerElement {
   /// The [onAddSectionToCl] method...
   @Listen('tap')
   void onAddSectionToCl (CustomEvent event, details) {
-    if (('addSectionToClIcon' == (Polymer.dom (event)).localTarget.id) &&
-        (crossListing.isCrossListableWith (currentSection))) {
+    if ('addSectionToClIcon' == (Polymer.dom (event)).localTarget.id) {
       if (!_requestedSection.canUseCrossListing (crossListing)) {
         raiseError (this,
           'Invalid cross-listing action warning',
