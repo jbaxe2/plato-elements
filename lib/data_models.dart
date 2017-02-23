@@ -439,7 +439,7 @@ class RequestedSection extends JsProxy {
   /// returned if the cross-listing set cannot add the section.
   bool setCrossListing (CrossListing aCrossListing) {
     if (!aCrossListing.sections.contains (section)) {
-      return false;
+      //return false;
     }
 
     if (_requestedSections.canUseCrossListing (this, aCrossListing)) {
@@ -572,70 +572,28 @@ class _RequestedSectionsRegistry extends JsProxy {
 
     if (crossListing.sections.every ((BannerSection clSection) {
       requestedSections.forEach ((RequestedSection reqSection) {
-        window.console.log (
-          'got here for ${clSection.sectionId} and ${reqSection.section.sectionId}'
-        );
-
-        if (reqSection.section == clSection) {
+        if (!reqSection.hasPreviousContent) {
           return true;
         }
 
-        if (!reqSection.hasCrossListing) {
+        if (reqSection.section != clSection) {
+          if (!reqSection.hasCrossListing) {
+            return true;
+          }
+        }
+
+        if (reqSection.previousContent.courseEnrollment ==
+            forSection.previousContent.courseEnrollment) {
           return true;
         }
 
-        try {
-          if (reqSection.section != clSection) {
-            if (!reqSection.hasPreviousContent) {
-              return true;
-            }
-
-            if (reqSection.previousContent.courseEnrollment ==
-                forSection.previousContent.courseEnrollment) {
-              return true;
-            }
-          }
-
-          if (requestedSections.last == reqSection) {
-            return false;
-          }
-        } catch (e) {
-          window.console.log ('got an error');
+        if (requestedSections.last == reqSection) {
+          return false;
         }
       });
     })) {
       return true;
     }
-
-    /*
-    requestedSections.forEach ((RequestedSection reqSection) {
-      if ((reqSection.crossListing == crossListing) && (reqSection.hasPreviousContent)) {
-        if (reqSection.previousContent.courseEnrollment != forSection.previousContent.courseEnrollment) {
-          return false;
-        }
-      }
-    });
-    */
-    /**
-    if (requestedSections.contains (forSection)) {
-      List<RequestedSection> requestedList = requestedSections.where (
-        (requestedSection) => requestedSection.crossListing == crossListing
-      ).toList();
-
-      if (requestedList.isEmpty) { // || (1 == requestedList.length)) {
-        return true;
-      }
-
-      PreviousContentMapping pcRequested = requestedList.first.previousContent;
-
-      if (requestedList.every ((requested) => (
-        (null == requested.previousContent) ||
-        (pcRequested.courseEnrollment == requested.previousContent.courseEnrollment)
-      ))) {
-        return true;
-      }
-    }
-    */
 
     return false;
   }
