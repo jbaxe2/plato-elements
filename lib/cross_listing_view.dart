@@ -92,9 +92,11 @@ class CrossListingView extends PolymerElement {
       _requestedSection.setCrossListing (crossListing);
 
       async (() {
-        //crossListing.sections.add (currentSection);
-        //notifyPath ('crossListing.sections');
-        add ('crossListing.sections', currentSection);
+        crossListing.sections.add (currentSection);
+        notifyPath ('crossListing.sections');
+        notifyPath ('crossListing');
+
+        //add ('crossListing.sections', currentSection);
 
         set ('currentSection.hasCrossListing', true);
         set ('haveSections', true);
@@ -172,6 +174,8 @@ class CrossListingView extends PolymerElement {
     if (theSection == currentSection) {
       notifyPath ('clHasSection', _clHasSection = false);
     }
+
+    _requestedSection.removeCrossListing();
 
     this.fire ('removed-section-from-cl', detail: {'crossListing': crossListing});
   }

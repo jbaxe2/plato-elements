@@ -576,7 +576,9 @@ class _RequestedSectionsRegistry extends JsProxy {
           return true;
         }
 
-        if (reqSection.section != clSection) {
+        if (reqSection.section == clSection) {
+          return true;
+        } else {
           if (!reqSection.hasCrossListing) {
             return true;
           }
