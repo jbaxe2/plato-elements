@@ -40,4 +40,10 @@ class CrfReview extends PolymerElement {
   void onCollectUserInfo (CustomEvent event, details) {
     ;
   }
+
+  /// The [onCollectRequestedSectionInfo] method...
+  @Listen('iron-signal-collect-requested-section-info')
+  void onCollectRequestedSectionInfo (CustomEvent event, details) {
+    ;
+  }
 }

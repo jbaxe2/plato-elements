@@ -245,7 +245,7 @@ class SectionView extends PolymerElement {
       ..['previousContent'] = withPreviousContent;
 
     this.fire ('iron-signal', detail: {
-      'name': 'iron-signal-collect-sections-info',
+      'name': 'iron-signal-collect-requested-section-info',
       'data': {'requestedSection': requestedSection}
     });
   }
