@@ -37,6 +37,7 @@
 
   <template>
     <iron-signals on-iron-signal-user-retrieved-complete="onUserRetrievedComplete"></iron-signals>
+    <iron-signals on-iron-signal-course-request-submittable="onCourseRequestSubmittable"></iron-signals>
 
     <paper-drawer-panel right-drawer drawer-width="448px">
       <paper-header-panel main>
@@ -52,7 +53,7 @@
 
           <iron-pages selected="{{selected}}" style="border: 1px solid #062c43;">
             <div>
-              <learn-authentication-widget></learn-authentication-widget>
+              <learn-authentication-widget id="learn-auth-widget"></learn-authentication-widget>
             </div>
 
             <div>
@@ -64,6 +65,14 @@
               <sections-selector></sections-selector><br>
             </div>
           </iron-pages>
+
+          <template is="dom-if" if="{{canSubmit}}">
+            <div>
+              <paper-button raised id="review-crf-button" on-tap="">
+                <iron-icon icon="icons:input"></iron-icon> &nbsp; Review & Submit Course Request
+              </paper-button>
+            </div>
+          </template>
 
           <paper-toast
             id="navigation-toast"

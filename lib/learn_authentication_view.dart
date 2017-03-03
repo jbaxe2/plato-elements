@@ -51,7 +51,7 @@ class LearnAuthenticationView extends PolymerElement {
   /// The [authenticateLearn] method...
   @Listen('tap')
   void authenticateLearn (CustomEvent event, details) {
-    if (('' == username) || ('' == password)) {
+    if (username.isEmpty || password.isEmpty) {
       return;
     }
 

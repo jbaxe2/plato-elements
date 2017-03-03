@@ -92,4 +92,13 @@ class SectionViewsCollection extends PolymerElement {
       }
     }
   }
+
+  /// The [onCollectInfoCrfReview] method...
+  @Listen('iron-signal-collect-info-crf-review')
+  void onCollectInfoCrfReview (CustomEvent event, details) {
+    this.fire ('iron-signal', detail: {
+      'name': 'iron-signal-collect-sections-info',
+      'data': {'sections': sections}
+    });
+  }
 }

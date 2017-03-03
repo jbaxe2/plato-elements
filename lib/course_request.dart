@@ -6,8 +6,12 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
+import 'package:polymer_elements/iron_icon.dart';
+import 'package:polymer_elements/iron_icons.dart';
 import 'package:polymer_elements/iron_pages.dart';
+import 'package:polymer_elements/iron_signals.dart';
 
+import 'package:polymer_elements/paper_button.dart';
 import 'package:polymer_elements/paper_drawer_panel.dart';
 import 'package:polymer_elements/paper_header_panel.dart';
 import 'package:polymer_elements/paper_tabs.dart';
@@ -21,10 +25,10 @@ import 'previous_content_selector.dart';
 import 'section_views_collection.dart';
 
 /// Silence analyzer:
-/// [IronPages]
+/// [IronIcon] - [IronPages] - [IronSignals]
 ///
-/// [PaperDrawerPanel] - [PaperHeaderPanel] - [PaperToolbar] - [PaperToast]
-/// [PaperTabs] - [PaperTab]
+/// [PaperButton] - [PaperDrawerPanel] - [PaperHeaderPanel] - [PaperToolbar]
+/// [PaperToast] - [PaperTabs] - [PaperTab]
 ///
 /// [CrossListingViewsCollection] - [LearnAuthenticationWidget]
 /// [PreviousContentSelector] - [SectionViewsCollection]
@@ -32,10 +36,19 @@ import 'section_views_collection.dart';
 /// The [CourseRequest] class...
 @PolymerRegister('course-request')
 class CourseRequest extends PolymerElement {
+  /// The tab currently selected, either 0 (user information) or 1 (courses selection).
   @Property(notify: true)
   int selected;
 
   PaperToast _navToast;
+
+  LearnAuthenticationWidget _learnAuthWidget;
+
+  /// Whether the course request form is submittable.
+  @Property(notify: true)
+  bool get submittable => _submittable;
+
+  bool _submittable = false;
 
   /// The [CourseRequest] factory constructor...
   factory CourseRequest() => document.createElement ('course-request');
@@ -47,6 +60,7 @@ class CourseRequest extends PolymerElement {
   void attached() {
     notifyPath ('selected', selected = 0);
 
+    _learnAuthWidget = $['learn-auth-widget'] as LearnAuthenticationWidget;
     _navToast = $['navigation-toast'] as PaperToast;
   }
 
@@ -54,5 +68,25 @@ class CourseRequest extends PolymerElement {
   @Listen('iron-signal-user-retrieved-complete')
   void onUserRetrievedComplete (CustomEvent event, details) {
     _navToast.open();
+  }
+
+  /// The [onCourseRequestSubmittable] method...
+  @Listen('iron-signal-course-request-submittable')
+  void onCourseRequestSubmittable (CustomEvent event, details) {
+    if (null != details['crfSubmittable']) {
+      if (details['crfSubmittable'] && (_learnAuthWidget.userLoaded)) {
+        notifyPath ('submittable', _submittable = true);
+      }
+    }
+  }
+
+  /// The [on] method...
+  @Listen('tap')
+  void onReviewCourseRequest (CustomEvent event, details) {
+    if ('review-crf-button' == (Polymer.dom (event)).localTarget.id) {
+      this.fire ('iron-signal', detail: {
+        'name': 'collect-info-crf-review', 'data': null
+      });
+    }
   }
 }

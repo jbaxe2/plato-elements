@@ -20,6 +20,8 @@
   </style>
 
   <template>
+    <iron-signals on-iron-signal-collect-info-crf-review="onCollectInfoCrfReview"></iron-signals>
+
     <paper-material animated>
       <div>
         <p><strong>Plato username:</strong> &nbsp;<span>{{userInfo.username}}</span></p>

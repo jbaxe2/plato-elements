@@ -6,7 +6,9 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
+import 'package:polymer_elements/iron_signals.dart';
 import 'package:polymer_elements/iron_icons.dart';
+
 import 'package:polymer_elements/paper_icon_button.dart';
 import 'package:polymer_elements/paper_dialog.dart';
 
@@ -16,7 +18,7 @@ import 'cross_listing_view.dart';
 import 'section_view.dart';
 
 /// Silence analyzer:
-/// [PaperIconButton] - [CrossListingView]
+/// [IronSignals] - [PaperIconButton] - [CrossListingView]
 ///
 /// The [CrossListingViewsCollection] class establishes the potential collection
 /// of one or more cross-listing set views.  Interactions with cross-listing sets
@@ -165,5 +167,14 @@ class CrossListingViewsCollection extends PolymerElement {
     _clDialog
       ..refit()
       ..center();
+  }
+
+  /// The [onCollectInfoCrfReview] method...
+  @Listen('iron-signal-collect-info-crf-review')
+  void onCollectInfoCrfReview (CustomEvent event, details) {
+    this.fire ('iron-signal', detail: {
+      'name': 'iron-signal-collect-cross-listings-info',
+      'data': {'crossListings': crossListings}
+    });
   }
 }
