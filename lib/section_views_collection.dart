@@ -63,6 +63,11 @@ class SectionViewsCollection extends PolymerElement {
       });
 
       set ('haveSections', true);
+
+      this.fire ('iron-signal', detail: {
+        'name': 'course-request-submittable',
+        'data': {'crfSubmittable': true}
+      });
     }
   }
 
@@ -89,6 +94,10 @@ class SectionViewsCollection extends PolymerElement {
 
       if (sections.isEmpty) {
         set ('haveSections', false);
+
+        this.fire ('iron-signal', detail: {
+          'name': 'course-request-submittable', 'data': {'crfSubmittable': false}
+        });
       }
     }
   }
@@ -97,8 +106,7 @@ class SectionViewsCollection extends PolymerElement {
   @Listen('iron-signal-collect-info-crf-review')
   void onCollectInfoCrfReview (CustomEvent event, details) {
     this.fire ('iron-signal', detail: {
-      'name': 'iron-signal-collect-sections-info',
-      'data': {'sections': sections}
+      'name': 'collect-sections-info', 'data': {'sections': sections}
     });
   }
 }

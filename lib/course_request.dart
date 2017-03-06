@@ -42,13 +42,18 @@ class CourseRequest extends PolymerElement {
 
   PaperToast _navToast;
 
-  LearnAuthenticationWidget _learnAuthWidget;
+  bool _userLoaded = false;
 
   /// Whether the course request form is submittable.
   @Property(notify: true)
   bool get submittable => _submittable;
 
   bool _submittable = false;
+
+  @Property(notify: true)
+  bool get showCrfReview => _showCrfReview;
+
+  bool _showCrfReview = false;
 
   /// The [CourseRequest] factory constructor...
   factory CourseRequest() => document.createElement ('course-request');
@@ -58,15 +63,15 @@ class CourseRequest extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    notifyPath ('selected', selected = 0);
-
-    _learnAuthWidget = $['learn-auth-widget'] as LearnAuthenticationWidget;
     _navToast = $['navigation-toast'] as PaperToast;
+
+    notifyPath ('selected', selected = 0);
   }
 
   /// The [onUserRetrievedComplete] method...
   @Listen('iron-signal-user-retrieved-complete')
   void onUserRetrievedComplete (CustomEvent event, details) {
+    _userLoaded = true;
     _navToast.open();
   }
 
@@ -74,19 +79,23 @@ class CourseRequest extends PolymerElement {
   @Listen('iron-signal-course-request-submittable')
   void onCourseRequestSubmittable (CustomEvent event, details) {
     if (null != details['crfSubmittable']) {
-      if (details['crfSubmittable'] && (_learnAuthWidget.userLoaded)) {
-        notifyPath ('submittable', _submittable = true);
+      if (_userLoaded) {
+        notifyPath ('submittable', _submittable = details['crfSubmittable']);
       }
     }
   }
 
-  /// The [on] method...
+  /// The [onReviewCourseRequest] method...
   @Listen('tap')
   void onReviewCourseRequest (CustomEvent event, details) {
     if ('review-crf-button' == (Polymer.dom (event)).localTarget.id) {
       this.fire ('iron-signal', detail: {
         'name': 'collect-info-crf-review', 'data': null
       });
+
+      notifyPath ('showCrfReview', _showCrfReview = true);
+
+      window.console.log ('Show crf review value: $showCrfReview');
     }
   }
 }

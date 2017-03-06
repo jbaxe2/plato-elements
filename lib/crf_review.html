@@ -1,15 +1,45 @@
 <dom-module id="crf-review">
   <style>
     :host {
-      display: none;
+      display: block;
+      margin: 15px;
+      padding: 8px;
     }
   </style>
 
   <template>
-    <iron-signals on-iron-signal-collect-cross-listings-info=""></iron-signals>
-    <iron-signals on-iron-signal-collect-sections-info=""></iron-signals>
-    <iron-signals on-iron-signal-collect-user-info=""></iron-signals>
+    <iron-signals on-iron-signal-collect-info-crf-review="onShowCrfReview"></iron-signals>
+    <iron-signals on-iron-signal-collect-user-info="onCollectUserInfo"></iron-signals>
+    <iron-signals on-iron-signal-collect-sections-info="onCollectSectionsInfo"></iron-signals>
+    <iron-signals on-iron-signal-collect-cross-listings-info="onCollectCrossListingsInfo"></iron-signals>
+    <iron-signals on-iron-signal-collect-requested-section-info="onCollectRequestedSectionInfo"></iron-signals>
 
-    <div>Course Request Form information review...</div>
+    <paper-dialog
+        id="crf-review-dialog"
+        with-backdrop
+        entry-animation="fade-in-animation"
+        exit-animation="fade-out-animation">
+      <div>Plato Course Request Form information review...</div>
+
+      <paper-material>
+        <p>Requested sections:</p>
+        <template is="dom-repeat" items="{{sections}}" as="section">
+          <paper-item>
+            [<span>{{section.sectionId}}</span>]
+            <span>{{section.courseTitle}}</span>
+          </paper-item>
+        </template>
+      </paper-material>
+
+      <paper-material>
+        <p>Cross-listing sets:</p>
+        <p>Here will be some cross-listing information...</p>
+      </paper-material>
+
+      <paper-material>
+        <p>Previous content information:</p>
+        <p>Here will be some previous content information...</p>
+      </paper-material>
+    </paper-dialog>
   </template>
 </dom-module>

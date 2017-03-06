@@ -239,14 +239,9 @@ class SectionView extends PolymerElement {
   /// The [onCollectInfoCrfReview] method...
   @Listen('iron-signal-collect-info-crf-review')
   void onCollectInfoCrfReview (CustomEvent event, details) {
-    var requestedSection = new Map<String, dynamic>()
-      ..['section'] = section
-      ..['crossListing'] = withCrossListing
-      ..['previousContent'] = withPreviousContent;
-
     this.fire ('iron-signal', detail: {
-      'name': 'iron-signal-collect-requested-section-info',
-      'data': {'requestedSection': requestedSection}
+      'name': 'collect-requested-section-info',
+      'data': {'requestedSection': _requestedSection}
     });
   }
 }

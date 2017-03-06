@@ -32,6 +32,10 @@
 
       --paper-tabs-selection-bar-color: #062c43;
       --paper-tab-ink: #062c43;
+
+      --paper-button: {
+        background-color: #718198;
+      }
     }
   </style>
 
@@ -53,7 +57,7 @@
 
           <iron-pages selected="{{selected}}" style="border: 1px solid #062c43;">
             <div>
-              <learn-authentication-widget id="learn-auth-widget"></learn-authentication-widget>
+              <learn-authentication-widget></learn-authentication-widget>
             </div>
 
             <div>
@@ -66,12 +70,16 @@
             </div>
           </iron-pages>
 
-          <template is="dom-if" if="{{canSubmit}}">
-            <div>
-              <paper-button raised id="review-crf-button" on-tap="">
+          <template is="dom-if" if="{{submittable}}">
+            <div class="horizontal end-justified layout">
+              <paper-button raised id="review-crf-button" on-tap="onReviewCourseRequest">
                 <iron-icon icon="icons:input"></iron-icon> &nbsp; Review & Submit Course Request
               </paper-button>
             </div>
+          </template>
+
+          <template is="dom-if" if="{{showCrfReview}}">
+            <crf-review></crf-review>
           </template>
 
           <paper-toast

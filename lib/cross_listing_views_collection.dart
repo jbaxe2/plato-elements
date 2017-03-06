@@ -173,8 +173,7 @@ class CrossListingViewsCollection extends PolymerElement {
   @Listen('iron-signal-collect-info-crf-review')
   void onCollectInfoCrfReview (CustomEvent event, details) {
     this.fire ('iron-signal', detail: {
-      'name': 'iron-signal-collect-cross-listings-info',
-      'data': {'crossListings': crossListings}
+      'name': 'collect-cross-listings-info', 'data': {'crossListings': crossListings}
     });
   }
 }

@@ -34,8 +34,7 @@ class UserInformationView extends PolymerElement {
   @Listen('iron-signal-collect-info-crf-review')
   void onCollectInfoCrfReview (CustomEvent event, details) {
     this.fire ('iron-signal', detail: {
-      'name': 'iron-signal-collect-user-info',
-      'data': {'userInfo': userInfo}
+      'name': 'ollect-user-info', 'data': {'userInfo': userInfo}
     });
   }
 }
