@@ -62,6 +62,7 @@ class CrfReview extends PolymerElement {
     _requestedSections = new List<RequestedSection>();
   }
 
+  /// The [onShowCrfReview] method...
   @Listen('iron-signal-collect-info-crf-review')
   void onShowCrfReview (CustomEvent event, details) {
     window.console.log ('got into the show crf review event handler...why does it not display??');
