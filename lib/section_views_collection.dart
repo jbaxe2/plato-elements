@@ -55,7 +55,7 @@ class SectionViewsCollection extends PolymerElement {
     if (null != details['sections']) {
       details['sections'].forEach ((String sectionId, BannerSection section) {
         async (() {
-          if (!(sectionIds.contains (sectionId) && sections.contains(section))) {
+          if (!(sectionIds.contains (sectionId) && sections.contains (section))) {
             add ('sectionIds', sectionId);
             add ('sections', section);
           }

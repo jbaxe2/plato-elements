@@ -22,7 +22,7 @@ import 'data_models.dart';
 /// Silence analyzer:
 /// [IronSignals]
 ///
-/// [PaperButton] - [PaperDialog] - [PaperItem] - [PaperMaterial]
+/// [PaperButton] - [PaperDialogScrollable] - [PaperItem] - [PaperMaterial]
 ///
 /// [FadeInAnimation] - [FadeOutAnimation]
 ///
@@ -32,21 +32,25 @@ class CrfReview extends PolymerElement {
   PaperDialog _crfReviewDialog;
 
   /// The user information...
+  @Property(notify: true)
   UserInformation get userInfo => _userInfo;
 
   UserInformation _userInfo;
 
   /// The [BannerSection] instances respective of requested courses.
+  @Property(notify: true)
   List<BannerSection> get sections => _sections;
 
   List<BannerSection> _sections;
 
   /// The [CrossListing] sets for cross-listed courses in the request.
+  @Property(notify: true)
   List<CrossListing> get crossListings => _crossListings;
 
   List<CrossListing> _crossListings;
 
   /// The requested sections, with previous content and cross-listing information.
+  @Property(notify: true)
   List<RequestedSection> get requestedSections => _requestedSections;
 
   List<RequestedSection> _requestedSections;
@@ -59,11 +63,11 @@ class CrfReview extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    _crfReviewDialog = $['crf-review-dialog'] as PaperDialog;
-
     _sections = new List<BannerSection>();
     _crossListings = new List<CrossListing>();
     _requestedSections = new List<RequestedSection>();
+
+    _crfReviewDialog = $['crf-review-dialog'] as PaperDialog;
   }
 
   /// The [onCollectInfoCrfReview] method...
@@ -108,9 +112,7 @@ class CrfReview extends PolymerElement {
     if (null != details['requestedSection']) {
       var requestedSection = details['requestedSection'] as RequestedSection;
 
-      if (!_requestedSections.contains (requestedSection)) {
-        _requestedSections.add (requestedSection);
-      }
+      _requestedSections.add (requestedSection);
 
       notifyPath ('requestedSections', _requestedSections);
     }

@@ -13,6 +13,7 @@
     strong {
       display: block;
       background-color: #bbb;
+      border-bottom: 1px solid #062c43;
       padding: 8px;
     }
 
@@ -62,7 +63,7 @@
           <p><strong>Submitting request for:</strong></p>
           <p><em>Plato username:</em> <span>{{userInfo.username}}</span></p>
           <p><em>Name:</em> <span>{{userInfo.firstName}}</span> <span>{{userInfo.lastName}}</span></p>
-          <p><em>E-mail:</em> <span>{{userInfo.email}}</span></p>
+          <p><em>E-mail address:</em> <span>{{userInfo.email}}</span></p>
         </paper-material>
 
         <paper-material>
@@ -85,8 +86,8 @@
               <template is="dom-repeat" items="{{crossListing.sections}}" as="clSection">
                 [<span>{{clSection.sectionId}}</span>] &nbsp;
               </template>
-              <p>There are <span>{{crossListing.sections.length}}</span> sections in the CL set.</p>
             </span>
+            <p>There are <span>{{crossListing.sections.length}}</span> sections in the CL set.</p>
           </template>
         </paper-material>
 
@@ -94,9 +95,9 @@
           <p><strong>Previous content information:</strong></p>
           <template is="dom-repeat" items="{{requestedSections}}" as="requestedSection">
             <p>
-              <span><em>{{requestedSection.section.sectionId}}</em></span>: &nbsp;
+              <span><em>{{requestedSection.section.sectionId}}</em></span>
               <template is="dom-if" if="{{requestedSection.hasPreviousContent}}">
-                <span>{{requestedSection.previousContent.courseEnrollment.courseId}}</span>
+                &mapstoleft; <span>{{requestedSection.previousContent.courseEnrollment.courseId}}</span>
               </template>
               <template is="dom-if" if="{{!requestedSection.hasPreviousContent}}">
                 <span>(no previous content specified)</span>
@@ -108,7 +109,9 @@
       </paper-dialog-scrollable>
 
       <div class="buttons">
-        <paper-button raised dialog-confirm autofocus id="submit-crf-button" on-tap="submitCourseRequest">Submit Course Request</paper-button> &nbsp;
+        <paper-button raised dialog-confirm autofocus id="submit-crf-button" on-tap="submitCourseRequest">
+          Submit Course Request
+        </paper-button> &nbsp;
         <paper-button raised dialog-dismiss>Edit Request Info</paper-button>
       </div>
     </paper-dialog>
