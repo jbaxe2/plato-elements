@@ -161,8 +161,8 @@ class SectionView extends PolymerElement {
           int clLength = withCrossListing.sections.length;
 
           if (0 < clLength) {
-            set ('hasExtraInfo', true);
             notifyPath ('hasCrossListing', _hasCrossListing = true);
+            set ('hasExtraInfo', true);
           }
 
           if (1 == clLength) {
