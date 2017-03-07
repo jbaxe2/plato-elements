@@ -8,7 +8,9 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_signals.dart';
 
+import 'package:polymer_elements/paper_button.dart';
 import 'package:polymer_elements/paper_dialog.dart';
+import 'package:polymer_elements/paper_dialog_scrollable.dart';
 import 'package:polymer_elements/paper_item.dart';
 import 'package:polymer_elements/paper_material.dart';
 
@@ -19,8 +21,10 @@ import 'data_models.dart';
 
 /// Silence analyzer:
 /// [IronSignals]
+///
+/// [PaperButton] - [PaperDialog] - [PaperItem] - [PaperMaterial]
+///
 /// [FadeInAnimation] - [FadeOutAnimation]
-/// [PaperDialog] - [PaperItem] - [PaperMaterial]
 ///
 /// The [CrfReview] class...
 @PolymerRegister('crf-review')
@@ -32,7 +36,7 @@ class CrfReview extends PolymerElement {
 
   UserInformation _userInfo;
 
-  /// The [BannerSection] instances corresponding to requested courses...
+  /// The [BannerSection] instances respective of requested courses.
   List<BannerSection> get sections => _sections;
 
   List<BannerSection> _sections;
@@ -62,11 +66,9 @@ class CrfReview extends PolymerElement {
     _requestedSections = new List<RequestedSection>();
   }
 
-  /// The [onShowCrfReview] method...
+  /// The [onCollectInfoCrfReview] method...
   @Listen('iron-signal-collect-info-crf-review')
-  void onShowCrfReview (CustomEvent event, details) {
-    window.console.log ('got into the show crf review event handler...why does it not display??');
-
+  void onCollectInfoCrfReview (CustomEvent event, details) {
     _crfReviewDialog.open();
   }
 
@@ -74,7 +76,9 @@ class CrfReview extends PolymerElement {
   @Listen('iron-signal-collect-user-info')
   void onCollectUserInfo (CustomEvent event, details) {
     if (null != details['userInfo']) {
-      notifyPath ('userInfo', _userInfo = details['userInfo'] as UserInformation);
+      _userInfo = details['userInfo'] as UserInformation;
+
+      notifyPath ('userInfo', _userInfo);
     }
   }
 
@@ -82,7 +86,9 @@ class CrfReview extends PolymerElement {
   @Listen('iron-signal-collect-sections-info')
   void onCollectSectionsInfo (CustomEvent event, details) {
     if (null != details['sections']) {
-      notifyPath ('sections', _sections = details['sections'] as List<BannerSection>);
+      _sections = details['sections'] as List<BannerSection>;
+
+      notifyPath ('sections', _sections);
     }
   }
 
@@ -90,7 +96,9 @@ class CrfReview extends PolymerElement {
   @Listen('iron-signal-collect-cross-listings-info')
   void onCollectCrossListingsInfo (CustomEvent event, details) {
     if (null != details['crossListings']) {
-      notifyPath ('crossListings', _crossListings = details['crossListings'] as List<CrossListing>);
+      _crossListings = details['crossListings'] as List<CrossListing>;
+
+      notifyPath ('crossListings', _crossListings);
     }
   }
 
@@ -98,9 +106,21 @@ class CrfReview extends PolymerElement {
   @Listen('iron-signal-collect-requested-section-info')
   void onCollectRequestedSectionInfo (CustomEvent event, details) {
     if (null != details['requestedSection']) {
-      _requestedSections.add (details['requestedSection'] as RequestedSection);
+      var requestedSection = details['requestedSection'] as RequestedSection;
+
+      if (!_requestedSections.contains (requestedSection)) {
+        _requestedSections.add (requestedSection);
+      }
 
       notifyPath ('requestedSections', _requestedSections);
+    }
+  }
+
+  /// The [submitCourseRequest] method...
+  @Listen('tap')
+  void submitCourseRequest (CustomEvent event, details) {
+    if ('submit-crf-button' == (Polymer.dom (event)).localTarget.id) {
+      window.console.log ('clicked to submit the crf');
     }
   }
 }

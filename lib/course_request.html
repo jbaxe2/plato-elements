@@ -78,10 +78,6 @@
             </div>
           </template>
 
-          <template is="dom-if" if="{{showCrfReview}}">
-            <crf-review></crf-review>
-          </template>
-
           <paper-toast
             id="navigation-toast"
             duration="5000"
@@ -90,8 +86,9 @@
         </div>
 
         <previous-content-selector></previous-content-selector>
-
         <cross-listing-views-collection></cross-listing-views-collection>
+
+        <crf-review hidden$="{{!showCrfReview}}"></crf-review>
       </paper-header-panel>
 
       <paper-header-panel drawer style="border: 1px solid black;">

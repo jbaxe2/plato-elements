@@ -65,8 +65,7 @@ class SectionViewsCollection extends PolymerElement {
       set ('haveSections', true);
 
       this.fire ('iron-signal', detail: {
-        'name': 'course-request-submittable',
-        'data': {'crfSubmittable': true}
+        'name': 'course-request-submittable', 'data': {'crfSubmittable': true}
       });
     }
   }

@@ -19,6 +19,7 @@ import 'package:polymer_elements/paper_tab.dart';
 import 'package:polymer_elements/paper_toast.dart';
 import 'package:polymer_elements/paper_toolbar.dart';
 
+import 'crf_review.dart';
 import 'cross_listing_views_collection.dart';
 import 'learn_authentication_widget.dart';
 import 'previous_content_selector.dart';
@@ -30,7 +31,7 @@ import 'section_views_collection.dart';
 /// [PaperButton] - [PaperDrawerPanel] - [PaperHeaderPanel] - [PaperToolbar]
 /// [PaperToast] - [PaperTabs] - [PaperTab]
 ///
-/// [CrossListingViewsCollection] - [LearnAuthenticationWidget]
+/// [CrfReview] - [CrossListingViewsCollection] - [LearnAuthenticationWidget]
 /// [PreviousContentSelector] - [SectionViewsCollection]
 ///
 /// The [CourseRequest] class...
@@ -78,10 +79,8 @@ class CourseRequest extends PolymerElement {
   /// The [onCourseRequestSubmittable] method...
   @Listen('iron-signal-course-request-submittable')
   void onCourseRequestSubmittable (CustomEvent event, details) {
-    if (null != details['crfSubmittable']) {
-      if (_userLoaded) {
-        notifyPath ('submittable', _submittable = details['crfSubmittable']);
-      }
+    if ((null != details['crfSubmittable']) && _userLoaded) {
+      notifyPath ('submittable', _submittable = details['crfSubmittable']);
     }
   }
 
@@ -94,8 +93,6 @@ class CourseRequest extends PolymerElement {
       });
 
       notifyPath ('showCrfReview', _showCrfReview = true);
-
-      window.console.log ('Show crf review value: $showCrfReview');
     }
   }
 }
