@@ -134,9 +134,6 @@ class CrfReview extends PolymerElement {
       async (() {
         setAll ('requestedSections', 0, new List<RequestedSection>());
       });
-
-      window.console.log ('requested sections should have length 0 now, and has length ${requestedSections.length}');
-      window.console.log ('clicked to edit the crf');
     }
   }
 }

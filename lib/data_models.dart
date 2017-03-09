@@ -1,6 +1,7 @@
 library plato.elements.data_models;
 
-import 'dart:html';
+// [Un-comment for debugging via the JS console.]
+// import 'dart:html';
 
 import 'package:polymer/polymer.dart';
 

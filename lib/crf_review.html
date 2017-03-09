@@ -80,12 +80,11 @@
             <p><strong>Cross-listing sets:</strong></p>
             <template is="dom-repeat" items="{{crossListings}}" as="crossListing">
               <span>
-                <em>Cross-listing set #<span>{{index}}</span> contains:</em><br>
+                <em>Cross-listing set #<span>{{index}}</span> contains:</em><br> &nbsp;
                 <template is="dom-repeat" items="{{crossListing.sections}}" as="clSection">
                   [<span>{{clSection.sectionId}}</span>] &nbsp;
                 </template>
               </span>
-              <p>There are <span>{{crossListing.sections.length}}</span> sections in the CL set.</p>
             </template>
           </paper-material>
         </template>
@@ -99,7 +98,7 @@
                 &mapstoleft; <span>{{requestedSection.previousContent.courseEnrollment.courseId}}</span>
               </template>
               <template is="dom-if" if="{{!requestedSection.hasPreviousContent}}">
-                <span>(no previous content specified)</span>
+                &mapstoleft; <span>WSU Template (no previous content specified)</span>
               </template>
             </p>
           </template>
