@@ -75,21 +75,20 @@
           </template>
         </paper-material>
 
-        <paper-material>
-          <p><strong>Cross-listing sets:</strong></p>
-          <template is="dom-if" if="{{crossListings.isEmpty}}">
-            <p>No cross-listing options have been specified.</p>
-          </template>
-          <template is="dom-repeat" items="{{crossListings}}" as="crossListing">
-            <span>
-              <em>Cross-listing set #<span>{{index}}</span> contains:</em><br>
-              <template is="dom-repeat" items="{{crossListing.sections}}" as="clSection">
-                [<span>{{clSection.sectionId}}</span>] &nbsp;
-              </template>
-            </span>
-            <p>There are <span>{{crossListing.sections.length}}</span> sections in the CL set.</p>
-          </template>
-        </paper-material>
+        <template is="dom-if" if="{{haveCrossListings}}">
+          <paper-material>
+            <p><strong>Cross-listing sets:</strong></p>
+            <template is="dom-repeat" items="{{crossListings}}" as="crossListing">
+              <span>
+                <em>Cross-listing set #<span>{{index}}</span> contains:</em><br>
+                <template is="dom-repeat" items="{{crossListing.sections}}" as="clSection">
+                  [<span>{{clSection.sectionId}}</span>] &nbsp;
+                </template>
+              </span>
+              <p>There are <span>{{crossListing.sections.length}}</span> sections in the CL set.</p>
+            </template>
+          </paper-material>
+        </template>
 
         <paper-material>
           <p><strong>Previous content information:</strong></p>

@@ -66,6 +66,7 @@ class BannerSection extends JsProxy {
   );
 
   /// The [isDay] method...
+  @reflectable
   bool isDay() {
     String digitStr = sectionId.substring (
       (sectionId.length - 3), (sectionId.length - 2)
@@ -385,6 +386,7 @@ class RequestedSection extends JsProxy {
   /// instance.  As a result, the cross-listing and previous content will become
   /// nullified, as those properties were specifically tied to the previous
   /// section instance.
+  @reflectable
   void setSection (BannerSection aSection) {
     _section = aSection;
 
@@ -396,12 +398,14 @@ class RequestedSection extends JsProxy {
   }
 
   /// The [canUsePreviousContent] method...
+  @reflectable
   bool canUsePreviousContent (PreviousContentMapping aPreviousContent) =>
     _requestedSections.canUsePreviousContent (this, aPreviousContent);
 
   /// The [setPreviousContent] method attempts to attach a [PreviousContentMapping]
   /// instance to the underlying [BannerSection] instance.  This method will return
   /// true if the mapping is successful, or false on any error.
+  @reflectable
   bool setPreviousContent (PreviousContentMapping aPreviousContent) {
     if (aPreviousContent?.section != section) {
       return false;
@@ -418,6 +422,7 @@ class RequestedSection extends JsProxy {
   }
 
   /// The [removePreviousContent] method...
+  @reflectable
   PreviousContentMapping removePreviousContent() {
     PreviousContentMapping thePreviousContent = previousContent;
 
@@ -430,6 +435,7 @@ class RequestedSection extends JsProxy {
   }
 
   /// The [canUseCrossListing] method...
+  @reflectable
   bool canUseCrossListing (CrossListing aCrossListing) =>
     _requestedSections.canUseCrossListing (this, aCrossListing);
 
@@ -437,6 +443,7 @@ class RequestedSection extends JsProxy {
   /// to the underlying [BannerSection] instance.  If the cross-listing set can
   /// contain the [BannerSection], the method will return true.  False will be
   /// returned if the cross-listing set cannot add the section.
+  @reflectable
   bool setCrossListing (CrossListing aCrossListing) {
     if (!aCrossListing.sections.contains (section)) {
       //return false;
@@ -453,6 +460,7 @@ class RequestedSection extends JsProxy {
   }
 
   /// The [removeCrossListing] method...
+  @reflectable
   CrossListing removeCrossListing() {
     crossListing.removeSection (section);
 
@@ -516,6 +524,7 @@ class _RequestedSectionsRegistry extends JsProxy {
   }
 
   /// The [addRequestedSection] method...
+  @reflectable
   void addRequestedSection (RequestedSection requestedSection) {
     if ((null != requestedSection) && !requestedSections.contains (requestedSection)) {
       requestedSections.add (requestedSection);
@@ -523,10 +532,12 @@ class _RequestedSectionsRegistry extends JsProxy {
   }
 
   /// The [removeRequestedSection] method...
+  @reflectable
   bool removeRequestedSection (RequestedSection requestedSection) =>
     requestedSections.remove (requestedSection);
 
   /// The [canUsePreviousContent] method...
+  @reflectable
   bool canUsePreviousContent (RequestedSection forSection, PreviousContentMapping previousContent) {
     if (!forSection.hasCrossListing) {
       return true;
@@ -561,6 +572,7 @@ class _RequestedSectionsRegistry extends JsProxy {
   }
 
   /// The [canUseCrossListing] method...
+  @reflectable
   bool canUseCrossListing (RequestedSection forSection, CrossListing crossListing) {
     if (!crossListing.isCrossListableWith (forSection.section)) {
       return false;

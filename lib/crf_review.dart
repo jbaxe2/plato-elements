@@ -49,6 +49,11 @@ class CrfReview extends PolymerElement {
 
   List<CrossListing> _crossListings;
 
+  @Property(notify: true)
+  bool get haveCrossListings => _haveCrossListings;
+
+  bool _haveCrossListings = false;
+
   /// The requested sections, with previous content and cross-listing information.
   @Property(notify: true)
   List<RequestedSection> get requestedSections => _requestedSections;
@@ -103,6 +108,7 @@ class CrfReview extends PolymerElement {
       _crossListings = details['crossListings'] as List<CrossListing>;
 
       notifyPath ('crossListings', _crossListings);
+      notifyPath ('haveCrossListings', _haveCrossListings = !_crossListings.isEmpty);
     }
   }
 
