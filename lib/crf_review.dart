@@ -33,21 +33,15 @@ class CrfReview extends PolymerElement {
 
   /// The user information...
   @Property(notify: true)
-  UserInformation get userInfo => _userInfo;
-
-  UserInformation _userInfo;
+  UserInformation userInfo;
 
   /// The [BannerSection] instances respective of requested courses.
   @Property(notify: true)
-  List<BannerSection> get sections => _sections;
-
-  List<BannerSection> _sections;
+  List<BannerSection> sections;
 
   /// The [CrossListing] sets for cross-listed courses in the request.
   @Property(notify: true)
-  List<CrossListing> get crossListings => _crossListings;
-
-  List<CrossListing> _crossListings;
+  List<CrossListing> crossListings;
 
   @Property(notify: true)
   bool get haveCrossListings => _haveCrossListings;
@@ -56,9 +50,7 @@ class CrfReview extends PolymerElement {
 
   /// The requested sections, with previous content and cross-listing information.
   @Property(notify: true)
-  List<RequestedSection> get requestedSections => _requestedSections;
-
-  List<RequestedSection> _requestedSections;
+  List<RequestedSection> requestedSections;
 
   /// The [CrfReview] factory constructor...
   factory CrfReview() => document.createElement ('crf-review');
@@ -68,9 +60,11 @@ class CrfReview extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    _sections = new List<BannerSection>();
-    _crossListings = new List<CrossListing>();
-    _requestedSections = new List<RequestedSection>();
+    async (() {
+      set ('sections', new List<BannerSection>());
+      set ('crossListings', new List<CrossListing>());
+      set ('requestedSections', new List<RequestedSection>());
+    });
 
     _crfReviewDialog = $['crf-review-dialog'] as PaperDialog;
   }
@@ -85,9 +79,7 @@ class CrfReview extends PolymerElement {
   @Listen('iron-signal-collect-user-info')
   void onCollectUserInfo (CustomEvent event, details) {
     if (null != details['userInfo']) {
-      _userInfo = details['userInfo'] as UserInformation;
-
-      notifyPath ('userInfo', _userInfo);
+      set ('userInfo', details['userInfo'] as UserInformation);
     }
   }
 
@@ -95,9 +87,9 @@ class CrfReview extends PolymerElement {
   @Listen('iron-signal-collect-sections-info')
   void onCollectSectionsInfo (CustomEvent event, details) {
     if (null != details['sections']) {
-      _sections = details['sections'] as List<BannerSection>;
-
-      notifyPath ('sections', _sections);
+      async (() {
+        setAll ('sections', 0, details['sections'] as List<BannerSection>);
+      });
     }
   }
 
@@ -105,10 +97,11 @@ class CrfReview extends PolymerElement {
   @Listen('iron-signal-collect-cross-listings-info')
   void onCollectCrossListingsInfo (CustomEvent event, details) {
     if (null != details['crossListings']) {
-      _crossListings = details['crossListings'] as List<CrossListing>;
+      async (() {
+        setAll ('crossListings', 0, details['crossListings'] as List<CrossListing>);
 
-      notifyPath ('crossListings', _crossListings);
-      notifyPath ('haveCrossListings', _haveCrossListings = !_crossListings.isEmpty);
+        notifyPath ('haveCrossListings', _haveCrossListings = !crossListings.isEmpty);
+      });
     }
   }
 
@@ -118,9 +111,11 @@ class CrfReview extends PolymerElement {
     if (null != details['requestedSection']) {
       var requestedSection = details['requestedSection'] as RequestedSection;
 
-      _requestedSections.add (requestedSection);
-
-      notifyPath ('requestedSections', _requestedSections);
+      if (!requestedSections.contains (requestedSection)) {
+        async (() {
+          add ('requestedSections', requestedSection);
+        });
+      }
     }
   }
 
@@ -129,6 +124,19 @@ class CrfReview extends PolymerElement {
   void submitCourseRequest (CustomEvent event, details) {
     if ('submit-crf-button' == (Polymer.dom (event)).localTarget.id) {
       window.console.log ('clicked to submit the crf');
+    }
+  }
+
+  /// The [editCourseRequest] method...
+  @Listen('tap')
+  void editCourseRequest (CustomEvent event, details) {
+    if ('edit-crf-button' == (Polymer.dom (event)).localTarget.id) {
+      async (() {
+        setAll ('requestedSections', 0, new List<RequestedSection>());
+      });
+
+      window.console.log ('requested sections should have length 0 now, and has length ${requestedSections.length}');
+      window.console.log ('clicked to edit the crf');
     }
   }
 }

@@ -103,7 +103,6 @@
               </template>
             </p>
           </template>
-          <p>There are <span>{{requestedSections.length}}</span> requested courses.</p>
         </paper-material>
       </paper-dialog-scrollable>
 
@@ -111,7 +110,7 @@
         <paper-button raised dialog-confirm autofocus id="submit-crf-button" on-tap="submitCourseRequest">
           Submit Course Request
         </paper-button> &nbsp;
-        <paper-button raised dialog-dismiss>Edit Request Info</paper-button>
+        <paper-button raised dialog-dismiss id="edit-crf-button" on-tap="editCourseRequest">Edit Request Info</paper-button>
       </div>
     </paper-dialog>
   </template>
