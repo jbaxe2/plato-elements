@@ -1,7 +1,7 @@
 library plato.elements.data_models;
 
 // [Un-comment for debugging via the JS console.]
-// import 'dart:html';
+import 'dart:html';
 
 import 'package:polymer/polymer.dart';
 
@@ -412,22 +412,16 @@ class RequestedSection extends JsProxy {
   /// true if the mapping is successful, or false on any error.
   @reflectable
   bool setPreviousContent (PreviousContentMapping aPreviousContent) {
-    if (null == aPreviousContent) {
+    if ((null == aPreviousContent) || (aPreviousContent.section != section) ||
+        !_requestedSections.canUsePreviousContent (this, aPreviousContent)
+    ) {
       return false;
     }
 
-    if (aPreviousContent.section != section) {
-      return false;
-    }
+    _previousContent = aPreviousContent;
+    hasPreviousContent = true;
 
-    if (_requestedSections.canUsePreviousContent (this, aPreviousContent)) {
-      _previousContent = aPreviousContent;
-      hasPreviousContent = true;
-
-      return true;
-    }
-
-    return false;
+    return true;
   }
 
   /// The [removePreviousContent] method...
@@ -454,31 +448,25 @@ class RequestedSection extends JsProxy {
   /// returned if the cross-listing set cannot add the section.
   @reflectable
   bool setCrossListing (CrossListing aCrossListing) {
-    if ((null == aCrossListing) || (aCrossListing.sections.contains (section))) {
+    if ((null == aCrossListing) ||
+        !_requestedSections.canUseCrossListing (this, aCrossListing)) {
       return false;
     }
 
-    if (_requestedSections.canUseCrossListing (this, aCrossListing)) {
-      _crossListing = aCrossListing;
-      hasCrossListing = true;
+    _crossListing = aCrossListing;
+    hasCrossListing = true;
 
-      return true;
-    }
-
-    return false;
+    return true;
   }
 
   /// The [removeCrossListing] method...
   @reflectable
   CrossListing removeCrossListing() {
-    crossListing.removeSection (section);
+    _crossListing.removeSection (section);
 
-    CrossListing theCrossListing = crossListing;
-
-    if (null != crossListing) {
-      _crossListing = null;
-      hasCrossListing = false;
-    }
+    CrossListing theCrossListing = _crossListing;
+    _crossListing = null;
+    hasCrossListing = false;
 
     return theCrossListing;
   }
@@ -584,6 +572,7 @@ class _RequestedSectionsRegistry extends JsProxy {
   @reflectable
   bool canUseCrossListing (RequestedSection forSection, CrossListing crossListing) {
     if (!crossListing.isCrossListableWith (forSection.section)) {
+      window.console.log ('cross-listing set is not cross-listable with the section');
       return false;
     }
 
@@ -592,7 +581,7 @@ class _RequestedSectionsRegistry extends JsProxy {
     }
 
     if (crossListing.sections.every ((BannerSection clSection) {
-      requestedSections.forEach ((RequestedSection reqSection) {
+      requestedSections.any ((RequestedSection reqSection) {
         if (!reqSection.hasPreviousContent) {
           return true;
         }
@@ -609,15 +598,12 @@ class _RequestedSectionsRegistry extends JsProxy {
             forSection.previousContent.courseEnrollment) {
           return true;
         }
-
-        if (requestedSections.last == reqSection) {
-          return false;
-        }
       });
     })) {
       return true;
     }
 
+    window.console.log ('cross-listing failed for some other reason');
     return false;
   }
 }

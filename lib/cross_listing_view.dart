@@ -77,22 +77,14 @@ class CrossListingView extends PolymerElement {
   void onAddSectionToCl (CustomEvent event, details) {
     if ('addSectionToClIcon' == (Polymer.dom (event)).localTarget.id) {
       async (() {
-        //crossListing.sections.add (currentSection);
         add ('crossListing.sections', currentSection);
-
-        //set ('currentSection.hasCrossListing', true);
         set ('haveSections', true);
 
         if (1 < crossListing.sections.length) {
           set ('crossListing.isValid', true);
         }
 
-        notifyPath ('crossListing');
-        notifyPath ('crossListing.sections');
-        notifyPath ('currentSection', currentSection);
-        notifyPath (
-          'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)
-        );
+        refreshView();
       });
     }
   }
@@ -155,6 +147,7 @@ class CrossListingView extends PolymerElement {
     set ('haveSections', !crossListing.sections.isEmpty);
 
     notifyPath ('crossListing', crossListing);
+    notifyPath ('crossListing.sections', crossListing.sections);
     notifyPath ('currentSection', currentSection);
     notifyPath (
       'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)

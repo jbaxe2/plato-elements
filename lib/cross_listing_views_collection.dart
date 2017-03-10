@@ -67,13 +67,7 @@ class CrossListingViewsCollection extends PolymerElement {
       notifyPath ('currentSectionView', _currentSectionView);
       notifyPath ('currentSection', _currentSection);
 
-      var clViewsList = this.querySelectorAll ('cross-listing-view');
-
-      clViewsList.forEach (
-        (Element viewElement) => (viewElement as CrossListingView).refreshView()
-      );
-
-      updateView();
+      refreshView();
 
       _clDialog.open();
     }
@@ -95,7 +89,7 @@ class CrossListingViewsCollection extends PolymerElement {
         add ('crossListings', new CrossListing());
       });
 
-      updateView();
+      refreshView();
     }
   }
 
@@ -156,13 +150,19 @@ class CrossListingViewsCollection extends PolymerElement {
       );
     }
 
-    updateView();
+    refreshView();
   }
 
-  /// The [updateView] method simply refreshes the path for whatever cross-listing
+  /// The [refreshView] method simply refreshes the path for whatever cross-listing
   /// sets may be established, and then re-sizes and re-centers the view.
-  void updateView() {
+  void refreshView() {
     notifyPath ('crossListings', crossListings);
+
+    var clViewsList = this.querySelectorAll ('cross-listing-view');
+
+    clViewsList.forEach (
+      (Element viewElement) => (viewElement as CrossListingView).refreshView()
+    );
 
     _clDialog
       ..refit()

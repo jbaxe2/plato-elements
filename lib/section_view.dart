@@ -128,7 +128,8 @@ class SectionView extends PolymerElement {
     if (!_requestedSection.setPreviousContent (previousContent)) {
       raiseError (this,
         'Invalid previous content action warning',
-        'Cannot add previous content to a section that is cross-listed with another section having differing previous content.'
+        'Cannot add previous content to a section that is cross-listed '
+          'with another section having differing previous content.'
       );
 
       return;
@@ -149,13 +150,24 @@ class SectionView extends PolymerElement {
       return;
     }
 
-    set ('withCrossListing', new CrossListing());
-
     var crossListings = details['crossListings'] as List<CrossListing>;
 
     List<CrossListing> clList = crossListings.where (
       (crossListing) => crossListing.sections.contains (section)
     ).toList();
+
+    if (1 < clList.length) {
+      raiseError (this,
+        'Invalid cross-listing error',
+        'Sections cannot be added to more than one cross-listing set.'
+      );
+
+      clList.forEach ((CrossListing errClSet) => errClSet.removeSection (section));
+
+      return;
+    }
+
+    set ('withCrossListing', new CrossListing());
 
     clList.forEach ((CrossListing clSet) {
       clSet.sections.forEach ((BannerSection clSection) {
@@ -183,21 +195,24 @@ class SectionView extends PolymerElement {
             }
 
             if (1 < clLength) {
-              withCrossListing.isValid = true;
+              set ('withCrossListing.isValid', true);
             }
           }
         });
       });
 
-      if (!_requestedSection.setCrossListing (clSet)) {
-        raiseError (this,
-          'Invalid cross-listing action warning',
-          'Unable to cross-list this section, as its previous content differs from the previous content of the other section(s).'
-        );
+      if (clSet.sections.contains (_requestedSection.section)) {
+        if (!_requestedSection.setCrossListing (clSet)) {
+          raiseError (this,
+            'Invalid cross-listing action warning',
+            'Unable to cross-list this section, as its previous content '
+              'differs from the previous content of the other section(s).'
+          );
 
-        clSet.sections.remove (section);
+          clSet.sections.remove (section);
 
-        return;
+          return;
+        }
       }
     });
   }
@@ -232,7 +247,9 @@ class SectionView extends PolymerElement {
       set ('withCrossListing', null);
       notifyPath ('hasCrossListing', _hasCrossListing = false);
 
-      _requestedSection.removeCrossListing();
+      if (_requestedSection.hasCrossListing) {
+        _requestedSection.removeCrossListing();
+      }
 
       if (null == withPreviousContent) {
         set ('hasExtraInfo', false);
