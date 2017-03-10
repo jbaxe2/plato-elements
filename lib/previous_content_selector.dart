@@ -67,6 +67,23 @@ class PreviousContentSelector extends PolymerElement {
   void enrollmentsComplete (CustomEvent event, detail) =>
     notifyPath ('haveEnrollments', _haveEnrollments = true);
 
+  /// The [onShowCopyContentSelector] method...
+  @Listen('iron-signal-show-copy-content-selector')
+  void onShowCopyContentSelector (CustomEvent event, detail) {
+    if (enrollments.isEmpty) {
+      return;
+    }
+
+    if (null != detail['section']) {
+      set ('currentSection', (detail['section'] as BannerSection));
+
+      _previousContentDialog
+        ..refit()
+        ..center()
+        ..open();
+    }
+  }
+
   /// The [onEnrollmentSelected] method...
   @Listen('tap')
   void onEnrollmentSelected (CustomEvent event, detail) {
@@ -86,23 +103,6 @@ class PreviousContentSelector extends PolymerElement {
       });
 
       set ('currentSection', null);
-    }
-  }
-
-  /// The [onShowCopyContentSelector] method...
-  @Listen('iron-signal-show-copy-content-selector')
-  void onShowCopyContentSelector (CustomEvent event, detail) {
-    if (enrollments.isEmpty) {
-      return;
-    }
-
-    if (null != detail['section']) {
-      set ('currentSection', (detail['section'] as BannerSection));
-
-      _previousContentDialog
-        ..refit()
-        ..center()
-        ..open();
     }
   }
 }

@@ -93,12 +93,12 @@
           <p><strong>Previous content information:</strong></p>
           <template is="dom-repeat" items="{{requestedSections}}" as="requestedSection">
             <p>
-              <span><em>{{requestedSection.section.sectionId}}</em></span>
+              <span><em>{{requestedSection.section.sectionId}}</em></span> &mapstoleft;
               <template is="dom-if" if="{{requestedSection.hasPreviousContent}}">
-                &mapstoleft; <span>{{requestedSection.previousContent.courseEnrollment.courseId}}</span>
+                <span>{{requestedSection.previousContent.courseEnrollment.courseId}}</span>
               </template>
               <template is="dom-if" if="{{!requestedSection.hasPreviousContent}}">
-                &mapstoleft; <span>WSU Template (no previous content specified)</span>
+                <span>WSU Template (no previous content specified)</span>
               </template>
             </p>
           </template>

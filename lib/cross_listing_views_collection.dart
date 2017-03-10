@@ -6,8 +6,8 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
-import 'package:polymer_elements/iron_signals.dart';
 import 'package:polymer_elements/iron_icons.dart';
+import 'package:polymer_elements/iron_signals.dart';
 
 import 'package:polymer_elements/paper_icon_button.dart';
 import 'package:polymer_elements/paper_dialog.dart';
@@ -70,7 +70,7 @@ class CrossListingViewsCollection extends PolymerElement {
       var clViewsList = this.querySelectorAll ('cross-listing-view');
 
       clViewsList.forEach (
-        (Element viewElement) => (viewElement as CrossListingView).updateView()
+        (Element viewElement) => (viewElement as CrossListingView).refreshView()
       );
 
       updateView();

@@ -60,11 +60,9 @@ class CrfReview extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    async (() {
-      set ('sections', new List<BannerSection>());
-      set ('crossListings', new List<CrossListing>());
-      set ('requestedSections', new List<RequestedSection>());
-    });
+    set ('sections', new List<BannerSection>());
+    set ('crossListings', new List<CrossListing>());
+    set ('requestedSections', new List<RequestedSection>());
 
     _crfReviewDialog = $['crf-review-dialog'] as PaperDialog;
   }
@@ -109,13 +107,13 @@ class CrfReview extends PolymerElement {
   @Listen('iron-signal-collect-requested-section-info')
   void onCollectRequestedSectionInfo (CustomEvent event, details) {
     if (null != details['requestedSection']) {
-      var requestedSection = details['requestedSection'] as RequestedSection;
+      async (() {
+        var requestedSection = details['requestedSection'] as RequestedSection;
 
-      if (!requestedSections.contains (requestedSection)) {
-        async (() {
+        if (!requestedSections.contains (requestedSection)) {
           add ('requestedSections', requestedSection);
-        });
-      }
+        }
+      });
     }
   }
 
@@ -131,9 +129,7 @@ class CrfReview extends PolymerElement {
   @Listen('tap')
   void editCourseRequest (CustomEvent event, details) {
     if ('edit-crf-button' == (Polymer.dom (event)).localTarget.id) {
-      async (() {
-        setAll ('requestedSections', 0, new List<RequestedSection>());
-      });
+      set ('requestedSections', new List<RequestedSection>());
     }
   }
 }

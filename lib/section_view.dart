@@ -74,7 +74,11 @@ class SectionView extends PolymerElement {
   }
 
   /// The [updateSection] method...
-  void updateSection (BannerSection newSection) => set ('section', newSection);
+  void updateSection (BannerSection newSection) {
+    set ('section', newSection);
+
+    _requestedSection.setSection (newSection);
+  }
 
   /// The [onCopyContent] method listens for the user to signify that he or she
   /// would like to copy content from a previous course into this one.

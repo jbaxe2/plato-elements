@@ -91,8 +91,8 @@ class BannerSection extends JsProxy {
     return false;
   }
 
-  /// The '==' operator for determining equivalency (NOT identicality) between
-  /// two different [BannerSection] instances.
+  /// The '==' operator for determining equivalency (NOT necessarily identicality)
+  /// between two different [BannerSection] instances.
   @override
   bool operator ==(BannerSection other) {
     if ((other.sectionId == sectionId) &&
@@ -149,8 +149,8 @@ class CourseEnrollment extends JsProxy {
     this.username, this.courseId, this.courseName, this.role, this.available
   );
 
-  /// The '==' operator for determining equivalency (NOT identicality) between
-  /// two different [CourseEnrollment] instances.
+  /// The '==' operator for determining equivalency (NOT necessarily identicality)
+  /// between two different [CourseEnrollment] instances.
   @override
   bool operator ==(CourseEnrollment other) {
     if ((other.username == username) &&
@@ -321,8 +321,8 @@ class PreviousContentMapping extends JsProxy {
   /// The [PreviousContentMapping] constructor...
   PreviousContentMapping();
 
-  /// The '==' operator for determining equivalency (NOT identicality) between
-  /// two different [PreviousContentMapping] instances.
+  /// The '==' operator for determining equivalency (NOT necessarily identicality)
+  /// between two different [PreviousContentMapping] instances.
   @override
   bool operator ==(PreviousContentMapping mapping) => (
     (mapping.section == section) && (mapping.courseEnrollment == courseEnrollment)
@@ -374,13 +374,15 @@ class RequestedSection extends JsProxy {
   /// but also initializes the cross-listing and previous content information.
   /// This requested section is also added to the requested sections registry.
   RequestedSection (BannerSection aSection) {
-    _section = aSection;
+    if (null != aSection) {
+      _section = aSection;
 
-    hasCrossListing = false;
-    hasPreviousContent = false;
+      hasCrossListing = false;
+      hasPreviousContent = false;
 
-    _requestedSections = new _RequestedSectionsRegistry()
-      ..addRequestedSection (this);
+      _requestedSections = new _RequestedSectionsRegistry()
+        ..addRequestedSection (this);
+    }
   }
 
   /// The [setSection] method allows for the setting of a different [BannerSection]
@@ -389,13 +391,15 @@ class RequestedSection extends JsProxy {
   /// section instance.
   @reflectable
   void setSection (BannerSection aSection) {
-    _section = aSection;
+    if (null != aSection) {
+      _section = aSection;
 
-    _crossListing = null;
-    _previousContent = null;
+      _crossListing = null;
+      _previousContent = null;
 
-    hasCrossListing = false;
-    hasPreviousContent = false;
+      hasCrossListing = false;
+      hasPreviousContent = false;
+    }
   }
 
   /// The [canUsePreviousContent] method...
@@ -408,7 +412,11 @@ class RequestedSection extends JsProxy {
   /// true if the mapping is successful, or false on any error.
   @reflectable
   bool setPreviousContent (PreviousContentMapping aPreviousContent) {
-    if (aPreviousContent?.section != section) {
+    if (null == aPreviousContent) {
+      return false;
+    }
+
+    if (aPreviousContent.section != section) {
       return false;
     }
 
@@ -446,8 +454,8 @@ class RequestedSection extends JsProxy {
   /// returned if the cross-listing set cannot add the section.
   @reflectable
   bool setCrossListing (CrossListing aCrossListing) {
-    if (!aCrossListing.sections.contains (section)) {
-      //return false;
+    if ((null == aCrossListing) || (aCrossListing.sections.contains (section))) {
+      return false;
     }
 
     if (_requestedSections.canUseCrossListing (this, aCrossListing)) {
@@ -475,8 +483,8 @@ class RequestedSection extends JsProxy {
     return theCrossListing;
   }
 
-  /// The '==' operator for determining equivalency (NOT identicality) between
-  /// two different [RequestedSection] instances.
+  /// The '==' operator for determining equivalency (NOT necessarily identicality)
+  /// between two different [RequestedSection] instances.
   @override
   bool operator ==(RequestedSection other) {
     if ((other.section == section) &&
