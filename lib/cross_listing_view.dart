@@ -111,22 +111,32 @@ class CrossListingView extends PolymerElement {
     }
   }
 
+  /// The [onSectionRemoved] method...
+  @Listen('iron-signal-section-removed')
+  void onSectionRemoved (CustomEvent event, details) {
+    if (null != details['section']) {
+      _removeSectionFromCl (details['section'] as BannerSection);
+
+      this.fire ('confirm-cl-sets-from-cl', detail: null);
+    }
+  }
+
   /// The [onSectionRemovedFromCl] method...
   @Listen('iron-signal-section-removed-from-cl')
   void onSectionRemovedFromCl (CustomEvent event, details) {
     if (null != details['section']) {
-      if ((details['section'] as BannerSection) == currentSection) {
-        _removeSectionFromCl();
-      }
+      _removeSectionFromCl (details['section'] as BannerSection);
 
       this.fire ('confirm-cl-sets-from-cl', detail: null);
     }
   }
 
   /// The [_removeSectionFromCl] method...
-  void _removeSectionFromCl() {
-    if (crossListing.sections.contains (currentSection)) {
-      removeItem ('crossListing.sections', currentSection);
+  void _removeSectionFromCl ([BannerSection section]) {
+    section ??= currentSection;
+
+    if (crossListing.sections.contains (section)) {
+      removeItem ('crossListing.sections', section);
 
       if (crossListing.sections.isEmpty) {
         set ('haveSections', false);

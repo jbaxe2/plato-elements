@@ -46,6 +46,7 @@
   </style>
 
   <template>
+    <iron-signals on-iron-signal-section-removed="onSectionRemoved"></iron-signals>
     <iron-signals on-iron-signal-section-removed-from-cl="onSectionRemovedFromCl"></iron-signals>
 
     <paper-card heading="Courses contained in cross-listing set #{{clSetNumDisplay}}">

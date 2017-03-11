@@ -119,7 +119,8 @@ class SectionView extends PolymerElement {
   void onPreviousContentSpecified (CustomEvent event, details) {
     if ((null == details['section']) || (null == details['previousContent']) ||
         (section != details['section'] as BannerSection) ||
-        (section != (details['previousContent'] as PreviousContentMapping).section)) {
+        (section != (details['previousContent'] as PreviousContentMapping).section) ||
+        (details['previousContent'] == withPreviousContent)) {
       return;
     }
 
@@ -133,6 +134,22 @@ class SectionView extends PolymerElement {
       );
 
       return;
+    }
+
+    if (hasCrossListing) {
+      withCrossListing.sections.forEach ((BannerSection clSection) {
+        if (clSection != section) {
+          PreviousContentMapping clPreviousContent = previousContent
+            ..section = clSection;
+
+          this.fire ('iron-signal', detail: {
+            'name': 'previous-content-specified',
+            'data': {
+              'section': clSection, 'previousContent': clPreviousContent
+            }
+          });
+        }
+      });
     }
 
     set ('hasExtraInfo', true);
@@ -244,12 +261,12 @@ class SectionView extends PolymerElement {
         'data': {'crossListing': withCrossListing, 'section': section}
       });
 
-      set ('withCrossListing', null);
-      notifyPath ('hasCrossListing', _hasCrossListing = false);
-
       if (_requestedSection.hasCrossListing) {
         _requestedSection.removeCrossListing();
       }
+
+      set ('withCrossListing', null);
+      notifyPath ('hasCrossListing', _hasCrossListing = false);
 
       if (null == withPreviousContent) {
         set ('hasExtraInfo', false);
