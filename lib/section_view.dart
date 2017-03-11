@@ -119,12 +119,17 @@ class SectionView extends PolymerElement {
   void onPreviousContentSpecified (CustomEvent event, details) {
     if ((null == details['section']) || (null == details['previousContent']) ||
         (section != details['section'] as BannerSection) ||
-        (section != (details['previousContent'] as PreviousContentMapping).section) ||
-        (details['previousContent'] == withPreviousContent)) {
+        (section != (details['previousContent'] as PreviousContentMapping).section)) {
       return;
     }
 
     var previousContent = details['previousContent'] as PreviousContentMapping;
+
+    if (null != withPreviousContent) {
+      if (previousContent.courseEnrollment == withPreviousContent.courseEnrollment) {
+        return;
+      }
+    }
 
     if (!_requestedSection.setPreviousContent (previousContent)) {
       raiseError (this,
