@@ -125,10 +125,10 @@ class SectionView extends PolymerElement {
 
     var previousContent = details['previousContent'] as PreviousContentMapping;
 
-    if (null != withPreviousContent) {
-      if (previousContent.courseEnrollment == withPreviousContent.courseEnrollment) {
-        return;
-      }
+    if ((null != withPreviousContent) &&
+        (previousContent.courseEnrollment.courseId ==
+         withPreviousContent.courseEnrollment.courseId)) {
+      return;
     }
 
     if (!_requestedSection.setPreviousContent (previousContent)) {
@@ -140,6 +140,10 @@ class SectionView extends PolymerElement {
 
       return;
     }
+
+    set ('hasExtraInfo', true);
+    set ('withPreviousContent', previousContent);
+    notifyPath ('hasPreviousContent', _hasPreviousContent = true);
 
     if (hasCrossListing) {
       withCrossListing.sections.forEach ((BannerSection clSection) {
@@ -156,10 +160,6 @@ class SectionView extends PolymerElement {
         }
       });
     }
-
-    set ('hasExtraInfo', true);
-    set ('withPreviousContent', previousContent);
-    notifyPath ('hasPreviousContent', _hasPreviousContent = true);
   }
 
   /// The [onCrossListingsSpecified] method listens for the signal that the
