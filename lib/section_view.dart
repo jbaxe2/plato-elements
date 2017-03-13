@@ -124,26 +124,37 @@ class SectionView extends PolymerElement {
     }
 
     var previousContent = details['previousContent'] as PreviousContentMapping;
+    var pcRemoved = false;
 
-    if ((null != withPreviousContent) &&
-        (previousContent.courseEnrollment.courseId ==
-         withPreviousContent.courseEnrollment.courseId)) {
-      return;
+    if ((null != details['pcRemoved']) && (true == details['pcRemoved'])) {
+      pcRemoved = true;
     }
 
-    if (!_requestedSection.setPreviousContent (previousContent)) {
-      raiseError (this,
-        'Invalid previous content action warning',
-        'Cannot add previous content to a section that is cross-listed '
-          'with another section having differing previous content.'
-      );
+    if (pcRemoved) {
+      if (_requestedSection.previousContent == withPreviousContent) {
+        _removePreviousContent();
+      }
+    } else {
+      if ((null != withPreviousContent) &&
+          (previousContent.courseEnrollment.courseId ==
+           withPreviousContent.courseEnrollment.courseId)) {
+        return;
+      }
 
-      return;
+      if (!_requestedSection.setPreviousContent (previousContent)) {
+        raiseError (this,
+          'Invalid previous content action warning',
+          'Cannot add previous content to a section that is cross-listed '
+            'with another section having differing previous content.'
+        );
+
+        return;
+      }
+
+      set ('hasExtraInfo', true);
+      set ('withPreviousContent', previousContent);
+      notifyPath ('hasPreviousContent', _hasPreviousContent = true);
     }
-
-    set ('hasExtraInfo', true);
-    set ('withPreviousContent', previousContent);
-    notifyPath ('hasPreviousContent', _hasPreviousContent = true);
 
     if (hasCrossListing) {
       withCrossListing.sections.forEach ((BannerSection clSection) {
@@ -154,11 +165,42 @@ class SectionView extends PolymerElement {
           this.fire ('iron-signal', detail: {
             'name': 'previous-content-specified',
             'data': {
-              'section': clSection, 'previousContent': clPreviousContent
+              'section': clSection,
+              'previousContent': clPreviousContent,
+              'pcRemoved': pcRemoved
             }
           });
         }
       });
+    }
+  }
+
+  /// The [onRemovePreviousContent] method listens for the user to signify that
+  /// this section should cancel the previous content for this section, even if
+  /// previous content may not have been specified (effectively cleans the slate).
+  @Listen('tap')
+  void onRemovePreviousContent (CustomEvent event, details) {
+    if ('removePreviousContentIcon' == (Polymer.dom (event)).localTarget.id) {
+      this.fire ('iron-signal', detail: {
+        'name': 'previous-content-specified',
+        'data': {
+          'section': section,
+          'previousContent': withPreviousContent,
+          'pcRemoved': true
+        }
+      });
+    }
+  }
+
+  /// The [_removePreviousContent] method...
+  void _removePreviousContent() {
+    set ('withPreviousContent', null);
+    notifyPath ('hasPreviousContent', _hasPreviousContent = false);
+
+    _requestedSection.removePreviousContent();
+
+    if (null == withCrossListing) {
+      set ('hasExtraInfo', false);
     }
   }
 
@@ -237,23 +279,6 @@ class SectionView extends PolymerElement {
         }
       }
     });
-  }
-
-  /// The [onRemovePreviousContent] method listens for the user to signify that
-  /// this section should cancel the previous content for this section, even if
-  /// previous content may not have been specified (effectively cleans the slate).
-  @Listen('tap')
-  void onRemovePreviousContent (CustomEvent event, details) {
-    if ('removePreviousContentIcon' == (Polymer.dom (event)).localTarget.id) {
-      set ('withPreviousContent', null);
-      notifyPath ('hasPreviousContent', _hasPreviousContent = false);
-
-      _requestedSection.removePreviousContent();
-
-      if (null == withCrossListing) {
-        set ('hasExtraInfo', false);
-      }
-    }
   }
 
   /// The [onRemoveFromCrossListing] method listens for the user to signify that
