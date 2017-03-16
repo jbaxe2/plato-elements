@@ -56,10 +56,6 @@ class SimpleRetriever extends PolymerElement {
     _retrieverAjax.generateRequest();
   }
 
-  // The [typeChanged] method...
-  //@Listen('type-changed')
-  //void typeChanged (event, details) => retrieveTypedData();
-
   /// The [onRetrieveResponse] method...
   @Listen('response')
   void onRetrieveResponse (event, [_]) {
@@ -67,10 +63,6 @@ class SimpleRetriever extends PolymerElement {
 
     if (null != response['error']) {
       raiseError (this, 'Server information load error', response['error']);
-
-      //this.fire (
-      //  'iron-signal', detail: {'name': 'error', 'data': response}
-      //);
     } else if (null != response[type]) {
       this.fire ('${type.toLowerCase()}-retrieved', detail: response);
     }

@@ -131,6 +131,10 @@ class SectionView extends PolymerElement {
     }
 
     if (pcRemoved) {
+      if (null == withPreviousContent) {
+        return;
+      }
+
       if (_requestedSection.previousContent == withPreviousContent) {
         _removePreviousContent();
       }
@@ -184,7 +188,7 @@ class SectionView extends PolymerElement {
       this.fire ('iron-signal', detail: {
         'name': 'previous-content-specified',
         'data': {
-          'section': section,
+          'section': withPreviousContent.section,
           'previousContent': withPreviousContent,
           'pcRemoved': true
         }
