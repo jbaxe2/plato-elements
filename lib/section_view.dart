@@ -230,7 +230,21 @@ class SectionView extends PolymerElement {
         'Sections cannot be added to more than one cross-listing set.'
       );
 
-      clList.forEach ((CrossListing errClSet) => errClSet.removeSection (section));
+      clList.forEach ((CrossListing errClSet) {
+        this.fire ('iron-signal',
+          detail: {
+            'name': 'section-removed-from-cl',
+            'data': {'section': section}
+          }
+        );
+      });
+
+      set ('withCrossListing', null);
+      notifyPath ('hasCrossListing', _hasCrossListing = false);
+
+      if (!hasPreviousContent) {
+        set ('hasExtraInfo', false);
+      }
 
       return;
     }

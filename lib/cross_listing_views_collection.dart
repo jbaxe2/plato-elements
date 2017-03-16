@@ -17,6 +17,8 @@ import 'data_models.dart' show BannerSection, CrossListing;
 import 'cross_listing_view.dart';
 import 'section_view.dart';
 
+import 'plato_elements_utils.dart';
+
 /// Silence analyzer:
 /// [IronSignals] - [PaperIconButton] - [CrossListingView]
 ///
@@ -79,9 +81,14 @@ class CrossListingViewsCollection extends PolymerElement {
   @Listen('tap')
   void addNewClSet (CustomEvent event, details) {
     if ('addNewClSetIcon' == (Polymer.dom (event)).localTarget.id) {
-      if (crossListings.any (
-        (CrossListing crossListing) => (crossListing.sections.isEmpty) ? true : false
+      if (crossListings.any ((CrossListing crossListing) =>
+        ((crossListing.sections.isEmpty) || (1 == crossListing.sections.length)) ? true : false
       )) {
+        raiseError (this,
+          'Invalid cross-listing action warning',
+          'Unable to add a new cross-listing set, as a different set is empty or has only one course.'
+        );
+
         return;
       }
 
@@ -102,7 +109,7 @@ class CrossListingViewsCollection extends PolymerElement {
 
       removeItem ('crossListings', crossListing);
 
-      _removalCleanup (crossListing);
+      _removalCleanup();
     }
   }
 
@@ -111,9 +118,7 @@ class CrossListingViewsCollection extends PolymerElement {
   /// section removal has already taken place.
   @Listen('removed-section-from-cl')
   void onRemovedSectionFromCl (CustomEvent event, details) {
-    if (null != details['crossListing']) {
-      _removalCleanup (details['crossListing'] as CrossListing);
-    };
+    _removalCleanup();
   }
 
   /// The [onConfirmClSets] method listens for the user to signify that any changes
@@ -135,6 +140,8 @@ class CrossListingViewsCollection extends PolymerElement {
   /// cross-listing sets have been confirmed, in the context of the 'current'
   /// section.
   void _confirmCrossListings() {
+    _removalCleanup();
+
     this.fire ('iron-signal', detail: {
       'name': 'cross-listings-specified',
       'data': {'section': currentSection, 'crossListings': crossListings}
@@ -143,8 +150,8 @@ class CrossListingViewsCollection extends PolymerElement {
 
   /// The [_removalCleanup] method removes a cross-listing set from the collection
   /// if all of the sections have been removed from that set.
-  void _removalCleanup (CrossListing crossListing) {
-    if (1 < crossListings.length) {
+  void _removalCleanup() {
+    if (0 < crossListings.length) {
       removeWhere ('crossListings',
         (CrossListing aCrossListing) => (1 > aCrossListing.sections.length) ? true : false
       );

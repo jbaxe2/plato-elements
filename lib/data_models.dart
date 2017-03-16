@@ -572,7 +572,6 @@ class _RequestedSectionsRegistry extends JsProxy {
   @reflectable
   bool canUseCrossListing (RequestedSection forSection, CrossListing crossListing) {
     if (!crossListing.isCrossListableWith (forSection.section)) {
-      window.console.log ('cross-listing set is not cross-listable with the section');
       return false;
     }
 
@@ -594,8 +593,8 @@ class _RequestedSectionsRegistry extends JsProxy {
           }
         }
 
-        if (reqSection.previousContent.courseEnrollment ==
-            forSection.previousContent.courseEnrollment) {
+        if (reqSection.previousContent.courseEnrollment.courseId ==
+            forSection.previousContent.courseEnrollment.courseId) {
           return true;
         }
       });
@@ -603,9 +602,27 @@ class _RequestedSectionsRegistry extends JsProxy {
       return true;
     }
 
-    window.console.log ('cross-listing failed for some other reason');
     return false;
   }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+/// The [getRequestedSection] function...
+RequestedSection getRequestedSection (BannerSection section) {
+  var requestedSections = new _RequestedSectionsRegistry();
+
+  RequestedSection requestedSection;
+
+  requestedSections.requestedSections.any ((RequestedSection reqSection) {
+    if (section == reqSection.section) {
+      requestedSection = reqSection;
+
+      return true;
+    }
+  });
+
+  return requestedSection;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

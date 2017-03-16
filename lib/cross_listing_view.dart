@@ -13,9 +13,9 @@ import 'package:polymer_elements/iron_signals.dart';
 import 'package:polymer_elements/paper_card.dart';
 import 'package:polymer_elements/paper_icon_button.dart';
 
-import 'data_models.dart' show BannerSection, CrossListing;
+import 'data_models.dart';
 
-//import 'plato_elements_utils.dart';
+import 'plato_elements_utils.dart';
 
 /// Silence analyzer:
 /// [IronSignals] - [PaperCard] - [PaperIconButton]
@@ -39,7 +39,8 @@ class CrossListingView extends PolymerElement {
   @Property(notify: true)
   bool haveSections;
 
-  /// The current section for which interactions with the cross-listing shall be used.
+  /// The current section for which interactions with the cross-listing set shall
+  /// provide context to.
   @Property(notify: true)
   BannerSection currentSection;
 
@@ -76,6 +77,16 @@ class CrossListingView extends PolymerElement {
   @Listen('tap')
   void onAddSectionToCl (CustomEvent event, details) {
     if ('addSectionToClIcon' == (Polymer.dom (event)).localTarget.id) {
+      if ((getRequestedSection (currentSection)).hasCrossListing) {
+        raiseError (this,
+          'Invalid cross-listing action warning',
+          'Cannot add a section to a cross-listing set when that section is already '
+            'a part of a different cross-listing set.'
+        );
+
+        return;
+      }
+
       async (() {
         add ('crossListing.sections', currentSection);
         set ('haveSections', true);
@@ -104,10 +115,13 @@ class CrossListingView extends PolymerElement {
   void onRemoveCrossListingSet (CustomEvent event, details) {
     if ('removeClSetIcon' == (Polymer.dom (event)).localTarget.id) {
       _removeSectionFromCl();
-      crossListing.sections.clear();
-      refreshView();
+
+      set ('crossListing.sections', new List<BannerSection>());
+      //set ('crossListing', null);
 
       this.fire ('remove-cross-listing-set', detail: {'crossListing': crossListing});
+
+      refreshView();
     }
   }
 
