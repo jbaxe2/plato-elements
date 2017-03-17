@@ -283,7 +283,8 @@ class SectionView extends PolymerElement {
         });
       });
 
-      if (clSet.sections.contains (_requestedSection.section)) {
+      if ((clSet.sections.contains (_requestedSection.section)) &&
+          (!_requestedSection.hasCrossListing)) {
         if (!_requestedSection.setCrossListing (clSet)) {
           raiseError (this,
             'Invalid cross-listing action warning',

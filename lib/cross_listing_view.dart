@@ -168,10 +168,15 @@ class CrossListingView extends PolymerElement {
     set ('haveSections', !crossListing.sections.isEmpty);
 
     notifyPath ('crossListing', crossListing);
-    notifyPath ('crossListing.sections', crossListing.sections);
     notifyPath ('currentSection', currentSection);
-    notifyPath (
-      'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)
-    );
+
+    if (haveSections) {
+      notifyPath ('crossListing.sections', crossListing.sections);
+      notifyPath (
+        'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)
+      );
+    } else {
+      notifyPath ('clHasSection', _clHasSection = false);
+    }
   }
 }
