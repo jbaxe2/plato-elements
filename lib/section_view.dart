@@ -293,8 +293,6 @@ class SectionView extends PolymerElement {
           );
 
           clSet.sections.remove (section);
-
-          return;
         }
       }
     });
