@@ -29,6 +29,7 @@ import '../lib/previous_content_selector.dart';
 import '../lib/cross_listing_views_collection.dart';
 
 import '../lib/crf_review.dart';
+import '../lib/crf_submitter.dart';
 
 import '../lib/plato_element_error.dart';
 import '../lib/plato_element_processing.dart';
@@ -50,7 +51,7 @@ import '../lib/course_request.dart';
 ///
 /// [CrossListingViewsCollection]
 ///
-/// [CrfReview]
+/// [CrfReview] - [CrfSubmitter]
 ///
 /// [PlatoElementError] - [PlatoElementProcessing]
 ///

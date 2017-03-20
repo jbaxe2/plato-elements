@@ -208,16 +208,14 @@ class CourseRequest extends JsProxy {
 /// The [CrossListing] class...
 class CrossListing extends JsProxy {
   @reflectable
-  List<BannerSection> get sections => _sections;
-
-  List<BannerSection> _sections;
+  List<BannerSection> sections;
 
   @reflectable
   bool isValid;
 
   /// The [CrossListing] constructor...
   CrossListing() {
-    _sections = new List<BannerSection>();
+    sections = new List<BannerSection>();
     isValid = false;
   }
 
@@ -239,7 +237,7 @@ class CrossListing extends JsProxy {
   /// The [addSection] method...
   void addSection (BannerSection section) {
     if (!sections.contains (section) && isCrossListableWith (section)) {
-      _sections.add (section);
+      sections.add (section);
 
       if (1 < sections.length) {
         isValid = true;
@@ -251,7 +249,7 @@ class CrossListing extends JsProxy {
   /// The [removeSection] method...
   void removeSection (BannerSection section) {
     if (sections.contains (section)) {
-      _sections.remove (section);
+      sections.remove (section);
 
       if (2 > sections.length) {
         isValid = false;
@@ -580,7 +578,7 @@ class _RequestedSectionsRegistry extends JsProxy {
     }
 
     if (crossListing.sections.every ((BannerSection clSection) {
-      requestedSections.any ((RequestedSection reqSection) {
+      if (requestedSections.any ((RequestedSection reqSection) {
         if (!reqSection.hasPreviousContent) {
           return true;
         }
@@ -597,7 +595,18 @@ class _RequestedSectionsRegistry extends JsProxy {
             forSection.previousContent.courseEnrollment.courseId) {
           return true;
         }
-      });
+
+        return false;
+      })) {
+        return true;
+      }
+
+      if (getRequestedSection (clSection).previousContent.courseEnrollment.courseId ==
+          forSection.previousContent.courseEnrollment.courseId) {
+        return true;
+      }
+
+      return false;
     })) {
       return true;
     }

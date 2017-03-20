@@ -224,6 +224,14 @@ class SectionView extends PolymerElement {
       (crossListing) => crossListing.sections.contains (section)
     ).toList();
 
+    if (0 == clList.length) {
+      if (!hasPreviousContent) {
+        set ('hasExtraInfo', false);
+      }
+
+      return;
+    }
+
     if (1 < clList.length) {
       raiseError (this,
         'Invalid cross-listing error',
@@ -251,51 +259,51 @@ class SectionView extends PolymerElement {
 
     set ('withCrossListing', new CrossListing());
 
-    clList.forEach ((CrossListing clSet) {
-      clSet.sections.forEach ((BannerSection clSection) {
-        async (() {
-          add ('withCrossListing.sections', clSection);
+    CrossListing crossListing = clList.first;
 
-          int clLength = withCrossListing.sections.length;
+    crossListing.sections.forEach ((BannerSection clSection) {
+      async (() {
+        add ('withCrossListing.sections', clSection);
 
-          if (0 < clLength) {
-            notifyPath ('hasCrossListing', _hasCrossListing = true);
-            set ('hasExtraInfo', true);
-          }
+        int clLength = withCrossListing.sections.length;
 
-          if (1 == clLength) {
-            set ('showInvalid', true);
-          } else {
-            set ('showInvalid', false);
-
-            if (0 == clLength) {
-              notifyPath ('hasCrossListing', _hasCrossListing = false);
-
-              if (!hasPreviousContent) {
-                set ('hasExtraInfo', false);
-              }
-            }
-
-            if (1 < clLength) {
-              set ('withCrossListing.isValid', true);
-            }
-          }
-        });
-      });
-
-      if ((clSet.sections.contains (_requestedSection.section)) &&
-          (!_requestedSection.hasCrossListing)) {
-        if (!_requestedSection.setCrossListing (clSet)) {
-          raiseError (this,
-            'Invalid cross-listing action warning',
-            'Unable to cross-list this section, as its previous content '
-              'differs from the previous content of the other section(s).'
-          );
-
-          clSet.sections.remove (section);
+        if (0 < clLength) {
+          notifyPath ('hasCrossListing', _hasCrossListing = true);
+          set ('hasExtraInfo', true);
         }
-      }
+
+        if (1 == clLength) {
+          set ('showInvalid', true);
+        } else {
+          set ('showInvalid', false);
+
+          if (0 == clLength) {
+            notifyPath ('hasCrossListing', _hasCrossListing = false);
+
+            if (!hasPreviousContent) {
+              set ('hasExtraInfo', false);
+            }
+          }
+
+          if (1 < clLength) {
+            set ('withCrossListing.isValid', true);
+          }
+        }
+      });
     });
+
+    if ((withCrossListing.sections.contains (_requestedSection.section)) &&
+        (!_requestedSection.hasCrossListing)) {
+      if (!_requestedSection.setCrossListing (withCrossListing)) {
+        raiseError (this,
+          'Invalid cross-listing action warning',
+          'Unable to cross-list this section, as its previous content '
+            'differs from the previous content of the other section(s).'
+        );
+
+        removeItem ('withCrossListing.sections', _requestedSection.section);
+      }
+    }
   }
 
   /// The [onRemoveFromCrossListing] method listens for the user to signify that

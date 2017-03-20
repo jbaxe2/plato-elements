@@ -1,0 +1,20 @@
+<dom-module id="crf-submitter">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+    <iron-signals on-iron-signal-crf-submission="onCrfSubmission"></iron-signals>
+
+    <iron-ajax
+      id="crf-submitter-ajax"
+      method="POST"
+      url="/plato/submit/crf"
+      handle-as="json"
+      on-response="onCrfSubmissionResponse"
+      debounce-duration="300">
+    </iron-ajax>
+  </template>
+</dom-module>

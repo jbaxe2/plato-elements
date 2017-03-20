@@ -121,7 +121,15 @@ class CrfReview extends PolymerElement {
   @Listen('tap')
   void submitCourseRequest (CustomEvent event, details) {
     if ('submit-crf-button' == (Polymer.dom (event)).localTarget.id) {
-      window.console.log ('clicked to submit the crf');
+      this.fire ('iron-signal', detail: {
+        'name': 'crf-submission',
+        'data': {
+          'userInfo': userInfo,
+          'sections': sections,
+          'crossListings': crossListings,
+          'requestedSections': requestedSections
+        }
+      });
     }
   }
 
@@ -129,6 +137,8 @@ class CrfReview extends PolymerElement {
   @Listen('tap')
   void editCourseRequest (CustomEvent event, details) {
     if ('edit-crf-button' == (Polymer.dom (event)).localTarget.id) {
+      set ('sections', new List<BannerSection>());
+      set ('crossListings', new List<CrossListing>());
       set ('requestedSections', new List<RequestedSection>());
     }
   }
