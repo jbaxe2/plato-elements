@@ -1,6 +1,7 @@
 @HtmlImport('crf_submitter.html')
 library plato.elements.crf.submitter;
 
+import 'dart:convert';
 import 'dart:html';
 
 import 'package:web_components/web_components.dart';
@@ -68,16 +69,18 @@ class CrfSubmitter extends PolymerElement {
 
     try {
       crfInfo = {
-        'userInfo': details['userInfo'] as UserInformation,
-        'sections': details['sections'] as List<BannerSection>,
-        'crossListings': details['crossListings'] as List<CrossListing>,
-        'requestedSections': details['requestedSections'] as List<RequestedSection>
+        'userInfo': JSON.encode (details['userInfo'] as UserInformation),
+        'sections': JSON.encode (details['sections'] as List<BannerSection>),
+        'crossListings': JSON.encode (details['crossListings'] as List<CrossListing>),
+        'requestedSections': JSON.encode (details['requestedSections'] as List<RequestedSection>)
       };
     } catch (_) {
       raiseError (this,
         'Corrupted submission error',
         'Provided course request information is not appropriate for submission.'
       );
+
+      return;
     }
 
     _crfSubmitterAjax = $['crf-submitter-ajax'] as IronAjax

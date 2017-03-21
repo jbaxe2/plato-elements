@@ -259,9 +259,7 @@ class SectionView extends PolymerElement {
 
     set ('withCrossListing', new CrossListing());
 
-    CrossListing crossListing = clList.first;
-
-    crossListing.sections.forEach ((BannerSection clSection) {
+    clList.first.sections.forEach ((BannerSection clSection) {
       async (() {
         add ('withCrossListing.sections', clSection);
 
@@ -292,7 +290,7 @@ class SectionView extends PolymerElement {
       });
     });
 
-    if ((withCrossListing.sections.contains (_requestedSection.section)) &&
+    if ((withCrossListing.sections.contains (section)) &&
         (!_requestedSection.hasCrossListing)) {
       if (!_requestedSection.setCrossListing (withCrossListing)) {
         raiseError (this,
@@ -302,8 +300,17 @@ class SectionView extends PolymerElement {
         );
 
         removeItem ('withCrossListing.sections', _requestedSection.section);
+      } else {
+        window.console.log ('cross-listing info has been set');
       }
+    } else {
+      window.console.log ('info was not contained in cross-listing');
     }
+
+    window.console.log ('the following cross-listing info is for ${_requestedSection.section.sectionId}');
+    window.console.log (_requestedSection.hasCrossListing);
+    window.console.debug (_requestedSection.crossListing);
+    window.console.debug (_requestedSection);
   }
 
   /// The [onRemoveFromCrossListing] method listens for the user to signify that

@@ -1,6 +1,6 @@
 library plato.elements.data_models;
 
-// [Un-comment for debugging via the JS console.]
+import 'dart:convert';
 import 'dart:html';
 
 import 'package:polymer/polymer.dart';
@@ -123,6 +123,18 @@ class BannerSection extends JsProxy {
 
     return result;
   }
+
+  Map toJson() {
+    return {
+      'sectionId': sectionId,
+      'crn': crn,
+      'courseTitle': courseTitle,
+      'faculty': faculty,
+      'time': time,
+      'place': place,
+      'termId': termId
+    };
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -176,6 +188,16 @@ class CourseEnrollment extends JsProxy {
     result = 7 * result + ((null == available) ? 0 : available.hashCode);
 
     return result;
+  }
+
+  Map toJson() {
+    return {
+      'username': username,
+      'courseId': courseId,
+      'courseName': courseName,
+      'role': role,
+      'available': available
+    };
   }
 }
 
@@ -288,6 +310,13 @@ class CrossListing extends JsProxy {
 
     return result;
   }
+
+  Map toJson() {
+    return {
+      'sections': sections,
+      'isValid': isValid
+    };
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -335,6 +364,13 @@ class PreviousContentMapping extends JsProxy {
     result = 7 * result + courseEnrollment.hashCode;
 
     return result;
+  }
+
+  Map toJson() {
+    return {
+      'section': section,
+      'courseEnrollment': courseEnrollment
+    };
   }
 }
 
@@ -411,8 +447,7 @@ class RequestedSection extends JsProxy {
   @reflectable
   bool setPreviousContent (PreviousContentMapping aPreviousContent) {
     if ((null == aPreviousContent) || (aPreviousContent.section != section) ||
-        !_requestedSections.canUsePreviousContent (this, aPreviousContent)
-    ) {
+        !_requestedSections.canUsePreviousContent (this, aPreviousContent)) {
       return false;
     }
 
@@ -492,6 +527,14 @@ class RequestedSection extends JsProxy {
     result = 7 * result + previousContent.hashCode;
 
     return result;
+  }
+
+  Map toJson() {
+    return {
+      'section': section,
+      'crossListing': crossListing,
+      'previousContent': previousContent
+    };
   }
 }
 
@@ -662,6 +705,18 @@ class UserInformation extends JsProxy {
   UserInformation (
     this._username, this._password, this._firstName, this._lastName, this._email, this._cwid
   );
+
+  /// The [toJson] method...
+  Map toJson() {
+    return {
+      'username': username,
+      'password': password,
+      'firstName': firstName,
+      'lastName': lastName,
+      'email': email,
+      'cwid': cwid
+    };
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
