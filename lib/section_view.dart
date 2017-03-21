@@ -259,8 +259,8 @@ class SectionView extends PolymerElement {
 
     set ('withCrossListing', new CrossListing());
 
-    clList.first.sections.forEach ((BannerSection clSection) {
-      async (() {
+    async (() {
+      clList.first.sections.forEach ((BannerSection clSection) {
         add ('withCrossListing.sections', clSection);
 
         int clLength = withCrossListing.sections.length;
@@ -288,29 +288,20 @@ class SectionView extends PolymerElement {
           }
         }
       });
-    });
 
-    if ((withCrossListing.sections.contains (section)) &&
-        (!_requestedSection.hasCrossListing)) {
-      if (!_requestedSection.setCrossListing (withCrossListing)) {
-        raiseError (this,
-          'Invalid cross-listing action warning',
-          'Unable to cross-list this section, as its previous content '
-            'differs from the previous content of the other section(s).'
-        );
+      if ((withCrossListing.sections.contains (section)) &&
+          (!_requestedSection.hasCrossListing)) {
+        if (!_requestedSection.setCrossListing (withCrossListing)) {
+          raiseError (this,
+            'Invalid cross-listing action warning',
+            'Unable to cross-list this section, as its previous content '
+              'differs from the previous content of the other section(s).'
+          );
 
-        removeItem ('withCrossListing.sections', _requestedSection.section);
-      } else {
-        window.console.log ('cross-listing info has been set');
+          removeItem ('withCrossListing.sections', _requestedSection.section);
+        }
       }
-    } else {
-      window.console.log ('info was not contained in cross-listing');
-    }
-
-    window.console.log ('the following cross-listing info is for ${_requestedSection.section.sectionId}');
-    window.console.log (_requestedSection.hasCrossListing);
-    window.console.debug (_requestedSection.crossListing);
-    window.console.debug (_requestedSection);
+    });
   }
 
   /// The [onRemoveFromCrossListing] method listens for the user to signify that
