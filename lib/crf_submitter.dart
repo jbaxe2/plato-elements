@@ -69,10 +69,10 @@ class CrfSubmitter extends PolymerElement {
 
     try {
       crfInfo = {
-        'userInfo': JSON.encode (details['userInfo'] as UserInformation),
-        'sections': JSON.encode (details['sections'] as List<BannerSection>),
-        'crossListings': JSON.encode (details['crossListings'] as List<CrossListing>),
-        'requestedSections': JSON.encode (details['requestedSections'] as List<RequestedSection>)
+        'userInfo': details['userInfo'] as UserInformation,
+        'sections': details['sections'] as List<BannerSection>,
+        'crossListings': details['crossListings'] as List<CrossListing>,
+        'requestedSections': details['requestedSections'] as List<RequestedSection>
       };
     } catch (_) {
       raiseError (this,
@@ -86,7 +86,7 @@ class CrfSubmitter extends PolymerElement {
     _crfSubmitterAjax = $['crf-submitter-ajax'] as IronAjax
       ..method = 'POST'
       ..contentType = 'application/json'
-      ..body = crfInfo
+      ..body = JSON.encode (crfInfo)
       ..generateRequest();
 
     this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
