@@ -17,8 +17,8 @@
 
   <template>
     <paper-material animated>
-      <paper-input label="Plato Username" value="{{username}}" on-keyup="authLearnByEnter"></paper-input><br>
-      <paper-input label="Plato Password" value="{{password}}" type="password" on-keyup="authLearnByEnter"></paper-input><br>
+      <paper-input label="Plato Username" value="{{username}}" on-keypress="authLearnByEnter"></paper-input><br>
+      <paper-input label="Plato Password" value="{{password}}" type="password" on-keypress="authLearnByEnter"></paper-input><br>
 
       <paper-button raised on-tap="authenticateLearn">
         <iron-icon icon="communication:vpn-key"></iron-icon> &nbsp; Authenticate Plato
