@@ -10,6 +10,7 @@ import 'package:polymer_elements/iron_signals.dart';
 
 import 'package:polymer_elements/paper_button.dart';
 import 'package:polymer_elements/paper_dialog.dart';
+import 'package:polymer_elements/paper_dialog_scrollable.dart';
 import 'package:polymer_elements/paper_material.dart';
 
 import 'package:polymer_elements/neon_animation/animations/fade_in_animation.dart';
@@ -20,7 +21,7 @@ import 'enrollment_selector.dart';
 import 'data_models.dart' show BannerSection, CourseEnrollment, PreviousContentMapping;
 
 /// Silence analyzer:
-/// [IronSignals] - [PaperButton] - [PaperMaterial]
+/// [IronSignals] - [PaperButton] - [PaperDialogScrollable] - [PaperMaterial]
 /// [FadeInAnimation] - [FadeOutAnimation]
 ///
 /// [EnrollmentSelector]

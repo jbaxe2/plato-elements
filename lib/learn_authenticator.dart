@@ -76,8 +76,6 @@ class LearnAuthenticator extends PolymerElement {
     var response = _learnAuthAjax.lastResponse;
 
     if (null != response['error']) {
-      //this.fire ('iron-signal', detail: {'name': 'error', 'data': response});
-
       raiseError (this, 'Authentication error', response['error']);
     } else if (null != response['learn.user.authenticated']) {
       notifyPath ('result', _result = response['learn.user.authenticated']);
@@ -85,6 +83,12 @@ class LearnAuthenticator extends PolymerElement {
       if (_result) {
         this.fire ('retrieve-user', canBubble: true);
       }
+    }
+
+    if (!_result) {
+      this.fire ('iron-signal', detail: {'name': 'hide-progress', 'data': null});
+
+      raiseError (this, 'Authentication error', 'Invalid username or password.');
     }
   }
 }

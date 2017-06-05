@@ -39,7 +39,7 @@ class LearnAuthenticationView extends PolymerElement {
     _learnAuthenticator = $['learnAuthenticator'] as LearnAuthenticator;
   }
 
-  @Listen('keydown')
+  @Listen('keyup')
   void authLearnByEnter (KeyboardEvent event, details) {
     try {
       if ((13 == event.keyCode) && !(username.isEmpty || password.isEmpty)) {
