@@ -1,0 +1,27 @@
+<dom-module id="crf-response">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+    <iron-signals on-iron-signal-crf-response="onCrfResponse"></iron-signals>
+
+    <paper-dialog id="crf-response-dialog"
+        entry-animation="fade-in-animation" exit-animation="fade-out-animation"
+        modal with-backdrop>
+      <paper-material>
+        <p>Submission of the course request resulted in <span>{{result}}</span>.</p><br>
+        <p>
+          Please check your e-mail for an automated confirmation message detailing<br>
+          the results of the course request.
+        </p><br>
+
+        <template if="{{partialSuccess}}">
+          <div></div>
+        </template>
+      </paper-material>
+    </paper-dialog>
+  </template>
+</dom-module>

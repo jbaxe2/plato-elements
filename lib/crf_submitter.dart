@@ -63,6 +63,8 @@ class CrfSubmitter extends PolymerElement {
         'Insufficient submission error',
         'An attempt was made to submit the course request, but required information is missing.'
       );
+
+      return;
     }
 
     Map<String, dynamic> crfInfo;
@@ -99,6 +101,12 @@ class CrfSubmitter extends PolymerElement {
 
     var crfResponse = _crfSubmitterAjax.lastResponse;
 
-    window.console.debug (crfResponse);
+    if (null != crfResponse['error']) {
+      raiseError (this, 'Course request submission error', crfResponse['error']);
+
+      return;
+    }
+
+    this.fire ('iron-signal', detail: {'name': '', 'data': crfResponse});
   }
 }
