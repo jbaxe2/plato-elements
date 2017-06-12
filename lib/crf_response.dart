@@ -98,7 +98,7 @@ class CrfResponse extends PolymerElement {
     }
   }
 
-  /// The [onCrfResponseConfirmation] method...
+  /// The [onCrfComplete] method...
   @Listen('tap')
   void onCrfComplete (CustomEvent event, details) {
     if ('crf-complete-button' == (Polymer.dom (event)).rootTarget.id) {
