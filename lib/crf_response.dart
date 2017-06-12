@@ -8,9 +8,18 @@ import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_signals.dart';
 
+import 'package:polymer_elements/paper_button.dart';
+import 'package:polymer_elements/paper_dialog.dart';
+import 'package:polymer_elements/paper_material.dart';
+
+import 'package:polymer_elements/neon_animation/animations/fade_in_animation.dart';
+import 'package:polymer_elements/neon_animation/animations/fade_out_animation.dart';
+
 import 'plato_elements_utils.dart';
 
-/// Silence analyzer: [IronSignals]
+/// Silence analyzer:
+/// [IronSignals] - [PaperButton] - [PaperMaterial]
+/// [FadeInAnimation] - [FadeOutAnimation]
 ///
 /// The [CrfResponse] class...
 @PolymerRegister('crf-response')
@@ -19,7 +28,7 @@ class CrfResponse extends PolymerElement {
   String result;
 
   @Property(notify: true)
-  bool partialSuccess;
+  bool haveRejectedCourses;
 
   @Property(notify: true)
   List<Map<String, String>> rejectedCourses;
@@ -32,10 +41,10 @@ class CrfResponse extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    result = 'failure';
-    partialSuccess = false;
+    set ('result', 'failure');
+    set ('haveRejectedCourses', false);
 
-    rejectedCourses = new List<Map<String, String>>();
+    set ('rejectedCourses', new List<Map<String, String>>());
   }
 
   /// The [onCrfResponse] method...
@@ -51,9 +60,49 @@ class CrfResponse extends PolymerElement {
     }
 
     try {
-      ;
+      set ('result', details['result']);
+
+      async (() {
+        add (
+          'rejectedCourses', details['rejectedCourses'] as List<Map<String, String>>
+        );
+
+        if ('partial success' == result) {
+          if (1 > rejectedCourses.length) {
+            raiseError (this,
+              'Submission response error',
+              'The course request submission resulted in a partial success;<br>'
+                'however, the response from the server was not able to be processed<br>'
+                'successfully to determine what issues arose.'
+            );
+
+            return;
+          }
+
+          set ('haveRejectedCourses', true);
+        }
+
+        ($['crf-response-dialog'] as PaperDialog)
+          ..refit()
+          ..center()
+          ..open();
+      });
     } catch (_) {
-      ;
+      raiseError (this,
+        'Submission response error',
+        'Unable to determine the resposne from the server for the course request<br>'
+          'submission.  However, the submission may have processed successfully.'
+      );
+
+      return;
+    }
+  }
+
+  /// The [onCrfResponseConfirmation] method...
+  @Listen('tap')
+  void onCrfComplete (CustomEvent event, details) {
+    if ('crf-complete-button' == (Polymer.dom (event)).rootTarget.id) {
+      window.location.replace ('http://www.westfield.ma.edu/plato/');
     }
   }
 }

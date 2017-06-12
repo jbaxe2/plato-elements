@@ -1,8 +1,6 @@
 <dom-module id="crf-response">
   <style>
-    :host {
-      display: none;
-    }
+    :host {}
   </style>
 
   <template>
@@ -18,10 +16,23 @@
           the results of the course request.
         </p><br>
 
-        <template if="{{partialSuccess}}">
-          <div></div>
+        <template is="dom-if" if="{{haveRejectedCourses}}">
+          <paper-material>
+            <p>Some requested courses already exist in Plato and could not be created:</p>
+
+            <template is="dom-repeat" items="{{rejectedCourses}}" as="rejectedCourse">
+              <p>
+                <strong>Course Title:</strong> <span>{{rejectedCourse.title}}</span>
+                <strong>Course ID:</strong> <span>{{rejectedCourse.id}}</span>
+              </p><br>
+            </template>
+          </paper-material>
         </template>
       </paper-material>
+
+      <div class="buttons">
+        <paper-button id="crf-complete-button" on-tap="onCrfComplete" raised>OK</paper-button>
+      </div>
     </paper-dialog>
   </template>
 </dom-module>
