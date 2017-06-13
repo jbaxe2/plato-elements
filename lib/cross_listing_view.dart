@@ -76,7 +76,7 @@ class CrossListingView extends PolymerElement {
   /// The [onAddSectionToCl] method...
   @Listen('tap')
   void onAddSectionToCl (CustomEvent event, details) {
-    if ('addSectionToClIcon' == (Polymer.dom (event)).localTarget.id) {
+    if ('add-section-to-cl-icon' == (Polymer.dom (event)).localTarget.id) {
       if ((getRequestedSection (currentSection)).hasCrossListing) {
         raiseError (this,
           'Invalid cross-listing action warning',
@@ -103,7 +103,7 @@ class CrossListingView extends PolymerElement {
   /// The [onRemoveSectionFromCl] method...
   @Listen('tap')
   void onRemoveSectionFromCl (CustomEvent event, details) {
-    if ('removeSectionFromClIcon' == (Polymer.dom (event)).localTarget.id) {
+    if ('remove-section-from-cl-icon' == (Polymer.dom (event)).localTarget.id) {
       _removeSectionFromCl();
 
       notifyPath ('currentSection', currentSection);
@@ -113,11 +113,10 @@ class CrossListingView extends PolymerElement {
   /// The [onRemoveCrossListingSet] method...
   @Listen('tap')
   void onRemoveCrossListingSet (CustomEvent event, details) {
-    if ('removeClSetIcon' == (Polymer.dom (event)).localTarget.id) {
+    if ('remove-cl-set-icon' == (Polymer.dom (event)).localTarget.id) {
       _removeSectionFromCl();
 
       set ('crossListing.sections', new List<BannerSection>());
-      //set ('crossListing', null);
 
       this.fire ('remove-cross-listing-set', detail: {'crossListing': crossListing});
 

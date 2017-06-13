@@ -4,7 +4,7 @@
       background-color: #eee;
     }
 
-    #removePreviousContentIcon, #removeFromCrossListingIcon {
+    #remove-previous-content-icon, #remove-from-cross-listing-icon {
       float: right;
     }
 
@@ -65,7 +65,7 @@
           <paper-material id="{{section.sectionId}}-copied-content-info" hidden$="{{!hasPreviousContent}}">
             <paper-icon-button
               icon="icons:backspace"
-              id="removePreviousContentIcon"
+              id="remove-previous-content-icon"
               title="remove previous content"
               on-tap="onRemovePreviousContent">
             </paper-icon-button>
@@ -79,7 +79,7 @@
           <paper-material id="{{section.sectionId}}-cross-listed-info" hidden$="{{!hasCrossListing}}">
             <paper-icon-button
               icon="icons:backspace"
-              id="removeFromCrossListingIcon"
+              id="remove-from-cross-listing-icon"
               title="remove {{section.sectionId}} from cross-listing set"
               on-tap="onRemoveFromCrossListing">
             </paper-icon-button>
@@ -102,9 +102,9 @@
       </div>
 
       <div class="card-actions">
-        <paper-icon-button icon="av:library-books" id="copyContentIcon" title="copy content from a previous course" on-tap="onCopyContent"></paper-icon-button>
-        <paper-icon-button icon="hardware:device-hub" id="addToClSetIcon" title="add {{section.sectionId}} to a cross-listing set" on-tap="onAddToClSet"></paper-icon-button>
-        <paper-icon-button icon="icons:cancel" id="removeSectionIcon" title="remove {{section.sectionId}} from the request" on-tap="onRemoveSection"></paper-icon-button>
+        <paper-icon-button icon="av:library-books" id="copy-content-icon" title="copy content from a previous course" on-tap="onCopyContent"></paper-icon-button>
+        <paper-icon-button icon="hardware:device-hub" id="add-to-cl-set-icon" title="add {{section.sectionId}} to a cross-listing set" on-tap="onAddToClSet"></paper-icon-button>
+        <paper-icon-button icon="icons:cancel" id="remove-section-icon" title="remove {{section.sectionId}} from the request" on-tap="onRemoveSection"></paper-icon-button>
       </div>
     </paper-card>
   </template>

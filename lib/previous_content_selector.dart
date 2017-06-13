@@ -88,7 +88,7 @@ class PreviousContentSelector extends PolymerElement {
   /// The [onEnrollmentSelected] method...
   @Listen('tap')
   void onEnrollmentSelected (CustomEvent event, detail) {
-    if (('enrollmentSelectedButton' == (Polymer.dom (event)).rootTarget.id) &&
+    if (('enrollment-selected-button' == (Polymer.dom (event)).rootTarget.id) &&
         (null != selectedEnrollment)) {
       _previousContentDialog.close();
 

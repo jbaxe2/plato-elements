@@ -71,7 +71,7 @@
       <div class="card-actions">
         <paper-icon-button
           icon="av:playlist-add"
-          id="addSectionToClIcon"
+          id="add-section-to-cl-icon"
           title="add {{currentSection.sectionId}} to cross-listing set #{{clSetNumDisplay}}"
           on-tap="onAddSectionToCl"
           hidden$="{{clHasSection}}">
@@ -79,7 +79,7 @@
 
         <paper-icon-button
           icon="icons:remove-circle-outline"
-          id="removeSectionFromClIcon"
+          id="remove-section-from-cl-icon"
           title="remove {{currentSection.sectionId}} from cross-listing set #{{clSetNumDisplay}}"
           on-tap="onRemoveSectionFromCl"
           hidden$="{{!clHasSection}}">
@@ -87,7 +87,7 @@
 
         <paper-icon-button
           icon="icons:highlight-off"
-          id="removeClSetIcon"
+          id="remove-cl-set-icon"
           title="remove cross-listing set"
           on-tap="onRemoveCrossListingSet">
         </paper-icon-button>

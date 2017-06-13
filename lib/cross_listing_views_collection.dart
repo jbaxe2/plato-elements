@@ -80,7 +80,7 @@ class CrossListingViewsCollection extends PolymerElement {
   /// established are empty.
   @Listen('tap')
   void addNewClSet (CustomEvent event, details) {
-    if ('addNewClSetIcon' == (Polymer.dom (event)).localTarget.id) {
+    if ('add-new-cl-set-icon' == (Polymer.dom (event)).localTarget.id) {
       if (crossListings.any ((CrossListing crossListing) =>
         ((crossListing.sections.isEmpty) || (1 == crossListing.sections.length)) ? true : false
       )) {
@@ -125,7 +125,7 @@ class CrossListingViewsCollection extends PolymerElement {
   /// made to the cross-listing sets in the collection have been established.
   @Listen('tap')
   void onConfirmClSets (CustomEvent event, details) {
-    if ('confirmClSetsButton' == (Polymer.dom (event)).localTarget.id) {
+    if ('confirm-cl-sets-button' == (Polymer.dom (event)).localTarget.id) {
       _confirmCrossListings();
     }
   }

@@ -84,7 +84,7 @@ class SectionView extends PolymerElement {
   /// would like to copy content from a previous course into this one.
   @Listen('tap')
   void onCopyContent (CustomEvent event, details) {
-    if ('copyContentIcon' == (Polymer.dom (event)).localTarget.id) {
+    if ('copy-content-icon' == (Polymer.dom (event)).localTarget.id) {
       this.fire ('iron-signal', detail: {
         'name': 'show-copy-content-selector', 'data': {'section': section}
       });
@@ -95,7 +95,7 @@ class SectionView extends PolymerElement {
   /// would like to add this course to some cross-listing set.
   @Listen('tap')
   void onAddToClSet (CustomEvent event, details) {
-    if ('addToClSetIcon' == (Polymer.dom (event)).localTarget.id) {
+    if ('add-to-cl-set-icon' == (Polymer.dom (event)).localTarget.id) {
       this.fire ('iron-signal', detail: {
         'name': 'show-cross-listing-selector', 'data': {'sectionView': this}
       });
@@ -106,7 +106,7 @@ class SectionView extends PolymerElement {
   /// should be removed from the collection of requested sections.
   @Listen('tap')
   void onRemoveSection (CustomEvent event, details) {
-    if ('removeSectionIcon' == (Polymer.dom (event)).localTarget.id) {
+    if ('remove-section-icon' == (Polymer.dom (event)).localTarget.id) {
       this.fire ('iron-signal', detail: {
         'name': 'section-removed', 'data': {'section': section}
       });
@@ -184,7 +184,7 @@ class SectionView extends PolymerElement {
   /// previous content may not have been specified (effectively cleans the slate).
   @Listen('tap')
   void onRemovePreviousContent (CustomEvent event, details) {
-    if ('removePreviousContentIcon' == (Polymer.dom (event)).localTarget.id) {
+    if ('remove-previous-content-icon' == (Polymer.dom (event)).localTarget.id) {
       this.fire ('iron-signal', detail: {
         'name': 'previous-content-specified',
         'data': {
@@ -308,7 +308,7 @@ class SectionView extends PolymerElement {
   /// this section should be removed from whichever cross-listing set it belongs.
   @Listen('tap')
   void onRemoveFromCrossListing (CustomEvent event, details) {
-    if ('removeFromCrossListingIcon' == (Polymer.dom (event)).localTarget.id) {
+    if ('remove-from-cross-listing-icon' == (Polymer.dom (event)).localTarget.id) {
       this.fire ('iron-signal', detail: {
         'name': 'section-removed-from-cl',
         'data': {'crossListing': withCrossListing, 'section': section}

@@ -36,7 +36,7 @@ class LearnAuthenticationView extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    _learnAuthenticator = $['learnAuthenticator'] as LearnAuthenticator;
+    _learnAuthenticator = $['learn-authenticator'] as LearnAuthenticator;
   }
 
   /// The [authLearnByEnter] method...
