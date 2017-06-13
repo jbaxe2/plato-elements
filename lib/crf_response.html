@@ -1,33 +1,64 @@
 <dom-module id="crf-response">
   <style>
-    :host {}
+    paper-dialog {
+      background-color: #ddd;
+    }
+
+    paper-material {
+      background-color: white;
+      padding-top: 8px;
+    }
+
+    paper-button {
+      background-color: #718198;
+      color: black;
+      font-weight: bold;
+    }
+
+    .rejected-course-description {
+      background-color: #eee;
+      padding: 8px;
+    }
+
+    #rejected-courses-paper {
+      margin-bottom: 8px;
+      padding: 4px 8px 0 8px;
+    }
+
+    :host {
+      display: block;
+    }
   </style>
 
   <template>
     <iron-signals on-iron-signal-crf-response="onCrfResponse"></iron-signals>
 
-    <paper-dialog id="crf-response-dialog"
-        entry-animation="fade-in-animation" exit-animation="fade-out-animation"
-        modal with-backdrop>
+    <paper-dialog id="crf-response-dialog" modal with-backdrop
+        entry-animation="fade-in-animation" exit-animation="fade-out-animation">
       <paper-material>
-        <p>Submission of the course request resulted in <span>{{result}}</span>.</p><br>
         <p>
-          Please check your e-mail for an automated confirmation message detailing<br>
-          the results of the course request.
-        </p><br>
+          <strong>Submission of the course request resulted in <span>{{result}}</span>.</strong>
+        </p>
 
         <template is="dom-if" if="{{haveRejectedCourses}}">
-          <paper-material>
+          <paper-material id="rejected-courses-paper">
             <p>Some requested courses already exist in Plato and could not be created:</p>
 
             <template is="dom-repeat" items="{{rejectedCourses}}" as="rejectedCourse">
-              <p>
-                <strong>Course Title:</strong> <span>{{rejectedCourse.title}}</span>
+              <p class="rejected-course-description">
+                <strong>Course Title:</strong> <span>{{rejectedCourse.title}}</span><br>
                 <strong>Course ID:</strong> <span>{{rejectedCourse.id}}</span>
-              </p><br>
-            </template>
+              </p>
+            </template><br>
           </paper-material>
         </template>
+
+        <p>
+          <strong>
+            Please check your e-mail for an automated confirmation message<br>
+            detailing the results of the course request.
+          </strong>
+        </p><br>
       </paper-material>
 
       <div class="buttons">

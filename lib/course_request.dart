@@ -22,6 +22,17 @@ import 'package:polymer_elements/paper_toolbar.dart';
 import 'crf_response.dart';
 import 'crf_review.dart';
 import 'crf_submitter.dart';
+
+import 'courses_collection.dart';
+import 'departments_collection.dart';
+import 'sections_collection.dart';
+import 'terms_collection.dart';
+
+import 'course_selector.dart';
+import 'department_selector.dart';
+import 'sections_selector.dart';
+import 'term_selector.dart';
+
 import 'cross_listing_views_collection.dart';
 import 'learn_authentication_widget.dart';
 import 'previous_content_selector.dart';
@@ -35,6 +46,11 @@ import 'section_views_collection.dart';
 ///
 /// [CrfResponse] - [CrfReview] - [CrfSubmitter] - [CrossListingViewsCollection]
 /// [LearnAuthenticationWidget] - [PreviousContentSelector] - [SectionViewsCollection]
+///
+/// [DepartmentsCollection] - [TermsCollection] - [CoursesCollection]
+/// [SectionsCollection]
+///
+/// [DepartmentSelector] - [TermSelector] - [CourseSelector] - [SectionsSelector]
 ///
 /// The [CourseRequest] class...
 @PolymerRegister('course-request')

@@ -15,6 +15,7 @@ import 'package:polymer_elements/paper_material.dart';
 import 'package:polymer_elements/neon_animation/animations/fade_in_animation.dart';
 import 'package:polymer_elements/neon_animation/animations/fade_out_animation.dart';
 
+import 'data_models.dart' show RejectedCourse;
 import 'plato_elements_utils.dart';
 
 /// Silence analyzer:
@@ -31,7 +32,7 @@ class CrfResponse extends PolymerElement {
   bool haveRejectedCourses;
 
   @Property(notify: true)
-  List<Map<String, String>> rejectedCourses;
+  List<RejectedCourse> rejectedCourses;
 
   /// The [CrfResponse] factory constructor.
   factory CrfResponse() => document.createElement ('crf-response');
@@ -44,7 +45,7 @@ class CrfResponse extends PolymerElement {
     set ('result', 'failure');
     set ('haveRejectedCourses', false);
 
-    set ('rejectedCourses', new List<Map<String, String>>());
+    set ('rejectedCourses', new List<RejectedCourse>());
   }
 
   /// The [onCrfResponse] method...
@@ -63,9 +64,11 @@ class CrfResponse extends PolymerElement {
       set ('result', details['result']);
 
       async (() {
-        add (
-          'rejectedCourses', details['rejectedCourses'] as List<Map<String, String>>
-        );
+        var rejCoursesList = details['rejectedCourses'] as List<Map<String, String>>;
+
+        rejCoursesList.forEach ((Map<String, String> rejCourseMap) {
+          add ('rejectedCourses', new RejectedCourse.fromMap (rejCourseMap));
+        });
 
         if ('partial success' == result) {
           if (1 > rejectedCourses.length) {

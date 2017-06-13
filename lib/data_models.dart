@@ -675,6 +675,28 @@ RequestedSection getRequestedSection (BannerSection section) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/// The [RejectedCourse] class...
+class RejectedCourse extends JsProxy {
+  @reflectable
+  String id;
+
+  @reflectable
+  String title;
+
+  /// The [RejectedCourse] default constructor.
+  RejectedCourse (this.id, this.title);
+
+  /// The [RejectedCourse] named constructor.
+  RejectedCourse.fromMap (Map<String, String> rejectedCourse) {
+    try {
+      id = rejectedCourse['id'];
+      title = rejectedCourse['title'];
+    } catch (_) {}
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 /// The [UserInformation] class...
 class UserInformation extends JsProxy {
   @reflectable

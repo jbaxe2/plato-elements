@@ -107,6 +107,6 @@ class CrfSubmitter extends PolymerElement {
       return;
     }
 
-    this.fire ('iron-signal', detail: {'name': '', 'data': crfResponse});
+    this.fire ('iron-signal', detail: {'name': 'crf-response', 'data': crfResponse});
   }
 }
