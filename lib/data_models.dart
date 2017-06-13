@@ -653,25 +653,6 @@ class _RequestedSectionsRegistry extends JsProxy {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/// The [getRequestedSection] function...
-RequestedSection getRequestedSection (BannerSection section) {
-  var requestedSections = new _RequestedSectionsRegistry();
-
-  RequestedSection requestedSection;
-
-  requestedSections.requestedSections.any ((RequestedSection reqSection) {
-    if (section == reqSection.section) {
-      requestedSection = reqSection;
-
-      return true;
-    }
-  });
-
-  return requestedSection;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 /// The [RejectedCourse] class...
 class RejectedCourse extends JsProxy {
   @reflectable
@@ -732,6 +713,27 @@ class UserInformation extends JsProxy {
       'cwid': cwid
     };
   }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+/// The [getRequestedSection] function...
+RequestedSection getRequestedSection (BannerSection section) {
+  RequestedSection requestedSection;
+
+  (new _RequestedSectionsRegistry()).requestedSections.any (
+    (RequestedSection reqSection) {
+      if (section == reqSection.section) {
+        requestedSection = reqSection;
+
+        return true;
+      }
+
+      return false;
+    }
+  );
+
+  return requestedSection;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
