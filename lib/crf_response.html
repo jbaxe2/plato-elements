@@ -1,5 +1,10 @@
 <dom-module id="crf-response">
   <style>
+    em {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
     paper-dialog {
       background-color: #ddd;
     }
@@ -42,7 +47,9 @@
 
         <template is="dom-if" if="{{haveRejectedCourses}}">
           <paper-material id="rejected-courses-paper">
-            <p>Some requested courses already exist in Plato and could not be created:</p>
+            <p>
+              Some requested courses <em>already exist</em> in Plato and could <em>NOT</em> be created:
+            </p>
 
             <template is="dom-repeat" items="{{rejectedCourses}}" as="rejectedCourse">
               <p class="rejected-course-description">
