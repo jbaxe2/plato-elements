@@ -105,9 +105,7 @@ class CrossListingViewsCollection extends PolymerElement {
   @Listen('remove-cross-listing-set')
   void onRemoveCrossListingSet (CustomEvent event, details) {
     if (null != details['crossListing']) {
-      var crossListing = details['crossListing'] as CrossListing;
-
-      removeItem ('crossListings', crossListing);
+      removeItem ('crossListings', details['crossListing'] as CrossListing);
 
       _removalCleanup();
     }

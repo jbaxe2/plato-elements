@@ -402,10 +402,7 @@ class RequestedSection extends JsProxy {
   /// This requested section is also added to the requested sections registry.
   RequestedSection (BannerSection aSection) {
     if (null != aSection) {
-      _section = aSection;
-
-      hasCrossListing = false;
-      hasPreviousContent = false;
+      setSection (aSection);
 
       _requestedSections = new _RequestedSectionsRegistry()
         ..addRequestedSection (this);
@@ -539,10 +536,10 @@ class RequestedSection extends JsProxy {
 class _RequestedSectionsRegistry extends JsProxy {
   static _RequestedSectionsRegistry _instance;
 
+  static List<RequestedSection> _requestedSections;
+
   @reflectable
   List<RequestedSection> get requestedSections => _requestedSections;
-
-  List<RequestedSection> _requestedSections;
 
   /// The [_RequestedSectionsRegistry] constructor...
   factory _RequestedSectionsRegistry() {
