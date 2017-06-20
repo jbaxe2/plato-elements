@@ -18,6 +18,9 @@ class SimpleRetriever extends PolymerElement {
   @Property(notify: true)
   String type;
 
+  @Property(notify: true)
+  String extraParams;
+
   /// The [IronAjax] instance for loading some data from the server.
   IronAjax _retrieverAjax;
 
@@ -32,6 +35,7 @@ class SimpleRetriever extends PolymerElement {
   /// a previous request already in progress.
   void retrieveTypedData ({bool isPost: false, Map<String,String> data}) {
     _retrieverAjax ??= $['retriever-ajax'] as IronAjax;
+    extraParams ??= '';
 
     // Prevent double loading, when already attempting to load the same request.
     if (_retrieverAjax.loading) {

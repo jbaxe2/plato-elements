@@ -9,7 +9,7 @@
     <iron-ajax
       id="retriever-ajax"
       method="GET"
-      url="/plato/retrieve/{{type}}"
+      url="/plato/retrieve/{{type}}{{extraParams}}"
       handle-as="json"
       on-response="onRetrieveResponse"
       debounce-duration="300">

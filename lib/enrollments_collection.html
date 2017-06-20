@@ -6,7 +6,7 @@
   </style>
 
   <template>
-    <simple-retriever type="enrollments" id="enrollments-retriever"></simple-retriever>
+    <simple-retriever type="enrollments" id="enrollments-retriever" extra-params="/instructor"></simple-retriever>
 
     <template is="dom-repeat" items="{{enrollments}}">{{enrollments}}</template>
   </template>
