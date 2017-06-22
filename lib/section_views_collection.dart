@@ -53,8 +53,8 @@ class SectionViewsCollection extends PolymerElement {
   @Listen('iron-signal-sections-added')
   void onSectionsAdded (CustomEvent event, details) {
     if (null != details['sections']) {
-      details['sections'].forEach ((String sectionId, BannerSection section) {
-        async (() {
+      async (() {
+        details['sections'].forEach ((String sectionId, BannerSection section) {
           if (!(sectionIds.contains (sectionId) && sections.contains (section))) {
             add ('sectionIds', sectionId);
             add ('sections', section);
