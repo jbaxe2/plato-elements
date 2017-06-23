@@ -10,11 +10,13 @@ import 'package:polymer_elements/iron_signals.dart';
 
 import 'package:polymer_elements/paper_card.dart';
 
-import 'data_models.dart' show BannerSection;
+import 'data_models.dart' show BannerSection, RequestedSection, getRequestedSection;
 import 'plato_elements_utils.dart';
 import 'section_view.dart';
 
-/// Silence analyzer: [IronSignals] - [PaperCard] - [SectionView]
+/// Silence analyzer:
+/// [IronSignals] - [PaperCard]
+/// [SectionView] - [RequestedSection]
 ///
 /// The [SectionViewsCollection] class establishes the potential collection of
 /// one or more section views.  This collection of section views MUST be singleton,
@@ -87,6 +89,10 @@ class SectionViewsCollection extends PolymerElement {
 
         return;
       }
+
+      getRequestedSection (section)
+        ..removeCrossListing()
+        ..removePreviousContent();
 
       removeItem ('sections', section);
       removeItem ('sectionIds', sectionId);
