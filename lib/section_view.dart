@@ -315,7 +315,10 @@ class SectionView extends PolymerElement {
         'name': 'previous-content-specified',
         'data': {
           'section': section,
-          'previousContent': clReqSection.previousContent
+          'previousContent':
+            new PreviousContentMapping()
+              ..section = section
+              ..courseEnrollment = clReqSection.previousContent.courseEnrollment
         }
       });
     }
@@ -325,7 +328,10 @@ class SectionView extends PolymerElement {
         'name': 'previous-content-specified',
         'data': {
           'section': clReqSection.section,
-          'previousContent': withPreviousContent
+          'previousContent':
+            new PreviousContentMapping()
+              ..section = clReqSection.section
+              ..courseEnrollment = withPreviousContent.courseEnrollment
         }
       });
     }

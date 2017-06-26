@@ -12,7 +12,7 @@ import 'package:polymer_elements/iron_signals.dart';
 import 'package:polymer_elements/paper_icon_button.dart';
 import 'package:polymer_elements/paper_dialog.dart';
 
-import 'data_models.dart' show BannerSection, CrossListing;
+import 'data_models.dart' show BannerSection, CrossListing, getRequestedSection;
 
 import 'cross_listing_view.dart';
 import 'section_view.dart';
@@ -105,7 +105,14 @@ class CrossListingViewsCollection extends PolymerElement {
   @Listen('remove-cross-listing-set')
   void onRemoveCrossListingSet (CustomEvent event, details) {
     if (null != details['crossListing']) {
-      removeItem ('crossListings', details['crossListing'] as CrossListing);
+      var crossListing = details['crossListing'] as CrossListing;
+
+      crossListing.sections.forEach ((BannerSection section) {
+        (getRequestedSection (section)).removeCrossListing();
+        crossListing.removeSection (section);
+      });
+
+      removeItem ('crossListings', crossListing);
 
       _removalCleanup();
     }

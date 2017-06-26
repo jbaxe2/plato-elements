@@ -146,8 +146,8 @@ class CrossListingView extends PolymerElement {
     section ??= currentSection;
 
     if (crossListing.sections.contains (section)) {
-      removeItem ('crossListing.sections', section);
       (getRequestedSection (section))?.removeCrossListing();
+      removeItem ('crossListing.sections', section);
 
       if (crossListing.sections.isEmpty) {
         set ('haveSections', false);
