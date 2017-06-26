@@ -14,8 +14,8 @@ import 'package:polymer_elements/paper_card.dart';
 import 'package:polymer_elements/paper_icon_button.dart';
 import 'package:polymer_elements/paper_material.dart';
 
-import 'data_models.dart'
-  show BannerSection, CrossListing, PreviousContentMapping, RequestedSection;
+import 'data_models.dart' show BannerSection, CrossListing, PreviousContentMapping,
+  RequestedSection, getRequestedSection;
 
 import 'plato_elements_utils.dart';
 
@@ -287,6 +287,8 @@ class SectionView extends PolymerElement {
             set ('withCrossListing.isValid', true);
           }
         }
+
+        _firePreviousContentForCl (clSection);
       });
 
       if ((withCrossListing.sections.contains (section)) &&
@@ -302,6 +304,31 @@ class SectionView extends PolymerElement {
         }
       }
     });
+  }
+
+  /// The [_firePreviousContentForCl] method...
+  void _firePreviousContentForCl (BannerSection clSection) {
+    RequestedSection clReqSection = getRequestedSection (clSection);
+
+    if (clReqSection.hasPreviousContent && !hasPreviousContent) {
+      this.fire ('iron-signal', detail: {
+        'name': 'previous-content-specified',
+        'data': {
+          'section': section,
+          'previousContent': clReqSection.previousContent
+        }
+      });
+    }
+
+    if (!clReqSection.hasPreviousContent && hasPreviousContent) {
+      this.fire ('iron-signal', detail: {
+        'name': 'previous-content-specified',
+        'data': {
+          'section': clReqSection.section,
+          'previousContent': withPreviousContent
+        }
+      });
+    }
   }
 
   /// The [onRemoveFromCrossListing] method listens for the user to signify that

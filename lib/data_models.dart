@@ -485,9 +485,13 @@ class RequestedSection extends JsProxy {
   /// The [removeCrossListing] method...
   @reflectable
   CrossListing removeCrossListing() {
-    _crossListing.removeSection (section);
+    CrossListing theCrossListing;
 
-    CrossListing theCrossListing = _crossListing;
+    if (null != _crossListing) {
+      _crossListing.removeSection (section);
+    }
+
+    theCrossListing = _crossListing;
     _crossListing = null;
     hasCrossListing = false;
 
@@ -561,8 +565,17 @@ class _RequestedSectionsRegistry extends JsProxy {
 
   /// The [removeRequestedSection] method...
   @reflectable
-  bool removeRequestedSection (RequestedSection requestedSection) =>
-    requestedSections.remove (requestedSection);
+  bool removeRequestedSection (RequestedSection requestedSection) {
+    if (null != requestedSection) {
+      requestedSection
+        ..removePreviousContent()
+        ..removeCrossListing();
+
+      return requestedSections.remove (requestedSection);
+    }
+
+    return false;
+  }
 
   /// The [canUsePreviousContent] method...
   @reflectable
@@ -732,5 +745,9 @@ RequestedSection getRequestedSection (BannerSection section) {
 
   return requestedSection;
 }
+
+/// The [removeRequestedSection] function...
+bool removeRequestedSection (RequestedSection requestedSection) =>
+  (new _RequestedSectionsRegistry()).removeRequestedSection (requestedSection);
 
 ////////////////////////////////////////////////////////////////////////////////

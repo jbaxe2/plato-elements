@@ -10,7 +10,8 @@ import 'package:polymer_elements/iron_signals.dart';
 
 import 'package:polymer_elements/paper_card.dart';
 
-import 'data_models.dart' show BannerSection, RequestedSection, getRequestedSection;
+import 'data_models.dart' show BannerSection, RequestedSection,
+  getRequestedSection, removeRequestedSection;
 import 'plato_elements_utils.dart';
 import 'section_view.dart';
 
@@ -90,9 +91,7 @@ class SectionViewsCollection extends PolymerElement {
         return;
       }
 
-      getRequestedSection (section)
-        ..removeCrossListing()
-        ..removePreviousContent();
+      removeRequestedSection (getRequestedSection (section));
 
       removeItem ('sections', section);
       removeItem ('sectionIds', sectionId);
