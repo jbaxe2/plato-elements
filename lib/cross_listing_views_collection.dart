@@ -115,7 +115,7 @@ class CrossListingViewsCollection extends PolymerElement {
 
         removeItem ('crossListings', crossListing);
 
-        _removalCleanup ();
+        _removalCleanup();
       });
     }
   }
