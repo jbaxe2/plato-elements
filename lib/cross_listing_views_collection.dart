@@ -115,7 +115,7 @@ class CrossListingViewsCollection extends PolymerElement {
 
         removeItem ('crossListings', crossListing);
 
-        _removalCleanup();
+        _confirmCrossListings();
       });
     }
   }
@@ -124,9 +124,7 @@ class CrossListingViewsCollection extends PolymerElement {
   /// from a cross-listing set that belongs to the collection, in which the
   /// section removal has already taken place.
   @Listen('removed-section-from-cl')
-  void onRemovedSectionFromCl (CustomEvent event, details) {
-    _removalCleanup();
-  }
+  void onRemovedSectionFromCl (CustomEvent event, details) => _removalCleanup();
 
   /// The [onConfirmClSets] method listens for the user to signify that any changes
   /// made to the cross-listing sets in the collection have been established.
