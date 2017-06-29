@@ -559,7 +559,12 @@ class _RequestedSectionsRegistry extends JsProxy {
   @reflectable
   void addRequestedSection (RequestedSection requestedSection) {
     if ((null != requestedSection) && !requestedSections.contains (requestedSection)) {
-      requestedSections.add (requestedSection);
+      if (
+        requestedSections.every ((aRequestedSection) =>
+          (requestedSection.section != aRequestedSection.section) ? true : false
+      )) {
+        requestedSections.add (requestedSection);
+      }
     }
   }
 

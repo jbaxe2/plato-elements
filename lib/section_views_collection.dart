@@ -93,16 +93,19 @@ class SectionViewsCollection extends PolymerElement {
 
       removeRequestedSection (getRequestedSection (section));
 
-      removeItem ('sections', section);
-      removeItem ('sectionIds', sectionId);
+      async (() {
+        removeItem ('sections', section);
+        removeItem ('sectionIds', sectionId);
 
-      if (sections.isEmpty) {
-        set ('haveSections', false);
+        if (sections.isEmpty) {
+          set ('haveSections', false);
 
-        this.fire ('iron-signal', detail: {
-          'name': 'course-request-submittable', 'data': {'crfSubmittable': false}
-        });
-      }
+          this.fire ('iron-signal', detail: {
+            'name': 'course-request-submittable',
+            'data': {'crfSubmittable': false}
+          });
+        }
+      });
     }
   }
 
