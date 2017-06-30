@@ -306,6 +306,9 @@ class SectionView extends PolymerElement {
 
       if (0 == clLength) {
         notifyPath ('hasCrossListing', _hasCrossListing = false);
+        set ('withCrossListing', null);
+
+        _requestedSection.removeCrossListing();
 
         if (!hasPreviousContent) {
           set ('hasExtraInfo', false);
