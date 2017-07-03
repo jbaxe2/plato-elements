@@ -498,10 +498,23 @@ class RequestedSection extends JsProxy {
     return theCrossListing;
   }
 
-  /// The '==' operator for determining equivalency (NOT necessarily identicality)
-  /// between two different [RequestedSection] instances.
+  /// The '==' operator for determining loose equivalency (NOT necessarily
+  /// identicality) between two different [RequestedSection] instances.  Loose
+  /// equivalency is based on equality just between sections.
   @override
   bool operator ==(RequestedSection other) {
+    if (other.section == section) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /// The [isStrictlyEquivTo] method is used to determine strict equivalency
+  /// (NOT necessarily identicality) between two different [RequestedSection]
+  /// instances.  Strict equivalency is based on equality between the underlying
+  /// sections, cross-listing sets, and previous content mappings.
+  bool isStrictlyEquivTo (RequestedSection other) {
     if ((other.section == section) &&
         (other.crossListing == crossListing) &&
         (other.previousContent == previousContent)) {
