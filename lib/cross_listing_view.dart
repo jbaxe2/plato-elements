@@ -114,10 +114,6 @@ class CrossListingView extends PolymerElement {
   @Listen('tap')
   void onRemoveCrossListingSet (CustomEvent event, details) {
     if ('remove-cl-set-icon' == (Polymer.dom (event)).localTarget.id) {
-      _removeSectionFromCl();
-
-      set ('crossListing.sections', new List<BannerSection>());
-
       this.fire ('remove-cross-listing-set', detail: {'crossListing': crossListing});
 
       refreshView();
@@ -171,6 +167,10 @@ class CrossListingView extends PolymerElement {
     notifyPath ('currentSection', currentSection);
 
     if (haveSections) {
+      if (2 > crossListing.sections.length) {
+        set ('crossListing.isValid', false);
+      }
+
       notifyPath ('crossListing.sections', crossListing.sections);
       notifyPath (
         'clHasSection', _clHasSection = crossListing.sections.contains (currentSection)

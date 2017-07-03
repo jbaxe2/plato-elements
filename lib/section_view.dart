@@ -113,6 +113,21 @@ class SectionView extends PolymerElement {
     }
   }
 
+  /// The [_syncConditions] method...
+  void _syncConditions() {
+    notifyPath (
+      'hasCrossListing', _hasCrossListing = _requestedSection.hasCrossListing
+    );
+
+    notifyPath (
+      'hasPreviousContet', _hasPreviousContent = _requestedSection.hasPreviousContent
+    );
+
+    if (!(_hasCrossListing || _hasPreviousContent)) {
+      set ('hasExtraInfo', false);
+    }
+  }
+
   /// The [onPreviousContentSpecified] method listens for the signal that some
   /// previous content should be copied into this section.
   @Listen('iron-signal-previous-content-specified')
@@ -122,6 +137,8 @@ class SectionView extends PolymerElement {
         (section != (details['previousContent'] as PreviousContentMapping).section)) {
       return;
     }
+
+    _syncConditions();
 
     var previousContent = details['previousContent'] as PreviousContentMapping;
     var pcRemoved = false;
@@ -217,6 +234,8 @@ class SectionView extends PolymerElement {
     if ((null == details['section']) || (null == details['crossListings'])) {
       return;
     }
+
+    _syncConditions();
 
     var crossListings = details['crossListings'] as List<CrossListing>;
 

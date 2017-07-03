@@ -107,14 +107,22 @@ class CrossListingViewsCollection extends PolymerElement {
     if (null != details['crossListing']) {
       var crossListing = details['crossListing'] as CrossListing;
       List<BannerSection> clSections = crossListing.sections;
+      var clSectionsCopy = new List<BannerSection>.from (clSections);
 
       async (() {
-        clSections.forEach ((BannerSection section) {
-          (getRequestedSection (section)).removeCrossListing();
-          removeItem ('crossListings.sections', section);
+        clSectionsCopy.forEach ((BannerSection section) {
+          try {
+            (getRequestedSection (section)).removeCrossListing();
+
+            removeItem (
+              'crossListings.${crossListings.indexOf (crossListing)}.sections',
+              section
+            );
+          } catch (_) {}
         });
 
         removeItem ('crossListings', crossListing);
+        _removalCleanup();
       });
     }
   }

@@ -572,9 +572,8 @@ class _RequestedSectionsRegistry extends JsProxy {
   @reflectable
   void addRequestedSection (RequestedSection requestedSection) {
     if ((null != requestedSection) && !requestedSections.contains (requestedSection)) {
-      if (
-        requestedSections.every ((aRequestedSection) =>
-          (requestedSection.section != aRequestedSection.section) ? true : false
+      if (requestedSections.every (
+        (aRequestedSection) => (requestedSection != aRequestedSection) ? true : false
       )) {
         requestedSections.add (requestedSection);
       }
@@ -641,21 +640,25 @@ class _RequestedSectionsRegistry extends JsProxy {
       return true;
     }
 
+    List<RequestedSection> clReqSections = requestedSections.where (
+      (RequestedSection reqSection) => crossListing.sections.contains (reqSection.section)
+    );
+
     if (crossListing.sections.every ((BannerSection clSection) {
-      if (requestedSections.any ((RequestedSection reqSection) {
-        if (!reqSection.hasPreviousContent) {
+      if (clReqSections.every ((RequestedSection clReqSection) {
+        if (!clReqSection.hasPreviousContent) {
           return true;
         }
 
-        if (reqSection.section == clSection) {
+        if (clReqSection.section == clSection) {
           return true;
         } else {
-          if (!reqSection.hasCrossListing) {
+          if (!clReqSection.hasCrossListing) {
             return true;
           }
         }
 
-        if (reqSection.previousContent.courseEnrollment.courseId ==
+        if (clReqSection.previousContent.courseEnrollment.courseId ==
             forSection.previousContent.courseEnrollment.courseId) {
           return true;
         }
