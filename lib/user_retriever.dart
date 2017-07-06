@@ -62,10 +62,6 @@ class UserRetriever extends PolymerElement {
 
       this.fire ('iron-signal', detail: {'name': 'hide-progress', 'data': null});
       this.fire ('iron-signal', detail: {'name': 'user-retrieved-complete', 'data': null});
-
-      this.fire ('iron-signal', detail: {
-        'name': 'course-request-submittable', 'data': {'crfSubmittable': true}
-      });
     }
   }
 }
