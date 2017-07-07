@@ -344,8 +344,8 @@ class PreviousContentMapping extends JsProxy {
   /// The '==' operator for determining equivalency (NOT necessarily identicality)
   /// between two different [PreviousContentMapping] instances.
   @override
-  bool operator ==(PreviousContentMapping mapping) => (
-    (mapping.section == section) && (mapping.courseEnrollment == courseEnrollment)
+  bool operator ==(PreviousContentMapping other) => (
+    (other.section == section) && (other.courseEnrollment == courseEnrollment)
   );
 
   /// The hashCode getter, which must be overridden whenever the '==' operator is.
@@ -499,8 +499,8 @@ class RequestedSection extends JsProxy {
   }
 
   /// The '==' operator for determining loose equivalency (NOT necessarily
-  /// identicality) between two different [RequestedSection] instances.  Loose
-  /// equivalency is based on equality just between sections.
+  /// equality nor identicality) between two different [RequestedSection]
+  /// instances.  Loose equivalency is based on equality just between sections.
   @override
   bool operator ==(RequestedSection other) {
     if (other.section == section) {

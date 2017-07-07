@@ -180,8 +180,9 @@ class SectionView extends PolymerElement {
     if (hasCrossListing) {
       withCrossListing.sections.forEach ((BannerSection clSection) {
         if (clSection != section) {
-          PreviousContentMapping clPreviousContent = previousContent
-            ..section = clSection;
+          var clPreviousContent = new PreviousContentMapping()
+            ..section = clSection
+            ..courseEnrollment = previousContent.courseEnrollment;
 
           this.fire ('iron-signal', detail: {
             'name': 'previous-content-specified',
@@ -205,7 +206,7 @@ class SectionView extends PolymerElement {
       this.fire ('iron-signal', detail: {
         'name': 'previous-content-specified',
         'data': {
-          'section': withPreviousContent.section,
+          'section': section,
           'previousContent': withPreviousContent,
           'pcRemoved': true
         }
