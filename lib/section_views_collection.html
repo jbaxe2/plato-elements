@@ -40,7 +40,9 @@
 
     <template is="dom-if" if="{{haveSections}}">
       <paper-material>
-        <span style="font-weight: bold; text-decoration: underline;">Icon Legend:</span><br>
+        <span style="font-weight: bold; text-decoration: underline;">
+          Icon Legend <em style="font-weight: normal;">(bottom of each requested course)</em>:
+        </span><br>
 
         <paper-icon-button
             icon="av:library-books"
@@ -52,14 +54,14 @@
         <paper-icon-button
             icon="hardware:device-hub"
             id="add-to-cl-set-icon"
-            title="add {{section.sectionId}} to a cross-listing set">
+            title="add a section to a cross-listing set">
         </paper-icon-button>
         <span>| add a section to a cross-listing set</span><br>
 
         <paper-icon-button
             icon="icons:cancel"
             id="remove-section-icon"
-            title="remove {{section.sectionId}} from the request">
+            title="remove a section from the request">
         </paper-icon-button>
         <span>| remove a section from the request</span>
       </paper-material>
