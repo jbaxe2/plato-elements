@@ -67,6 +67,17 @@ class CrfSubmitter extends PolymerElement {
       return;
     }
 
+    if ((details['crossListings'] as List<CrossListing>).any (
+      (CrossListing crossListing) => !crossListing.isValid ? true : false
+    )) {
+      raiseError (this,
+        'Invalid cross-listing sets',
+        'One or more of the cross-listing sets is not valid (may contain only one section).'
+      );
+
+      return;
+    }
+
     Map<String, dynamic> crfInfo;
 
     try {

@@ -5,6 +5,19 @@
       text-align: center;
     }
 
+    hr {
+      color: black;
+      width: 100%;
+      text-align: center;
+    }
+
+    paper-material {
+      background-color: white;
+      margin: 8px;
+      border-top: 1px solid black;
+      padding: 8px;
+    }
+
     section-view {
       margin: 8px;
     }
@@ -23,6 +36,35 @@
       <paper-card>
         <p>Requested courses will appear here once one or more sections have been selected.</p>
       </paper-card>
+    </template>
+
+    <template is="dom-if" if="{{haveSections}}">
+      <paper-material>
+        <span style="font-weight: bold; text-decoration: underline;">Icon Legend:</span><br>
+
+        <paper-icon-button
+            icon="av:library-books"
+            id="copy-content-icon"
+            title="copy content from a previous course">
+        </paper-icon-button>
+        <span>| copy content from a previous course</span><br>
+
+        <paper-icon-button
+            icon="hardware:device-hub"
+            id="add-to-cl-set-icon"
+            title="add {{section.sectionId}} to a cross-listing set">
+        </paper-icon-button>
+        <span>| add a section to a cross-listing set</span><br>
+
+        <paper-icon-button
+            icon="icons:cancel"
+            id="remove-section-icon"
+            title="remove {{section.sectionId}} from the request">
+        </paper-icon-button>
+        <span>| remove a section from the request</span>
+      </paper-material>
+
+      <hr>
     </template>
 
     <template is="dom-repeat" items="{{sections}}" as="section">
