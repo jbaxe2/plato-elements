@@ -67,7 +67,19 @@ class CrfSubmitter extends PolymerElement {
       return;
     }
 
-    if ((details['crossListings'] as List<CrossListing>).any (
+    var sections = details['sections'] as List<BannerSection>;
+    var crossListings = details['crossListings'] as List<CrossListing>;
+
+    if (sections.isEmpty) {
+      raiseError (this,
+        'No courses requested error',
+        'No courses have been added to this request for submission.'
+      );
+
+      return;
+    }
+
+    if (crossListings.any (
       (CrossListing crossListing) => !crossListing.isValid ? true : false
     )) {
       raiseError (this,
@@ -83,8 +95,8 @@ class CrfSubmitter extends PolymerElement {
     try {
       crfInfo = {
         'userInfo': details['userInfo'] as UserInformation,
-        'sections': details['sections'] as List<BannerSection>,
-        'crossListings': details['crossListings'] as List<CrossListing>,
+        'sections': sections,
+        'crossListings': crossListings,
         'requestedSections': details['requestedSections'] as List<RequestedSection>
       };
     } catch (_) {
