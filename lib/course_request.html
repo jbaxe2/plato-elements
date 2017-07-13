@@ -46,8 +46,10 @@
     <paper-drawer-panel right-drawer drawer-width="448px">
       <paper-header-panel main>
         <paper-toolbar>
-          <span>Plato Course Request Form v0.29 (beta)</span>
+          <span>Plato Course Request Form v0.30 (beta)</span>
         </paper-toolbar>
+
+        <crf-directions></crf-directions>
 
         <div>
           <paper-tabs selected="{{selected}}">
@@ -73,7 +75,7 @@
           <template is="dom-if" if="{{submittable}}">
             <div class="horizontal end-justified layout">
               <paper-button raised id="review-crf-button" on-tap="onReviewCourseRequest">
-                <iron-icon icon="icons:input"></iron-icon> &nbsp; Review & Submit Course Request
+                <iron-icon icon="icons:input"></iron-icon> &nbsp; Step 4. Review &amp; Submit Course Request
               </paper-button>
             </div>
           </template>
@@ -81,7 +83,7 @@
           <paper-toast
             id="navigation-toast"
             duration="9000"
-            text="Please click or tap on the 'Courses Selection' tab to continue.">
+            text="Please click or tap on the 'Step 2. Courses Selection' tab to continue.">
           </paper-toast>
         </div>
 
@@ -95,7 +97,7 @@
 
       <paper-header-panel drawer style="border: 1px solid black;">
         <paper-toolbar>
-          <span>Requested Courses</span>
+          <span>Step 3. Requested Courses</span>
         </paper-toolbar>
 
         <section-views-collection class="fullbleed vertical layout"></section-views-collection>

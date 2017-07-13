@@ -1,0 +1,79 @@
+<dom-module id="crf-directions">
+  <style>
+    paper-material {
+      background-color: #ddd;
+      margin: 15px;
+      border-left: 1px solid #062c43;
+      border-top: 1px solid black;
+      padding: 15px;
+    }
+
+    .step {
+      text-decoration: underline;
+    }
+
+    #collapser-button {
+      float: right;
+    }
+
+    #directions-header {
+      margin-top: 8px;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    :host {}
+  </style>
+
+  <template>
+    <div>
+      <paper-button id="collapser-button" on-tap="onToggleDirections">Collapse or Expand Directions</paper-button>
+
+      <iron-collapse id="directions-collapser">
+        <paper-material>
+          <p id="directions-header"><em>Directions for using the Course Request Form:</em></p>
+          <p>
+            <strong class="step">Step 1. User Information:</strong><br>
+            <span>
+              Fill in your <strong><em>Plato</em></strong> username and password, then click the button to
+              <strong>authenticate</strong>.
+            </span>
+          </p>
+
+          <p>
+            <strong class="step">Step 2. Courses Selection:</strong><br>
+            <span>
+              <strong><em>After</em></strong> authenticating, click on the 'Step 2. Courses Selection' tab.
+              <strong>Select a department, term, and course</strong>.  This will display the sections offered.
+              <strong>Select one or more sections</strong>, and click the button to '<strong>Add Selected Sections
+              to the Request</strong>'.  These sections will appear to the right, in the 'Requested Sections' box.
+              <strong>Repeat</strong> Step 2 <strong>as needed</strong>.
+            </span>
+          </p>
+
+          <p>
+            <strong class="step">Step 3. Requested Courses:</strong><br>
+            <span>
+              The 'Requested Courses' box will display the list of courses you are requesting to be created in Plato.
+              <strong>At the bottom</strong> of each requested course will have controls to <strong>copy previous
+              content</strong>, <strong>add</strong> the course to a <strong>cross-listing set</strong>, and
+              <strong>remove</strong> that particular course from the request.  The <strong><em>Icon Legend</em></strong>
+              at the top of the requested courses describes the <strong>actions</strong> of these controls.
+            </span>
+          </p>
+
+          <p>
+            <strong class="step">Step 4. Review &amp; Submit Course Request:</strong><br>
+            <span>
+              <strong><em>
+                Be sure to add any wanted previous content or specify cross-listing sets before doing this step!
+              </em></strong>
+              Click the 'Review &amp; Submit Course Request' button to review what will be submitted for your course
+              request.  If the request looks accurate, click on the 'Submit Course Request' button.
+            </span>
+          </p>
+        </paper-material>
+      </iron-collapse>
+    </div>
+  </template>
+</dom-module>

@@ -19,6 +19,7 @@ import 'package:polymer_elements/paper_tab.dart';
 import 'package:polymer_elements/paper_toast.dart';
 import 'package:polymer_elements/paper_toolbar.dart';
 
+import 'crf_directions.dart';
 import 'crf_response.dart';
 import 'crf_review.dart';
 import 'crf_submitter.dart';
@@ -44,7 +45,8 @@ import 'section_views_collection.dart';
 /// [PaperButton] - [PaperDrawerPanel] - [PaperHeaderPanel] - [PaperToolbar]
 /// [PaperToast] - [PaperTabs] - [PaperTab]
 ///
-/// [CrfResponse] - [CrfReview] - [CrfSubmitter] - [CrossListingViewsCollection]
+/// [CrfDirections] - [CrfResponse] - [CrfReview] - [CrfSubmitter]
+/// [CrossListingViewsCollection]
 /// [LearnAuthenticationWidget] - [PreviousContentSelector] - [SectionViewsCollection]
 ///
 /// [DepartmentsCollection] - [TermsCollection] - [CoursesCollection]
