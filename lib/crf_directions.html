@@ -1,5 +1,9 @@
 <dom-module id="crf-directions">
   <style>
+    .step {
+      text-decoration: underline;
+    }
+
     paper-material {
       background-color: #ddd;
       margin: 15px;
@@ -8,12 +12,12 @@
       padding: 15px;
     }
 
-    .step {
-      text-decoration: underline;
+    paper-button {
+      float: right;
     }
 
-    #collapser-button {
-      float: right;
+    #open-collapser-button {
+      margin: 15px 15px 15px 8px;
     }
 
     #directions-header {
@@ -27,10 +31,16 @@
 
   <template>
     <div>
-      <paper-button id="collapser-button" on-tap="onToggleDirections">Collapse or Expand Directions</paper-button>
+      <paper-button raised id="open-collapser-button" on-tap="onToggleDirections" hidden$="{{isOpened}}">
+        Show Directions
+      </paper-button>
 
-      <iron-collapse id="directions-collapser">
+      <iron-collapse id="directions-collapser" opened="true">
         <paper-material>
+          <paper-button raised id="close-collapser-button" on-tap="onToggleDirections" hidden$="{{!isOpened}}">
+            Hide Directions
+          </paper-button>
+
           <p id="directions-header"><em>Directions for using the Course Request Form:</em></p>
           <p>
             <strong class="step">Step 1. User Information:</strong><br>
@@ -43,22 +53,23 @@
           <p>
             <strong class="step">Step 2. Courses Selection:</strong><br>
             <span>
-              <strong><em>After</em></strong> authenticating, click on the 'Step 2. Courses Selection' tab.
-              <strong>Select a department, term, and course</strong>.  This will display the sections offered.
-              <strong>Select one or more sections</strong>, and click the button to '<strong>Add Selected Sections
-              to the Request</strong>'.  These sections will appear to the right, in the 'Requested Sections' box.
-              <strong>Repeat</strong> Step 2 <strong>as needed</strong>.
+              <strong><em>After</em></strong> authenticating, click on the '<strong>Step 2. Courses Selection</strong>'
+              tab.  <strong>Select a department, term, and course</strong>.  Doing so will display the sections offered.
+              <strong>Select one or more sections</strong>, and click the '<strong>Add Selected Sections to the
+              Request</strong>' button.  These sections will appear to the right, in the '<strong>Requested
+              Courses</strong>' box.  <strong>Repeat</strong> Step 2 <strong>as needed</strong>.
             </span>
           </p>
 
           <p>
             <strong class="step">Step 3. Requested Courses:</strong><br>
             <span>
-              The 'Requested Courses' box will display the list of courses you are requesting to be created in Plato.
-              <strong>At the bottom</strong> of each requested course will have controls to <strong>copy previous
-              content</strong>, <strong>add</strong> the course to a <strong>cross-listing set</strong>, and
-              <strong>remove</strong> that particular course from the request.  The <strong><em>Icon Legend</em></strong>
-              at the top of the requested courses describes the <strong>actions</strong> of these controls.
+              The '<strong>Requested Courses</strong>' box will display the list of courses you are requesting to have
+              created in Plato.  At the <strong>bottom</strong> of <strong>each requested course</strong> will be
+              controls to <strong>copy previous content</strong>, <strong>add</strong> the course to a
+              <strong>cross-listing set</strong>, and <strong>remove</strong> that particular course from the request.
+              The <strong><em>Icon Legend</em></strong> at the top of the '<strong>Requested Courses</strong>' box
+              describes the <strong>actions</strong> of these controls.
             </span>
           </p>
 
@@ -67,9 +78,11 @@
             <span>
               <strong><em>
                 Be sure to add any wanted previous content or specify cross-listing sets before doing this step!
-              </em></strong>
-              Click the 'Review &amp; Submit Course Request' button to review what will be submitted for your course
-              request.  If the request looks accurate, click on the 'Submit Course Request' button.
+              </em></strong> (See Step 3)<br><br>
+              Click the '<strong>Step 4. Review &amp; Submit Course Request</strong>' button <em>(this button will
+              display <strong>below</strong> the box for Steps 1 &amp; 2 once one or more courses have been added to
+              the course request)</em> to review what will be submitted for your course request.  If the request looks
+              accurate, click on the '<strong>Submit Course Request</strong>' button.
             </span>
           </p>
         </paper-material>

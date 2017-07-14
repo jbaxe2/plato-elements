@@ -17,6 +17,9 @@ import 'package:polymer_elements/paper_material.dart';
 /// The [CrfDirections] class...
 @PolymerRegister('crf-directions')
 class CrfDirections extends PolymerElement {
+  @Property(notify: true)
+  bool isOpened = true;
+
   IronCollapse _collapser;
 
   /// The [CrfDirections] factory constructor...
@@ -33,7 +36,11 @@ class CrfDirections extends PolymerElement {
   /// The [onToggleDirections] method...
   @Listen('tap')
   void onToggleDirections (CustomEvent event, details) {
-    if ('collapser-button' == (Polymer.dom (event)).localTarget.id) {
+    String buttonId = (Polymer.dom (event)).localTarget.id;
+
+    if (('open-collapser-button' == buttonId) ||
+        ('close-collapser-button' == buttonId)) {
+      set ('isOpened', !isOpened);
       _collapser.toggle();
     }
   }

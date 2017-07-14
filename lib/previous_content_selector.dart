@@ -16,9 +16,11 @@ import 'package:polymer_elements/paper_material.dart';
 import 'package:polymer_elements/neon_animation/animations/fade_in_animation.dart';
 import 'package:polymer_elements/neon_animation/animations/fade_out_animation.dart';
 
+import 'data_models.dart' show BannerSection, CourseEnrollment, PreviousContentMapping;
+
 import 'enrollment_selector.dart';
 
-import 'data_models.dart' show BannerSection, CourseEnrollment, PreviousContentMapping;
+import 'plato_elements_utils.dart';
 
 /// Silence analyzer:
 /// [IronSignals] - [PaperButton] - [PaperDialogScrollable] - [PaperMaterial]
@@ -72,6 +74,12 @@ class PreviousContentSelector extends PolymerElement {
   @Listen('iron-signal-show-copy-content-selector')
   void onShowCopyContentSelector (CustomEvent event, detail) {
     if (enrollments.isEmpty) {
+      raiseError (this,
+        'Invalid previous content selection warning',
+        'Authentication has not been attempted, so the list of previous courses '
+          'has not yet been retrieved to select from.'
+      );
+
       return;
     }
 
