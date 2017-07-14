@@ -14,6 +14,8 @@ import 'package:polymer_elements/paper_material.dart';
 
 import 'learn_authenticator.dart';
 
+import 'plato_elements_utils.dart';
+
 /// Silence analyzer:
 /// [IronIcon] - [PaperButton] - [PaperInput] - [PaperMaterial]
 ///
@@ -45,7 +47,7 @@ class LearnAuthenticationView extends PolymerElement {
     try {
       KeyboardEvent keyEvent = event.original;
 
-      if ((13 == keyEvent.keyCode) && !(username.isEmpty || password.isEmpty)) {
+      if (13 == keyEvent.keyCode) {
         _requestAuth();
       }
     } catch (_) {}
@@ -54,10 +56,6 @@ class LearnAuthenticationView extends PolymerElement {
   /// The [authenticateLearn] method...
   @Listen('tap')
   void authenticateLearn (CustomEvent event, details) {
-    if (username.isEmpty || password.isEmpty) {
-      return;
-    }
-
     if ((Polymer.dom (event)).rootTarget is PaperButton) {
       _requestAuth();
     }
@@ -65,6 +63,15 @@ class LearnAuthenticationView extends PolymerElement {
 
   /// The [_requestAuth] method...
   void _requestAuth() {
+    if (username.isEmpty || password.isEmpty) {
+      raiseError (this,
+        'Invalid authentication warning',
+        'Please enter both your Plato username and password to authenticate properly.'
+      );
+
+      return;
+    }
+
     _learnAuthenticator
       ..username = username
       ..password = password

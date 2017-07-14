@@ -1,5 +1,23 @@
 <dom-module id="plato-element-error">
   <style>
+    h2 {
+      display: block;
+      background-color: #ddd;
+      margin-top: 0;
+    }
+
+    paper-dialog {
+      border: 2px solid #a44;
+    }
+
+    .error-message {
+      background-color: #eee;
+    }
+
+    .button-holder {
+      text-align: right;
+    }
+
     :host {
       display: block;
 
@@ -10,33 +28,18 @@
 
       --iron-icon-stroke-color: #a44;
     }
-
-    h2 {
-      display: block;
-      background-color: #ddd;
-      margin-top: 0;
-    }
-
-    .error-message {
-      background-color: #eee;
-    }
-
-    .button-holder {
-      text-align: right;
-    }
   </style>
 
   <template>
     <iron-signals on-iron-signal-error="onPlatoError"></iron-signals>
 
     <paper-dialog
-      id="error-dialog"
-      entry-animation="fade-in-animation" exit-animation="fade-out-animation"
-      with-backdrop>
-
+        id="error-dialog" with-backdrop
+        entry-animation="fade-in-animation" exit-animation="fade-out-animation">
       <h2>
         <iron-icon icon="icons:error-outline"></iron-icon>&nbsp;<span>{{title}}</span>
       </h2>
+
       <div class="error-message">{{message}}</div>
 
       <div class="button-holder">

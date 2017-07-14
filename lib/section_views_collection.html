@@ -22,6 +22,12 @@
       margin: 8px;
     }
 
+    #legend-note {
+      display: block;
+      border-top: 1px dashed #718198;
+      padding-top: 8px;
+    }
+
     :host {
       display: block;
     }
@@ -40,10 +46,7 @@
 
     <template is="dom-if" if="{{haveSections}}">
       <paper-material>
-        <span style="font-weight: bold; text-decoration: underline;">
-          Icon Legend <em style="font-weight: normal;">(use the buttons at the <strong>BOTTOM</strong> of a
-          <strong>requested course</strong> to apply these options to <strong>that particular course</strong>)</em>:
-        </span><br>
+        <span style="font-weight: bold; text-decoration: underline;">Icon Legend:</span><br>
 
         <paper-icon-button
             icon="av:library-books"
@@ -64,7 +67,12 @@
             id="remove-section-icon"
             title="remove a section from the request">
         </paper-icon-button>
-        <span>| remove a section from the request</span>
+        <span>| remove a section from the request</span><br>
+
+        <span id="legend-note">
+          <strong style="text-decoration: underline;">NOTE:</strong> use the icon buttons at the <strong>bottom</strong>
+          of a <strong>requested course</strong> to apply these options for <strong>that particular course</strong>.
+        </span>
       </paper-material>
 
       <hr>
