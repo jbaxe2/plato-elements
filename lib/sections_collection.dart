@@ -85,6 +85,12 @@ class SectionsCollection extends PolymerElement {
           sectionDetails['mplace'], sectionDetails['term']
         );
 
+        if ('' == section.faculty) {
+          section.faculty = 'Staff';
+        } else {
+          section.faculty = section.faculty.trim();
+        }
+
         async (() => add ('sections', section));
 
         if (sectionDetails == details['sections'].last) {

@@ -33,7 +33,9 @@
         <div class="card-content">
           <template is="dom-repeat" items="{{sections}}" as="section">
             <paper-checkbox name="{{section.sectionId}}-checkbox" id="{{section.sectionId}}-checkbox">
-              [<span>{{section.sectionId}}</span>] <span>{{section.courseTitle}}</span>
+              [<span>{{section.sectionId}}</span>]
+              <span>{{section.courseTitle}}</span>
+              (<span>{{section.faculty}}</span>)
             </paper-checkbox><br>
           </template>
         </div>
