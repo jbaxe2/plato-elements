@@ -14,9 +14,11 @@ import '../lib/plato_element_processing.dart';
 import '../lib/session_cleanup.dart';
 
 /// Silence analyzer:
-/// [PlatoElementError] - [PlatoElementProcessing] - [SessionCleanup]
-///
 /// [CourseRequest]
+///
+/// [PlatoElementError] - [PlatoElementProcessing]
+///
+/// [SessionCleanup]
 ///
 /// The [main] function (entry-point into application).
 main() async => await initPolymer();
