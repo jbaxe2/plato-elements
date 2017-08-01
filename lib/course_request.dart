@@ -39,6 +39,8 @@ import 'learn_authentication_widget.dart';
 import 'previous_content_selector.dart';
 import 'section_views_collection.dart';
 
+import 'session_cleanup.dart';
+
 /// Silence analyzer:
 /// [IronIcon] - [IronPages] - [IronSignals]
 ///
@@ -53,6 +55,8 @@ import 'section_views_collection.dart';
 /// [SectionsCollection]
 ///
 /// [DepartmentSelector] - [TermSelector] - [CourseSelector] - [SectionsSelector]
+///
+/// [SessionCleanup]
 ///
 /// The [CourseRequest] class...
 @PolymerRegister('course-request')

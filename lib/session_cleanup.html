@@ -1,0 +1,20 @@
+<dom-module id="session-cleanup">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+    <iron-signals on-iron-signal-crf-success="onCrfSuccess"></iron-signals>
+
+    <iron-ajax
+      id="cleanup-session-ajax"
+      method="POST"
+      url="/plato/cleanup/session"
+      handle-as="json"
+      on-response="onSessionClearedResponse"
+      debounce-duration="300">
+    </iron-ajax>
+  </template>
+</dom-module>

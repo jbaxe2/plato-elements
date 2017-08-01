@@ -1,7 +1,7 @@
 @HtmlImport('crf_submitter.html')
 library plato.elements.crf.submitter;
 
-import 'dart:convert';
+import 'dart:convert' show JSON;
 import 'dart:html';
 
 import 'package:web_components/web_components.dart';
@@ -109,7 +109,6 @@ class CrfSubmitter extends PolymerElement {
     }
 
     _crfSubmitterAjax = $['crf-submitter-ajax'] as IronAjax
-      ..method = 'POST'
       ..contentType = 'application/json'
       ..body = JSON.encode (crfInfo)
       ..generateRequest();

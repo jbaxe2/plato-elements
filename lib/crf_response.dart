@@ -99,6 +99,8 @@ class CrfResponse extends PolymerElement {
 
       return;
     }
+
+    this.fire ('iron-signal', detail: {'name': 'crf-success', 'data': null});
   }
 
   /// The [onCrfComplete] method...

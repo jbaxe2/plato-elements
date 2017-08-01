@@ -11,8 +11,10 @@ import '../lib/course_request.dart';
 import '../lib/plato_element_error.dart';
 import '../lib/plato_element_processing.dart';
 
+import '../lib/session_cleanup.dart';
+
 /// Silence analyzer:
-/// [PlatoElementError] - [PlatoElementProcessing]
+/// [PlatoElementError] - [PlatoElementProcessing] - [SessionCleanup]
 ///
 /// [CourseRequest]
 ///
