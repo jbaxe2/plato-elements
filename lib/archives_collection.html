@@ -1,0 +1,13 @@
+<dom-module id="archives-collection">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+
+  <template>
+    <simple-retriever type="archives" id="archives-retriever"></simple-retriever>
+
+    <template is="dom-repeat" items="{{archives}}">{{archives}}</template>
+  </template>
+</dom-module>

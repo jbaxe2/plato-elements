@@ -45,10 +45,22 @@ class EnrollmentSelector extends PolymerElement {
   @Listen('iron-signal-enrollments-retrieved-complete')
   void onEnrollmentsRetrievedComplete (CustomEvent event, details) {
     if (null != details['enrollments']) {
-      set ('enrollments', details['enrollments']);
-      notifyPath ('enrollmentsRetrieved', _enrollmentsRetrieved = true);
+      async (() {
+        addAll ('enrollments', details['enrollments']);
+        notifyPath ('enrollmentsRetrieved', _enrollmentsRetrieved = true);
 
-      this.fire ('enrollments-complete');
+        this.fire ('enrollments-complete');
+      });
+    }
+  }
+
+  /// The [onArchivesRetrievedComplete] method...
+  @Listen('iron-signal-archives-retrieved-complete')
+  void onArchivesRetrievedComplete (CustomEvent event, details) {
+    if (null != details['archives']) {
+      async (() {
+        addAll ('enrollments', details['archives']);
+      });
     }
   }
 

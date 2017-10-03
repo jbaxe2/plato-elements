@@ -14,13 +14,16 @@
 
   <template>
     <iron-signals on-iron-signal-enrollments-retrieved-complete="onEnrollmentsRetrievedComplete"></iron-signals>
+    <iron-signals on-iron-signal-archives-retrieved-complete="onArchivesRetrievedComplete"></iron-signals>
 
     <label id="enrollment-selector-label">Select a single enrollment:</label><br>
     <paper-radio-group id="enrollmentSelector" allow-empty-selection aria-labelledby="enrollment-selector-label">
       <template is="dom-repeat" items="{{enrollments}}" as="enrollment">
         <paper-radio-button name="{{enrollment.courseId}}" value="{{enrollment}}">
           {{enrollment.courseName}} [{{enrollment.courseId}}]
-        </paper-radio-button><br>
+        </paper-radio-button>
+        <template is="dom-if" if="{{enrollment.isArchive}}">
+        </template><br>
       </template>
     </paper-radio-group>
   </template>

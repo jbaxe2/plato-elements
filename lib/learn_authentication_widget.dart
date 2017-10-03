@@ -6,6 +6,7 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
+import 'archives_collection.dart';
 import 'data_models.dart' show UserInformation;
 import 'enrollments_collection.dart';
 import 'learn_authentication_view.dart';
@@ -13,7 +14,7 @@ import 'user_information_view.dart';
 import 'user_retriever.dart';
 
 /// Silence analyzer:
-/// [EnrollmentsCollection] - [LearnAuthenticationView] - [UserInformationView]
+/// [LearnAuthenticationView] - [UserInformationView]
 /// [UserRetriever]
 ///
 /// The [LearnAuthenticationWidget] class...
@@ -40,7 +41,8 @@ class LearnAuthenticationWidget extends PolymerElement {
   bool _inUserLoading = false;
 
   /// The [LearnAuthenticationWidget] factory constructor.
-  factory LearnAuthenticationWidget() => document.createElement ('learn-authentication-widget');
+  factory LearnAuthenticationWidget() =>
+    document.createElement ('learn-authentication-widget');
 
   /// The [LearnAuthenticationWidget] named constructor.
   LearnAuthenticationWidget.created() : super.created();
@@ -69,5 +71,6 @@ class LearnAuthenticationWidget extends PolymerElement {
     notifyPath ('userLoaded', _userLoaded = true);
 
     ($['enrollments-collection'] as EnrollmentsCollection).retrieveEnrollments();
+    ($['archives-collection'] as ArchivesCollection).retrieveArchives();
   }
 }

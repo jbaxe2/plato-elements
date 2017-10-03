@@ -149,9 +149,13 @@ class CourseEnrollment extends JsProxy {
   @reflectable
   String available;
 
+  @reflectable
+  bool isArchive;
+
   /// The [CourseEnrollment] constructor...
   CourseEnrollment (
-    this.username, this.courseId, this.courseName, this.role, this.available
+    this.username, this.courseId, this.courseName, this.role, this.available,
+    {this.isArchive: false}
   );
 
   /// The '==' operator for determining equivalency (NOT necessarily identicality)
@@ -162,7 +166,8 @@ class CourseEnrollment extends JsProxy {
         (other.courseId == courseId) &&
         (other.courseName == courseName) &&
         (other.role == role) &&
-        (other.available == available)) {
+        (other.available == available) &&
+        (other.isArchive == isArchive)) {
       return true;
     };
 
@@ -179,6 +184,7 @@ class CourseEnrollment extends JsProxy {
     result = 7 * result + ((null == courseName) ? 0 : courseName.hashCode);
     result = 7 * result + ((null == role) ? 0 : role.hashCode);
     result = 7 * result + ((null == available) ? 0 : available.hashCode);
+    result = 7 * result + ((null == isArchive) ? 0 : isArchive.hashCode);
 
     return result;
   }
@@ -189,7 +195,8 @@ class CourseEnrollment extends JsProxy {
       'courseId': courseId,
       'courseName': courseName,
       'role': role,
-      'available': available
+      'available': available,
+      'isArchive': isArchive
     };
   }
 }
