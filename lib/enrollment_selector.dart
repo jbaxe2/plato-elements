@@ -6,12 +6,15 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
+import 'package:polymer_elements/iron_signals.dart';
+
 import 'package:polymer_elements/paper_radio_button.dart';
 import 'package:polymer_elements/paper_radio_group.dart';
 
 import 'data_models.dart' show CourseEnrollment;
 
 /// Silence analyzer:
+/// [IronSignals]
 /// [PaperRadioButton] - [PaperRadioGroup]
 ///
 /// The [EnrollmentSelector] element class...
@@ -70,9 +73,14 @@ class EnrollmentSelector extends PolymerElement {
     var archiveLink = (Polymer.dom (event)).localTarget.id as String;
 
     if (archiveLink.contains ('-archive-link')) {
-      String archiveId = archiveLink.split ('-').first;
+      window.console.log ('in on browse archive for archive link');
 
-      window.console.log (archiveId);
+      this.fire ('iron-signal', detail: {
+        'name': 'browse-archive',
+        'data': {
+          'archiveId': archiveLink.split ('-').first
+        }
+      });
     }
   }
 

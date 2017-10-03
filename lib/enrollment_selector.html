@@ -36,10 +36,10 @@
       <template is="dom-repeat" items="{{enrollments}}" as="enrollment">
         <paper-radio-button name="{{enrollment.courseId}}" value="{{enrollment}}">
           {{enrollment.courseName}} [{{enrollment.courseId}}]
-        </paper-radio-button>
-        <template is="dom-if" if="{{enrollment.isArchive}}">
-          <a id="{{enrollment.courseId}}-archive-link" on-tap="onBrowseArchive">(browse archive)</a>
-        </template><br>
+          <template is="dom-if" if="{{enrollment.isArchive}}">
+            <a id="{{enrollment.courseId}}-archive-link" on-tap="onBrowseArchive">(browse archive)</a>
+          </template>
+        </paper-radio-button><br>
       </template>
     </paper-radio-group>
   </template>

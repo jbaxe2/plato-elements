@@ -10,6 +10,7 @@ import 'data_models.dart' show CourseEnrollment;
 import 'plato_elements_utils.dart';
 import 'simple_retriever.dart';
 
+/// The [ArchivesCollection] class...
 @PolymerRegister('archives-collection')
 class ArchivesCollection extends PolymerElement {
   @Property(notify: true)
