@@ -64,6 +64,18 @@ class EnrollmentSelector extends PolymerElement {
     }
   }
 
+  /// The [onBrowseArchive] method...
+  @Listen('tap')
+  void onBrowseArchive (CustomEvent event, details) {
+    var archiveLink = (Polymer.dom (event)).localTarget.id as String;
+
+    if (archiveLink.contains ('-archive-link')) {
+      String archiveId = archiveLink.split ('-').first;
+
+      window.console.log (archiveId);
+    }
+  }
+
   /// The [onEnrollmentSelected] method...
   @Listen('iron-select')
   void onEnrollmentSelected (CustomEvent event, details) {

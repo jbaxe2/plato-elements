@@ -1,7 +1,22 @@
 <dom-module id="enrollment-selector">
   <style>
+    a {
+      color: #062c43;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+
+    a:hover {
+      color: #718198;
+      text-decoration: underline;
+    }
+
     :host {
       display: block;
+
+      --paper-radio-button: {
+        display: inline;
+      };
 
       --paper-radio-button-checked-color: #062c43;
 
@@ -23,6 +38,7 @@
           {{enrollment.courseName}} [{{enrollment.courseId}}]
         </paper-radio-button>
         <template is="dom-if" if="{{enrollment.isArchive}}">
+          <a id="{{enrollment.courseId}}-archive-link" on-tap="onBrowseArchive">(browse archive)</a>
         </template><br>
       </template>
     </paper-radio-group>
