@@ -6,6 +6,8 @@ import 'dart:html';
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
+import 'package:polymer_elements/iron_signals.dart';
+
 import 'archives_collection.dart';
 import 'data_models.dart' show UserInformation;
 import 'enrollments_collection.dart';
@@ -14,6 +16,7 @@ import 'user_information_view.dart';
 import 'user_retriever.dart';
 
 /// Silence analyzer:
+/// [IronSignals]
 /// [LearnAuthenticationView] - [UserInformationView]
 /// [UserRetriever]
 ///
@@ -71,6 +74,9 @@ class LearnAuthenticationWidget extends PolymerElement {
     notifyPath ('userLoaded', _userLoaded = true);
 
     ($['enrollments-collection'] as EnrollmentsCollection).retrieveEnrollments();
-    ($['archives-collection'] as ArchivesCollection).retrieveArchives();
   }
+
+  @Listen('iron-signal-retrieve-archives-ready')
+  void onRetrieveArchivesReady (CustomEvent event, details) =>
+    ($['archives-collection'] as ArchivesCollection).retrieveArchives();
 }

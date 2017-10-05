@@ -6,6 +6,8 @@
   </style>
 
   <template>
+    <iron-signals on-iron-signal-retrieve-archives-ready="onRetrieveArchivesReady"></iron-signals>
+
     <learn-authentication-view
       username="{{username}}" password="{{password}}" hidden$="{{userLoaded}}">
     </learn-authentication-view>

@@ -63,6 +63,10 @@ class EnrollmentsCollection extends PolymerElement {
         this.fire ('iron-signal', detail: {
           'name': 'enrollments-retrieved-complete', 'data': {'enrollments': enrollments}
         });
+
+        this.fire ('iron-signal', detail: {
+          'name': 'retrieve-archives-ready', 'data': null
+        });
       } catch (_) {}
     }
   }
