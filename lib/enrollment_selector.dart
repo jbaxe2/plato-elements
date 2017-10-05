@@ -73,8 +73,6 @@ class EnrollmentSelector extends PolymerElement {
     var archiveLink = (Polymer.dom (event)).localTarget.id as String;
 
     if (archiveLink.contains ('-archive-link')) {
-      window.console.log ('in on browse archive for archive link');
-
       this.fire ('iron-signal', detail: {
         'name': 'browse-archive',
         'data': {

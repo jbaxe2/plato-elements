@@ -34,6 +34,7 @@ import 'department_selector.dart';
 import 'sections_selector.dart';
 import 'term_selector.dart';
 
+import 'archive_browser.dart';
 import 'cross_listing_views_collection.dart';
 import 'learn_authentication_widget.dart';
 import 'previous_content_selector.dart';
@@ -48,7 +49,7 @@ import 'session_cleanup.dart';
 /// [PaperToast] - [PaperTabs] - [PaperTab]
 ///
 /// [CrfDirections] - [CrfResponse] - [CrfReview] - [CrfSubmitter]
-/// [CrossListingViewsCollection]
+/// [CrossListingViewsCollection] - [ArchiveBrowser]
 /// [LearnAuthenticationWidget] - [PreviousContentSelector] - [SectionViewsCollection]
 ///
 /// [DepartmentsCollection] - [TermsCollection] - [CoursesCollection]

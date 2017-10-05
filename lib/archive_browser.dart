@@ -13,6 +13,8 @@ import 'package:polymer_elements/paper_button.dart';
 import 'package:polymer_elements/paper_dialog.dart';
 import 'package:polymer_elements/paper_material.dart';
 
+import 'plato_elements_utils.dart';
+
 /// Silence analyzer:
 /// [IronSignals]
 /// [PaperButton] - [PaperDialog] - [PaperMaterial]
@@ -22,6 +24,9 @@ import 'package:polymer_elements/paper_material.dart';
 class ArchiveBrowser extends PolymerElement {
   @Property(notify: true)
   String archiveId;
+
+  @Property(notify: true)
+  String archiveTerm;
 
   @Property(notify: true)
   bool archiveLoaded;
@@ -40,21 +45,19 @@ class ArchiveBrowser extends PolymerElement {
   void attached() {
     set ('archiveLoaded', false);
 
-    _archivePuller = $['archive-puller-ajax'] as IronAjax;
+    _archivePuller = $['pull-archive-ajax'] as IronAjax;
     _browserDialog = $['browse-archive-dialog'] as PaperDialog;
   }
 
   /// The [onBrowseArchive] method...
   @Listen('iron-signal-browse-archive')
   void onBrowseArchive (CustomEvent event, details) {
-    window.console.log ('made it to on browse archive, for iron signal.');
-
     if (null != details['archiveId']) {
-      String archiveId = details['archiveId'];
-      String termId = archiveId.split ('_').last;
+      set ('archiveId', details['archiveId']);
+      set ('archiveTerm', archiveId.split ('_').last);
 
       _archivePuller
-        ..params = {'archiveId': archiveId, 'termId': termId}
+        ..params = {'archiveId': archiveId, 'archiveTerm': archiveTerm}
         ..generateRequest();
 
       _browserDialog.open();
@@ -68,10 +71,18 @@ class ArchiveBrowser extends PolymerElement {
   void onArchivePulled (CustomEvent event, details) {
     this.fire ('iron-signal', detail: {'name': 'hide-progress', 'data': null});
 
-    window.console.log ('Received a response for pulling the archive...');
+    var response = _archivePuller.lastResponse;
 
-    if (null != details['pulled']) {
+    if (null != response['error']) {
+      raiseError (this, 'Archive pull error', response['error']);
+    } else if (null != response['pulled']) {
       set ('archiveLoaded', true);
     }
+  }
+
+  /// The [onArchiveReviewed] method...
+  @Listen('tap')
+  void onArchiveReviewed (CustomEvent event, details) {
+    set ('archiveLoaded', false);
   }
 }
