@@ -60,8 +60,6 @@ class ArchiveBrowser extends PolymerElement {
         ..params = {'archiveId': archiveId, 'archiveTerm': archiveTerm}
         ..generateRequest();
 
-      _browserDialog.open();
-
       this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
     }
   }
@@ -77,12 +75,16 @@ class ArchiveBrowser extends PolymerElement {
       raiseError (this, 'Archive pull error', response['error']);
     } else if (null != response['pulled']) {
       set ('archiveLoaded', true);
+      _browserDialog.open();
     }
   }
 
   /// The [onArchiveReviewed] method...
   @Listen('tap')
   void onArchiveReviewed (CustomEvent event, details) {
-    set ('archiveLoaded', false);
+    if ('archive-reviewed-button' == (Polymer.dom (event)).localTarget.id) {
+      _browserDialog.close();
+      set ('archiveLoaded', false);
+    }
   }
 }

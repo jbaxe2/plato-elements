@@ -32,12 +32,6 @@
         id="browse-archive-dialog" modal with-backdrop
         entry-animation="fade-in-animation" exit-animation="fade-out-animation">
 
-      <template is="dom-if" if="{{!archiveLoaded}}">
-        <paper-material>
-          <h2>Please wait while we load the archive information for {{archiveId}}...</h2>
-        </paper-material>
-      </template>
-
       <template is="dom-if" if="{{archiveLoaded}}">
         <paper-material>
           <p>Here will be some information for the pulled archive...</p>
@@ -45,9 +39,7 @@
       </template>
 
       <div class="button-holder">
-        <paper-button raised dialog-confirm id="archive-reviewed-button" on-tap="onArchiveReviewed">
-          OK
-        </paper-button>
+        <paper-button raised dialog-confirm id="archive-reviewed-button" on-tap="onArchiveReviewed">OK</paper-button>
       </div>
     </paper-dialog>
   </template>
