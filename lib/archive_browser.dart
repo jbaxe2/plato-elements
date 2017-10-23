@@ -13,11 +13,14 @@ import 'package:polymer_elements/paper_button.dart';
 import 'package:polymer_elements/paper_dialog.dart';
 import 'package:polymer_elements/paper_material.dart';
 
+import 'archive_view.dart';
+
 import 'plato_elements_utils.dart';
 
 /// Silence analyzer:
 /// [IronSignals]
 /// [PaperButton] - [PaperDialog] - [PaperMaterial]
+/// [ArchiveView]
 ///
 /// The [ArchiveBrowser] class...
 @PolymerRegister('archive-browser')

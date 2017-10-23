@@ -4,6 +4,15 @@
   </style>
 
   <template>
+    <iron-ajax
+        id="browse-archive-ajax"
+        method="GET"
+        url="/plato/browse/archive?archiveId={{archiveId}}&resourceId={{resourceId}}"
+        handle-as="json"
+        on-response="onViewArchive"
+        debounce-duration="300">
+    </iron-ajax>
+
     <div></div>
   </template>
 </dom-module>
