@@ -33,10 +33,6 @@
         entry-animation="fade-in-animation" exit-animation="fade-out-animation">
 
       <template is="dom-if" if="{{archiveLoaded}}">
-        <paper-material>
-          <p>Here will be some information for the pulled archive...</p>
-        </paper-material>
-
         <archive-view archive-id="{{archiveId}}"></archive-view>
       </template>
 

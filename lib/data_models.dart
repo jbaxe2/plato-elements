@@ -691,6 +691,25 @@ class _RequestedSectionsRegistry extends JsProxy {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+/// The [ArchiveItem] class...
+class ArchiveItem extends JsProxy {
+  @reflectable
+  String resourceId;
+
+  @reflectable
+  String title;
+
+  @reflectable
+  List<ArchiveItem> items;
+
+  /// The [ArchiveItem] default constructor...
+  ArchiveItem (this.resourceId, this.title) {
+    items = new List<ArchiveItem>();
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
 /// The [RejectedCourse] class...
 class RejectedCourse extends JsProxy {
   @reflectable

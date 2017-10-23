@@ -2,6 +2,7 @@
 library plato.elements.view.archive;
 
 import 'dart:html';
+import 'dart:js';
 
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
@@ -9,9 +10,15 @@ import 'package:polymer/polymer.dart';
 import 'package:polymer_elements/iron_ajax.dart';
 
 import 'package:polymer_elements/paper_item.dart';
+import 'package:polymer_elements/paper_menu.dart';
+import 'package:polymer_elements/paper_submenu.dart';
 
+import 'data_models.dart' show ArchiveItem;
 import 'plato_elements_utils.dart';
 
+/// Silence analyzer:
+/// [PaperItem] - [PaperMenu] - [PaperSubmenu]
+///
 /// The [ArchiveView] class...
 @PolymerRegister('archive-view')
 class ArchiveView extends PolymerElement {
@@ -24,6 +31,11 @@ class ArchiveView extends PolymerElement {
   @Property(notify: true)
   String courseTitle;
 
+  Map<String, Map> _manifestOutline;
+
+  @Property(notify: true)
+  List<ArchiveItem> manifestItems;
+
   IronAjax _browseAjax;
 
   /// The [ArchiveView] factory constructor...
@@ -34,7 +46,10 @@ class ArchiveView extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
+    _manifestOutline = new Map<String, Map>();
+
     set ('resourceId', 'none');
+    set ('manifestItems', new List<ArchiveItem>());
 
     _browseAjax = $['browse-archive-ajax'] as IronAjax
       ..generateRequest();
@@ -46,5 +61,34 @@ class ArchiveView extends PolymerElement {
   @Listen('on-response')
   void onViewArchive (CustomEvent event, details) {
     this.fire ('iron-signal', detail: {'name': 'hide-progress', 'data': null});
+
+    var response = _browseAjax.lastResponse;
+
+    if ((null != response['error']) ||
+        (null == response['courseId']) || (null == response['courseTitle'])) {
+      raiseError (this, 'Browsing archive error', response['error']);
+      return;
+    }
+
+    set ('archiveId', response['courseId']);
+    set ('courseTitle', response['courseTitle']);
+
+    if (null != response['manifestOutline']) {
+      window.console.debug (convertToDart (response['manifestOutline'] as JsObject));
+      _handleManifestOutline (response['manifestOutline']);
+    }
+  }
+
+  /// The [_handleManifestOutline] method...
+  void _handleManifestOutline (outline) {
+    _manifestOutline = outline;
+
+    _manifestOutline.forEach ((String aResourceId, Map anItem) {
+      async (() {
+        add (
+          'manifestItems', new ArchiveItem (aResourceId, anItem[aResourceId])
+        );
+      });
+    });
   }
 }

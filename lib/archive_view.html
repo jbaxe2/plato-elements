@@ -1,6 +1,20 @@
 <dom-module id="archive-view">
   <style>
-    :host {}
+    h4 {
+      background-color: #718198;
+      margin: 0 8px 0 8px;
+      border: 1px solid #062c43;
+      padding: 15px;
+      font-weight: bold;
+    }
+
+    paper-material {
+      margin: 0 8px 0 8px;
+    }
+
+    :host {
+      padding: 15px;
+    }
   </style>
 
   <template>
@@ -13,6 +27,17 @@
         debounce-duration="300">
     </iron-ajax>
 
-    <div></div>
+    <div>
+      <h4>{{courseTitle}} ({{archiveId}})</h4>
+
+      <paper-material>
+        <paper-menu id="archive-manifest-view">
+          <template is="dom-repeat" items="{{manifestItems}}" as="manifestItem">
+            <paper-item id="{{manifestItem.resourceId}}">{{manifestItem.title}}</paper-item>
+          </template>
+          <paper-submenu></paper-submenu>
+        </paper-menu>
+      </paper-material>
+    </div>
   </template>
 </dom-module>
