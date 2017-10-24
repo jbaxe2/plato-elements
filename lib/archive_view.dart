@@ -110,7 +110,7 @@ class ArchiveView extends PolymerElement {
         add ('manifestItems', archiveItem);
       });
 
-      this.fire ('resize-archive-view');
+      this.fire ('refresh-archive-view');
     });
   }
 
@@ -121,11 +121,11 @@ class ArchiveView extends PolymerElement {
 
     if (resourceLink.contains ('-resource-link')) {
       set ('resourceId', resourceLink.split ('-').first);
+
+      this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
+
+      _resourceAjax.generateRequest();
     }
-
-    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
-
-    _resourceAjax.generateRequest();
   }
 
   /// The [onPreviewResourceResponse] method...
@@ -140,6 +140,21 @@ class ArchiveView extends PolymerElement {
       return;
     }
 
-    window.console.log (response);
+    if (null == response['resource']) {
+      raiseError (this,
+        'Resource preview error',
+        'The requested resource was not loaded for preview.'
+      );
+
+      return;
+    }
+
+    set ('previewResource', true);
+
+    async (() {
+      ($['resource-preview'] as DivElement).innerHtml = response['resource'];
+
+      this.fire ('refresh-archive-view');
+    });
   }
 }

@@ -60,6 +60,7 @@
             <template is="dom-if" if="{{!manifestItem.items.isEmpty}}">
               <paper-submenu>
                 <paper-item id="{{manifestItem.resourceId}}" class="menu-trigger">{{manifestItem.title}}</paper-item>
+
                 <paper-menu class="menu-content">
                   <template is="dom-repeat" items="{{manifestItem.items}}" as="manifestSubItem">
                     <paper-item id="{{manifestSubItem.resourceId}}">
@@ -73,6 +74,11 @@
           </template>
         </paper-menu>
       </paper-material>
+
+      <template is="dom-if" if="{{previewResource}}">
+        <p>Below is a preview of the last loaded resource (some parts may not be viewable):</p>
+        <div id="resource-preview"></div>
+      </template>
     </div>
   </template>
 </dom-module>

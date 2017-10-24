@@ -39,6 +39,19 @@
         id="browse-archive-dialog" modal with-backdrop
         entry-animation="fade-in-animation" exit-animation="fade-out-animation">
 
+      <p><em>
+        Below is a simplified view of the archived course.
+        Please note that not all parts of an archived course
+        can be previewed in this simplified view.
+      </em></p>
+
+      <template is="dom-if" if="{{!archiveLoaded}}">
+        <p><em>
+          Please note: loading of the archive may take some time if it was<br>
+          a sufficiently large course, and caused a large archive file.
+        </em></p>
+      </template>
+
       <template is="dom-if" if="{{archiveLoaded}}">
         <div id="archive-view-div">
           <archive-view archive-id="{{archiveId}}"></archive-view>
