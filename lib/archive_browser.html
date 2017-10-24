@@ -11,6 +11,13 @@
       font-weight: bold;
     }
 
+    #archive-view-div {
+      padding: 8px;
+      border: 1px solid #062c43;
+      height: 350px;
+      overflow: auto;
+    }
+
     :host {
       display: block;
     }
@@ -33,7 +40,9 @@
         entry-animation="fade-in-animation" exit-animation="fade-out-animation">
 
       <template is="dom-if" if="{{archiveLoaded}}">
-        <archive-view archive-id="{{archiveId}}"></archive-view>
+        <div id="archive-view-div">
+          <archive-view archive-id="{{archiveId}}"></archive-view>
+        </div>
       </template>
 
       <div class="button-holder">

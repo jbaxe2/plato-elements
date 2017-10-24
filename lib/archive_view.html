@@ -33,9 +33,15 @@
       <paper-material>
         <paper-menu id="archive-manifest-view">
           <template is="dom-repeat" items="{{manifestItems}}" as="manifestItem">
-            <paper-item id="{{manifestItem.resourceId}}">{{manifestItem.title}}</paper-item>
+            <paper-submenu>
+              <paper-item id="{{manifestItem.resourceId}}" class="menu-trigger">{{manifestItem.title}}</paper-item>
+              <paper-menu class="menu-content">
+                <template is="dom-repeat" items="{{manifestItem.items}}" as="manifestSubItem">
+                  <paper-item id="{{manifestSubItem.resourceId}}">{{manifestSubItem.title}}</paper-item>
+                </template>
+              </paper-menu>
+            </paper-submenu>
           </template>
-          <paper-submenu></paper-submenu>
         </paper-menu>
       </paper-material>
     </div>

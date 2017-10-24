@@ -74,21 +74,33 @@ class ArchiveView extends PolymerElement {
     set ('courseTitle', response['courseTitle']);
 
     if (null != response['manifestOutline']) {
-      window.console.debug (convertToDart (response['manifestOutline'] as JsObject));
-      _handleManifestOutline (response['manifestOutline']);
+      _manifestOutline = convertToDart (response['manifestOutline'] as JsObject);
+      _handleManifestOutline (_manifestOutline);
     }
   }
 
   /// The [_handleManifestOutline] method...
-  void _handleManifestOutline (outline) {
-    _manifestOutline = outline;
+  void _handleManifestOutline (Map<String, Map> outline) {
+    async (() {
+      outline.forEach ((String aResourceId, Map anItem) {
+        if ((anItem[aResourceId] as String).contains ('divider')) {
+          anItem[aResourceId] = '------------------------------------------';
+        }
 
-    _manifestOutline.forEach ((String aResourceId, Map anItem) {
-      async (() {
-        add (
-          'manifestItems', new ArchiveItem (aResourceId, anItem[aResourceId])
-        );
+        var archiveItem = new ArchiveItem (aResourceId, anItem[aResourceId]);
+
+        anItem.forEach ((subResourceId, subItem) {
+          if (!(subItem is String)) {
+            archiveItem.items.add (
+              new ArchiveItem (subResourceId, subItem[subResourceId])
+            );
+          }
+        });
+
+        add ('manifestItems', archiveItem);
       });
+
+      this.fire ('resize-archive-view');
     });
   }
 }

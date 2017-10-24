@@ -78,7 +78,6 @@ class ArchiveBrowser extends PolymerElement {
       raiseError (this, 'Archive pull error', response['error']);
     } else if (null != response['pulled']) {
       set ('archiveLoaded', true);
-      _browserDialog.open();
     }
   }
 
@@ -89,5 +88,14 @@ class ArchiveBrowser extends PolymerElement {
       _browserDialog.close();
       set ('archiveLoaded', false);
     }
+  }
+
+  /// The [onResizeArchiveView] method...
+  @Listen('resize-archive-view')
+  void onResizeArchiveView (CustomEvent event, details) {
+    _browserDialog
+      ..refit()
+      ..center()
+      ..open();
   }
 }
