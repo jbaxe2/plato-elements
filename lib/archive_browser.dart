@@ -77,6 +77,10 @@ class ArchiveBrowser extends PolymerElement {
     if (null != response['error']) {
       raiseError (this, 'Archive pull error', response['error']);
     } else if (null != response['pulled']) {
+      if (archiveLoaded) {
+        _refreshDialog();
+      }
+
       set ('archiveLoaded', true);
     }
   }
@@ -92,7 +96,10 @@ class ArchiveBrowser extends PolymerElement {
 
   /// The [onResizeArchiveView] method...
   @Listen('resize-archive-view')
-  void onResizeArchiveView (CustomEvent event, details) {
+  void onResizeArchiveView (CustomEvent event, details) => _refreshDialog();
+
+  /// The [_refreshDialog] method...
+  void _refreshDialog() {
     _browserDialog
       ..refit()
       ..center()

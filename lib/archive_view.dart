@@ -38,6 +38,11 @@ class ArchiveView extends PolymerElement {
 
   IronAjax _browseAjax;
 
+  IronAjax _resourceAjax;
+
+  @Property(notify: true)
+  bool previewResource;
+
   /// The [ArchiveView] factory constructor...
   factory ArchiveView() => document.createElement ('archive-view');
 
@@ -50,15 +55,18 @@ class ArchiveView extends PolymerElement {
 
     set ('resourceId', 'none');
     set ('manifestItems', new List<ArchiveItem>());
+    set ('previewResource', false);
+
+    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
 
     _browseAjax = $['browse-archive-ajax'] as IronAjax
       ..generateRequest();
 
-    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
+    _resourceAjax = $['preview-resource-ajax'] as IronAjax;
   }
 
   /// The [onViewArchive] method...
-  @Listen('on-response')
+  @Listen('response')
   void onViewArchive (CustomEvent event, details) {
     this.fire ('iron-signal', detail: {'name': 'hide-progress', 'data': null});
 
@@ -75,14 +83,14 @@ class ArchiveView extends PolymerElement {
 
     if (null != response['manifestOutline']) {
       _manifestOutline = convertToDart (response['manifestOutline'] as JsObject);
-      _handleManifestOutline (_manifestOutline);
+      _handleManifestOutline();
     }
   }
 
   /// The [_handleManifestOutline] method...
-  void _handleManifestOutline (Map<String, Map> outline) {
+  void _handleManifestOutline() {
     async (() {
-      outline.forEach ((String aResourceId, Map anItem) {
+      _manifestOutline.forEach ((String aResourceId, Map anItem) {
         if ((anItem[aResourceId] as String).contains ('divider')) {
           anItem[aResourceId] = '------------------------------------------';
         }
@@ -90,10 +98,12 @@ class ArchiveView extends PolymerElement {
         var archiveItem = new ArchiveItem (aResourceId, anItem[aResourceId]);
 
         anItem.forEach ((subResourceId, subItem) {
-          if (!(subItem is String)) {
-            archiveItem.items.add (
-              new ArchiveItem (subResourceId, subItem[subResourceId])
-            );
+          if (subItem is Map) {
+            subItem.forEach ((String aSubResourceId, Map aSubItemTitle) {
+              archiveItem.items.add (
+                new ArchiveItem (aSubResourceId, aSubItemTitle[aSubResourceId])
+              );
+            });
           }
         });
 
@@ -102,5 +112,34 @@ class ArchiveView extends PolymerElement {
 
       this.fire ('resize-archive-view');
     });
+  }
+
+  /// The [onPreviewResource] method...
+  @Listen('tap')
+  void onPreviewResource (CustomEvent event, details) {
+    var resourceLink = (Polymer.dom (event)).localTarget.id as String;
+
+    if (resourceLink.contains ('-resource-link')) {
+      set ('resourceId', resourceLink.split ('-').first);
+    }
+
+    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
+
+    _resourceAjax.generateRequest();
+  }
+
+  /// The [onPreviewResourceResponse] method...
+  @Listen('response')
+  void onPreviewResourceResponse (CustomEvent event, details) {
+    this.fire ('iron-signal', detail: {'name': 'hide-progress', 'data': null});
+
+    var response = _resourceAjax.lastResponse;
+
+    if (null != response['error']) {
+      raiseError (this, 'Browsing archive error', response['error']);
+      return;
+    }
+
+    window.console.log (response);
   }
 }

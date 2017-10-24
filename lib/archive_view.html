@@ -8,6 +8,17 @@
       font-weight: bold;
     }
 
+    a {
+      color: #062c43;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+
+    a:hover {
+      color: #718198;
+      text-decoration: underline;
+    }
+
     paper-material {
       margin: 0 8px 0 8px;
     }
@@ -21,9 +32,18 @@
     <iron-ajax
         id="browse-archive-ajax"
         method="GET"
-        url="/plato/browse/archive?archiveId={{archiveId}}&resourceId={{resourceId}}"
+        url="/plato/browse/archive?archiveId={{archiveId}}&resourceId=none"
         handle-as="json"
         on-response="onViewArchive"
+        debounce-duration="300">
+    </iron-ajax>
+
+    <iron-ajax
+        id="preview-resource-ajax"
+        method="GET"
+        url="/plato/browse/archive?archiveId={{archiveId}}&resourceId={{resourceId}}"
+        handle-as="json"
+        on-response="onPreviewResourceResponse"
         debounce-duration="300">
     </iron-ajax>
 
@@ -33,14 +53,23 @@
       <paper-material>
         <paper-menu id="archive-manifest-view">
           <template is="dom-repeat" items="{{manifestItems}}" as="manifestItem">
-            <paper-submenu>
-              <paper-item id="{{manifestItem.resourceId}}" class="menu-trigger">{{manifestItem.title}}</paper-item>
-              <paper-menu class="menu-content">
-                <template is="dom-repeat" items="{{manifestItem.items}}" as="manifestSubItem">
-                  <paper-item id="{{manifestSubItem.resourceId}}">{{manifestSubItem.title}}</paper-item>
-                </template>
-              </paper-menu>
-            </paper-submenu>
+            <template is="dom-if" if="{{manifestItem.items.isEmpty}}">
+              <paper-item id="{{manifestItem.resourceId}}">{{manifestItem.title}}</paper-item>
+            </template>
+
+            <template is="dom-if" if="{{!manifestItem.items.isEmpty}}">
+              <paper-submenu>
+                <paper-item id="{{manifestItem.resourceId}}" class="menu-trigger">{{manifestItem.title}}</paper-item>
+                <paper-menu class="menu-content">
+                  <template is="dom-repeat" items="{{manifestItem.items}}" as="manifestSubItem">
+                    <paper-item id="{{manifestSubItem.resourceId}}">
+                      &rdsh; {{manifestSubItem.title}} &nbsp;
+                      <a id="{{manifestSubItem.resourceId}}-resource-link" on-tap="onPreviewResource">(preview resource)</a>
+                    </paper-item>
+                  </template>
+                </paper-menu>
+              </paper-submenu>
+            </template>
           </template>
         </paper-menu>
       </paper-material>
