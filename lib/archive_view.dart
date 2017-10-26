@@ -32,18 +32,16 @@ class ArchiveView extends PolymerElement {
   String archiveId;
 
   @Property(notify: true)
-  String resourceId;
-
-  @Property(notify: true)
   String courseTitle;
 
   @Property(notify: true)
-  List<ArchiveItem> manifestItems;
+  String resourceId;
 
   @Property(notify: true)
   String resourceTitle;
 
-  Map<String, Map> _manifestOutline;
+  @Property(notify: true)
+  List<ArchiveItem> manifestItems;
 
   Map<String, String> _resourceTitles;
 
@@ -61,16 +59,15 @@ class ArchiveView extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    _manifestOutline = new Map<String, Map>();
-    _resourceTitles = new Map<String, String>();
-
-    set ('resourceId', 'none');
-    set ('manifestItems', new List<ArchiveItem>());
-
     this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
 
     _browseAjax = $['browse-archive-ajax'] as IronAjax
       ..generateRequest();
+
+    set ('resourceId', 'none');
+    set ('manifestItems', new List<ArchiveItem>());
+
+    _resourceTitles = new Map<String, String>();
 
     _resourceAjax = $['preview-resource-ajax'] as IronAjax;
     _resourceDialog = $['preview-resource-dialog'] as PaperDialog;
@@ -93,15 +90,16 @@ class ArchiveView extends PolymerElement {
     set ('courseTitle', response['courseTitle']);
 
     if (null != response['manifestOutline']) {
-      _manifestOutline = convertToDart (response['manifestOutline'] as JsObject);
-      _handleManifestOutline();
+      _handleManifestOutline (
+        convertToDart (response['manifestOutline'] as JsObject)
+      );
     }
   }
 
   /// The [_handleManifestOutline] method...
-  void _handleManifestOutline() {
+  void _handleManifestOutline (Map<String, Map> manifestOutline) {
     async (() {
-      _manifestOutline.forEach ((String aResourceId, Map anItem) {
+      manifestOutline.forEach ((String aResourceId, Map anItem) {
         if ((anItem[aResourceId] as String).contains ('divider')) {
           anItem[aResourceId] = '------------------------------------------';
         }
