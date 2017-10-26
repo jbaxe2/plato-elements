@@ -37,10 +37,13 @@ class ArchiveView extends PolymerElement {
   @Property(notify: true)
   String courseTitle;
 
-  Map<String, Map> _manifestOutline;
-
   @Property(notify: true)
   List<ArchiveItem> manifestItems;
+
+  @Property(notify: true)
+  String resourceTitle;
+
+  Map<String, Map> _manifestOutline;
 
   Map<String, String> _resourceTitles;
 
@@ -49,9 +52,6 @@ class ArchiveView extends PolymerElement {
   IronAjax _resourceAjax;
 
   PaperDialog _resourceDialog;
-
-  @Property(notify: true)
-  String resourceTitle;
 
   /// The [ArchiveView] factory constructor...
   factory ArchiveView() => document.createElement ('archive-view');
@@ -158,7 +158,7 @@ class ArchiveView extends PolymerElement {
     if (null == response['resource']) {
       raiseError (this,
         'Resource preview error',
-        'The requested resource was not loaded for preview.'
+        'The requested resource ($resourceId) could not be loaded for preview.'
       );
 
       return;
