@@ -23,6 +23,13 @@
       margin: 0 8px 0 8px;
     }
 
+    #resource-preview {
+      padding: 8px;
+      border: 1px dashed #062c43;
+      height: 300px;
+      overflow: auto;
+    }
+
     :host {
       padding: 15px;
     }
@@ -74,11 +81,19 @@
           </template>
         </paper-menu>
       </paper-material>
-
-      <template is="dom-if" if="{{previewResource}}">
-        <p>Below is a preview of the last loaded resource (some parts may not be viewable):</p>
-        <div id="resource-preview"></div>
-      </template>
     </div>
+
+    <paper-dialog
+        id="preview-resource-dialog" modal with-backdrop
+        entry-animation="fade-in-animation" exit-animation="fade-out-animation">
+
+      <h4>Currently previewing resource: &quot;{{resourceTitle}}&quot;</h4>
+      <div id="resource-preview"></div>
+
+      <div class="button-holder">
+        <paper-button raised dialog-confirm id="resource-previewed-button">OK</paper-button>
+      </div>
+    </paper-dialog>
+
   </template>
 </dom-module>

@@ -10,7 +10,12 @@ import 'package:polymer_elements/iron_signals.dart';
 import 'package:polymer_elements/paper_dialog.dart';
 import 'package:polymer_elements/paper_progress.dart';
 
-/// Silence analyzer: [IronSignals] - [PaperProgress]
+import 'package:polymer_elements/neon_animation/animations/fade_in_animation.dart';
+import 'package:polymer_elements/neon_animation/animations/fade_out_animation.dart';
+
+/// Silence analyzer:
+/// [IronSignals] - [PaperProgress]
+/// [FadeInAnimation] - [FadeOutAnimation]
 ///
 /// The [PlatoElementProcessing] class...
 @PolymerRegister('plato-element-processing')

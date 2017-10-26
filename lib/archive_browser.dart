@@ -13,6 +13,9 @@ import 'package:polymer_elements/paper_button.dart';
 import 'package:polymer_elements/paper_dialog.dart';
 import 'package:polymer_elements/paper_material.dart';
 
+import 'package:polymer_elements/neon_animation/animations/fade_in_animation.dart';
+import 'package:polymer_elements/neon_animation/animations/fade_out_animation.dart';
+
 import 'archive_view.dart';
 
 import 'plato_elements_utils.dart';
@@ -20,6 +23,7 @@ import 'plato_elements_utils.dart';
 /// Silence analyzer:
 /// [IronSignals]
 /// [PaperButton] - [PaperDialog] - [PaperMaterial]
+/// [FadeInAnimation] - [FadeOutAnimation]
 /// [ArchiveView]
 ///
 /// The [ArchiveBrowser] class...

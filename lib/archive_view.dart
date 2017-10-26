@@ -2,22 +2,28 @@
 library plato.elements.view.archive;
 
 import 'dart:html';
-import 'dart:js';
+import 'dart:js' show JsObject;
 
 import 'package:web_components/web_components.dart';
 import 'package:polymer/polymer.dart';
 
 import 'package:polymer_elements/iron_ajax.dart';
 
+import 'package:polymer_elements/paper_button.dart';
+import 'package:polymer_elements/paper_dialog.dart';
 import 'package:polymer_elements/paper_item.dart';
 import 'package:polymer_elements/paper_menu.dart';
 import 'package:polymer_elements/paper_submenu.dart';
+
+import 'package:polymer_elements/neon_animation/animations/fade_in_animation.dart';
+import 'package:polymer_elements/neon_animation/animations/fade_out_animation.dart';
 
 import 'data_models.dart' show ArchiveItem;
 import 'plato_elements_utils.dart';
 
 /// Silence analyzer:
-/// [PaperItem] - [PaperMenu] - [PaperSubmenu]
+/// [PaperButton] - [PaperItem] - [PaperMenu] - [PaperSubmenu]
+/// [FadeInAnimation] - [FadeOutAnimation]
 ///
 /// The [ArchiveView] class...
 @PolymerRegister('archive-view')
@@ -36,12 +42,16 @@ class ArchiveView extends PolymerElement {
   @Property(notify: true)
   List<ArchiveItem> manifestItems;
 
+  Map<String, String> _resourceTitles;
+
   IronAjax _browseAjax;
 
   IronAjax _resourceAjax;
 
+  PaperDialog _resourceDialog;
+
   @Property(notify: true)
-  bool previewResource;
+  String resourceTitle;
 
   /// The [ArchiveView] factory constructor...
   factory ArchiveView() => document.createElement ('archive-view');
@@ -52,10 +62,10 @@ class ArchiveView extends PolymerElement {
   /// The [attached] method...
   void attached() {
     _manifestOutline = new Map<String, Map>();
+    _resourceTitles = new Map<String, String>();
 
     set ('resourceId', 'none');
     set ('manifestItems', new List<ArchiveItem>());
-    set ('previewResource', false);
 
     this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
 
@@ -63,6 +73,7 @@ class ArchiveView extends PolymerElement {
       ..generateRequest();
 
     _resourceAjax = $['preview-resource-ajax'] as IronAjax;
+    _resourceDialog = $['preview-resource-dialog'] as PaperDialog;
   }
 
   /// The [onViewArchive] method...
@@ -97,12 +108,16 @@ class ArchiveView extends PolymerElement {
 
         var archiveItem = new ArchiveItem (aResourceId, anItem[aResourceId]);
 
+        _resourceTitles[aResourceId] = anItem[aResourceId];
+
         anItem.forEach ((subResourceId, subItem) {
           if (subItem is Map) {
             subItem.forEach ((String aSubResourceId, Map aSubItemTitle) {
               archiveItem.items.add (
                 new ArchiveItem (aSubResourceId, aSubItemTitle[aSubResourceId])
               );
+
+              _resourceTitles[aSubResourceId] = aSubItemTitle[aSubResourceId];
             });
           }
         });
@@ -149,12 +164,24 @@ class ArchiveView extends PolymerElement {
       return;
     }
 
-    set ('previewResource', true);
+    String aResourceTitle, resourceText;
 
-    async (() {
-      ($['resource-preview'] as DivElement).innerHtml = response['resource'];
+    try {
+      resourceText = response['resource'];
+      aResourceTitle = _resourceTitles[resourceId];
+    } catch (_) {}
 
-      this.fire ('refresh-archive-view');
-    });
+    set ('resourceTitle', aResourceTitle ?? resourceId);
+
+    if ('' == resourceText) {
+      resourceText = '(This particular resource did not have a description.)';
+    }
+
+    ($['resource-preview'] as DivElement).innerHtml = resourceText;
+
+    _resourceDialog
+      ..refit()
+      ..center()
+      ..open();
   }
 }
