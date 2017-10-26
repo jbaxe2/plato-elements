@@ -196,7 +196,7 @@ class CourseEnrollment extends JsProxy {
       'courseName': courseName,
       'role': role,
       'available': available,
-      'isArchive': isArchive
+      'isArchive': isArchive.toString()
     };
   }
 }
