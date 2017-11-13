@@ -43,7 +43,6 @@ class PlatoElementProcessing extends PolymerElement {
   /// The [onShowProgressBar] method...
   @Listen('iron-signal-show-progress')
   void onShowProgressBar (CustomEvent event, details) {
-    window.console.debug (details);
     if (null != details['message']) {
       set ('message', details['message']);
     }
