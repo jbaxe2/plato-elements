@@ -59,7 +59,9 @@ class ArchiveView extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
+    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': {
+      'message': ''
+    }});
 
     _browseAjax = $['browse-archive-ajax'] as IronAjax
       ..generateRequest();

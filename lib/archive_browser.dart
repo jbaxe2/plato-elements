@@ -67,7 +67,9 @@ class ArchiveBrowser extends PolymerElement {
         ..params = {'archiveId': archiveId, 'archiveTerm': archiveTerm}
         ..generateRequest();
 
-      this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
+      this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': {
+        'message': 'Loading the course archive; this may take a few minutes for larger courses.'
+      }});
     }
   }
 

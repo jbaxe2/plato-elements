@@ -57,7 +57,9 @@ class LearnAuthenticator extends PolymerElement {
       return;
     }
 
-    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
+    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': {
+      'message': 'Please wait while we confirm your Plato credentials.'
+    }});
 
     try {
       _learnAuthAjax
