@@ -113,7 +113,9 @@ class CrfSubmitter extends PolymerElement {
       ..body = JSON.encode (crfInfo)
       ..generateRequest();
 
-    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
+    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': {
+      'message': 'Submitting the course request form; this may take a minute.'
+    }});
   }
 
   /// The [onCrfSubmissionResponse] method...

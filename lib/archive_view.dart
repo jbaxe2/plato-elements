@@ -60,7 +60,7 @@ class ArchiveView extends PolymerElement {
   /// The [attached] method...
   void attached() {
     this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': {
-      'message': ''
+      'message': 'Processing course archive information.'
     }});
 
     _browseAjax = $['browse-archive-ajax'] as IronAjax
@@ -137,7 +137,9 @@ class ArchiveView extends PolymerElement {
     if (resourceLink.contains ('-resource-link')) {
       set ('resourceId', resourceLink.split ('-').first);
 
-      this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': null});
+      this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': {
+        'message': 'Loading the requested resource ($resourceId).'
+      }});
 
       _resourceAjax.generateRequest();
     }
@@ -173,7 +175,7 @@ class ArchiveView extends PolymerElement {
 
     set ('resourceTitle', aResourceTitle ?? resourceId);
 
-    if ('' == resourceText) {
+    if (('' == resourceText) || (resourceText.startsWith ('<img'))) {
       resourceText = '(This particular resource did not have a description.)';
     }
 
