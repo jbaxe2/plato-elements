@@ -1,5 +1,7 @@
 library plato.elements.data_models;
 
+import 'dart:html';
+
 import 'package:polymer/polymer.dart';
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -70,7 +72,7 @@ class BannerSection extends JsProxy {
       (sectionId.length - 3), (sectionId.length - 2)
     );
 
-    // Dual enrollment, and DGCE sections for Day division cross-registration.
+    // Dual enrollment, and CGCE sections for Day division cross-registration.
     if (('R' == digitStr) || ('E' == digitStr) ||
         ('H' == digitStr) || ('P' == digitStr)) {
       return true;
@@ -242,6 +244,7 @@ class CrossListing extends JsProxy {
   }
 
   @reflectable
+  /// The [isCrossListableWith] method...
   bool isCrossListableWith (BannerSection section) {
     if (sections.isEmpty) {
       return true;
@@ -249,6 +252,11 @@ class CrossListing extends JsProxy {
 
     if ((sections.first.isDay() && section.isDay()) ||
         !(sections.first.isDay() || section.isDay())) {
+      return true;
+    }
+
+    if (!(('online' == sections.first.place.trim().toLowerCase()) ||
+          ('online' == section.place.trim().toLowerCase()))) {
       return true;
     }
 

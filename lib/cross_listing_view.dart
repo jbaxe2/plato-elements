@@ -80,9 +80,7 @@ class CrossListingView extends PolymerElement {
       if (!(getRequestedSection (currentSection)).canUseCrossListing (crossListing)) {
         raiseError (this,
           'Invalid cross-listing action warning',
-          'Cannot add a section to a cross-listing set when that section is already '
-            'a part of a different cross-listing set or contains differing previous '
-            'content.'
+          'The section cannot be added to this cross-listing set.'
         );
 
         return;
