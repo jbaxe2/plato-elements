@@ -71,8 +71,7 @@ class BannerSection extends JsProxy {
     );
 
     // Dual enrollment, and CGCE sections for Day division cross-registration.
-    if (('R' == digitStr) || ('E' == digitStr) ||
-        ('H' == digitStr) || ('P' == digitStr)) {
+    if (('R' == digitStr) || ('H' == digitStr) || ('P' == digitStr)) {
       return true;
     }
 
