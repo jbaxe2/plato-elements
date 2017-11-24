@@ -1,7 +1,5 @@
 library plato.elements.data_models;
 
-import 'dart:html';
-
 import 'package:polymer/polymer.dart';
 
 ////////////////////////////////////////////////////////////////////////////////
