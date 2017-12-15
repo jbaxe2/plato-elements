@@ -86,6 +86,7 @@ class ArchiveBrowser extends PolymerElement {
       _refreshDialog();
 
       set ('archiveLoaded', true);
+      set ('archiveId', response['pulled']);
     }
   }
 
