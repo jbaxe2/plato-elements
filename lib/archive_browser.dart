@@ -90,7 +90,8 @@ class ArchiveBrowser extends PolymerElement {
 
       this.fire ('browse-archive',
         detail: {'archiveId': archiveId},
-        node: querySelector ('archive-view')
+        node: querySelector ('archive-view'),
+        canBubble: false
       );
     }
   }

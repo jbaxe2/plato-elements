@@ -60,18 +60,25 @@ class ArchiveView extends PolymerElement {
   /// The [attached] method...
   void attached() {
     set ('resourceId', 'none');
-    set ('manifestItems', new List<ArchiveItem>());
-
-    _resourceTitles = new Map<String, String>();
 
     _resourceAjax = $['preview-resource-ajax'] as IronAjax;
     _resourceDialog = $['preview-resource-dialog'] as PaperDialog;
 
-    initBrowseArchive();
+    _initCollectiveItems();
+    _initBrowseArchive();
   }
 
-  /// The [initBrowseArchive] method...
-  void initBrowseArchive() {
+  /// The [_initCollectiveItems] method...
+  void _initCollectiveItems() {
+    set ('courseTitle', '');
+    set ('manifestItems', new List<ArchiveItem>());
+    _resourceTitles = new Map<String, String>();
+  }
+
+  /// The [_initBrowseArchive] method...
+  void _initBrowseArchive() {
+    _initCollectiveItems();
+
     _browseAjax ?? (_browseAjax = $['browse-archive-ajax'] as IronAjax)
       ..generateRequest();
 
@@ -86,7 +93,7 @@ class ArchiveView extends PolymerElement {
     if (null != details['archiveId']) {
       set ('archiveId', details['archiveId']);
 
-      initBrowseArchive();
+      _initBrowseArchive();
     }
   }
 
@@ -104,19 +111,19 @@ class ArchiveView extends PolymerElement {
     }
 
     set ('archiveId', response['courseId']);
-    set ('courseTitle', response['courseTitle']);
 
     if (null != response['manifestOutline']) {
       _handleManifestOutline (
         convertToDart (response['manifestOutline'] as JsObject)
       );
     }
+
+    set ('courseTitle', response['courseTitle']);
   }
 
   /// The [_handleManifestOutline] method...
   void _handleManifestOutline (Map<String, Map> manifestOutline) {
-    set ('manifestItems', new List<ArchiveItem>());
-    _resourceTitles = new Map<String, String>();
+    _initCollectiveItems();
 
     async (() {
       manifestOutline.forEach ((String aResourceId, Map anItem) {
