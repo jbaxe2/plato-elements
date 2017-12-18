@@ -87,6 +87,11 @@ class ArchiveBrowser extends PolymerElement {
 
       set ('archiveLoaded', true);
       set ('archiveId', response['pulled']);
+
+      this.fire ('browse-archive',
+        detail: {'archiveId': archiveId},
+        node: querySelector ('archive-view')
+      );
     }
   }
 

@@ -59,13 +59,6 @@ class ArchiveView extends PolymerElement {
 
   /// The [attached] method...
   void attached() {
-    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': {
-      'message': 'Processing course archive information.'
-    }});
-
-    _browseAjax = $['browse-archive-ajax'] as IronAjax
-      ..generateRequest();
-
     set ('resourceId', 'none');
     set ('manifestItems', new List<ArchiveItem>());
 
@@ -73,6 +66,28 @@ class ArchiveView extends PolymerElement {
 
     _resourceAjax = $['preview-resource-ajax'] as IronAjax;
     _resourceDialog = $['preview-resource-dialog'] as PaperDialog;
+
+    initBrowseArchive();
+  }
+
+  /// The [initBrowseArchive] method...
+  void initBrowseArchive() {
+    _browseAjax ?? (_browseAjax = $['browse-archive-ajax'] as IronAjax)
+      ..generateRequest();
+
+    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': {
+      'message': 'Processing course archive information.'
+    }});
+  }
+
+  /// The [onBrowseArchive] method...
+  @Listen('browse-archive')
+  void onBrowseArchive (CustomEvent event, details) {
+    if (null != details['archiveId']) {
+      set ('archiveId', details['archiveId']);
+
+      initBrowseArchive();
+    }
   }
 
   /// The [onViewArchive] method...
@@ -100,6 +115,9 @@ class ArchiveView extends PolymerElement {
 
   /// The [_handleManifestOutline] method...
   void _handleManifestOutline (Map<String, Map> manifestOutline) {
+    set ('manifestItems', new List<ArchiveItem>());
+    _resourceTitles = new Map<String, String>();
+
     async (() {
       manifestOutline.forEach ((String aResourceId, Map anItem) {
         if ((anItem[aResourceId] as String).contains ('divider')) {
