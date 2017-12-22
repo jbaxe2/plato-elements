@@ -73,7 +73,7 @@ class SectionViewsCollection extends PolymerElement {
       set ('haveSections', true);
 
       this.fire ('iron-signal', detail: {
-        'name': 'course-request-submittable', 'data': {'crfSubmittable': true}
+        'name': 'course-sections-requested', 'data': {'sectionsRequested': true}
       });
     }
   }
@@ -106,8 +106,8 @@ class SectionViewsCollection extends PolymerElement {
           set ('haveSections', false);
 
           this.fire ('iron-signal', detail: {
-            'name': 'course-request-submittable',
-            'data': {'crfSubmittable': false}
+            'name': 'course-sections-requested',
+            'data': {'sectionsRequested': false}
           });
         }
       });

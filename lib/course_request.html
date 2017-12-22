@@ -41,7 +41,7 @@
 
   <template>
     <iron-signals on-iron-signal-user-retrieved-complete="onUserRetrievedComplete"></iron-signals>
-    <iron-signals on-iron-signal-course-request-submittable="onCourseRequestSubmittable"></iron-signals>
+    <iron-signals on-iron-signal-course-sections-requested="onCourseSectionsRequested"></iron-signals>
 
     <paper-drawer-panel right-drawer drawer-width="448px">
       <paper-header-panel main>
@@ -72,7 +72,7 @@
             </div>
           </iron-pages>
 
-          <template is="dom-if" if="{{submittable}}">
+          <template is="dom-if" if="{{reviewable}}">
             <div class="horizontal end-justified layout">
               <paper-button raised id="review-crf-button" on-tap="onReviewCourseRequest">
                 <iron-icon icon="icons:input"></iron-icon> &nbsp; Step 4. Review &amp; Submit Course Request

@@ -24,11 +24,6 @@ import 'crf_response.dart';
 import 'crf_review.dart';
 import 'crf_submitter.dart';
 
-import 'courses_collection.dart';
-import 'departments_collection.dart';
-import 'sections_collection.dart';
-import 'terms_collection.dart';
-
 import 'course_selector.dart';
 import 'department_selector.dart';
 import 'sections_selector.dart';
@@ -40,8 +35,6 @@ import 'learn_authentication_widget.dart';
 import 'previous_content_selector.dart';
 import 'section_views_collection.dart';
 
-import 'session_cleanup.dart';
-
 /// Silence analyzer:
 /// [IronIcon] - [IronPages] - [IronSignals]
 ///
@@ -52,12 +45,7 @@ import 'session_cleanup.dart';
 /// [CrossListingViewsCollection] - [ArchiveBrowser]
 /// [LearnAuthenticationWidget] - [PreviousContentSelector] - [SectionViewsCollection]
 ///
-/// [DepartmentsCollection] - [TermsCollection] - [CoursesCollection]
-/// [SectionsCollection]
-///
 /// [DepartmentSelector] - [TermSelector] - [CourseSelector] - [SectionsSelector]
-///
-/// [SessionCleanup]
 ///
 /// The [CourseRequest] class...
 @PolymerRegister('course-request')
@@ -70,11 +58,13 @@ class CourseRequest extends PolymerElement {
 
   bool _userLoaded = false;
 
-  /// Whether the course request form is submittable.
-  @Property(notify: true)
-  bool get submittable => _submittable;
+  bool _coursesRequested = false;
 
-  bool _submittable = false;
+  /// Whether the course request form is reviewable.
+  @Property(notify: true)
+  bool get reviewable => _reviewable;
+
+  bool _reviewable = false;
 
   @Property(notify: true)
   bool get showCrfReview => _showCrfReview;
@@ -99,13 +89,24 @@ class CourseRequest extends PolymerElement {
   void onUserRetrievedComplete (CustomEvent event, details) {
     _userLoaded = true;
     _navToast.open();
+
+    _checkIfCrfReviewable();
   }
 
-  /// The [onCourseRequestSubmittable] method...
-  @Listen('iron-signal-course-request-submittable')
-  void onCourseRequestSubmittable (CustomEvent event, details) {
-    if ((null != details['crfSubmittable']) && _userLoaded) {
-      notifyPath ('submittable', _submittable = details['crfSubmittable']);
+  /// The [onCourseSectionsRequested] method...
+  @Listen('iron-signal-course-sections-requested')
+  void onCourseSectionsRequested (CustomEvent event, details) {
+    if (null != details['sectionsRequested']) {
+      _coursesRequested = details['sectionsRequested'];
+    }
+
+    _checkIfCrfReviewable();
+  }
+
+  /// The [_checkIfCrfReviewable] method...
+  void _checkIfCrfReviewable() {
+    if (_userLoaded && _coursesRequested) {
+      notifyPath ('reviewable', _reviewable = true);
     }
   }
 
