@@ -106,8 +106,12 @@ class CourseRequest extends PolymerElement {
   /// The [_checkIfCrfReviewable] method...
   void _checkIfCrfReviewable() {
     if (_userLoaded && _coursesRequested) {
-      notifyPath ('reviewable', _reviewable = true);
+      _reviewable = true;
+    } else {
+      _reviewable = false;
     }
+
+    notifyPath ('reviewable', _reviewable);
   }
 
   /// The [onReviewCourseRequest] method...

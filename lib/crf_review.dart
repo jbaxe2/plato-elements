@@ -19,6 +19,8 @@ import 'package:polymer_elements/neon_animation/animations/fade_out_animation.da
 
 import 'data_models.dart';
 
+import 'plato_elements_utils.dart';
+
 /// Silence analyzer:
 /// [IronSignals]
 ///
@@ -121,6 +123,20 @@ class CrfReview extends PolymerElement {
   @Listen('tap')
   void submitCourseRequest (CustomEvent event, details) {
     if ('submit-crf-button' == (Polymer.dom (event)).localTarget.id) {
+      if (null == userInfo) {
+        raiseError (this,
+          'No Plato user warning',
+          'No Plato user has authenticated to submit the course request form.'
+        );
+      }
+
+      if (sections.isEmpty || requestedSections.isEmpty) {
+        raiseError (this,
+          'No courses requested warning',
+          'No courses have been requested for submitting the course request form.'
+        );
+      }
+
       this.fire ('iron-signal', detail: {
         'name': 'crf-submission',
         'data': {
