@@ -757,11 +757,17 @@ class UserInformation extends JsProxy {
   @reflectable
   String get cwid => _cwid;
 
+  @reflectable
+  bool get isLtiSession => _isLtiSession;
+
   String _username, _password, _firstName, _lastName, _email, _cwid;
+
+  bool _isLtiSession;
 
   /// The [UserInformation] default constructor.
   UserInformation (
-    this._username, this._password, this._firstName, this._lastName, this._email, this._cwid
+    this._username, this._password, this._firstName, this._lastName, this._email, this._cwid,
+    [this._isLtiSession = false]
   );
 
   /// The [toJson] method...

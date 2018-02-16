@@ -8,13 +8,15 @@
   <template>
     <iron-signals on-iron-signal-retrieve-archives-ready="onRetrieveArchivesReady"></iron-signals>
 
+    <session-retriever username="{{username}}" is-lti-session="{{isLtiSession}}"></session-retriever>
+
     <learn-authentication-view
       username="{{username}}" password="{{password}}" hidden$="{{userLoaded}}">
     </learn-authentication-view>
 
     <user-retriever
       id="user-retriever" username="{{username}}" password="{{password}}" on-retrieve-user="onRetrieveUser"
-      user-info="{{userInfo}}" on-updated-user-info="onUpdatedUserInfo">
+      user-info="{{userInfo}}" is-lti-session="{{isLtiSession}}" on-updated-user-info="onUpdatedUserInfo">
     </user-retriever>
 
     <user-information-view user-info="{{userInfo}}" hidden$="{{!userLoaded}}"></user-information-view>

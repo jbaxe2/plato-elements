@@ -12,13 +12,14 @@ import 'archives_collection.dart';
 import 'data_models.dart' show UserInformation;
 import 'enrollments_collection.dart';
 import 'learn_authentication_view.dart';
+import 'session_retriever.dart';
 import 'user_information_view.dart';
 import 'user_retriever.dart';
 
 /// Silence analyzer:
 /// [IronSignals]
 /// [LearnAuthenticationView] - [UserInformationView]
-/// [UserRetriever]
+/// [SessionRetriever] - [UserRetriever]
 ///
 /// The [LearnAuthenticationWidget] class...
 @PolymerRegister('learn-authentication-widget')
@@ -39,6 +40,11 @@ class LearnAuthenticationWidget extends PolymerElement {
 
   /// The internal value of whether the user information has been retrieved.
   bool _userLoaded = false;
+
+  @Property(notify: true)
+  bool get isLtiSession => _isLtiSession;
+
+  bool _isLtiSession = false;
 
   /// An internal flag for whether we're currently attempting authentication.
   bool _inUserLoading = false;

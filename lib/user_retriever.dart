@@ -26,6 +26,11 @@ class UserRetriever extends PolymerElement {
   @Property(notify: true)
   UserInformation userInfo;
 
+  @Property(notify: true)
+  bool get isLtiSession => _isLtiSession;
+
+  bool _isLtiSession = false;
+
   /// The [UserRetriever] factory constructor.
   factory UserRetriever() => document.createElement ('user-retriever');
 
@@ -53,7 +58,8 @@ class UserRetriever extends PolymerElement {
             user['learn.user.firstName'],
             user['learn.user.lastName'],
             user['learn.user.email'],
-            user['banner.user.cwid']
+            user['banner.user.cwid'],
+            isLtiSession
           )
         );
 

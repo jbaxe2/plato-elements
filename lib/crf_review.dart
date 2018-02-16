@@ -50,6 +50,8 @@ class CrfReview extends PolymerElement {
 
   bool _haveCrossListings = false;
 
+  String _context;
+
   /// The requested sections, with previous content and cross-listing information.
   @Property(notify: true)
   List<RequestedSection> requestedSections;
@@ -66,6 +68,8 @@ class CrfReview extends PolymerElement {
     set ('crossListings', new List<CrossListing>());
     set ('requestedSections', new List<RequestedSection>());
 
+    _context = 'normal';
+
     _crfReviewDialog = $['crf-review-dialog'] as PaperDialog;
   }
 
@@ -80,6 +84,10 @@ class CrfReview extends PolymerElement {
   void onCollectUserInfo (CustomEvent event, details) {
     if (null != details['userInfo']) {
       set ('userInfo', details['userInfo'] as UserInformation);
+
+      if (userInfo.isLtiSession) {
+        _context = 'lti';
+      }
     }
   }
 
@@ -143,7 +151,8 @@ class CrfReview extends PolymerElement {
           'userInfo': userInfo,
           'sections': sections,
           'crossListings': crossListings,
-          'requestedSections': requestedSections
+          'requestedSections': requestedSections,
+          'context': _context
         }
       });
     }
