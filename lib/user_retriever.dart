@@ -42,6 +42,10 @@ class UserRetriever extends PolymerElement {
 
   /// The [retrieveUserInfo] method...
   void retrieveUserInfo() {
+    this.fire ('iron-signal', detail: {'name': 'show-progress', 'data': {
+      'message': 'Retrieving the Plato user information.'
+    }});
+
     ($['user-retriever'] as SimpleRetriever).retrieveTypedData();
   }
 
