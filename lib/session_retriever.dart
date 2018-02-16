@@ -8,8 +8,6 @@ import 'package:polymer/polymer.dart';
 
 import 'simple_retriever.dart';
 
-/// Silence analyzer:  [SimpleRetriever]
-///
 /// The [SessionRetriever] class...
 @PolymerRegister('session-retriever')
 class SessionRetriever extends PolymerElement {

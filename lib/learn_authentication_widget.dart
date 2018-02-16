@@ -19,7 +19,7 @@ import 'user_retriever.dart';
 /// Silence analyzer:
 /// [IronSignals]
 /// [LearnAuthenticationView] - [UserInformationView]
-/// [SessionRetriever] - [UserRetriever]
+/// [SessionRetriever]
 ///
 /// The [LearnAuthenticationWidget] class...
 @PolymerRegister('learn-authentication-widget')

@@ -9,8 +9,6 @@ import 'package:polymer/polymer.dart';
 import 'data_models.dart' show UserInformation;
 import 'simple_retriever.dart';
 
-/// Silence analyzer:  [SimpleRetriever]
-///
 /// The [UserRetriever] class...
 @PolymerRegister('user-retriever')
 class UserRetriever extends PolymerElement {
