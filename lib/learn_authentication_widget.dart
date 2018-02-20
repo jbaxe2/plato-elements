@@ -42,9 +42,7 @@ class LearnAuthenticationWidget extends PolymerElement {
   bool _userLoaded = false;
 
   @Property(notify: true)
-  bool get isLtiSession => _isLtiSession;
-
-  bool _isLtiSession = false;
+  bool isLtiSession;
 
   /// An internal flag for whether we're currently attempting authentication.
   bool _inUserLoading = false;

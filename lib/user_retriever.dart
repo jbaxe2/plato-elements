@@ -25,9 +25,7 @@ class UserRetriever extends PolymerElement {
   UserInformation userInfo;
 
   @Property(notify: true)
-  bool get isLtiSession => _isLtiSession;
-
-  bool _isLtiSession = false;
+  bool isLtiSession;
 
   /// The [UserRetriever] factory constructor.
   factory UserRetriever() => document.createElement ('user-retriever');

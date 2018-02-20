@@ -58,7 +58,8 @@ class CrfSubmitter extends PolymerElement {
   @Listen('iron-signal-crf-submission')
   void onCrfSubmission (CustomEvent event, details) {
     if ((null == details['userInfo']) || (null == details['sections']) ||
-        (null == details['crossListings']) || (null == details['requestedSections'])) {
+        (null == details['crossListings']) || (null == details['requestedSections']) ||
+        (null == details['context'])) {
       raiseError (this,
         'Insufficient submission error',
         'An attempt was made to submit the course request, but required information is missing.'
@@ -69,6 +70,7 @@ class CrfSubmitter extends PolymerElement {
 
     var sections = details['sections'] as List<BannerSection>;
     var crossListings = details['crossListings'] as List<CrossListing>;
+    var context = details['context'] as String;
 
     if (sections.isEmpty) {
       raiseError (this,
@@ -90,6 +92,15 @@ class CrfSubmitter extends PolymerElement {
       return;
     }
 
+    if (!(('lti' == context) || ('normal' == context))) {
+      raiseError (this,
+        'Improper context for submission',
+        'The user context for submitting the course request was not properly established.'
+      );
+
+      return;
+    }
+
     Map<String, dynamic> crfInfo;
 
     try {
@@ -97,7 +108,8 @@ class CrfSubmitter extends PolymerElement {
         'userInfo': details['userInfo'] as UserInformation,
         'sections': sections,
         'crossListings': crossListings,
-        'requestedSections': details['requestedSections'] as List<RequestedSection>
+        'requestedSections': details['requestedSections'] as List<RequestedSection>,
+        'context': context
       };
     } catch (_) {
       raiseError (this,
